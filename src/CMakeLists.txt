@@ -16,7 +16,7 @@ message("GIT_EXECUTABLE='${GIT_EXECUTABLE}'")
 ExternalProject_Add(sfml
     PREFIX ${sfml_PREFIX}
     GIT_REPOSITORY "https://github.com/SFML/SFML"
-    GIT_TAG "2.3.2"
+    GIT_TAG "2.2"
     INSTALL_DIR ${sfml_INSTALL_DIR}
     CMAKE_ARGS ${sfml_CMAKE_ARGS}
 )
@@ -29,7 +29,6 @@ configure_file(ball.png ${CMAKE_CURRENT_BINARY_DIR}/ball.png COPYONLY)
 add_executable(${EXECUTABLE_NAME} main.cpp)
 
 target_link_libraries(${EXECUTABLE_NAME} sfml-graphics sfml-window sfml-system)
-
 
 install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
 
