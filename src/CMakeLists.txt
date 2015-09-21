@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(theseus)
 include(ExternalProject)
 
-set(sfml_PREFIX "${CMALE_CURRENT_BINARY_DIR}/sfml")
+set(sfml_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/sfml")
 set(sfml_INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}/sfml")
 set(sfml_CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${sfml_INSTALL_DIR})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
