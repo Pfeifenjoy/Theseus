@@ -73,6 +73,10 @@ public:
 	{
 		float minDistance = getRadius() + other.getRadius();
 		sf::Vector2f relativePosition = other.getPosition() - getPosition();
+		if(relativePosition == sf::Vector2f(0,0))
+		{
+			relativePosition = sf::Vector2f(0,1);
+		}
 		float distance = (float)sqrt(relativePosition.x * relativePosition.x + relativePosition.y * relativePosition.y);
 		// d for direction (of the collision)
 		// d_o is the vector which is orthogonal to the direction
@@ -129,14 +133,31 @@ public:
 		int windowWidth = windowSize.x;
 		int windowHeigth = windowSize.y;
 		float radius = getRadius();
-		if (position.x < radius && speed.x < 0)
-			speed.x = -speed.x;
-		if (position.x > windowWidth - radius && speed.x > 0)
-			speed.x = -speed.x;
-		if (position.y < radius && speed.y < 0)
-			speed.y = -speed.y;
-		if (position.y > windowHeigth - radius && speed.y > 0)
-			speed.y = -speed.y;
+		if (position.x < radius)
+		{
+			position.x = radius;
+			if (speed.x < 0)
+				speed.x = -speed.x;
+		}
+		if (position.x > windowWidth - radius)
+		{
+			position.x = windowWidth - radius;
+			if (speed.x > 0)
+				speed.x = -speed.x;
+		}
+		if (position.y < radius)
+		{
+			position.y = radius;
+			if (speed.y < 0)
+				speed.y = -speed.y;
+		}
+		if (position.y > windowHeigth - radius)
+		{
+			position.y = windowHeigth - radius;
+			if (speed.y > 0)
+				speed.y = -speed.y;
+		}
+		setPosition(position);
 		setSpeed(speed);
 	}
 
@@ -144,7 +165,27 @@ private:
 	sf::Vector2f speed;
 };
 
-
+void insert_element(std::vector<Ball>& balls, const std::vector<Ball>::iterator& element)
+{
+	auto currentElement = element;
+	float x = currentElement->getPosition().x;
+	while (currentElement != balls.begin())
+	{
+		auto previous = currentElement - 1;
+		float previousX = previous->getPosition().x;
+		if (x < previousX)
+		{
+			Ball tmp = *previous;
+			*previous = *currentElement;
+			*currentElement = tmp;
+			currentElement = previous;
+		}
+		else
+		{
+			return;
+		}
+	}
+}
 
 // Main method
 int main()
@@ -204,13 +245,17 @@ int main()
 
 			case sf::Event::MouseButtonPressed: 	// Mouse was pressed - create a new ball
 				{
+					for (int i = 0; i < 100; i++){
+
+				
 					Ball newBall;
-					newBall.setPosition(event.mouseButton.x, event.mouseButton.y);
+					newBall.setPosition(event.mouseButton.x + i, event.mouseButton.y);
 					newBall.setRadius(10);
 					newBall.setSpeed(sf::Vector2f(0, 0));
 					newBall.setTexture(&ballTexture);
 					balls.push_back(newBall);
-					break;
+				}
+				break;
 				}
 			default:
 				break;
@@ -224,6 +269,12 @@ int main()
 		for(auto& ball: balls)
 			ball.update(elapsedSeconds);
 		
+		// resort the balls
+		for (auto it = balls.begin(); it != balls.end(); it++)
+		{
+			insert_element(balls, it);
+		}
+		
 		// detect collisions by comparing all balls to each other
 		for(auto it1 = balls.begin(); it1 != balls.end(); it1++)
 		{
@@ -231,8 +282,8 @@ int main()
 			it1->detectCollision(window.getSize());
 
 			// collision with other balls
-			for(auto it2 = balls.begin(); it2 != it1; it2++)
-			{
+			float x = it1->getPosition().x;
+			for (auto it2 = it1 + 1; it2 != balls.end() && it2->getPosition().x - x < 61; it2++) {
 				it1->detectCollision(*it2);
 			}
 		}
