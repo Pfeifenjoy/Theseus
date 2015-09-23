@@ -4,12 +4,6 @@
 #include <vector>
 #include <math.h>
 
-// The texture for the balls.
-// In a real world project, textures would be managed by a texture manager or something similar.
-// Using a global variable is just for the sake of simplicity and should not be adopted
-// in larger projects with more than one texture.
-sf::Texture ballTexture;
-
 /**
  * Represents a ball.
  * Also here: In a real Project, you would seperate Declaration and Definition in a *.h and a *.cpp file.
@@ -23,7 +17,6 @@ public:
 	 */
 	Ball()
 	{
-		setTexture(&ballTexture);
 		setSpeed(sf::Vector2f(0,0));
 	}
 
@@ -156,10 +149,13 @@ private:
 // Main method
 int main()
 {
+
 	// Create the window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
+	window.setVerticalSyncEnabled(true);
 
 	// Load the ball texture
+	sf::Texture ballTexture;
 	if (!ballTexture.loadFromFile("ball.png"))
 	{
 		std::cerr << "Could not load file 'ball.png'!" << std::endl;
@@ -180,6 +176,7 @@ int main()
 	Ball firstBall;
 	firstBall.setRadius(50);
 	firstBall.setSpeed(sf::Vector2f(100,100));
+	firstBall.setTexture(&ballTexture);
 	balls.push_back(firstBall);
 
 	// Main loop
@@ -210,7 +207,8 @@ int main()
 					Ball newBall;
 					newBall.setPosition(event.mouseButton.x, event.mouseButton.y);
 					newBall.setRadius(10);
-					newBall.setSpeed(sf::Vector2f(0,0));
+					newBall.setSpeed(sf::Vector2f(0, 0));
+					newBall.setTexture(&ballTexture);
 					balls.push_back(newBall);
 					break;
 				}
