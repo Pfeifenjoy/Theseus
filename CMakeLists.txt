@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 project(theseus)
 
 # Define sources and executable
 set(EXECUTABLE_NAME "theseus")
-add_executable(${EXECUTABLE_NAME} src/main.cpp)
+FILE(GLOB_RECURSE SRCS "src/*.cpp")
+add_executable(${EXECUTABLE_NAME} ${SRCS})
 
 # Set Compiler flags for G++
 set(CMAKE_CXX_FLAGS "-Wall -std=c++11")
@@ -18,5 +19,5 @@ if(SFML_FOUND)
   target_link_libraries(${EXECUTABLE_NAME} ${SFML_DEPENDENCIES})
 endif()
 
-# Install images
-configure_file(src/ball.png ${CMAKE_CURRENT_BINARY_DIR}/ball.png COPYONLY)
+# Install resources
+FILE(COPY resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
