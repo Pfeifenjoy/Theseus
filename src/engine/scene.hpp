@@ -1,21 +1,36 @@
 #ifndef _ENGINE_SCENE_H
 #define _ENGINE_SCENE_H
 
+// ToDo:
+//  - Components
+//  - Timers
+//  - Collision
+//  - Drawing
+//  - All the other events
+
+namespace theseus
+{
 namespace engine
 {
+	class Game;
+
 	class Scene
 	{
 	private:
+		Game* mygame;
+
 	public:
 		//---- Constructor -------------------------------------------------------------------------------
 		
-		Scene();
-
+		Scene(Game& game);
+		
 		//---- Destructor --------------------------------------------------------------------------------
 		
 		virtual ~Scene(){};
 
 		//---- Methods -----------------------------------------------------------------------------------
+
+		Game& game();
 		
 		//---- Methods.Events ----------------------------------------------------------------------------
 	
@@ -66,5 +81,5 @@ namespace engine
 		void handleMouseMovedEvent();
 	};
 }
-
+}
 #endif
