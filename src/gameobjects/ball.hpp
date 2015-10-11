@@ -6,14 +6,24 @@
 
 namespace theseus
 {
+namespace engine
+{
+	class Scene;
+}
 namespace gameobjects
 {
-	class Ball : public engine::GameObject, public virtual engine::components::Sprite
+	class Ball 
+		: public engine::GameObject
+		, public virtual engine::components::Sprite
 	{
 	public:
-		//---- Constructor -------------------------------------------------------------------------------------------
+		//---- Constructor --------------------------------------------------------------------------------------
 		
-		Ball();
+		Ball(engine::Scene& scene);
+
+		//---- Destructor ---------------------------------------------------------------------------------------
+		
+		~Ball();
 	};
 }
 }

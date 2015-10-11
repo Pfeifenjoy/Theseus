@@ -11,7 +11,7 @@ namespace engine
 namespace components
 {
 
-	class Drawable : public sf::Drawable
+	class Drawable : public sf::Drawable , public virtual Position
 	{
 	};
 

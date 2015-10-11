@@ -1,9 +1,13 @@
 #include "ball.hpp"
+#include "../engine/scene.hpp"
+#include "../engine/game.hpp"
 
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
 
-Ball::Ball()
+Ball::Ball(Scene& scene) : GameObject(scene)
 {
-	setTexture()
+	setTexture(game().getTexture("ball.png"));
 }
+
+Ball::~Ball(){}

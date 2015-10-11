@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 using namespace theseus::engine;
+using namespace std;
 
 const int DEFAULT_WINDOW_WIDTH = 500;
 const int DEFAULT_WINDOW_HEIGTH = 500;
@@ -14,30 +15,45 @@ Game::Game()
 	window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGTH), "");
 }
 
-void Game::run(const Scene& initialScene)
+void Game::run(unique_ptr<Scene> initialScene)
 {
 	// Start the scene
-	startScene(initialScene);
+	activeScene = std::move(initialScene);
+	initialScene = nullptr;
+	sceneToLoad = nullptr;
 
 	// Main loop
-	while(true)
+	bool exit = false;
+	while(!exit)
 	{
+		// start the next scene
+		if (sceneToLoad != nullptr)
+		{
+			inactiveScenes.push(std::move(activeScene));
+			activeScene = std::move(sceneToLoad);
+			sceneToLoad = nullptr;
+		}
+
 		// process events
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
-				return;
+			exit = event.type == sf::Event::Closed;
 		}
 
 		// update
-		// render
+		
+		// render the active scene
+		window.clear(sf::Color::Black);
+		window.draw(*activeScene);
+		window.display();
+		
 	}
 }
 
-void Game::startScene(const Scene& scene)
+void Game::startScene(std::unique_ptr<Scene> scene)
 {
-	scenes.push(scene);
+	sceneToLoad = std::move(scene);
 }
 
 void Game::loadTexture(const std::string& filename)
@@ -73,3 +89,5 @@ const sf::Texture& Game::getTexture(const std::string& filename) const
 
 
 }
+
+Game::~Game(){}

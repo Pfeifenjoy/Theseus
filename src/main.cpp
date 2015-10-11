@@ -2,17 +2,24 @@
 #include "scenes/examplescene.hpp"
 
 #include <iostream>
+#include <memory>
 
 using namespace std;
+using namespace theseus::engine;
+using namespace theseus::scenes;
 
 int main()
 {
     cout << "Hello." << endl;
 
-    // Start the game
+    // Load the game
     theseus::engine::Game game;
-    theseus::scenes::ExampleScene initialScene(game);
-    game.run(initialScene);
+
+    // Load the first scene
+    unique_ptr<Scene> initScene(new ExampleScene(game));
+
+    // Start the game with that scene
+    game.run(move(initScene));
 
     return 0;
 

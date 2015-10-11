@@ -8,13 +8,15 @@
 //  - Drawing
 //  - All the other events
 
+#include <SFML/Graphics.hpp>
+
 namespace theseus
 {
 namespace engine
 {
 	class Game;
 
-	class Scene
+	class Scene : public sf::Drawable
 	{
 	private:
 		Game* mygame;
@@ -26,13 +28,32 @@ namespace engine
 		
 		//---- Destructor --------------------------------------------------------------------------------
 		
-		virtual ~Scene(){};
+		virtual ~Scene();
 
-		//---- Methods -----------------------------------------------------------------------------------
+		//---- Getters / Setters -------------------------------------------------------------------------
 
+		/**
+		 * Returns a reference to the game object that this scene is part of
+		 */
 		Game& game();
+
+		/**
+		 * Returns a const reference to the game object that this scene is part of.
+		 */
+		const Game& game() const;
 		
-		//---- Methods.Events ----------------------------------------------------------------------------
+		//---- Methods -----------------------------------------------------------------------------------
+		
+	protected:
+
+		/**
+		 * Draws the scene to the screen
+		 */
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+	public:
+
+		//---- Methods.Events
 	
 		/**
 		 * The Game object is supposed to call this function,
