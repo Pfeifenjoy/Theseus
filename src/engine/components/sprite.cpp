@@ -2,19 +2,13 @@
 
 using namespace theseus::engine::components;
 
-void Sprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Sprite::setTexture(int layer, const sf::Texture& texture)
 {
-	auto pos = getPosition();
-	mysprite.setPosition(pos);
-	target.draw(mysprite, states);
+	sprites[layer].setTexture(texture);
+	setDrawableOnLayer(layer, &sprites[layer]);
 }
 
-void Sprite::setTexture(const sf::Texture& texture)
+sf::Sprite& Sprite::sprite(int layer)
 {
-	mysprite.setTexture(texture);
-}
-
-sf::Sprite& Sprite::sprite()
-{
-	return mysprite;
+	return sprites[layer];
 }

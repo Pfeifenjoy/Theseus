@@ -63,14 +63,14 @@ void Game::loadTexture(const std::string& filename)
 		return;
 
 	// Try to load the texture
-	sf::Texture newTexture;
-	if(newTexture.loadFromFile(TEXTURES_PATH_PREFIX + filename))
+ 	unique_ptr<sf::Texture> newTexture(new sf::Texture());
+	if(newTexture->loadFromFile(TEXTURES_PATH_PREFIX + filename))
 	{
-		textures.insert(std::pair<std::string, sf::Texture>(filename, newTexture));
+		textures.insert(make_pair(filename, move(newTexture)));
 	}
 	else
 	{
-		throw std::runtime_error("Could not open file.");
+		throw std::runtime_error("Could not open file: " + TEXTURES_PATH_PREFIX + filename);
 	}
 }
 
@@ -80,7 +80,7 @@ const sf::Texture& Game::getTexture(const std::string& filename) const
 
 	if (iterator != textures.end())
 	{
-		return iterator->second;
+		return *iterator->second;
 	}
 	else
 	{

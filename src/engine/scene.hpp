@@ -2,24 +2,35 @@
 #define _ENGINE_SCENE_H
 
 // ToDo:
-//  - Components
 //  - Timers
 //  - Collision
-//  - Drawing
-//  - All the other events
+//  - Events 
 
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include <memory>
+#include <array>
 
 namespace theseus
 {
 namespace engine
 {
 	class Game;
+	class GameObject;
+
+	namespace components
+	{
+		class Drawable;
+	}
 
 	class Scene : public sf::Drawable
 	{
 	private:
 		Game* mygame;
+
+		std::vector<std::unique_ptr< GameObject > > gameObjects;
+		std::array<std::vector<const components::Drawable *> , 5> drawables;
+		// TODO: Replace some vectors with quad-trees as soon as it is implemented.
 
 	public:
 		//---- Constructor -------------------------------------------------------------------------------
@@ -43,7 +54,12 @@ namespace engine
 		const Game& game() const;
 		
 		//---- Methods -----------------------------------------------------------------------------------
-		
+	
+		/**
+		 * Adds a graphic that will be displayed during the drawing phase.
+		 */
+		void addDrawable(int layer, const components::Drawable* drawable);
+
 	protected:
 
 		/**

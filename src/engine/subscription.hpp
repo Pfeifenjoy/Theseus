@@ -47,7 +47,25 @@ namespace engine
 		/**
 		 * Sets the callback that is used when the publisher emits an event.
 		 */
-		void setCallback(std::function<void(T_Arguments...)> callback);
+		void setCallback(const std::function<void(T_Arguments...)>& callback);
+		
+		/**
+		 * Sets the callback to a non-const member function of an object.
+		 *
+		 * CAUTION: you need to update the callback to point to the method in the
+		 * new object, when the object gets copyed or moved.
+		 */
+		template <class T_This>
+		void setCallback(const std::function<void(T_This*, T_Arguments...)>&, T_This* thisValue);
+
+		/**
+		 * Sets the callback to a const member function of an object.
+		 *
+		 * CAUTION: you need to update the callback to point to the method in the
+		 * new object, when the object gets copyed or moved.
+		 */
+		template <class T_This>
+		void setCallback(const std::function<void(const T_This*, T_Arguments...)>&, const T_This* thisValue);
 	};
 
 }
@@ -89,5 +107,24 @@ theseus::engine::Subscription<T_Arguments...>& theseus::engine::Subscription<T_A
 		other.publisher->subscribe(*this);
 }
 
+template <class... T_Arguments>
+void theseus::engine::Subscription<T_Arguments...>::setCallback(const std::function<void(T_Arguments...)>& fn)
+{
+	this->callback = fn;
+}
+
+template <class... T_Arguments>
+template <class T_This>
+void theseus::engine::Subscription<T_Arguments...>::setCallback(const std::function<void(T_This*, T_Arguments...)>& fn, T_This* thisValue)
+{
+	this->callback = bind(fn, thisValue);
+}
+
+template <class... T_Arguments>
+template <class T_This>
+void theseus::engine::Subscription<T_Arguments...>::setCallback(const std::function<void(const T_This*, T_Arguments...)>& fn, const T_This* thisValue)
+{
+	this->callback = bind(fn, thisValue); 
+}
 
 #endif

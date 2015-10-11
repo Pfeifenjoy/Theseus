@@ -4,7 +4,7 @@
 #include <stack>
 #include <SFML/Graphics.hpp>
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <memory>
 
 namespace theseus
@@ -25,7 +25,7 @@ namespace engine
 		std::unique_ptr<Scene> sceneToLoad = nullptr;
 
 		// The loaded textures
-		std::map<std::string, sf::Texture> textures;
+		std::unordered_map<std::string, std::unique_ptr<sf::Texture> > textures;
 
 	public:
 

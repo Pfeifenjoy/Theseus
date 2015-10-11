@@ -35,7 +35,7 @@ namespace engine
 		// Default constructor
 		Publisher();
 
-		// Copy constructor (delete it!)
+		// Delete the copy constructor
 		Publisher(const Publisher& other) = delete;
 
 		// Move constructor
@@ -52,6 +52,9 @@ namespace engine
 
 		// Move assignment operator
 		Publisher& operator=(Publisher&& other);
+
+		// Function call operator
+		void operator()(T_Arguments...) const;
 		
 		//---- Subscription handling ----------------------------------------------------------------------------
 		
@@ -78,7 +81,7 @@ void theseus::engine::Publisher<T_Arguments...>::unsubscribeAll()
 {
 	while (!subscriptions.empty())
 	{
-		unsubscribe(*subscriptions.begin());
+		unsubscribe(**subscriptions.begin());
 	}
 }
 
@@ -87,7 +90,7 @@ void theseus::engine::Publisher<T_Arguments...>::moveIn(Publisher<T_Arguments...
 {
 	while (!other.subscriptions.empty())
 	{
-		auto& subscription = *other.subscriptions.begin();
+		auto& subscription = **other.subscriptions.begin();
 		other.unsubscribe(subscription);
 		subscribe(subscription);
 	}
@@ -98,7 +101,7 @@ theseus::engine::Publisher<T_Arguments...>::Publisher()
 { }
 
 template <class... T_Arguments>
-theseus::engine::Publisher<T_Arguments...>::Publisher(Publisher<T_Arguments...>&& other)
+theseus::engine::Publisher<T_Arguments...>::Publisher(theseus::engine::Publisher<T_Arguments...>&& other)
 {
 	moveIn(other);	
 }
@@ -132,10 +135,17 @@ void theseus::engine::Publisher<T_Arguments...>::subscribe(Subscription<T_Argume
 template <class... T_Arguments>
 void theseus::engine::Publisher<T_Arguments...>::unsubscribe(Subscription<T_Arguments...>& subscription)
 {
-	subscriptions.erase(*subscription);
+	subscriptions.erase(&subscription);
 	subscription.publisher = nullptr;
 }
 
-
+template <class... T_Arguments>
+void theseus::engine::Publisher<T_Arguments...>::operator()(T_Arguments... arguments) const
+{
+	for(auto subscription : subscriptions)
+	{
+		subscription->callback(arguments...);
+	}
+}
 
 #endif
