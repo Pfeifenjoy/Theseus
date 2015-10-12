@@ -117,14 +117,14 @@ template <class... T_Arguments>
 template <class T_This>
 void theseus::engine::Subscription<T_Arguments...>::setCallback(const std::function<void(T_This*, T_Arguments...)>& fn, T_This* thisValue)
 {
-	this->callback = bind(fn, thisValue);
+	this->callback = [=](T_Arguments... args){fn(thisValue, args...);};
 }
 
 template <class... T_Arguments>
 template <class T_This>
 void theseus::engine::Subscription<T_Arguments...>::setCallback(const std::function<void(const T_This*, T_Arguments...)>& fn, const T_This* thisValue)
 {
-	this->callback = bind(fn, thisValue); 
+	this->callback = [=](T_Arguments... args){fn(thisValue, args...);}; 
 }
 
 #endif

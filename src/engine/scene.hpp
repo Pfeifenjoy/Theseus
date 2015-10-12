@@ -21,6 +21,7 @@ namespace engine
 	namespace components
 	{
 		class Drawable;
+		class Update;
 	}
 
 	class Scene : public sf::Drawable
@@ -28,8 +29,12 @@ namespace engine
 	private:
 		Game* mygame;
 
-		std::vector<std::unique_ptr< GameObject > > gameObjects;
+		// All drawable objects, grouped by layer
 		std::array<std::vector<const components::Drawable *> , 5> drawables;
+
+		// All game objects that need to be updated in each frame.
+		std::vector<components::Update *> update;
+		
 		// TODO: Replace some vectors with quad-trees as soon as it is implemented.
 
 	public:
@@ -60,6 +65,11 @@ namespace engine
 		 */
 		void addDrawable(int layer, const components::Drawable* drawable);
 
+		/**
+		 * Registers a game object to be updated in each frame. 
+		 */
+		void addUpdate(components::Update *);
+
 	protected:
 
 		/**
@@ -70,6 +80,12 @@ namespace engine
 	public:
 
 		//---- Methods.Events
+		
+		/**
+		 * The game object is supposed to call this function
+		 * just before it draws the scene.
+		 */
+		void handleUpdateEvent(float passedTime);
 	
 		/**
 		 * The Game object is supposed to call this function,

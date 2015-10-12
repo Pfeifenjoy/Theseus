@@ -1,8 +1,10 @@
 #include "scene.hpp"
 #include "game.hpp"
 #include "components/drawable.hpp"
+#include "components/update.hpp"
 #include "gameobject.hpp"
 
+using namespace std;
 using namespace theseus::engine;
 
 Scene::Scene(Game& game)
@@ -23,6 +25,11 @@ const Game& Scene::game() const
 void Scene::addDrawable(int layer, const components::Drawable* drawable)
 {
 	drawables[layer].push_back(drawable);
+}
+
+void Scene::addUpdate(components::Update * updateComponent)
+{
+	update.push_back(updateComponent);
 }
 
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -53,6 +60,14 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 			drawable->draw(i, target, states);
 		}
 	
+	}
+}
+
+void Scene::handleUpdateEvent(float timePassed)
+{
+	for (auto needsUpdate : update)
+	{
+		needsUpdate->evOnUpdate(timePassed);
 	}
 }
 

@@ -5,6 +5,11 @@
 using namespace theseus::engine;
 using namespace theseus::engine::components;
 
+bool Base::isInitialized() const
+{
+	return myscene != nullptr;
+}
+
 Scene& Base::scene()
 {
 	return *myscene;

@@ -128,7 +128,7 @@ theseus::engine::Publisher<T_Arguments...>& theseus::engine::Publisher<T_Argumen
 template <class... T_Arguments>
 void theseus::engine::Publisher<T_Arguments...>::subscribe(Subscription<T_Arguments...>& subscription)
 {
-	subscriptions.insert(*subscription);
+	subscriptions.insert(&subscription);
 	subscription.publisher = this;
 }
 
