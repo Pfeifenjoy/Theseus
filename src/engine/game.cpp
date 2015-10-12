@@ -13,6 +13,7 @@ const std::string TEXTURES_PATH_PREFIX = "./resources/images/";
 Game::Game()
 {
 	window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGTH), "");
+	window.setVerticalSyncEnabled(true);
 }
 
 void Game::run(unique_ptr<Scene> initialScene)
