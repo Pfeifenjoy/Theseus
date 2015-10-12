@@ -10,6 +10,7 @@ Ball::Ball(Scene& scene) : GameObject(scene)
 {
 	setTexture(3, game().getTexture("ball.png"));
 	setPosition(sf::Vector2f(100,100));
+	setSpeed(sf::Vector2f(5,3));
 }
 
 Ball::~Ball(){}

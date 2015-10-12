@@ -2,6 +2,7 @@
 #include "scene.hpp"
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
+#include <iostream>
 
 using namespace theseus::engine;
 using namespace std;
@@ -24,9 +25,20 @@ void Game::run(unique_ptr<Scene> initialScene)
 	sceneToLoad = nullptr;
 
 	// Main loop
+	sf::Clock timing;
+	sf::Clock fpsClock;
+	int fpsCounter = 0;
 	bool exit = false;
 	while(!exit)
 	{
+		// measure fps
+		++fpsCounter;
+		if (fpsClock.getElapsedTime().asSeconds() >= 1)
+		{
+			cout << "FPS: " << fpsCounter << endl;
+			fpsCounter = 0;
+			fpsClock.restart();
+		}
 		// start the next scene
 		if (sceneToLoad != nullptr)
 		{
@@ -43,7 +55,9 @@ void Game::run(unique_ptr<Scene> initialScene)
 		}
 
 		// update
-		
+		float elapsedTime = timing.restart().asSeconds();
+		activeScene->handleUpdateEvent(elapsedTime);
+
 		// render the active scene
 		window.clear(sf::Color::Black);
 		window.draw(*activeScene);

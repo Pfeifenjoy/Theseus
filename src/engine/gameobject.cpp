@@ -7,6 +7,7 @@ using namespace theseus::engine;
 GameObject::GameObject(Scene& scene)
 {
 	myscene = &scene;
+	evBaseInitialized();
 }
 
 GameObject::~GameObject(){}

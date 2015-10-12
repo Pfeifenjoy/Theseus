@@ -4,6 +4,7 @@
 #include "position.hpp"
 #include "base.hpp"
 #include "../publisher.hpp"
+#include "../subscription.hpp"
 #include <SFML/Graphics.hpp>
 #include <array>
 
@@ -23,7 +24,15 @@ namespace components
 		 */
 		std::array<const sf::Drawable*, 5> layers = {{nullptr, nullptr, nullptr, nullptr, nullptr}};
 
+		Subscription<> baseInitialized;	
+
+		void onBaseInitialized();
 	public:
+
+		/**
+		 * Constructor
+		 */
+		Drawable();
 
 		/**
 		 * Registers a graphic to be drawn on a specific layer.
