@@ -62,7 +62,7 @@ void Game::run(unique_ptr<Scene> initialScene)
 		window.clear(sf::Color::Black);
 		window.draw(*activeScene);
 		window.display();
-		
+
 	}
 }
 
