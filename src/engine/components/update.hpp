@@ -3,7 +3,6 @@
 
 #include "base.hpp"
 #include "../publisher.hpp"
-#include "../subscription.hpp"
 
 namespace theseus
 {
@@ -15,13 +14,13 @@ namespace components
 		: public virtual Base
 	{
 	private:
-
-		Subscription<> baseInitialized;
 		void onBaseInitialized();
 
-	public:
+	protected:
 		Update();
 		Publisher<float> evOnUpdate; 	// parameter: passed time in seconds 
+	public:
+		void doUpdate(float passedTime);
 	};
 }
 }

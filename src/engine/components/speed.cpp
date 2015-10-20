@@ -2,6 +2,7 @@
 #include <functional>
 
 using namespace std;
+using namespace std::placeholders;
 using namespace theseus::engine::components;
 
 void Speed::onUpdate(float timePassed)
@@ -13,8 +14,7 @@ void Speed::onUpdate(float timePassed)
 
 Speed::Speed()
 {
-	update.setCallback(function<void(Speed*, float)>(&Speed::onUpdate), this);
-	evOnUpdate.subscribe(update);
+	evOnUpdate.subscribe(bind(&Speed::onUpdate, this, _1));
 }
 
 void Speed::setSpeed(sf::Vector2f value)

@@ -4,7 +4,6 @@
 #include "position.hpp"
 #include "base.hpp"
 #include "../publisher.hpp"
-#include "../subscription.hpp"
 #include <SFML/Graphics.hpp>
 #include <array>
 
@@ -18,16 +17,17 @@ namespace components
 		: public virtual Position
 		, public virtual Base
 	{
+
 	private:
+
 		/**
 		 * The pointers to the actual drawable object for each layer
 		 */
 		std::array<const sf::Drawable*, 5> layers = {{nullptr, nullptr, nullptr, nullptr, nullptr}};
 
-		Subscription<> baseInitialized;	
-
 		void onBaseInitialized();
-	public:
+
+	protected:
 
 		/**
 		 * Constructor
@@ -38,6 +38,8 @@ namespace components
 		 * Registers a graphic to be drawn on a specific layer.
 		 */
 		void setDrawableOnLayer(int layer, const sf::Drawable* drawable);
+
+	public:
 
 		/**
 		 * Draws the content of the given layer to the render target.

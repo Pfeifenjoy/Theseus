@@ -2,13 +2,13 @@
 #include "../scene.hpp"
 #include <functional>
 
+using namespace std;
 using namespace theseus::engine;
 using namespace theseus::engine::components;
 
 Drawable::Drawable()
 {
-	baseInitialized.setCallback(std::function<void(Drawable*)>(&Drawable::onBaseInitialized), this);
-	evBaseInitialized.subscribe(baseInitialized);
+	evBaseInitialized.subscribe(bind(&Drawable::onBaseInitialized, this));
 }
 
 void Drawable::onBaseInitialized()

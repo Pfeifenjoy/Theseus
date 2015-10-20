@@ -1,33 +1,23 @@
 #ifndef _THESEUS_ENGINE_PUBLISHER_H
 #define _THESEUS_ENGINE_PUBLISHER_H
 
-#include <unordered_set>
+#include <vector>
+#include <functional>
 
 namespace theseus
 {
 namespace engine
 {
-	template <class... T>
-	class Subscription;
-
 	/**
 	 * An implementation of the Publish-Subscribe pattern.
-	 *
-	 * This is the publisher-part of the pattern.
-	 *
-	 * In order to subscribe to the publiched event, you need to create a
-	 * matching Subscription object.
 	 */
 	template <class... T_Arguments>
 	class Publisher
 	{
 	private:
 		// the subscriptions
-		std::unordered_set<Subscription<T_Arguments...> * > subscriptions;
+		std::vector<std::function<void(T_Arguments...)> > subscriptions;
 
-		// helper functions
-		void unsubscribeAll();
-		void moveIn(Publisher&& other);
 	public:
 
 		//---- Constructors -------------------------------------------------------------------------------------
@@ -35,23 +25,15 @@ namespace engine
 		// Default constructor
 		Publisher();
 
-		// Delete the copy constructor
+		// Delete the copy & move constructor
 		Publisher(const Publisher& other) = delete;
-
-		// Move constructor
-		Publisher(Publisher&& other);
-
-		//---- Destructor ---------------------------------------------------------------------------------------
-		
-		~Publisher();
+		Publisher(Publisher&& other) = delete;
 
 		//---- Operators ----------------------------------------------------------------------------------------
 	
-		// Copy assignment operator (delete it!)
+		// Copy & Move assignment operator (delete it!)
 		Publisher& operator=(const Publisher& other) = delete;
-
-		// Move assignment operator
-		Publisher& operator=(Publisher&& other);
+		Publisher& operator=(Publisher&& other) = delete;
 
 		// Function call operator
 		void operator()(T_Arguments...) const;
@@ -61,12 +43,7 @@ namespace engine
 		/**
 		 * Adds a subscription to the publisher.
 		 */
-		void subscribe(Subscription<T_Arguments...>& subscription);
-
-		/**
-		 * Removes a subscription from the publisher.
-		 */
-		void unsubscribe(Subscription<T_Arguments...>& subscription);
+		void subscribe(const std::function<void(T_Arguments...)>& fn);
 
 	};
 }
@@ -74,77 +51,22 @@ namespace engine
 
 //---- Implementation -------------------------------------------------------------------------------------------------
 
-#include "subscription.hpp"
-
-template <class... T_Arguments>
-void theseus::engine::Publisher<T_Arguments...>::unsubscribeAll()
-{
-	while (!subscriptions.empty())
-	{
-		unsubscribe(**subscriptions.begin());
-	}
-}
-
-template <class... T_Arguments>
-void theseus::engine::Publisher<T_Arguments...>::moveIn(Publisher<T_Arguments...>&& other)
-{
-	while (!other.subscriptions.empty())
-	{
-		auto& subscription = **other.subscriptions.begin();
-		other.unsubscribe(subscription);
-		subscribe(subscription);
-	}
-}
-
 template <class... T_Arguments>
 theseus::engine::Publisher<T_Arguments...>::Publisher()
 { }
 
 template <class... T_Arguments>
-theseus::engine::Publisher<T_Arguments...>::Publisher(theseus::engine::Publisher<T_Arguments...>&& other)
+void theseus::engine::Publisher<T_Arguments...>::subscribe(const std::function<void(T_Arguments...)>& subscription)
 {
-	moveIn(other);	
-}
-
-template <class... T_Arguments>
-theseus::engine::Publisher<T_Arguments...>::~Publisher()
-{
-	unsubscribeAll();
-}
-
-template <class... T_Arguments>
-theseus::engine::Publisher<T_Arguments...>& theseus::engine::Publisher<T_Arguments...>::operator=(Publisher<T_Arguments...>&& other)
-{
-	// self assignment check
-	if (this == *other)
-		return *this;
-
-	// actual move assignment
-	unsubscribeAll();
-	moveIn(other);
-	return *this;
-}
-
-template <class... T_Arguments>
-void theseus::engine::Publisher<T_Arguments...>::subscribe(Subscription<T_Arguments...>& subscription)
-{
-	subscriptions.insert(&subscription);
-	subscription.publisher = this;
-}
-
-template <class... T_Arguments>
-void theseus::engine::Publisher<T_Arguments...>::unsubscribe(Subscription<T_Arguments...>& subscription)
-{
-	subscriptions.erase(&subscription);
-	subscription.publisher = nullptr;
+	subscriptions.push_back(subscription);
 }
 
 template <class... T_Arguments>
 void theseus::engine::Publisher<T_Arguments...>::operator()(T_Arguments... arguments) const
 {
-	for(auto subscription : subscriptions)
+	for(auto& subscription : subscriptions)
 	{
-		subscription->callback(arguments...);
+		subscription(arguments...);
 	}
 }
 

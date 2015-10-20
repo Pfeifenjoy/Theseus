@@ -20,7 +20,7 @@ namespace components
 		// The Sprite to draw
 		std::array<sf::Sprite, 5> sprites;
 
-	public:
+	protected:
 
 		/**
 		 * Sets the texture of the Sprite.
