@@ -1,15 +1,20 @@
 #include "update.hpp"
 #include "../scene.hpp"
 
+using namespace std;
 using namespace theseus::engine::components;
 
 Update::Update()
 {
-	baseInitialized.setCallback(std::function<void(Update*)>(&Update::onBaseInitialized), this);
-	evBaseInitialized.subscribe(baseInitialized);
+	evBaseInitialized.subscribe(bind(&Update::onBaseInitialized, this));
 }
 
 void Update::onBaseInitialized()
 {
 	scene().addUpdate(this);
+}
+
+void Update::doUpdate(float passedTime)
+{
+	evOnUpdate(passedTime);
 }

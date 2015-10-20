@@ -15,10 +15,11 @@ namespace components
 	{
 	private:
 		sf::Vector2f position;
-	public:
+	protected:
 		Publisher<sf::Vector2f> evPositionChanged;
-		sf::Vector2f getPosition() const;
 		void setPosition(const sf::Vector2f&  value);
+	public:
+		sf::Vector2f getPosition() const;
 	};
 }
 }

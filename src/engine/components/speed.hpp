@@ -3,7 +3,6 @@
 
 #include "update.hpp"
 #include "position.hpp"
-#include "../subscription.hpp"
 #include <SFML/System.hpp>
 
 namespace theseus
@@ -18,15 +17,17 @@ namespace components
 		, public virtual Position
 	{
 	private:
-		Subscription<float> update;
 		void onUpdate(float timePassed);
 		
 		sf::Vector2f speed;
 
-	public:
+	protected:
 		Speed();
 
 		void setSpeed(sf::Vector2f value);
+
+	public:
+
 		sf::Vector2f getSpeed() const;
 	};
 

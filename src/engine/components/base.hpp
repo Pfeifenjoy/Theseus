@@ -19,7 +19,7 @@ namespace components
 	friend class theseus::engine::GameObject;
 	private:
 		Scene* myscene = nullptr;
-	public:
+	protected:
 
 		Publisher<> evBaseInitialized;
 
@@ -32,6 +32,7 @@ namespace components
 		
 		//---- Getters / Setters ----------------------------------------------------------------------------------
 
+	public:
 		/**
 		 * Returns a reference to the scene that manages this game object.
 		 */

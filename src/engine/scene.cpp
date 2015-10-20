@@ -67,7 +67,7 @@ void Scene::handleUpdateEvent(float timePassed)
 {
 	for (auto needsUpdate : update)
 	{
-		needsUpdate->evOnUpdate(timePassed);
+		needsUpdate->doUpdate(timePassed);
 	}
 }
 
