@@ -1,13 +1,10 @@
 #include "gameobject.hpp"
-#include "scene.hpp"
-#include "game.hpp"
 
 using namespace theseus::engine;
 
-GameObject::GameObject(Scene& scene)
-{
-	myscene = &scene;
-	evBaseInitialized();
-}
-
 GameObject::~GameObject(){}
+
+void GameObject::registerComponents(Scene& scene)
+{
+	evRegisterComponents(scene);
+}

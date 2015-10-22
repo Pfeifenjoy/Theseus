@@ -7,10 +7,6 @@
 
 namespace theseus
 {
-namespace engine
-{
-	class Scene;
-}
 namespace gameobjects
 {
 	class Ball 
@@ -21,7 +17,7 @@ namespace gameobjects
 	public:
 		//---- Constructor --------------------------------------------------------------------------------------
 		
-		Ball(engine::Scene& scene);
+		Ball();
 
 		//---- Destructor ---------------------------------------------------------------------------------------
 		

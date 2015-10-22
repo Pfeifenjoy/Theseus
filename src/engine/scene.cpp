@@ -1,5 +1,4 @@
 #include "scene.hpp"
-#include "game.hpp"
 #include "components/drawable.hpp"
 #include "components/update.hpp"
 #include "gameobject.hpp"
@@ -7,19 +6,10 @@
 using namespace std;
 using namespace theseus::engine;
 
-Scene::Scene(Game& game)
+void Scene::addGameObject(std::unique_ptr<GameObject> gameObject)
 {
-	mygame = &game;
-}
-
-Game& Scene::game()
-{
-	return *mygame;
-}
-
-const Game& Scene::game() const
-{
-	return *mygame;
+	gameObject->registerComponents(*this);
+	gameObjects.push_back(move(gameObject));
 }
 
 void Scene::addDrawable(int layer, const components::Drawable* drawable)

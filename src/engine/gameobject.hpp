@@ -7,18 +7,22 @@ namespace theseus
 {
 namespace engine
 {
+	class Scene;
+
 	class GameObject : public virtual components::Base
 	{
 	public:
-		//---- Constructors ---------------------------------------------------------------------------------------
-		
-		GameObject(Scene& scene);
 	
-		//---- Destructor -----------------------------------------------------------------------------------------
+		//---- Constructors / Destructor --------------------------------------------------------------------------
 		
 		virtual ~GameObject();
+
+		//---- Methods --------------------------------------------------------------------------------------------
+		
+		void registerComponents(Scene& scene);
 
 	};
 }
 }
+
 #endif

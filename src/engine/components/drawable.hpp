@@ -11,6 +11,7 @@ namespace theseus
 {
 namespace engine
 {
+class Scene;
 namespace components
 {
 	class Drawable 
@@ -25,7 +26,10 @@ namespace components
 		 */
 		std::array<const sf::Drawable*, 5> layers = {{nullptr, nullptr, nullptr, nullptr, nullptr}};
 
-		void onBaseInitialized();
+		/**
+		 * Registers the component at the given scene.
+		 */
+		void onRegisterComponents(Scene& scene);
 
 	protected:
 
@@ -36,8 +40,17 @@ namespace components
 
 		/**
 		 * Registers a graphic to be drawn on a specific layer.
+		 *
+		 * Only layerts that were activated before the 
+		 * "registerComponents"-Event is raised, will be drawn.
+		 *
+		 * So, if you want to use a certain layer, you should
+		 * already activate it in your constructor.
+		 * 
+		 * Switching drawables by calling this method repeatedly,
+		 * is perfectly supported at every time.
 		 */
-		void setDrawableOnLayer(int layer, const sf::Drawable* drawable);
+		void activateLayer(int layer, const sf::Drawable* drawable);
 
 	public:
 

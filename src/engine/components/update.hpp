@@ -8,13 +8,16 @@ namespace theseus
 {
 namespace engine
 {
+
+class Scene;
+
 namespace components
 {
 	class Update
 		: public virtual Base
 	{
 	private:
-		void onBaseInitialized();
+		void onRegisterComponents(Scene& scene);
 
 	protected:
 		Update();
