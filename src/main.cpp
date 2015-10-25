@@ -2,6 +2,7 @@
 #include "engine/scene.hpp"
 #include "engine/texturemanager.hpp"
 #include "gameobjects/ball.hpp"
+#include "gameobjects/character.hpp"
 
 #include <iostream>
 #include <memory>
@@ -22,10 +23,13 @@ int main()
 
     // load the textures
     TextureManager::instance().loadTexture("ball.png");
+    TextureManager::instance().loadTexture("demo_character.png");
 
-    // Populate it with a ball GameObject
+    // Populate it with some game objects
     auto ball = unique_ptr<Ball>(new Ball);
+    auto man = unique_ptr<Character>(new Character);
     initScene->addGameObject(move(ball));
+    initScene->addGameObject(move(man));
 
     // Start the game with that scene
     game.run(move(initScene));

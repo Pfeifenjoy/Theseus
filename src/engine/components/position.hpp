@@ -17,9 +17,9 @@ namespace components
 		sf::Vector2f position;
 	protected:
 		Publisher<sf::Vector2f> evPositionChanged;
-		void setPosition(const sf::Vector2f&  value);
 	public:
 		sf::Vector2f getPosition() const;
+		void setPosition(const sf::Vector2f&  value);
 		~Position();		
 	};
 }

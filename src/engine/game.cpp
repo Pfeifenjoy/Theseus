@@ -34,7 +34,7 @@ void Game::run(unique_ptr<Scene> initialScene)
 		++fpsCounter;
 		if (fpsClock.getElapsedTime().asSeconds() >= 1)
 		{
-			//cout << "FPS: " << fpsCounter << endl;
+			cout << "FPS: " << fpsCounter << endl;
 			fpsCounter = 0;
 			fpsClock.restart();
 		}
