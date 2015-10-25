@@ -12,7 +12,7 @@ Update::Update()
 
 void Update::onRegisterComponents(Scene& scene)
 {
-	scene.addUpdate(this);
+	scene.registerUpdate(this);
 }
 
 void Update::doUpdate(float passedTime)

@@ -17,7 +17,7 @@ void Drawable::onRegisterComponents(Scene& scene)
 	for(int i = 0; i < 5; ++i)
 	{
 		if (layers[i] != nullptr)
-			scene.addDrawable(i, this);
+			scene.registerDrawable(i, this);
 	}
 }
 

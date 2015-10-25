@@ -50,7 +50,19 @@ void Game::run(unique_ptr<Scene> initialScene)
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
+			// window closed?
 			exit = event.type == sf::Event::Closed;
+
+			// handle event
+			switch(event.type)
+			{
+			case sf::Event::KeyPressed: 
+				activeScene->handleKeyDownEvent(event.key.code);
+				break;
+			default:
+				// do nothing
+				break;
+			}
 		}
 
 		// update

@@ -2,6 +2,7 @@
 #define _ENGINE_SCENE_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <vector>
 #include <memory>
 #include <array>
@@ -16,6 +17,7 @@ namespace engine
 	{
 		class Drawable;
 		class Update;
+		class KeyboardInput;
 	}
 
 	class Scene : public sf::Drawable
@@ -29,6 +31,9 @@ namespace engine
 
 		// All game objects that need to be updated in each frame.
 		std::vector<components::Update *> update;
+
+		// All game objects registered for keyboard events
+		std::vector<components::KeyboardInput *> keyboardInput;
 		
 		// TODO: Replace some vectors with quad-trees as soon as it is implemented.
 
@@ -42,31 +47,44 @@ namespace engine
 
 		//---- Methods ----------------------------------------------------------------------------------
 		
+		/**
+		 * Adds a game object to the scene
+		 */
 		void addGameObject(std::unique_ptr<GameObject> gameObject);
-
-		//---- Methods: Register components -------------------------------------------------------------
-
-		/**
-		 * Adds a graphic that will be displayed during the drawing phase.
-		 */
-		void addDrawable(int layer, const components::Drawable* drawable);
-
-		/**
-		 * Registers a game object to be updated in each frame. 
-		 */
-		void addUpdate(components::Update *);
 
 		/**
 		 * Draws the scene to the screen
 		 */
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+		//---- Methods: Register components -------------------------------------------------------------
+
+		/**
+		 * Adds a graphic that will be displayed during the drawing phase.
+		 */
+		void registerDrawable(int layer, const components::Drawable* drawable);
+
+		/**
+		 * Registers a game object to be updated in each frame. 
+		 */
+		void registerUpdate(components::Update *);
+
+		/**
+		 * Registers a game object to receive keyboard events.
+		 */
+		void registerKeyboardInput(components::KeyboardInput *);
+
 		//---- Methods: Handle Events -------------------------------------------------------------------
 		
 		/**
-		 * Passes the update event to each GameObject.
+		 * Passes the update event to the game objects.
 		 */
 		void handleUpdateEvent(float timePassed);
+
+		/**
+		 * Passes the key-down event to the game objects.
+		 */
+		void handleKeyDownEvent(sf::Keyboard::Key key);
 	};
 }
 }

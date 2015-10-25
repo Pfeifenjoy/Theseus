@@ -1,6 +1,7 @@
 #include "scene.hpp"
 #include "components/drawable.hpp"
 #include "components/update.hpp"
+#include "components/keyboardinput.hpp"
 #include "gameobject.hpp"
 
 using namespace std;
@@ -12,14 +13,19 @@ void Scene::addGameObject(std::unique_ptr<GameObject> gameObject)
 	gameObjects.push_back(move(gameObject));
 }
 
-void Scene::addDrawable(int layer, const components::Drawable* drawable)
+void Scene::registerDrawable(int layer, const components::Drawable* drawable)
 {
 	drawables[layer].push_back(drawable);
 }
 
-void Scene::addUpdate(components::Update * updateComponent)
+void Scene::registerUpdate(components::Update * updateComponent)
 {
 	update.push_back(updateComponent);
+}
+
+void Scene::registerKeyboardInput(components::KeyboardInput * keyboardComponent)
+{
+	keyboardInput.push_back(keyboardComponent);
 }
 
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -58,6 +64,14 @@ void Scene::handleUpdateEvent(float timePassed)
 	for (auto needsUpdate : update)
 	{
 		needsUpdate->doUpdate(timePassed);
+	}
+}
+
+void Scene::handleKeyDownEvent(sf::Keyboard::Key key)
+{
+	for (auto deliverTo : keyboardInput)
+	{
+		deliverTo->handleKeyDown(key);	
 	}
 }
 
