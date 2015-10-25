@@ -12,3 +12,6 @@ sf::Sprite& Sprite::sprite(int layer)
 {
 	return sprites[layer];
 }
+
+Sprite::~Sprite()
+{}

@@ -31,6 +31,12 @@ namespace components
 		 */
 		void onRegisterComponents(Scene& scene);
 
+		/**
+		 * Unregisters the component at the given scene.
+		 */
+		void onUnregisterComponents(Scene& scene);
+
+
 	protected:
 
 		/**
@@ -58,6 +64,8 @@ namespace components
 		 * Draws the content of the given layer to the render target.
 		 */
 		void draw(int layer, sf::RenderTarget& target, sf::RenderStates states) const;
+
+		~Drawable();
 	};
 
 }

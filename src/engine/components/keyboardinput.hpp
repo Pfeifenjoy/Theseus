@@ -23,6 +23,7 @@ private:
 	 * This is the place to register the component at the scene.
 	 */
 	void onRegisterComponents(Scene&);
+	void onUnregisterComponents(Scene&);
 
 protected:
 	

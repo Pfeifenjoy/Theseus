@@ -20,6 +20,7 @@ namespace components
 		void setPosition(const sf::Vector2f&  value);
 	public:
 		sf::Vector2f getPosition() const;
+		~Position();		
 	};
 }
 }

@@ -53,6 +53,11 @@ namespace engine
 		void addGameObject(std::unique_ptr<GameObject> gameObject);
 
 		/**
+		 * Removed a game object from the scene
+		 */
+		std::unique_ptr<GameObject> removeGameObject(GameObject* gameObject);
+
+		/**
 		 * Draws the scene to the screen
 		 */
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -63,16 +68,19 @@ namespace engine
 		 * Adds a graphic that will be displayed during the drawing phase.
 		 */
 		void registerDrawable(int layer, const components::Drawable* drawable);
+		void unregisterDrawable(const components::Drawable* drawable);
 
 		/**
 		 * Registers a game object to be updated in each frame. 
 		 */
 		void registerUpdate(components::Update *);
+		void unregisterUpdate(components::Update *);
 
 		/**
 		 * Registers a game object to receive keyboard events.
 		 */
 		void registerKeyboardInput(components::KeyboardInput *);
+		void unregisterKeyboardInput(components::KeyboardInput *);
 
 		//---- Methods: Handle Events -------------------------------------------------------------------
 		

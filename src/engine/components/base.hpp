@@ -16,6 +16,9 @@ namespace components
 	protected:
 
 		Publisher<Scene&> evRegisterComponents;
+		Publisher<Scene&> evUnregisterComponents;
+	public:
+		~Base();
 
 	};
 }

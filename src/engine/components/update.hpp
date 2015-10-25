@@ -18,11 +18,13 @@ namespace components
 	{
 	private:
 		void onRegisterComponents(Scene& scene);
+		void onUnregisterComponents(Scene& scene);
 
 	protected:
-		Update();
 		Publisher<float> evOnUpdate; 	// parameter: passed time in seconds 
 	public:
+		Update();
+		virtual ~Update();
 		void doUpdate(float passedTime);
 	};
 }

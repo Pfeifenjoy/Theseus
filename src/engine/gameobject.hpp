@@ -20,6 +20,7 @@ namespace engine
 		//---- Methods --------------------------------------------------------------------------------------------
 		
 		void registerComponents(Scene& scene);
+		void unregisterComponents(Scene& scene);
 
 	};
 }

@@ -17,6 +17,9 @@ Speed::Speed()
 	evOnUpdate.subscribe(bind(&Speed::onUpdate, this, _1));
 }
 
+Speed::~Speed()
+{}
+
 void Speed::setSpeed(sf::Vector2f value)
 {
 	speed = value;

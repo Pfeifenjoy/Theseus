@@ -10,6 +10,7 @@ using namespace theseus::engine::components;
 Drawable::Drawable()
 {
 	evRegisterComponents.subscribe(bind(&Drawable::onRegisterComponents, this, _1));
+	evUnregisterComponents.subscribe(bind(&Drawable::onUnregisterComponents, this, _1));
 }
 
 void Drawable::onRegisterComponents(Scene& scene)
@@ -19,6 +20,11 @@ void Drawable::onRegisterComponents(Scene& scene)
 		if (layers[i] != nullptr)
 			scene.registerDrawable(i, this);
 	}
+}
+
+void Drawable::onUnregisterComponents(Scene& scene)
+{
+	scene.unregisterDrawable(this);
 }
 
 void Drawable::activateLayer(int layer, const sf::Drawable* drawable)
@@ -34,3 +40,6 @@ void Drawable::draw(int layer, sf::RenderTarget& target, sf::RenderStates states
 		target.draw(*layers[layer], states);
 	}
 }
+
+Drawable::~Drawable()
+{}
