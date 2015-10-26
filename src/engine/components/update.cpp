@@ -3,6 +3,7 @@
 
 using namespace std;
 using namespace std::placeholders;
+using namespace theseus::engine;
 using namespace theseus::engine::components;
 
 Update::Update()
