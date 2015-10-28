@@ -28,20 +28,7 @@ namespace map {
 			 */
 			std::vector<Wall> walls;
 		public:
-			/**
-			 * The room will randomly generate a position within an area
-			 * of 10000*10000
-			 */
-			Room();
-			/**
-			 * The room will randomly generate a position by a given size.
-			 * @param mapWidth The width of the map where the Room is placed.
-			 * @param mapHeight The height of the map where the Room is placed.
-			 */
-			Room(int mapWidth, int mapHeight);
-
-			void setMap(Map&);
-
+			Room(Map);
 	};
 }
 }

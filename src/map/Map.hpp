@@ -17,11 +17,8 @@ namespace map {
 			std::vector<Wall> walls;
 
 		public:
-			Map();
-			int getWidth();
-			int getHeight();
-			friend std::ostream& operator<<(std::ostream&, Room&);
-			friend std::ostream& operator<<(std::ostream&, Wall&);
+			Map(int width, int height);
+			bool setRoom(Room);
 
 	};
 }
