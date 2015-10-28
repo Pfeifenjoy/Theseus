@@ -22,13 +22,10 @@ int main()
     unique_ptr<Scene> initScene = unique_ptr<Scene>(new Scene());
 
     // load the textures
-    TextureManager::instance().loadTexture("ball.png");
-    TextureManager::instance().loadTexture("demo_character.png");
+    TextureManager::instance().loadTexture("player.png");
 
     // Populate it with some game objects
-    auto ball = unique_ptr<Ball>(new Ball);
     auto man = unique_ptr<Character>(new Character);
-    initScene->addGameObject(move(ball));
     initScene->addGameObject(move(man));
 
     // Start the game with that scene
