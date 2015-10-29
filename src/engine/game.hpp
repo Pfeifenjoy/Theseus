@@ -24,8 +24,6 @@ namespace engine
 		std::unique_ptr<Scene> activeScene = nullptr;
 		std::unique_ptr<Scene> sceneToLoad = nullptr;
 
-		// The loaded textures
-		std::unordered_map<std::string, std::unique_ptr<sf::Texture> > textures;
 
 	public:
 
@@ -61,20 +59,6 @@ namespace engine
 		 * is stopped.
 		 */
 		void startScene(std::unique_ptr<Scene> scene);
-
-		//---- Methods.TextureManagement
-		
-		/**
-		 * Loads the texture from the given filename into the
-		 * graphics card memory
-		 */
-		void loadTexture(const std::string& filename);
-
-		/**
-		 * Returns a reference to the texture that was loaded
-		 * before using the given filename.
-		 */
-		const sf::Texture& getTexture(const std::string& filename) const;
 
 	};
 }

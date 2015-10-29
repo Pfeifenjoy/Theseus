@@ -13,3 +13,6 @@ void Position::setPosition(const sf::Vector2f& value)
 	position = value;
 	evPositionChanged(value);
 }
+
+Position::~Position()
+{}

@@ -22,12 +22,13 @@ namespace components
 		sf::Vector2f speed;
 
 	protected:
-		Speed();
 
 		void setSpeed(sf::Vector2f value);
 
 	public:
 
+		Speed();
+		virtual ~Speed();
 		sf::Vector2f getSpeed() const;
 	};
 

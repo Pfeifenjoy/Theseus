@@ -1,32 +1,38 @@
-#ifndef _THESEUS_GAME_OBJECTS_BALL_H
-#define _THESEUS_GAME_OBJECTS_BALL_H
+#ifndef _THESEUS_GAME_OBJECTS_CHARACTER_H
+#define _THESEUS_GAME_OBJECTS_CHARACTER_H
 
 #include "../engine/gameobject.hpp"
-#include "../engine/components/sprite.hpp"
-#include "../engine/components/speed.hpp"
 #include "../engine/components/update.hpp"
+#include "../engine/components/animation.hpp"
+#include "../engine/components/speed.hpp"
+#include <SFML/System.hpp>
 
 namespace theseus
 {
 namespace gameobjects
 {
-	class Ball 
+	class Character 
 		: public engine::GameObject
-		, public virtual engine::components::Sprite
-		, public virtual engine::components::Speed
 		, public virtual engine::components::Update
+		, public virtual engine::components::Animation
+		, public virtual engine::components::Speed
 	{
 	private:
+		// events
 		void onUpdate(float passedTime);
+
+		// state changes
+		sf::Vector2i direction;
+		void setDirection(sf::Vector2i direction, bool force_update = false);
 
 	public:
 		//---- Constructor --------------------------------------------------------------------------------------
 		
-		Ball();
+		Character();
 
 		//---- Destructor ---------------------------------------------------------------------------------------
 		
-		~Ball();
+		~Character();
 	};
 }
 }

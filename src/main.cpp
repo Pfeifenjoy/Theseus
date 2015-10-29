@@ -1,12 +1,15 @@
 #include "engine/game.hpp"
-#include "scenes/examplescene.hpp"
+#include "engine/scene.hpp"
+#include "engine/texturemanager.hpp"
+#include "gameobjects/ball.hpp"
+#include "gameobjects/character.hpp"
 
 #include <iostream>
 #include <memory>
 
 using namespace std;
 using namespace theseus::engine;
-using namespace theseus::scenes;
+using namespace theseus::gameobjects;
 
 int main()
 {
@@ -15,12 +18,20 @@ int main()
     // Load the game
     theseus::engine::Game game;
 
-    // Load the first scene
-    unique_ptr<Scene> initScene(new ExampleScene(game));
+    // Create the first scene
+    unique_ptr<Scene> initScene = unique_ptr<Scene>(new Scene());
+
+    // load the textures
+    TextureManager::instance().loadTexture("player.png");
+
+    // Populate it with some game objects
+    auto man = unique_ptr<Character>(new Character);
+    initScene->addGameObject(move(man));
 
     // Start the game with that scene
     game.run(move(initScene));
 
+    // end
+    TextureManager::reset();
     return 0;
-
 }

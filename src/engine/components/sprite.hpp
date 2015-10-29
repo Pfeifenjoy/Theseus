@@ -37,6 +37,9 @@ namespace components
 		 */
 		sf::Sprite& sprite(int layer);
 
+	public:
+		virtual ~Sprite();
+
 	};
 }
 }
