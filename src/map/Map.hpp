@@ -1,25 +1,34 @@
+/**
+ * author Arwed Mett
+ */
+
 #ifndef THESEUS_MAP_MAP
 #define THESEUS_MAP_MAP
-#include "Room.hpp"
 #include "Wall.hpp"
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
+
 namespace theseus {
 namespace map {
+	enum FieldStatus {
+		FREE,
+		OCCUPIED,
+		VERTICAL_RESTRICTED,
+		HORIZONTAL_RESTRICTED,
+		RESTRICTED
+	};
 	class Map;
-	std::ostream& operator<<(std::ostream& os, Room& room);
-	std::ostream& operator<<(std::ostream& os, Wall& room);
+	std::ostream& operator<<(std::ostream&, const Map&);
 	class Map {
 		private:
-			int width;
-			int heigth;
-			std::vector<Room> rooms;
-			std::vector<Wall> walls;
-
+			std::vector<std::unique_ptr<Wall> > walls;
+			std::vector<std::vector<FieldStatus> > map;
 		public:
 			Map(int width, int height);
-			bool setRoom(Room);
-
+			void fillWithWalls(int minLength, int maxLength, int granularity, int numWalls);
+			void addWall(int x, int y, Direction direction, int length);
+			friend std::ostream& operator<<(std::ostream&, const Map&);
 	};
 }
 }
