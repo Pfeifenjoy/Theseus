@@ -1,3 +1,6 @@
+/**
+ * author Arwed Mett
+ */
 #include "Map.hpp"
 #include <cassert>
 #include <time.h>
@@ -5,12 +8,25 @@
 using namespace theseus::map;
 using namespace std;
 
+/**
+ * Initialize a squared map.
+ * @param width {int}
+ * @param height {int}
+ */
 Map::Map(int width, int height) {
 	srand(time(NULL));
 	this->map = vector<vector<FieldStatus> > (width, vector<FieldStatus> (height, FREE));
 	fillWithWalls(3, 20, 2, 100);
 }
 
+/**
+ * Fill the map with random walls.
+ * This generates a labyrinth.
+ * @param minLength {int} Minimum length of a wall. This might not always happen.
+ * @param maxLength {int} Maximum length of a wall.
+ * @param granularity {int} Sets the space between the walls.
+ * @param numWalls {int} Maximum amount of walls which will be generated.
+ */
 void Map::fillWithWalls(int minLength, int maxLength, int granularity, int numWalls) {
 	assert(numWalls >= 0);
 	assert(granularity % 2 == 0);
@@ -25,6 +41,13 @@ void Map::fillWithWalls(int minLength, int maxLength, int granularity, int numWa
     }
 }
 
+/**
+ * This will try to add a Wall to the map, by a given length and position.
+ * @param x {int} x Coordinate
+ * @param y {int} y Coordinate
+ * @param direction {theseus::map::Direction}
+ * @param length {int} maximal Length of the wall.
+ */
 void Map::addWall(int x, int y, Direction direction, int length) {
 	assert(length > 0);
 	assert(x >= 0);
@@ -49,6 +72,9 @@ void Map::addWall(int x, int y, Direction direction, int length) {
 	this->walls.push_back(move(wall));
 }
 
+/**
+ * Generate a Steam which includes a Unicode representation of the map and provides Data about the map.
+ */
 ostream& theseus::map::operator<<(ostream& os, const Map& map) {
 	int i = 0, j = 0;
 
@@ -59,6 +85,9 @@ ostream& theseus::map::operator<<(ostream& os, const Map& map) {
 		os << endl;
 	}
 	os << "\x1B[0m";
-	os << "Counted " << map.walls.size() << " walls." << endl;
+
+	os << "Details:" << endl;
+	os << "\tCounted " << map.walls.size() << " walls." << endl;
+
 	return os;
 }
