@@ -78,12 +78,12 @@ void Character::setDirection(sf::Vector2i d, bool force_update)
 	else if (d == sf::Vector2i(1, 1))
 	{
 		setSpeed(sf::Vector2f(SPEED_DIAGONAL, SPEED_DIAGONAL));
-		setFirstFramePosition(sf::Vector2i(0, 2 * PLAYER_H));	
+		setFirstFramePosition(sf::Vector2i(0, 4 * PLAYER_H));	
 	}
 	else if (d == sf::Vector2i(1, -1))
 	{
 		setSpeed(sf::Vector2f(SPEED_DIAGONAL, -SPEED_DIAGONAL));
-		setFirstFramePosition(sf::Vector2i(0, 2 * PLAYER_H));	
+		setFirstFramePosition(sf::Vector2i(0, 6 * PLAYER_H));	
 	}
 	else if (d == sf::Vector2i(-1, 0))
 	{
@@ -93,12 +93,12 @@ void Character::setDirection(sf::Vector2i d, bool force_update)
 	else if (d == sf::Vector2i(-1, 1))
 	{
 		setSpeed(sf::Vector2f(-SPEED_DIAGONAL, SPEED_DIAGONAL));
-		setFirstFramePosition(sf::Vector2i(0, PLAYER_H));	
+		setFirstFramePosition(sf::Vector2i(0, 5 * PLAYER_H));	
 	}
 	else if (d == sf::Vector2i(-1, -1))
 	{
 		setSpeed(sf::Vector2f(-SPEED_DIAGONAL, -SPEED_DIAGONAL));
-		setFirstFramePosition(sf::Vector2i(0, PLAYER_H));	
+		setFirstFramePosition(sf::Vector2i(0, 7 * PLAYER_H));	
 	}
 
 	if (d == sf::Vector2i(0,0))
