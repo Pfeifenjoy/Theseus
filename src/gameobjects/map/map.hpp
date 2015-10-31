@@ -5,7 +5,7 @@
 #define THESEUS_MAP_MAP
 #include <vector>
 #include <memory>
-#include "Layer.hpp"
+#include "layer.hpp"
 #include "../../engine/scene.hpp"
 #include "../../engine/components/update.hpp"
 #include "../../engine/components/drawable.hpp"

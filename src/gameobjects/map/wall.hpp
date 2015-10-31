@@ -6,6 +6,8 @@
 #define THESEUS_MAP_WALL
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <vector>
+#include "brick.hpp"
 
 namespace theseus {
 namespace gameobjects {
@@ -23,8 +25,11 @@ namespace map {
 			int blockLength;
 			Direction direction;
 			int blockSize;
+			std::vector<std::shared_ptr<Brick> > bricks;
+
 		public:
-			Wall(int x, int y, Direction direction, int maxBlockLength) : x(x), y(y), blockLength(maxBlockLength), direction(direction) {}
+			Wall(int x, int y, Direction direction, int maxBlockLength);
+			void setSpecialBrick(int, int, BrickType);
 			int getBlockLength();
 			int getBlockSize();
 	};

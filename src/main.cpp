@@ -3,8 +3,8 @@
 #include "engine/texturemanager.hpp"
 #include "gameobjects/ball.hpp"
 #include "gameobjects/character.hpp"
-#include "gameobjects/map/Layer.hpp"
-#include "gameobjects/wall.hpp"
+#include "gameobjects/map/layer.hpp"
+#include "gameobjects/map/brick.hpp"
 
 #include <iostream>
 #include <memory>

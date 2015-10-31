@@ -1,4 +1,4 @@
-#include "Room.hpp"
+#include "room.hpp"
 
 using namespace theseus::gameobjects::map;
 using namespace std;

@@ -1,18 +1,11 @@
-/**
- * author Arwed Mett
- */
-#include "Layer.hpp"
+#include "layer.hpp"
 #include <cassert>
 #include <time.h>
+#include "brick.hpp"
 
 using namespace theseus::gameobjects::map;
 using namespace std;
 
-/**
- * Initialize a squared layer.
- * @param width {int}
- * @param height {int}
- */
 Layer::Layer(int width, int height) {
 	srand(time(NULL));
 	this->layer = vector<vector<FieldStatus> > (width, vector<FieldStatus> (height, FREE));
@@ -83,10 +76,8 @@ int Layer::drawLine(int x, int y, Direction direction, int length, FieldStatus s
 				case RESTRICTED: if(status == OCCUPIED) return realLength;
 				case VERTICAL_RESTRICTED: if(status == HORIZONTAL_RESTRICTED)
 											  { layer[x][y] = RESTRICTED; break; }
-										  if(direction % 2 == 1) return realLength;
 				case HORIZONTAL_RESTRICTED: if(status == VERTICAL_RESTRICTED)
 												 { layer[x][y] = RESTRICTED; break; }
-											if(direction % 2 == 0) return realLength;
 				case FREE: layer[x][y] = status;
 			}
 		} else {
@@ -126,14 +117,6 @@ void Layer::addRoom(int x, int y, int width, int height) {
 	}
 }
 
-/**
- * Fill the layer with random walls.
- * This generates a labyrinth.
- * @param minLength {int} Minimum length of a wall. This might not always happen.
- * @param maxLength {int} Maximum length of a wall.
- * @param granularity {int} Sets the space between the walls.
- * @param numWalls {int} Maximum amount of walls which will be generated.
- */
 void Layer::fillWithWalls(int minLength, int maxLength, int granularity, int numWalls) {
 	assert(numWalls >= 0);
 	assert(granularity % 2 == 0);
@@ -148,13 +131,6 @@ void Layer::fillWithWalls(int minLength, int maxLength, int granularity, int num
     }
 }
 
-/**
- * This will try to add a Wall to the layer, by a given length and position.
- * @param x {int} x Coordinate
- * @param y {int} y Coordinate
- * @param direction {theseus::map::Direction}
- * @param length {int} maximal Length of the wall.
- */
 void Layer::addWall(int x, int y, Direction direction, int length) {
 	assert(length > 0);
 	assert(x >= 0);
@@ -167,9 +143,6 @@ void Layer::addWall(int x, int y, Direction direction, int length) {
 	this->walls.push_back(wall);
 }
 
-/**
- * Generate a Steam which includes a Unicode representation of the layer and provides Data about the layer.
- */
 ostream& theseus::gameobjects::map::operator<<(ostream& os, const Layer& layer) {
 	int i = 0, j = 0;
 

@@ -1,4 +1,4 @@
-#include "Map.hpp"
+#include "map.hpp"
 #include <functional>
 
 using namespace theseus::gameobjects::map;
