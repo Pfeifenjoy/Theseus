@@ -3,16 +3,21 @@
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
 #include <iostream>
+#include "../map/Map.hpp"
 
 using namespace theseus::engine;
 using namespace std;
 
 const int DEFAULT_WINDOW_WIDTH = 800;
 const int DEFAULT_WINDOW_HEIGTH = 600;
+const bool FULLSCREEN = false;
 
 Game::Game()
 {
-	window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGTH), "", sf::Style::Fullscreen);
+
+	if(FULLSCREEN)
+		window.create(sf::VideoMode().getFullscreenModes()[0], "", sf::Style::Fullscreen);
+	else window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGTH), "");
 	window.setVerticalSyncEnabled(true);
 }
 
