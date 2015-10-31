@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
 #include <iostream>
-#include "../map/Map.hpp"
 
 using namespace theseus::engine;
 using namespace std;

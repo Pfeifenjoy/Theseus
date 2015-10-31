@@ -3,9 +3,10 @@
 #include <vector>
 #include <memory>
 #include "Wall.hpp"
-#include "../engine/gameobject.hpp"
+#include "../../engine/gameobject.hpp"
 
 namespace theseus {
+namespace gameobjects {
 namespace map {
 	class Room {
 		private:
@@ -19,6 +20,7 @@ namespace map {
 			void addGameObject(std::shared_ptr<engine::GameObject>);
 
 	};
+}
 }
 }
 #endif

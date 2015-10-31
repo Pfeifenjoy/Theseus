@@ -5,7 +5,7 @@
 #include <cassert>
 #include <time.h>
 
-using namespace theseus::map;
+using namespace theseus::gameobjects::map;
 using namespace std;
 
 /**
@@ -170,7 +170,7 @@ void Layer::addWall(int x, int y, Direction direction, int length) {
 /**
  * Generate a Steam which includes a Unicode representation of the layer and provides Data about the layer.
  */
-ostream& theseus::map::operator<<(ostream& os, const Layer& layer) {
+ostream& theseus::gameobjects::map::operator<<(ostream& os, const Layer& layer) {
 	int i = 0, j = 0;
 
 	for(i = 0; i < (int) layer.layer[0].size(); i++) {

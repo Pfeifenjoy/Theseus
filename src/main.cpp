@@ -3,7 +3,7 @@
 #include "engine/texturemanager.hpp"
 #include "gameobjects/ball.hpp"
 #include "gameobjects/character.hpp"
-#include "map/Layer.hpp"
+#include "gameobjects/map/Layer.hpp"
 
 #include <iostream>
 #include <memory>
@@ -11,7 +11,7 @@
 using namespace std;
 using namespace theseus::engine;
 using namespace theseus::gameobjects;
-using namespace theseus::map;
+using namespace theseus::gameobjects::map;
 
 int main()
 {

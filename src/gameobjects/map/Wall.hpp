@@ -8,6 +8,7 @@
 #include <memory>
 
 namespace theseus {
+namespace gameobjects {
 namespace map {
 	enum Direction {
 		NORTH = 0,
@@ -27,6 +28,7 @@ namespace map {
 			int getBlockLength();
 			int getBlockSize();
 	};
+}
 }
 }
 #endif

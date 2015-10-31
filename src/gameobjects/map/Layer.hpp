@@ -11,6 +11,7 @@
 #include <iostream>
 
 namespace theseus {
+namespace gameobjects {
 namespace map {
 	enum FieldStatus {
 		FREE,
@@ -37,6 +38,7 @@ namespace map {
 			void addWall(int x, int y, Direction direction, int length);
 			friend std::ostream& operator<<(std::ostream&, const Layer&);
 	};
+}
 }
 }
 #endif
