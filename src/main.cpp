@@ -4,6 +4,7 @@
 #include "gameobjects/ball.hpp"
 #include "gameobjects/character.hpp"
 #include "gameobjects/wall.hpp"
+#include "gameobjects/menu.hpp"
 
 #include <iostream>
 #include <memory>
@@ -41,11 +42,19 @@ int main()
 	TextureManager::instance().loadTexture("wall_T_upsidedown_cross.png");
 
 	// Populate it with some game objects
-	auto wall = unique_ptr<Wall>(new Wall(1, sf::Vector2f(50, 50), sf::Vector2f(320, 64)));
-	initScene->addGameObject(move(wall));
+	//auto wall = unique_ptr<Wall>(new Wall(1, sf::Vector2f(50, 50), sf::Vector2f(320, 64)));
+	//initScene->addGameObject(move(wall));
 
-	auto man = unique_ptr<Character>(new Character);
-	initScene->addGameObject(move(man));
+	//auto man = unique_ptr<Character>(new Character);
+	//initScene->addGameObject(move(man));
+
+	std::string menuItems[3];
+	menuItems[0] = "Spiel starten!";
+	menuItems[1] = "Optionen";
+	menuItems[2] = "Beenden";
+
+	auto startMenu = unique_ptr<Menu>(new Menu(600, 600, menuItems, 3));
+	initScene->addGameObject(move(startMenu));
 
 	// Start the game with that scene
 	game.run(move(initScene));
