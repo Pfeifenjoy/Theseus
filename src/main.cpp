@@ -16,7 +16,7 @@ using namespace theseus::map;
 int main()
 {
     cout << "Hello." << endl;
-	Map map(20, 50);
+	Map map(100, 40);
 	cout << map << endl;
 
 
