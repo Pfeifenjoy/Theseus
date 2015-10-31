@@ -3,7 +3,7 @@
 #include "engine/texturemanager.hpp"
 #include "gameobjects/ball.hpp"
 #include "gameobjects/character.hpp"
-#include "map/Map.hpp"
+#include "map/Layer.hpp"
 
 #include <iostream>
 #include <memory>
@@ -16,8 +16,8 @@ using namespace theseus::map;
 int main()
 {
     cout << "Hello." << endl;
-	Map map(100, 40);
-	cout << map << endl;
+	Layer layer(100, 40);
+	cout << layer << endl;
 
 
 //    // Load the game

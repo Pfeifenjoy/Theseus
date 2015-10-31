@@ -13,10 +13,10 @@ namespace map {
 			int y;
 			int width;
 			int height;
-			std::vector<engine::GameObject> gameobjects;
+			std::vector<std::shared_ptr<engine::GameObject> > gameobjects;
 		public:
 			Room(int x, int y, int width, int height) : x(x), y(y), width(width), height(height) {}
-			void addGameObject(engine::GameObject);
+			void addGameObject(std::shared_ptr<engine::GameObject>);
 
 	};
 }
