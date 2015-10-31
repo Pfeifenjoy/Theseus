@@ -1,3 +1,6 @@
+/**
+ * autor Tobias Dorra, Arwed Mett
+ */
 #ifndef _THESEUS_ENGINE_GAME_H
 #define _THESEUS_ENGINE_GAME_H
 
@@ -28,32 +31,32 @@ namespace engine
 	public:
 
 		//---- Constructors --------------------------------------------------------------
-		
+
 		/**
 		 * Default constructor
 		 */
 		Game();
 
 		//---- Destructor ----------------------------------------------------------------
-		
+
 		~Game();
 
 		//---- Methods -------------------------------------------------------------------
-	
+
 		//---- Methods.Scene management
 
 		/**
 		 * Runs the main loop with the given Scene as the initial scene.
 		 *
-		 * !!! Caution !!! only call this function once, in the 
-		 * main function of your application. 
+		 * !!! Caution !!! only call this function once, in the
+		 * main function of your application.
 		 * If you want to change the active scene during the running
 		 * game, you can use the startScene() method.
 		 */
 		void run(std::unique_ptr<Scene> initialScene);
 
 		/**
-		 * Displays the given scene and lets the player 
+		 * Displays the given scene and lets the player
 		 * interact with it.
 		 * The current scene will be paused until the started scene
 		 * is stopped.

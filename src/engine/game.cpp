@@ -7,12 +7,12 @@
 using namespace theseus::engine;
 using namespace std;
 
-const int DEFAULT_WINDOW_WIDTH = 500;
-const int DEFAULT_WINDOW_HEIGTH = 500;
+const int DEFAULT_WINDOW_WIDTH = 800;
+const int DEFAULT_WINDOW_HEIGTH = 600;
 
 Game::Game()
 {
-	window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGTH), "");
+	window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGTH), "", sf::Style::Fullscreen);
 	window.setVerticalSyncEnabled(true);
 }
 
@@ -56,7 +56,7 @@ void Game::run(unique_ptr<Scene> initialScene)
 			// handle event
 			switch(event.type)
 			{
-			case sf::Event::KeyPressed: 
+			case sf::Event::KeyPressed:
 				activeScene->handleKeyDownEvent(event.key.code);
 				break;
 			default:
@@ -73,7 +73,7 @@ void Game::run(unique_ptr<Scene> initialScene)
 		window.clear(sf::Color::Black);
 		window.draw(*activeScene);
 		window.display();
-		
+
 	}
 }
 
