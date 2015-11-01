@@ -17,39 +17,15 @@ using namespace theseus::gameobjects::map;
 int main()
 {
     cout << "Hello." << endl;
-	Layer layer(100, 40);
-	cout << layer << endl;
 
-
-//    // Load the game
-//    theseus::engine::Game game;
-//
-//    // Create the first scene
-//    unique_ptr<Scene> initScene = unique_ptr<Scene>(new Scene());
-//
-//    // load the textures
-//    TextureManager::instance().loadTexture("player.png");
-//
-//    // Populate it with some game objects
-//    auto man = unique_ptr<Character>(new Character);
-//    initScene->addGameObject(move(man));
-//
-//    // Start the game with that scene
-//    game.run(move(initScene));
-//
-//    // end
-//    TextureManager::reset();
-    return 0;
-//	cout << "Hello." << endl;
-//
 //	// Load the game
 //	theseus::engine::Game game;
 //
 //	// Create the first scene
 //	unique_ptr<Scene> initScene = unique_ptr<Scene>(new Scene());
 //
-//	// load the textures
-//	TextureManager::instance().loadTexture("player.png");
+	// load the textures
+	TextureManager::instance().loadTexture("player.png");
 //	TextureManager::instance().loadTexture("wall_horizontal.png");
 //	TextureManager::instance().loadTexture("wall_vertical.png");
 //	TextureManager::instance().loadTexture("wall_edge_left_bottom.png");
@@ -65,9 +41,9 @@ int main()
 //	TextureManager::instance().loadTexture("wall_cross.png");
 //	TextureManager::instance().loadTexture("wall_T_cross.png");
 //	TextureManager::instance().loadTexture("wall_T_upsidedown_cross.png");
-//
+
 //	// Populate it with some game objects
-//	auto wall = unique_ptr<Wall>(new Wall(1, sf::Vector2f(50, 50), sf::Vector2f(320, 64)));
+//	auto wall = unique_ptr<Brick>(new Brick(HORIZONAL, sf::Vector2f(50, 50), sf::Vector2f(320, 64)));
 //	initScene->addGameObject(move(wall));
 //
 //	auto man = unique_ptr<Character>(new Character);
@@ -75,6 +51,8 @@ int main()
 //
 //	// Start the game with that scene
 //	game.run(move(initScene));
+	Layer layer(100, 40);
+	cout << layer << endl;
 //
 //	// end
 //	TextureManager::reset();
