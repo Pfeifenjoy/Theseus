@@ -10,7 +10,6 @@ Layer::Layer(int width, int height) {
 	srand(time(NULL));
 	this->layer = vector<vector<FieldStatus> > (width, vector<FieldStatus> (height, FREE));
 
-	//Print the frame
 	this->addWall(0, 0, SOUTH, height);
 	this->addWall(1, 0, EAST, width);
 	this->addWall(1, height - 1, EAST, width - 1);
@@ -114,7 +113,7 @@ void Layer::addRoom(int x, int y, int width, int height) {
 				layer[i][j] = RESTRICTED;
 			}
 		}
-		this->rooms.push_back(shared_ptr<Room> (new Room(x + 1, y + 1, width - 1, height - 1)));
+		this->rooms.push_back(unique_ptr<Room> (new Room(x + 1, y + 1, width - 1, height - 1)));
 	}
 }
 
@@ -140,8 +139,8 @@ void Layer::addWall(int x, int y, Direction direction, int length) {
 	assert(y < (int) this->layer[x].size());
 	int realLength = drawLine(x, y, direction, length, OCCUPIED);
 	if(realLength == 0) return;
-	shared_ptr<Wall> wall(new Wall(x, y, direction, realLength));
-	this->walls.push_back(wall);
+	unique_ptr<Wall> wall(new Wall(x, y, direction, realLength));
+	this->walls.push_back(move(wall));
 }
 
 
@@ -175,19 +174,21 @@ void Layer::setSpecialBricks() {
 				case 26: type = RIGHT_MIDDLE; break;
 				case 30: type = CROSS; break;
 			}
-			for(auto wall: this->walls) {
+			for(auto& wall: this->walls) {
 				wall->setSpecialBrick(i, j, type);
 			}
 		}
 	}
 }
 
-vector<shared_ptr<theseus::engine::GameObject> > Layer::getGameObjects() {
-	vector<shared_ptr<theseus::engine::GameObject> > result;
-	for(auto wall: this->walls) {
+vector<unique_ptr<theseus::engine::GameObject> > Layer::getGameObjects() {
+	vector<unique_ptr<theseus::engine::GameObject> > result;
+	for(auto& wall: this->walls) {
 		auto objects = wall->getGameObjects();
 		result.reserve(result.size() + objects.size());
-		result.insert(result.end(), objects.begin(), objects.end());
+		for(auto& object : objects) {
+			result.push_back(move(object));
+		}
 	}
 	return result;
 }

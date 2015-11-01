@@ -24,9 +24,9 @@ namespace map {
 	std::ostream& operator<<(std::ostream&, const Layer&);
 	class Layer {
 		private:
-			std::vector<std::shared_ptr<Wall> > walls;
+			std::vector<std::unique_ptr<Wall> > walls;
 			std::vector<std::vector<FieldStatus> > layer;
-			std::vector<std::shared_ptr<Room> > rooms;
+			std::vector<std::unique_ptr<Room> > rooms;
 			int drawLine(int x, int y, Direction direction, int length, FieldStatus status);
 			void setSpecialBricks();
 		public:
@@ -57,7 +57,7 @@ namespace map {
 			 * @param length {int} maximal Length of the wall.
 			 */
 			void addWall(int x, int y, Direction direction, int length);
-			std::vector<std::shared_ptr<theseus::engine::GameObject> > getGameObjects();
+			std::vector<std::unique_ptr<theseus::engine::GameObject> > getGameObjects();
 			/**
 			 * Generate a Steam which includes a Unicode representation of the layer and provides Data about the layer.
 			 */

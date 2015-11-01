@@ -26,12 +26,12 @@ namespace map {
 			int blockLength;
 			Direction direction;
 			int blockSize;
-			std::vector<std::shared_ptr<Brick> > bricks;
+			std::vector<std::unique_ptr<Brick> > bricks;
 
 		public:
 			Wall(int x, int y, Direction direction, int maxBlockLength);
 			void setSpecialBrick(int, int, BrickType);
-			std::vector<std::shared_ptr<theseus::engine::GameObject> > getGameObjects();
+			std::vector<std::unique_ptr<theseus::engine::GameObject> > getGameObjects();
 			int getBlockLength();
 			int getBlockSize();
 	};

@@ -19,7 +19,7 @@ int main()
     cout << "Hello." << endl;
 
 //	// Load the game
-//	theseus::engine::Game game;
+	theseus::engine::Game game;
 //
 	// Create the first scene
 	unique_ptr<Scene> initScene = unique_ptr<Scene>(new Scene());
@@ -50,15 +50,16 @@ int main()
 //	initScene->addGameObject(move(man));
 //
 //	// Start the game with that scene
-//	game.run(move(initScene));
 	Layer layer(100, 40);
 	auto objects = layer.getGameObjects();
-	for(auto object: objects) {
-		initScene->addGameObject(object);
+	cout << objects.size() <<endl;
+	for(auto& object: objects) {
+		initScene->addGameObject(move(object));
 	}
 	cout << layer << endl;
+	game.run(move(initScene));
 //
 //	// end
 	TextureManager::reset();
-//	return 0;
+	return 0;
 }
