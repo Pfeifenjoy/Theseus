@@ -21,26 +21,26 @@ int main()
 //	// Load the game
 //	theseus::engine::Game game;
 //
-//	// Create the first scene
-//	unique_ptr<Scene> initScene = unique_ptr<Scene>(new Scene());
+	// Create the first scene
+	unique_ptr<Scene> initScene = unique_ptr<Scene>(new Scene());
 //
 	// load the textures
 	TextureManager::instance().loadTexture("player.png");
-//	TextureManager::instance().loadTexture("wall_horizontal.png");
-//	TextureManager::instance().loadTexture("wall_vertical.png");
-//	TextureManager::instance().loadTexture("wall_edge_left_bottom.png");
-//	TextureManager::instance().loadTexture("wall_edge_left_top.png");
-//	TextureManager::instance().loadTexture("wall_edge_right_bottom.png");
-//	TextureManager::instance().loadTexture("wall_edge_right_top.png");
-//	TextureManager::instance().loadTexture("wall_left_middle.png");
-//	TextureManager::instance().loadTexture("wall_left_end.png");
-//	TextureManager::instance().loadTexture("wall_right_middle.png");
-//	TextureManager::instance().loadTexture("wall_right_end.png");
-//	TextureManager::instance().loadTexture("wall_bottom_end.png");
-//	TextureManager::instance().loadTexture("wall_top_end.png");
-//	TextureManager::instance().loadTexture("wall_cross.png");
-//	TextureManager::instance().loadTexture("wall_T_cross.png");
-//	TextureManager::instance().loadTexture("wall_T_upsidedown_cross.png");
+	TextureManager::instance().loadTexture("wall_horizontal.png");
+	TextureManager::instance().loadTexture("wall_vertical.png");
+	TextureManager::instance().loadTexture("wall_edge_left_bottom.png");
+	TextureManager::instance().loadTexture("wall_edge_left_top.png");
+	TextureManager::instance().loadTexture("wall_edge_right_bottom.png");
+	TextureManager::instance().loadTexture("wall_edge_right_top.png");
+	TextureManager::instance().loadTexture("wall_left_middle.png");
+	TextureManager::instance().loadTexture("wall_left_end.png");
+	TextureManager::instance().loadTexture("wall_right_middle.png");
+	TextureManager::instance().loadTexture("wall_right_end.png");
+	TextureManager::instance().loadTexture("wall_bottom_end.png");
+	TextureManager::instance().loadTexture("wall_top_end.png");
+	TextureManager::instance().loadTexture("wall_cross.png");
+	TextureManager::instance().loadTexture("wall_T_cross.png");
+	TextureManager::instance().loadTexture("wall_T_upsidedown_cross.png");
 
 //	// Populate it with some game objects
 //	auto wall = unique_ptr<Brick>(new Brick(HORIZONAL, sf::Vector2f(50, 50), sf::Vector2f(320, 64)));
@@ -52,9 +52,13 @@ int main()
 //	// Start the game with that scene
 //	game.run(move(initScene));
 	Layer layer(100, 40);
+	auto objects = layer.getGameObjects();
+	for(auto object: objects) {
+		initScene->addGameObject(object);
+	}
 	cout << layer << endl;
 //
 //	// end
-//	TextureManager::reset();
+	TextureManager::reset();
 //	return 0;
 }

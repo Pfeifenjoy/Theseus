@@ -33,6 +33,7 @@ namespace map {
 		T_CROSS,
 		T_UPSIDEDOWN_CROSS
 	};
+
 	class Brick
 		: public theseus::engine::GameObject
 		, public virtual theseus::engine::components::Sprite
@@ -52,6 +53,8 @@ namespace map {
 		~Brick();
 
 		void setType(BrickType);
+
+		enum { WIDTH = 32, HEIGHT = 64 };
 	};
 }
 }

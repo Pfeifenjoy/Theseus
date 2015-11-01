@@ -20,6 +20,7 @@ Layer::Layer(int width, int height) {
 	fillWithWalls(3, 20, 8, 200);
 	fillWithWalls(3, 20, 4, 200);
 	fillWithWalls(3, 20, 2, 200);
+	this->setSpecialBricks();
 }
 
 void Layer::fillWithRooms(int minSize, int maxSize, int numRooms) {
@@ -141,6 +142,54 @@ void Layer::addWall(int x, int y, Direction direction, int length) {
 	if(realLength == 0) return;
 	shared_ptr<Wall> wall(new Wall(x, y, direction, realLength));
 	this->walls.push_back(wall);
+}
+
+
+void Layer::setSpecialBricks() {
+	int i, j;
+	unsigned char k;
+	for(i = 1; i < (int) layer.size() - 1; i++) {
+		for(j = 1; j < (int) layer[i].size() - 1; j++) {
+			if(this->layer[i][j] != OCCUPIED) break;
+			k = 0;
+			k += this->layer[i][j - 1] == OCCUPIED ? 2 : 0;
+			k += this->layer[i + 1][j] == OCCUPIED ? 4 : 0;
+			k += this->layer[i][j + 1] == OCCUPIED ? 8 : 0;
+			k += this->layer[i - 1][j] == OCCUPIED ? 16 : 0;
+			if(k == 10 || k == 20) break;
+			BrickType type;
+			switch(k) {
+				case 2: type = BOTTOM_END; break;
+				case 4: type = LEFT_END; break;
+				case 8: type = TOP_END; break;
+				case 16: type = RIGHT_END; break;
+				//case 10: type = VERTICAL; break;
+				//case 20: type = HORIZONAL; break;
+				case 6: type = EDGE_LEFT_BOTTOM; break;
+				case 12: type = EDGE_LEFT_TOP; break;
+				case 24: type = EDGE_RIGHT_TOP; break;
+				case 18: type = EDGE_RIGHT_BOTTOM; break;
+				case 22: type = T_UPSIDEDOWN_CROSS; break;
+				case 14: type = LEFT_MIDDLE; break;
+				case 28: type = T_CROSS; break;
+				case 26: type = RIGHT_MIDDLE; break;
+				case 30: type = CROSS; break;
+			}
+			for(auto wall: this->walls) {
+				wall->setSpecialBrick(i, j, type);
+			}
+		}
+	}
+}
+
+vector<shared_ptr<theseus::engine::GameObject> > Layer::getGameObjects() {
+	vector<shared_ptr<theseus::engine::GameObject> > result;
+	for(auto wall: this->walls) {
+		auto objects = wall->getGameObjects();
+		result.reserve(result.size() + objects.size());
+		result.insert(result.end(), objects.begin(), objects.end());
+	}
+	return result;
 }
 
 ostream& theseus::gameobjects::map::operator<<(ostream& os, const Layer& layer) {

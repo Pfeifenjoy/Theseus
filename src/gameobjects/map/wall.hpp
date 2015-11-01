@@ -8,6 +8,7 @@
 #include <memory>
 #include <vector>
 #include "brick.hpp"
+#include "../../engine/gameobject.hpp"
 
 namespace theseus {
 namespace gameobjects {
@@ -30,6 +31,7 @@ namespace map {
 		public:
 			Wall(int x, int y, Direction direction, int maxBlockLength);
 			void setSpecialBrick(int, int, BrickType);
+			std::vector<std::shared_ptr<theseus::engine::GameObject> > getGameObjects();
 			int getBlockLength();
 			int getBlockSize();
 	};
