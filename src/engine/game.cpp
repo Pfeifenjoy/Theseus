@@ -7,8 +7,8 @@
 using namespace theseus::engine;
 using namespace std;
 
-const int DEFAULT_WINDOW_WIDTH = 800;
-const int DEFAULT_WINDOW_HEIGTH = 600;
+const int DEFAULT_WINDOW_WIDTH = 1024;
+const int DEFAULT_WINDOW_HEIGTH = 900;
 const bool FULLSCREEN = false;
 
 Game::Game()

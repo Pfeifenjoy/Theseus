@@ -1,4 +1,5 @@
 #include "wall.hpp"
+#include <iostream>
 
 using namespace theseus::gameobjects::map;
 using namespace std;
@@ -33,11 +34,14 @@ vector<unique_ptr<theseus::engine::GameObject> > Wall::getGameObjects() {
 }
 
 void Wall::setSpecialBrick(int x, int y, BrickType brickType) {
-	if(this->x == x && y >= this->y && y < this->y + (int) this->bricks.size()) {
-		this->bricks[y - this->y]->setType(brickType);
-	} else if(this->y == y && x >= this->x && x < this->x + (int) this->bricks.size()) {
-		this->bricks[x - this->x]->setType(brickType);
-	} else {
-		//Brick is not on wall.
+	switch(this->direction) {
+		case NORTH: if(this->x == x && y <= this->y && y > this->y - (int) this->bricks.size())
+						this->bricks[this->y - y]->setType(brickType); break;
+		case EAST: if(this->y == y && x >= this->x && x < this->x + (int) this->bricks.size())
+					   this->bricks[x - this->x]->setType(brickType);break;
+		case SOUTH: if(this->x == x && y >= this->y && y < this->y + (int) this->bricks.size())
+						this->bricks[y - this->y]->setType(brickType);
+		case WEST: if(this->y == y && x <= this->x && x > this->x - (int) this->bricks.size())
+					   this->bricks[this->x - x]->setType(brickType); break;
 	}
 }

@@ -146,26 +146,29 @@ void Layer::addWall(int x, int y, Direction direction, int length) {
 
 void Layer::setSpecialBricks() {
 	int i, j;
-	unsigned char k;
-	for(i = 1; i < (int) layer.size() - 1; i++) {
-		for(j = 1; j < (int) layer[i].size() - 1; j++) {
-			if(this->layer[i][j] != OCCUPIED) break;
+	short k;
+	for(i = 0; i < (int) layer.size() ; i++) {
+		for(j = 0; j < (int) layer[i].size() ; j++) {
+			if(this->layer[i][j] != OCCUPIED) continue;
 			k = 0;
-			k += this->layer[i][j - 1] == OCCUPIED ? 2 : 0;
-			k += this->layer[i + 1][j] == OCCUPIED ? 4 : 0;
-			k += this->layer[i][j + 1] == OCCUPIED ? 8 : 0;
-			k += this->layer[i - 1][j] == OCCUPIED ? 16 : 0;
-			if(k == 10 || k == 20) break;
+			if(j-1 > 0)
+				k += this->layer[i][j - 1] == OCCUPIED ? 2 : 0;
+			if(i + 1 < (int) layer.size())
+				k += this->layer[i + 1][j] == OCCUPIED ? 4 : 0;
+			if(j + 1 < (int) layer[i].size())
+				k += this->layer[i][j + 1] == OCCUPIED ? 8 : 0;
+			if(i - 1 > 0)
+				k += this->layer[i - 1][j] == OCCUPIED ? 16 : 0;
 			BrickType type;
 			switch(k) {
 				case 2: type = BOTTOM_END; break;
 				case 4: type = LEFT_END; break;
 				case 8: type = TOP_END; break;
 				case 16: type = RIGHT_END; break;
-				//case 10: type = VERTICAL; break;
-				//case 20: type = HORIZONAL; break;
-				case 6: type = EDGE_LEFT_BOTTOM; break;
-				case 12: type = EDGE_LEFT_TOP; break;
+				case 10: type = VERTICAL; break;
+				case 20: type = HORIZONAL; break;
+				case 12: type = EDGE_LEFT_BOTTOM; break;
+				case 6: type = EDGE_LEFT_TOP; break;
 				case 24: type = EDGE_RIGHT_TOP; break;
 				case 18: type = EDGE_RIGHT_BOTTOM; break;
 				case 22: type = T_UPSIDEDOWN_CROSS; break;
@@ -174,11 +177,14 @@ void Layer::setSpecialBricks() {
 				case 26: type = RIGHT_MIDDLE; break;
 				case 30: type = CROSS; break;
 			}
+			cout << k << endl;
 			for(auto& wall: this->walls) {
 				wall->setSpecialBrick(i, j, type);
 			}
 		}
+		cout << endl;
 	}
+	cout << endl;
 }
 
 vector<unique_ptr<theseus::engine::GameObject> > Layer::getGameObjects() {
