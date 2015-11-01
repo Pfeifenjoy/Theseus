@@ -2,14 +2,7 @@
 
 using namespace theseus::engine;
 
+//quite a minimal source file...
+
 GameObject::~GameObject(){}
 
-void GameObject::registerComponents(Scene& scene)
-{
-	evRegisterComponents(scene);
-}
-
-void GameObject::unregisterComponents(Scene& scene)
-{
-	evUnregisterComponents(scene);
-}

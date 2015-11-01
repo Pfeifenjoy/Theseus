@@ -1,6 +1,22 @@
 #include "base.hpp"
 
-// quite a minimal code file...
+using namespace theseus::engine;
+using namespace theseus::engine::components;
 
 theseus::engine::components::Base::~Base()
 {}
+
+void Base::registerComponents(Scene& scene)
+{
+	evRegisterComponents(scene);
+}
+		
+void Base::refreshComponentRegistrations(Scene& scene)
+{
+	evUpdateComponentRegistrations(scene);
+}
+
+void Base::unregisterComponents(Scene& scene)
+{
+	evUnregisterComponents(scene);
+}

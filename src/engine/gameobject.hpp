@@ -12,16 +12,8 @@ namespace engine
 	class GameObject : public virtual components::Base
 	{
 	public:
-	
 		//---- Constructors / Destructor --------------------------------------------------------------------------
-		
 		virtual ~GameObject();
-
-		//---- Methods --------------------------------------------------------------------------------------------
-		
-		void registerComponents(Scene& scene);
-		void unregisterComponents(Scene& scene);
-
 	};
 }
 }
