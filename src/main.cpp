@@ -4,6 +4,16 @@
 #include "gameobjects/ball.hpp"
 #include "gameobjects/character.hpp"
 #include "gameobjects/wall.hpp"
+#include "gameobjects/coffee.hpp"
+#include "gameobjects/chalk.hpp"
+#include "gameobjects/math_solution.hpp"
+#include "gameobjects/instrument_hofmann.hpp"
+#include "gameobjects/uml_diagramm.hpp"
+#include "gameobjects/apfeltasche.hpp"
+#include "gameobjects/c_exam.hpp"
+#include "gameobjects/setlx_cup.hpp"
+#include "gameobjects/fructiv.hpp"
+#include "gameobjects/table.hpp"
 
 #include <iostream>
 #include <memory>
@@ -39,6 +49,8 @@ int main()
 	TextureManager::instance().loadTexture("wall_cross.png");
 	TextureManager::instance().loadTexture("wall_T_cross.png");
 	TextureManager::instance().loadTexture("wall_T_upsidedown_cross.png");
+	TextureManager::instance().loadTexture("ball.png");
+
 
 	// Populate it with some game objects
 	auto wall = unique_ptr<Wall>(new Wall(1, sf::Vector2f(50, 50), sf::Vector2f(320, 64)));
@@ -46,6 +58,10 @@ int main()
 
 	auto man = unique_ptr<Character>(new Character);
 	initScene->addGameObject(move(man));
+
+	auto exam = unique_ptr<CExam>(new CExam(sf::Vector2f(100,100)));
+	initScene->addGameObject(move(exam));
+
 
 	// Start the game with that scene
 	game.run(move(initScene));
