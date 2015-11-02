@@ -1,5 +1,5 @@
-/*
-* Philipp Pütz
+/**
+* @author Philipp Pütz
 */
 #ifndef _THESEUS_GAME_OBJECTS_MENU_H
 #define _THESEUS_GAME_OBJECTS_MENU_H
@@ -18,6 +18,7 @@ namespace theseus
 		private:
 			int selectedItemIndex;
 			int numberOfItems;
+			Button button[];
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------

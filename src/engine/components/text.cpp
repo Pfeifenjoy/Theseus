@@ -1,3 +1,6 @@
+/**
+* @author Philipp Pütz
+*/
 #include "text.hpp"
 
 using namespace theseus::engine::components;
@@ -19,6 +22,11 @@ void Text::setText(int layer, std::string text)
 void Text::setColor(int layer, sf::Color color)
 {
 	texts[layer].setColor(color);
+}
+
+void Text::setTextSize(int layer, int textSize)
+{
+	texts[layer].setCharacterSize(textSize);
 }
 
 

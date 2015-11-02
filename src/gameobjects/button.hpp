@@ -1,3 +1,6 @@
+/**
+* @author Philipp Pütz
+*/
 #ifndef _THESEUS_GAME_OBJECTS_BUTTON_H
 #define _THESEUS_GAME_OBJECTS_BUTTON_H
 

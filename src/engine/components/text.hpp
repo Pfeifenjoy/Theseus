@@ -1,3 +1,6 @@
+/**
+* @author Philipp Pütz
+*/
 #ifndef _THESEUS_ENGINE_COMPONENTS_TEXT_H
 #define _THESEUS_ENGINE_COMPONENTS_TEXT_H
 
@@ -28,6 +31,9 @@ namespace theseus
 
 				// Sets the text color
 				void setColor(int layer, sf::Color);
+
+				// Sets the text size in px
+				void setTextSize(int layer, int textSize);
 
 				/**
 				* Returns a reference(!) to the text.

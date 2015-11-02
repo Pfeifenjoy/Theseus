@@ -1,7 +1,6 @@
-/*
-* Philipp Pütz
+/**
+* @author Philipp Pütz
 */
-
 #include "menu.hpp"
 #include "../engine/game.hpp"
 #include "../engine/scene.hpp"
@@ -18,6 +17,8 @@ Menu::Menu(float width, float height, std::string * menuItems, int numberOfItems
 {
 
 	this->numberOfItems = numberOfItems;
+
+	button = new Button[numberOfItems];
 
 	for (int i = 0; i < numberOfItems; i++) {
 		if (i == 0) {

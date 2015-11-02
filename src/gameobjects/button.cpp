@@ -1,3 +1,6 @@
+/**
+ * @author Philipp Pütz
+ */
 #include "button.hpp"
 #include <SFML/Graphics.hpp>
 
