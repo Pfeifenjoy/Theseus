@@ -27,6 +27,8 @@ namespace theseus
 			// events
 			void onUpdate(float passedTime);
 			float time_passed = 0;
+			void onCollision(const theseus::engine::components::Solide&);
+			void changeDirection();
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------

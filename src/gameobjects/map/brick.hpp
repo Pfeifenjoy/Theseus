@@ -6,6 +6,7 @@
 
 #include "../../engine/gameobject.hpp"
 #include "../../engine/components/sprite.hpp"
+#include "../../engine/components/solide.hpp"
 
 namespace theseus
 {
@@ -37,6 +38,7 @@ namespace map {
 	class Brick
 		: public theseus::engine::GameObject
 		, public virtual theseus::engine::components::Sprite
+		, public virtual theseus::engine::components::Solide
 	{
 	private:
 		int brickType;

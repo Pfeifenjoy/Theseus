@@ -12,6 +12,8 @@ Brick::Brick(BrickType brickType, int x, int y) {
 	assert(brickType >= 0 && brickType <= 14);
 	this->setPosition(sf::Vector2f(x * Brick::WIDTH, y * Brick::HEIGHT));
 	this->setType(brickType);
+	this->setCollisionAreaTopLeft(sf::Vector2f (0, 0));
+	this->setCollisionAreaBottomRight(sf::Vector2f ( 32, 64 ));
 }
 
 Brick::~Brick() {}

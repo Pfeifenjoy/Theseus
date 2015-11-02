@@ -17,7 +17,7 @@ namespace theseus
 {
 	namespace gameobjects
 	{
-		class Player  
+		class Player
 			: public Character
 			, public virtual engine::components::Update
 			, public virtual engine::components::Animation

@@ -70,12 +70,13 @@ int main()
 	cout << layer << endl;
 
 	auto man = unique_ptr<Player>(new Player);
+	man->setPosition(sf::Vector2f (65, 65));
 	initScene->addGameObject(move(man));
 
 	int x = 0;
-	for(x = 0; x < 10000; x++) {
+	for(x = 0; x < 1000; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
-		npc->setPosition(sf::Vector2f(rand() % 1000, rand() % 1000));
+		npc->setPosition(sf::Vector2f(rand() % 10000, rand() % 10000));
 		initScene->addGameObject(move(npc));
 	}
 
