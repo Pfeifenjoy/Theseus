@@ -4,7 +4,8 @@
 #include "gameobjects/ball.hpp"
 #include "gameobjects/character.hpp"
 #include "gameobjects/wall.hpp"
-#include "gameobjects/menu.hpp"
+#include "gameobjects/button.hpp"
+#include "engine/menu.hpp"
 
 #include <iostream>
 #include <memory>
@@ -48,16 +49,17 @@ int main()
 	//auto man = unique_ptr<Character>(new Character);
 	//initScene->addGameObject(move(man));
 
+	
+
 	std::string menuItems[3];
 	menuItems[0] = "Spiel starten!";
 	menuItems[1] = "Optionen";
 	menuItems[2] = "Beenden";
 
-	auto startMenu = unique_ptr<Menu>(new Menu(600, 600, menuItems, 3));
-	initScene->addGameObject(move(startMenu));
-
-	// Start the game with that scene
-	game.run(move(initScene));
+	unique_ptr<Menu> menuScene = unique_ptr<Menu>(new Menu(500, 500, menuItems, 3));
+	
+	//Start the game with that scene
+	game.run(move(menuScene));
 
 	// end
 	TextureManager::reset();

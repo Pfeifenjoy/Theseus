@@ -4,25 +4,20 @@
 #ifndef _THESEUS_GAME_OBJECTS_MENU_H
 #define _THESEUS_GAME_OBJECTS_MENU_H
 
-#include "../engine/gameobject.hpp"
+#include "../engine/scene.hpp"
+#include "../gameobjects/button.hpp"
 
 namespace theseus
 {
 	namespace engine
 	{
-		class Scene;
-	}
-	namespace gameobjects
-	{
+
 		class Menu
-			: public engine::GameObject
-			, public virtual engine::Scene
+			: public engine::Scene
 		{
 		private:
 			int selectedItemIndex;
 			int numberOfItems;
-			sf::Font font;
-			sf::Text * menu;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
@@ -35,12 +30,9 @@ namespace theseus
 
 
 			//---- Methods ------------------------------------------------------------------------------------------
-			void draw(sf::RenderWindow &window);
-			void MoveUp();
-			void MoveDown();
-			int GetPressedItem() { return selectedItemIndex; }
 
 		};
+
 	}
 }
 #endif
