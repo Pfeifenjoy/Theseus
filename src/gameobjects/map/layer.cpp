@@ -131,6 +131,45 @@ void Layer::fillWithWalls(int minLength, int maxLength, int granularity, int num
     }
 }
 
+void Layer::generateGameObjectField() {
+	int i, j;
+	short k;
+	for(i = 0; i < (int) layer.size() ; i++) {
+		for(j = 0; j < (int) layer[i].size() ; j++) {
+			if(this->layer[i][j] != OCCUPIED) continue;
+			k = 0;
+			if(j-1 > 0)
+				k += this->layer[i][j - 1] == OCCUPIED ? 2 : 0;
+			if(i + 1 < (int) layer.size())
+				k += this->layer[i + 1][j] == OCCUPIED ? 4 : 0;
+			if(j + 1 < (int) layer[i].size())
+				k += this->layer[i][j + 1] == OCCUPIED ? 8 : 0;
+			if(i - 1 > 0)
+				k += this->layer[i - 1][j] == OCCUPIED ? 16 : 0;
+			BrickType type;
+			switch(k) {
+				case 2: type = BOTTOM_END; break;
+				case 4: type = LEFT_END; break;
+				case 8: type = TOP_END; break;
+				case 16: type = RIGHT_END; break;
+				case 10: type = VERTICAL; break;
+				case 20: type = HORIZONAL; break;
+				case 12: type = EDGE_LEFT_BOTTOM; break;
+				case 6: type = EDGE_LEFT_TOP; break;
+				case 24: type = EDGE_RIGHT_TOP; break;
+				case 18: type = EDGE_RIGHT_BOTTOM; break;
+				case 22: type = T_UPSIDEDOWN_CROSS; break;
+				case 14: type = LEFT_MIDDLE; break;
+				case 28: type = T_CROSS; break;
+				case 26: type = RIGHT_MIDDLE; break;
+				case 30: type = CROSS; break;
+			}
+			unique_ptr<Brick > brick(new Brick(i, j, type));
+			this->bricks.push_back(move(brick));
+		}
+	}
+}
+
 void Layer::addWall(int x, int y, Direction direction, int length) {
 	assert(length > 0);
 	assert(x >= 0);

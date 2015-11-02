@@ -40,12 +40,11 @@ namespace map {
 	{
 	private:
 		int brickType;
-		sf::Vector2f size;
 
 	public:
 		//---- Constructor --------------------------------------------------------------------------------------
 
-		Brick(BrickType brickType, sf::Vector2f position, sf::Vector2f size);
+		Brick(BrickType, int x, int y);
 
 		//---- Destructor ---------------------------------------------------------------------------------------
 
