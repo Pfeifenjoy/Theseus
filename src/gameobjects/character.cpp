@@ -17,11 +17,6 @@ const int PLAYER_H = 50;
 
 Character::Character()
 {
-	evOnUpdate.subscribe(bind(&Character::onUpdate, this, _1));
-
-	// texture
-	setTexture(3, TextureManager::instance().getTexture("player.png"));
-
 	// animation
 	setFrameSize(sf::Vector2i(PLAYER_W, PLAYER_H));
 	setNumberOfFrames(4);
@@ -31,19 +26,6 @@ Character::Character()
 	setDirection(sf::Vector2i(0,0), true);
 }
 
-void Character::onUpdate(float)
-{
-	sf::Vector2i direction(0,0);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
-		direction.x -= 1;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-		direction.x += 1;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-		direction.y -= 1;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-		direction.y += 1;
-	setDirection(direction);
-}
 
 void Character::setDirection(sf::Vector2i d, bool force_update)
 {
