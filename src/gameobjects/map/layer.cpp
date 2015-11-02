@@ -127,8 +127,8 @@ void Layer::addDoor(int x, int y, int width, int height) {
 	int offset = rand() % ((side % 2 ? width : height) - 2) + 1;
 	switch(side) {
 		case 0: x += offset; break;
-		case 1: y += offset; x += width - 2; break;
-		case 2: x += offset; y += height - 2; break;
+		case 1: y += offset; x += width - 1; break;
+		case 2: x += offset; y += height - 1; break;
 		case 3: y += offset; break;
 	}
 	this->layer[x][y] = RESTRICTED;
