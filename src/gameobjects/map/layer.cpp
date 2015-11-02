@@ -14,12 +14,12 @@ Layer::Layer(int width, int height) {
 	this->addWall(1, 0, EAST, width);
 	this->addWall(1, height - 1, EAST, width - 1);
 	this->addWall(width - 1, 1, SOUTH, height - 2);
-	this->fillWithRooms(7, 10, rand() % 20 + 1);
+	this->fillWithRooms(7, 10, 100);
 	fillWithWalls(3, 20, 16, 200);
 	fillWithWalls(3, 20, 8, 200);
 	fillWithWalls(3, 20, 4, 200);
 	fillWithWalls(3, 20, 2, 200);
-	this->setSpecialBricks();
+	this->generateGameObjectField();
 }
 
 void Layer::fillWithRooms(int minSize, int maxSize, int numRooms) {
@@ -29,10 +29,14 @@ void Layer::fillWithRooms(int minSize, int maxSize, int numRooms) {
 	while(numRooms--) {
 		int width = rand() % (maxSize - minSize) + minSize;
 		int height = rand() % (maxSize - minSize) + minSize;
-        int x = (int) this->layer.size() - width < 0 ? 0 :
+		int x = (int) this->layer.size() - width < 0 ? 0 :
 				rand() % (int) (this->layer.size() - width);
         int y = (int) this->layer[x].size() - height < 0 ? 0 :
 				rand() % (int) (this->layer[x].size() - height);
+		if(x < 2) x = 2;
+		if(y < 2) y = 2;
+		if(x > (int) this->layer.size() - 2 - width) x = (int) this->layer.size() - 2 -width;
+		if(y > (int) this->layer[x].size() - 2 - height) y = (int) this->layer[x].size() - 2 - height;
 		this->addRoom(x, y, width, height);
 	}
 }
@@ -113,8 +117,28 @@ void Layer::addRoom(int x, int y, int width, int height) {
 				layer[i][j] = RESTRICTED;
 			}
 		}
+		this->addDoor(x, y, width, height);
 		this->rooms.push_back(unique_ptr<Room> (new Room(x + 1, y + 1, width - 1, height - 1)));
 	}
+}
+
+void Layer::addDoor(int x, int y, int width, int height) {
+	int side = rand() % 4;
+	int offset = rand() % ((side % 2 ? width : height) - 2) + 1;
+	switch(side) {
+		case 0: x += offset; break;
+		case 1: y += offset; x += width - 2; break;
+		case 2: x += offset; y += height - 2; break;
+		case 3: y += offset; break;
+	}
+	this->layer[x][y] = RESTRICTED;
+	switch(side) {
+		case 0: y--; break;
+		case 1: x++; break;
+		case 2: y++; break;
+		case 3: x--; break;
+	}
+	this->layer[x][y] = RESTRICTED;
 }
 
 void Layer::fillWithWalls(int minLength, int maxLength, int granularity, int numWalls) {
@@ -138,13 +162,13 @@ void Layer::generateGameObjectField() {
 		for(j = 0; j < (int) layer[i].size() ; j++) {
 			if(this->layer[i][j] != OCCUPIED) continue;
 			k = 0;
-			if(j-1 > 0)
+			if(j-1 >= 0)
 				k += this->layer[i][j - 1] == OCCUPIED ? 2 : 0;
 			if(i + 1 < (int) layer.size())
 				k += this->layer[i + 1][j] == OCCUPIED ? 4 : 0;
 			if(j + 1 < (int) layer[i].size())
 				k += this->layer[i][j + 1] == OCCUPIED ? 8 : 0;
-			if(i - 1 > 0)
+			if(i - 1 >= 0)
 				k += this->layer[i - 1][j] == OCCUPIED ? 16 : 0;
 			BrickType type;
 			switch(k) {
@@ -154,8 +178,8 @@ void Layer::generateGameObjectField() {
 				case 16: type = RIGHT_END; break;
 				case 10: type = VERTICAL; break;
 				case 20: type = HORIZONAL; break;
-				case 12: type = EDGE_LEFT_BOTTOM; break;
-				case 6: type = EDGE_LEFT_TOP; break;
+				case 6: type = EDGE_LEFT_BOTTOM; break;
+				case 12: type = EDGE_LEFT_TOP; break;
 				case 24: type = EDGE_RIGHT_TOP; break;
 				case 18: type = EDGE_RIGHT_BOTTOM; break;
 				case 22: type = T_UPSIDEDOWN_CROSS; break;
@@ -164,7 +188,7 @@ void Layer::generateGameObjectField() {
 				case 26: type = RIGHT_MIDDLE; break;
 				case 30: type = CROSS; break;
 			}
-			unique_ptr<Brick > brick(new Brick(i, j, type));
+			unique_ptr<Brick > brick(new Brick(type, i, j));
 			this->bricks.push_back(move(brick));
 		}
 	}
@@ -178,59 +202,13 @@ void Layer::addWall(int x, int y, Direction direction, int length) {
 	assert(y < (int) this->layer[x].size());
 	int realLength = drawLine(x, y, direction, length, OCCUPIED);
 	if(realLength == 0) return;
-	unique_ptr<Wall> wall(new Wall(x, y, direction, realLength));
-	this->walls.push_back(move(wall));
 }
 
-
-void Layer::setSpecialBricks() {
-	int i, j;
-	short k;
-	for(i = 0; i < (int) layer.size() ; i++) {
-		for(j = 0; j < (int) layer[i].size() ; j++) {
-			if(this->layer[i][j] != OCCUPIED) continue;
-			k = 0;
-			if(j-1 > 0)
-				k += this->layer[i][j - 1] == OCCUPIED ? 2 : 0;
-			if(i + 1 < (int) layer.size())
-				k += this->layer[i + 1][j] == OCCUPIED ? 4 : 0;
-			if(j + 1 < (int) layer[i].size())
-				k += this->layer[i][j + 1] == OCCUPIED ? 8 : 0;
-			if(i - 1 > 0)
-				k += this->layer[i - 1][j] == OCCUPIED ? 16 : 0;
-			BrickType type;
-			switch(k) {
-				case 2: type = BOTTOM_END; break;
-				case 4: type = LEFT_END; break;
-				case 8: type = TOP_END; break;
-				case 16: type = RIGHT_END; break;
-				case 10: type = VERTICAL; break;
-				case 20: type = HORIZONAL; break;
-				case 12: type = EDGE_LEFT_BOTTOM; break;
-				case 6: type = EDGE_LEFT_TOP; break;
-				case 24: type = EDGE_RIGHT_TOP; break;
-				case 18: type = EDGE_RIGHT_BOTTOM; break;
-				case 22: type = T_UPSIDEDOWN_CROSS; break;
-				case 14: type = LEFT_MIDDLE; break;
-				case 28: type = T_CROSS; break;
-				case 26: type = RIGHT_MIDDLE; break;
-				case 30: type = CROSS; break;
-			}
-			for(auto& wall: this->walls) {
-				wall->setSpecialBrick(i, j, type);
-			}
-		}
-	}
-}
 
 vector<unique_ptr<theseus::engine::GameObject> > Layer::getGameObjects() {
 	vector<unique_ptr<theseus::engine::GameObject> > result;
-	for(auto& wall: this->walls) {
-		auto objects = wall->getGameObjects();
-		result.reserve(result.size() + objects.size());
-		for(auto& object : objects) {
-			result.push_back(move(object));
-		}
+	for(auto& brick: this->bricks) {
+		result.push_back(move(brick));
 	}
 	return result;
 }
@@ -254,7 +232,6 @@ ostream& theseus::gameobjects::map::operator<<(ostream& os, const Layer& layer) 
 	os << "\x1B[0m";
 
 	os << "Details:" << endl;
-	os << "\tCounted " << layer.walls.size() << " walls." << endl;
 	os << "\tCounted " << layer.rooms.size() << " rooms." << endl;
 
 	return os;

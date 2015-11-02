@@ -2,7 +2,6 @@
 #define THESEUS_MAP_ROOM
 #include <vector>
 #include <memory>
-#include "wall.hpp"
 #include "../../engine/gameobject.hpp"
 
 namespace theseus {

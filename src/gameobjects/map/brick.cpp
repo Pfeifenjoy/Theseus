@@ -28,7 +28,7 @@ void Brick::setType(BrickType brickType) {
 	case VERTICAL:
 		setTexture(3, TextureManager::instance().getTexture("wall_vertical.png"));
 		size = sf::Vector2f(20,64);
-		sprite(3).setPosition(sf::Vector2f(5,0));
+		sprite(3).setPosition(sf::Vector2f(6,0));
 		break;
 	case EDGE_LEFT_TOP:
 		setTexture(3, TextureManager::instance().getTexture("wall_edge_left_top.png"));
@@ -65,10 +65,13 @@ void Brick::setType(BrickType brickType) {
 	case BOTTOM_END:
 		setTexture(3, TextureManager::instance().getTexture("wall_bottom_end.png"));
 		size = sf::Vector2f(20,64);
+		sprite(3).setPosition(sf::Vector2f(6, 0));
 		break;
 	case TOP_END:
 		setTexture(3, TextureManager::instance().getTexture("wall_top_end.png"));
 		size = sf::Vector2f(20,20);
+		sprite(3).setPosition(sf::Vector2f(6, 0));
+		sprite(3).setScale(1, 3.2);
 		break;
 	case CROSS:
 		setTexture(3, TextureManager::instance().getTexture("wall_cross.png"));
@@ -85,5 +88,5 @@ void Brick::setType(BrickType brickType) {
 	}
 
 	this->sprite(3).setTextureRect(sf::IntRect( 0, 0, size.x, size.y));
-	this->sprite(3).getTexture()->isRepeated();
+	//this->sprite(3).getTexture()->isRepeated();
 }

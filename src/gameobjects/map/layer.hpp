@@ -4,8 +4,8 @@
 
 #ifndef THESEUS_MAP_LAYER
 #define THESEUS_MAP_LAYER
-#include "wall.hpp"
 #include "room.hpp"
+#include "brick.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
@@ -13,6 +13,12 @@
 namespace theseus {
 namespace gameobjects {
 namespace map {
+	enum Direction {
+		NORTH = 0,
+		EAST = 1,
+		SOUTH = 2,
+		WEST = 3
+	};
 	enum FieldStatus {
 		FREE,
 		OCCUPIED,
@@ -24,13 +30,12 @@ namespace map {
 	std::ostream& operator<<(std::ostream&, const Layer&);
 	class Layer {
 		private:
-			std::vector<std::unique_ptr<Wall> > walls;
 			std::vector<std::vector<FieldStatus> > layer;
 			std::vector<std::unique_ptr<Room> > rooms;
 			int drawLine(int x, int y, Direction direction, int length, FieldStatus status);
-			void setSpecialBricks();
 			std::vector<std::unique_ptr<Brick> > bricks;
 			void generateGameObjectField();
+			void addDoor(int x, int y, int width, int height);
 		public:
 			/**
 			 * Initialize a squared layer.
