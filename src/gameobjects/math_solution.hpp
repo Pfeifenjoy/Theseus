@@ -1,4 +1,6 @@
-#ifndef _THESEUS_GAME_OBJECTS_MATH_SOLUTION_H
+/*
+* @author Dominic Steinhauser
+*/#ifndef _THESEUS_GAME_OBJECTS_MATH_SOLUTION_H
 #define _THESEUS_GAME_OBJECTS_MATH_SOLUTION_H
 
 #include "../engine/gameobject.hpp"

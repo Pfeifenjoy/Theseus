@@ -59,9 +59,7 @@ int main()
 	auto man = unique_ptr<Character>(new Character);
 	initScene->addGameObject(move(man));
 
-	auto exam = unique_ptr<CExam>(new CExam(sf::Vector2f(100,100)));
-	initScene->addGameObject(move(exam));
-
+	
 
 	// Start the game with that scene
 	game.run(move(initScene));

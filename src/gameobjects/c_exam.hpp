@@ -1,3 +1,6 @@
+/*
+* @author Dominic Steinhauser
+*/
 #ifndef _THESEUS_GAME_OBJECTS_C_EXAM_H
 #define _THESEUS_GAME_OBJECTS_C_EXAM_H
 

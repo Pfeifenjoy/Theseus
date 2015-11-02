@@ -1,3 +1,6 @@
+/*
+* @author Dominic Steinhauser
+*/
 #include "uml_diagramm.hpp"
 #include "../engine/texturemanager.hpp"
 #include <SFML/Graphics.hpp>

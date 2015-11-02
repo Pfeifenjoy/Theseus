@@ -1,3 +1,6 @@
+/*
+* @author Dominic Steinhauser
+*/
 #include "apfeltasche.hpp"
 #include "../engine/texturemanager.hpp"
 #include <SFML/Graphics.hpp>

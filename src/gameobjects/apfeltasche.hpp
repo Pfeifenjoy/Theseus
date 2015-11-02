@@ -1,3 +1,6 @@
+/*
+* @author Dominic Steinhauser
+*/
 #ifndef _THESEUS_GAME_APFELTASCHE_H
 #define _THESEUS_GAME_APFELTASCHE_H
 

@@ -1,3 +1,6 @@
+/*
+* @author Dominic Steinhauser
+*/
 #ifndef _THESEUS_GAME_OBJECTS_UML_DIAGRAMM_H
 #define _THESEUS_GAME_OBJECTS_UML_DIAGRAMM_H
 
