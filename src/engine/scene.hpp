@@ -110,7 +110,7 @@ namespace engine
 		/**
 		 * Passes the key-down event to the game objects.
 		 */
-		void handleKeyDownEvent(sf::Keyboard::Key key);
+		virtual void handleKeyDownEvent(sf::Keyboard::Key key);
 	};
 }
 }
