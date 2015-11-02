@@ -17,8 +17,13 @@ namespace components
 
 		Publisher<Scene&> evRegisterComponents;
 		Publisher<Scene&> evUnregisterComponents;
+		Publisher<Scene&> evUpdateComponentRegistrations;
 	public:
-		~Base();
+		virtual ~Base();
+
+		void registerComponents(Scene& scene);
+		void refreshComponentRegistrations(Scene& scene);
+		void unregisterComponents(Scene& scene);
 
 	};
 }
