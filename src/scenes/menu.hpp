@@ -5,7 +5,10 @@
 #define _THESEUS_GAME_OBJECTS_MENU_H
 
 #include "../engine/scene.hpp"
+#include "../engine/game.hpp"
 #include "../gameobjects/button.hpp"
+#include <memory>
+#include <vector>
 
 namespace theseus
 {
@@ -19,12 +22,14 @@ namespace theseus
 		private:
 			int selectedItemIndex;
 			int numberOfItems;
-			std::vector<std::unique_ptr<gameobjects::Button> > buttons;
+			std::vector<gameobjects::Button *>  buttons;
+			std::vector<std::unique_ptr<Scene> > scenes;
+			engine::Game * game;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
-			Menu(float width, float height, std::string * menuItems, int numberOfItems);
+			Menu(float width, float height, const std::vector<std::string>& menuItems, std::vector<std::unique_ptr<engine::Scene> >& scenes, engine::Game * game);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 
