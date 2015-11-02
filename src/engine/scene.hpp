@@ -1,11 +1,13 @@
 #ifndef _ENGINE_SCENE_H
 #define _ENGINE_SCENE_H
 
+#include "quadtree.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <vector>
 #include <memory>
 #include <array>
+#include <unordered_set>
 
 namespace theseus
 {
@@ -15,9 +17,12 @@ namespace engine
 
 	namespace components
 	{
+		class Base;
 		class Drawable;
 		class Update;
 		class KeyboardInput;
+		class Solide;
+		class CollisionDetector;
 	}
 
 	class Scene : public sf::Drawable
@@ -26,6 +31,10 @@ namespace engine
 		// All game objects of this scene
 		std::vector<std::unique_ptr<GameObject> > gameObjects;
 			
+		// All game object on which updateRegistration potentially needs to be called.
+		std::unordered_set<components::Base *> needsRegistrationUpdate;
+		std::unordered_set<components::Base *> needsRegistrationUpdate_previous;
+		
 		// All drawable objects, grouped by layer
 		std::array<std::vector<const components::Drawable *> , 5> drawables;
 
@@ -34,8 +43,9 @@ namespace engine
 
 		// All game objects registered for keyboard events
 		std::vector<components::KeyboardInput *> keyboardInput;
-		
-		// TODO: Replace some vectors with quad-trees as soon as it is implemented.
+
+		// All game objects that are involved in colision detection (Solide component)
+		QuadTree<components::Solide *> solide;
 
 	public:
 		//---- Constructors / Destructor ----------------------------------------------------------------
@@ -82,6 +92,14 @@ namespace engine
 		void registerKeyboardInput(components::KeyboardInput *);
 		void unregisterKeyboardInput(components::KeyboardInput *);
 
+		/**
+		 * Registers a game object that should be used for collision detection.
+		 */
+		void registerSolide(components::Solide *);
+		void unRegisterSolide(components::Solide *);
+		void reRegisterSolide(sf::Vector2f oldPosition, components::Solide *); 	// should be called after the location of the GO has changed
+		void checkCollisions(components::CollisionDetector * component);
+
 		//---- Methods: Handle Events -------------------------------------------------------------------
 		
 		/**
@@ -92,7 +110,7 @@ namespace engine
 		/**
 		 * Passes the key-down event to the game objects.
 		 */
-		void handleKeyDownEvent(sf::Keyboard::Key key);
+		virtual void handleKeyDownEvent(sf::Keyboard::Key key);
 	};
 }
 }
