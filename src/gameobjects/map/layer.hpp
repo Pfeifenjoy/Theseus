@@ -1,5 +1,5 @@
 /**
- * author Arwed Mett
+ * @author Arwed Mett
  */
 
 #ifndef THESEUS_MAP_LAYER
@@ -29,6 +29,8 @@ namespace map {
 			std::vector<std::unique_ptr<Room> > rooms;
 			int drawLine(int x, int y, Direction direction, int length, FieldStatus status);
 			void setSpecialBricks();
+			std::vector<std::unique_ptr<Brick> > bricks;
+			void generateGameObjectField();
 		public:
 			/**
 			 * Initialize a squared layer.

@@ -8,20 +8,17 @@
 using namespace theseus::gameobjects::map;
 using namespace theseus::engine;
 
-Brick::Brick(BrickType brickType, sf::Vector2f position, sf::Vector2f size)
-{
+Brick::Brick(BrickType brickType, int x, int y) {
 	assert(brickType >= 0 && brickType <= 14);
-	this->brickType = brickType;
-	this->size = size;
-	this->position = position;
-	this->setPosition(position);
+	this->setPosition(sf::Vector2f(x * Brick::WIDTH, y * Brick::HEIGHT));
 	this->setType(brickType);
-
 }
 
 Brick::~Brick() {}
 
 void Brick::setType(BrickType brickType) {
+	this->brickType = brickType;
+	sf::Vector2f size(Brick::WIDTH, Brick::HEIGHT);
 	sf::Texture * texture;
 	switch (brickType) {
 	case HORIZONAL: texture = &TextureManager::instance().getTexture("wall_horizontal.png");
