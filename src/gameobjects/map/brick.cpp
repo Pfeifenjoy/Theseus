@@ -72,7 +72,7 @@ void Brick::setType(BrickType brickType) {
 		break;
 	case TOP_END:
 		setTexture(3, TextureManager::instance().getTexture("wall_top_end.png"));
-		size = sf::Vector2f(20,20);
+		size = sf::Vector2f(20,64);
 		sprite(3).setPosition(sf::Vector2f(6, 0));
 		//sprite(3).setScale(1, 3.2);
 		break;

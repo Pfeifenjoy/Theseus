@@ -70,9 +70,12 @@ int main()
 	auto man = unique_ptr<Player>(new Player);
 	initScene->addGameObject(move(man));
 
-	auto npc = unique_ptr<NPC>(new NPC);
-	npc->setPosition(sf::Vector2f(200, 200));
-	initScene->addGameObject(move(npc));
+	int x = 0;
+	for(x = 0; x < 10000; x++) {
+		auto npc = unique_ptr<NPC>(new NPC);
+		npc->setPosition(sf::Vector2f(rand() % 1000, rand() % 1000));
+		initScene->addGameObject(move(npc));
+	}
 
 	auto floor = unique_ptr<Floor>(new Floor(sf::Vector2f(0,0), sf::Vector2f(100 * Brick::WIDTH, 40 * Brick::HEIGHT)));
 	initScene->addGameObject(move(floor));
