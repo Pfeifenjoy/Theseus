@@ -177,14 +177,11 @@ void Layer::setSpecialBricks() {
 				case 26: type = RIGHT_MIDDLE; break;
 				case 30: type = CROSS; break;
 			}
-			cout << k << endl;
 			for(auto& wall: this->walls) {
 				wall->setSpecialBrick(i, j, type);
 			}
 		}
-		cout << endl;
 	}
-	cout << endl;
 }
 
 vector<unique_ptr<theseus::engine::GameObject> > Layer::getGameObjects() {
