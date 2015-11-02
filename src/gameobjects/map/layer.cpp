@@ -170,7 +170,7 @@ void Layer::generateGameObjectField() {
 				k += this->layer[i][j + 1] == OCCUPIED ? 8 : 0;
 			if(i - 1 >= 0)
 				k += this->layer[i - 1][j] == OCCUPIED ? 16 : 0;
-			BrickType type;
+			BrickType type = HORIZONAL;
 			switch(k) {
 				case 2: type = BOTTOM_END; break;
 				case 4: type = LEFT_END; break;

@@ -2,8 +2,9 @@
 #include <functional>
 
 using namespace theseus::gameobjects::map;
+using namespace theseus::engine;
 using namespace std;
 
-Map::Map(engine::Scene& scene) {
+Map::Map(Scene& scene) {
 
 }
