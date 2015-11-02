@@ -74,7 +74,7 @@ int main()
 	npc->setPosition(sf::Vector2f(200, 200));
 	initScene->addGameObject(move(npc));
 
-	auto floor = unique_ptr<Floor>(new Floor(sf::Vector2f(0,0), sf::Vector2f(500,500)));
+	auto floor = unique_ptr<Floor>(new Floor(sf::Vector2f(0,0), sf::Vector2f(100 * Brick::WIDTH, 40 * Brick::HEIGHT)));
 	initScene->addGameObject(move(floor));
 
 	// Start the game with that scene
