@@ -41,7 +41,6 @@ namespace map {
 	private:
 		int brickType;
 		sf::Vector2f size;
-		sf::Vector2f position;
 
 	public:
 		//---- Constructor --------------------------------------------------------------------------------------
