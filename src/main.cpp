@@ -17,6 +17,8 @@
 #include "gameobjects/floor.hpp"
 #include "gameobjects/player.hpp"
 #include "gameobjects/npc.hpp"
+#include "gameobjects/button.hpp"
+#include "scenes/menu.hpp"
 
 #include <iostream>
 #include <memory>
@@ -80,10 +82,21 @@ int main()
 	auto floor = unique_ptr<Floor>(new Floor(sf::Vector2f(0,0), sf::Vector2f(100 * Brick::WIDTH, 40 * Brick::HEIGHT)));
 	initScene->addGameObject(move(floor));
 
-	// Start the game with that scene
-	game.run(move(initScene));
-//
-//	// end
+
+	vector<std::string >  menuItems;
+	menuItems.push_back("Spiel starten!");
+	menuItems.push_back("Optionen");
+	menuItems.push_back("Beenden");
+
+	vector<unique_ptr<Scene> > scenes;
+	scenes.push_back(move(initScene));
+
+
+	unique_ptr<Menu> menuScene = unique_ptr<Menu>(new Menu(500, 500, menuItems, scenes, &game));
+
+	//Start the game with that scene
+	game.run(move(menuScene));
+
 	TextureManager::reset();
 	return 0;
 }
