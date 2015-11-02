@@ -14,11 +14,12 @@ namespace theseus
 
 		class Menu
 			: public engine::Scene
+		
 		{
 		private:
 			int selectedItemIndex;
 			int numberOfItems;
-			Button button[];
+			std::vector<std::unique_ptr<gameobjects::Button> > buttons;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
@@ -32,6 +33,10 @@ namespace theseus
 
 			//---- Methods ------------------------------------------------------------------------------------------
 
+			/**
+			* Passes the key-down event to the game objects.
+			*/
+			void handleKeyDownEvent(sf::Keyboard::Key key);
 		};
 
 	}
