@@ -3,7 +3,7 @@
 #include "engine/texturemanager.hpp"
 #include "gameobjects/ball.hpp"
 #include "gameobjects/character.hpp"
-#include "gameobjects/map/layer.hpp"
+#include "map/layer.hpp"
 #include "gameobjects/coffee.hpp"
 #include "gameobjects/chalk.hpp"
 #include "gameobjects/math_solution.hpp"
@@ -26,7 +26,7 @@
 using namespace std;
 using namespace theseus::engine;
 using namespace theseus::gameobjects;
-using namespace theseus::gameobjects::map;
+using namespace theseus::map;
 
 int main()
 {
@@ -74,9 +74,9 @@ int main()
 	initScene->addGameObject(move(man));
 
 	int x = 0;
-	for(x = 0; x < 1000; x++) {
+	for(x = 0; x < 100; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
-		npc->setPosition(sf::Vector2f(rand() % 10000, rand() % 10000));
+		npc->setPosition(sf::Vector2f(rand() % 1000, rand() % 1000));
 		initScene->addGameObject(move(npc));
 	}
 

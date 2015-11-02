@@ -5,13 +5,12 @@
 #ifndef THESEUS_MAP_LAYER
 #define THESEUS_MAP_LAYER
 #include "room.hpp"
-#include "brick.hpp"
+#include "../gameobjects/brick.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
 
 namespace theseus {
-namespace gameobjects {
 namespace map {
 	enum Direction {
 		NORTH = 0,
@@ -33,7 +32,7 @@ namespace map {
 			std::vector<std::vector<FieldStatus> > layer;
 			std::vector<std::unique_ptr<Room> > rooms;
 			int drawLine(int x, int y, Direction direction, int length, FieldStatus status);
-			std::vector<std::unique_ptr<Brick> > bricks;
+			std::vector<std::unique_ptr<theseus::gameobjects::Brick> > bricks;
 			void generateGameObjectField();
 			void addDoor(int x, int y, int width, int height);
 		public:
@@ -70,7 +69,6 @@ namespace map {
 			 */
 			friend std::ostream& operator<<(std::ostream&, const Layer&);
 	};
-}
 }
 }
 #endif

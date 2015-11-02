@@ -1,11 +1,11 @@
 #include "brick.hpp"
-#include "../../engine/scene.hpp"
-#include "../../engine/game.hpp"
-#include "../../engine/texturemanager.hpp"
+#include "../engine/scene.hpp"
+#include "../engine/game.hpp"
+#include "../engine/texturemanager.hpp"
 #include <SFML/Graphics.hpp>
 #include <cassert>
 
-using namespace theseus::gameobjects::map;
+using namespace theseus::gameobjects;
 using namespace theseus::engine;
 
 Brick::Brick(BrickType brickType, int x, int y) {

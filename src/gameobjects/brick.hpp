@@ -4,9 +4,9 @@
 #ifndef _THESEUS_GAME_OBJECTS_BRICK_H
 #define _THESEUS_GAME_OBJECTS_BRICK_H
 
-#include "../../engine/gameobject.hpp"
-#include "../../engine/components/sprite.hpp"
-#include "../../engine/components/solide.hpp"
+#include "../engine/gameobject.hpp"
+#include "../engine/components/sprite.hpp"
+#include "../engine/components/solide.hpp"
 
 namespace theseus
 {
@@ -16,7 +16,6 @@ namespace engine
 }
 namespace gameobjects
 {
-namespace map {
 	enum BrickType {
 		HORIZONAL,
 		VERTICAL,
@@ -56,7 +55,6 @@ namespace map {
 
 		enum { WIDTH = 32, HEIGHT = 64 };
 	};
-}
 }
 }
 
