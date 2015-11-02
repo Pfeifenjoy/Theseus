@@ -13,19 +13,15 @@ namespace gameobjects
 {
 	class Character 
 		: public engine::GameObject
-		, public virtual engine::components::Update
 		, public virtual engine::components::Animation
 		, public virtual engine::components::Speed
 	{
 	private:
-		// events
-		void onUpdate(float passedTime);
-
 		// state changes
 		sf::Vector2i direction;
-		void setDirection(sf::Vector2i direction, bool force_update = false);
 
 	public:
+		void setDirection(sf::Vector2i direction, bool force_update = false);
 		//---- Constructor --------------------------------------------------------------------------------------
 		
 		Character();

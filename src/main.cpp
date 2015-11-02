@@ -4,7 +4,19 @@
 #include "gameobjects/ball.hpp"
 #include "gameobjects/character.hpp"
 #include "gameobjects/map/layer.hpp"
-#include "gameobjects/map/brick.hpp"
+#include "gameobjects/coffee.hpp"
+#include "gameobjects/chalk.hpp"
+#include "gameobjects/math_solution.hpp"
+#include "gameobjects/instrument_hofmann.hpp"
+#include "gameobjects/uml_diagramm.hpp"
+#include "gameobjects/apfeltasche.hpp"
+#include "gameobjects/c_exam.hpp"
+#include "gameobjects/setlx_cup.hpp"
+#include "gameobjects/fructiv.hpp"
+#include "gameobjects/table.hpp"
+#include "gameobjects/floor.hpp"
+#include "gameobjects/player.hpp"
+#include "gameobjects/npc.hpp"
 
 #include <iostream>
 #include <memory>
@@ -16,7 +28,8 @@ using namespace theseus::gameobjects::map;
 
 int main()
 {
-    cout << "Hello." << endl;
+	cout << "Hello." << endl;
+	srand((unsigned)time(NULL));
 
 //	// Load the game
 	theseus::engine::Game game;
@@ -26,6 +39,7 @@ int main()
 //
 	// load the textures
 	TextureManager::instance().loadTexture("player.png");
+	TextureManager::instance().loadTexture("player2.png");
 	TextureManager::instance().loadTexture("wall_horizontal.png");
 	TextureManager::instance().loadTexture("wall_vertical.png");
 	TextureManager::instance().loadTexture("wall_edge_left_bottom.png");
@@ -41,15 +55,10 @@ int main()
 	TextureManager::instance().loadTexture("wall_cross.png");
 	TextureManager::instance().loadTexture("wall_T_cross.png");
 	TextureManager::instance().loadTexture("wall_T_upsidedown_cross.png");
+	TextureManager::instance().loadTexture("ball.png");
+	TextureManager::instance().loadTexture("floor_black.png");
 
-//	// Populate it with some game objects
-//	auto wall = unique_ptr<Brick>(new Brick(HORIZONAL, sf::Vector2f(50, 50), sf::Vector2f(320, 64)));
-//	initScene->addGameObject(move(wall));
-//
-//	auto man = unique_ptr<Character>(new Character);
-//	initScene->addGameObject(move(man));
-//
-//	// Start the game with that scene
+
 	Layer layer(100, 40);
 	auto objects = layer.getGameObjects();
 	cout << objects.size() <<endl;
@@ -57,6 +66,18 @@ int main()
 		initScene->addGameObject(move(object));
 	}
 	cout << layer << endl;
+
+	auto man = unique_ptr<Player>(new Player);
+	initScene->addGameObject(move(man));
+
+	auto npc = unique_ptr<NPC>(new NPC);
+	npc->setPosition(sf::Vector2f(200, 200));
+	initScene->addGameObject(move(npc));
+
+	auto floor = unique_ptr<Floor>(new Floor(sf::Vector2f(0,0), sf::Vector2f(500,500)));
+	initScene->addGameObject(move(floor));
+
+	// Start the game with that scene
 	game.run(move(initScene));
 //
 //	// end
