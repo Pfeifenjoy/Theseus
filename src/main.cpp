@@ -59,8 +59,18 @@ int main()
 	TextureManager::instance().loadTexture("wall_T_upsidedown_cross.png");
 	TextureManager::instance().loadTexture("ball.png");
 	TextureManager::instance().loadTexture("floor_black.png");
-
-
+	TextureManager::instance().loadTexture("item_table.png");
+	TextureManager::instance().loadTexture("item_table2.png");
+	TextureManager::instance().loadTexture("item_level_4_UML.png");
+	TextureManager::instance().loadTexture("item_level_3_solutions.png");
+	TextureManager::instance().loadTexture("item_level_4_meter.png");
+	TextureManager::instance().loadTexture("item_level_6_fructiv.png");
+	TextureManager::instance().loadTexture("item_coffee.png");
+	TextureManager::instance().loadTexture("item_level_2_chalk.png");
+	TextureManager::instance().loadTexture("item_level_5_exam.png");
+	TextureManager::instance().loadTexture("item_level_5_appleturnover.png");
+	
+	
 	Layer layer(100, 40);
 	auto objects = layer.getGameObjects();
 	cout << objects.size() <<endl;
@@ -73,6 +83,34 @@ int main()
 	man->setPosition(sf::Vector2f (65, 65));
 	initScene->addGameObject(move(man));
 
+	//Testing if the gameobject images are correct ---------------------
+
+	auto uml = unique_ptr<UMLDiagramm>(new UMLDiagramm(sf::Vector2f(32, 64)));
+	initScene->addGameObject(move(uml));
+
+	auto meter = unique_ptr<Instrument>(new Instrument(sf::Vector2f(32, 128)));
+	initScene->addGameObject(move(meter));
+	
+	auto solution = unique_ptr<MathSolution>(new MathSolution(sf::Vector2f(32, 192)));
+	initScene->addGameObject(move(solution));
+
+	auto fructiv = unique_ptr<Fructiv>(new Fructiv(sf::Vector2f(32, 254)));
+	initScene->addGameObject(move(fructiv));
+	
+	auto coffee = unique_ptr<Coffee>(new Coffee(sf::Vector2f(64, 64)));
+	initScene->addGameObject(move(coffee));
+	
+	auto chalk = unique_ptr<Chalk>(new Chalk(sf::Vector2f(64, 128)));
+	initScene->addGameObject(move(chalk));
+	
+	auto cexam = unique_ptr<CExam>(new CExam(sf::Vector2f(64, 192)));
+	initScene->addGameObject(move(cexam));
+
+	auto apple = unique_ptr<Apfeltasche>(new Apfeltasche(sf::Vector2f(64, 254)));
+	initScene->addGameObject(move(apple));
+
+	
+	//---------------------------------------------------------------------------------
 	int x = 0;
 	for(x = 0; x < 100; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);

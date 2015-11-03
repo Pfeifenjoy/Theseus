@@ -16,7 +16,7 @@ using namespace theseus::engine;
 Instrument::Instrument(sf::Vector2f position) {
 
 	// texture
-	setTexture(3, TextureManager::instance().getTexture("ball.png"));
+	setTexture(3, TextureManager::instance().getTexture("item_level_4_meter.png"));
 
 	// position
 	setPosition(position);
