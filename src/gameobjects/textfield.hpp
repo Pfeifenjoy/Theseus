@@ -21,11 +21,18 @@ namespace theseus
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
-			Textfield(std::string text, sf::Vector2f position, sf::Color textcolor);
+			Textfield(std::string text, sf::Color textcolor);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 
 			~Textfield();
+
+			// Returns the width of the textfield
+			int getTextWidth();
+
+			// Sets the character size of the string in px
+			void setCharSize(int size);
+
 		};
 	}
 }

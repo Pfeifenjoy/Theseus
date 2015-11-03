@@ -23,18 +23,25 @@ Menu::Menu(float width, float height, const std::vector<std::string>& menuItems,
 	this->game = game;
 
 	// Generate Buttons with the provided text
-	for (int i = 0; i < numberOfItems; i++)
-	{
-		unique_ptr<Textfield>	button = unique_ptr<Textfield>(new Textfield(menuItems[i], sf::Vector2f(width / 3, height / (numberOfItems + 1) * (1 + i)), sf::Color::White));
+	for (int i = 0; i < numberOfItems; i++) {
 
+		unique_ptr<Textfield>	button = unique_ptr<Textfield>(new Textfield(menuItems[i], sf::Color::White));
+		
+		// Center the button
+		button->setPosition(sf::Vector2f(width / 2 - button->getTextWidth() / 2, height / (numberOfItems + 2) * (1 + i)));
+		
 		buttons.push_back(button.get());
 		this->addGameObject(move(button));
-
 	}
 
 	// Select first button
 	this->selectedItemIndex = 0;
 	buttons[0]->setColor(4, sf::Color::Red);
+
+	unique_ptr<Textfield> infoField = unique_ptr<Textfield>(new Textfield("Use <W>, <S> and <Return> to select an entry.", sf::Color::White));
+	infoField->setCharSize(14);
+	infoField->setPosition(sf::Vector2f(width / 2 - infoField->getTextWidth() / 2, height / (numberOfItems + 2) * (1 + numberOfItems)));
+	this->addGameObject(move(infoField));
 }
 
 void Menu::handleKeyDownEvent(sf::Keyboard::Key key)
@@ -48,13 +55,16 @@ void Menu::handleKeyDownEvent(sf::Keyboard::Key key)
 		buttons[selectedItemIndex]->setColor(4, sf::Color::White);
 		buttons[++selectedItemIndex]->setColor(4, sf::Color::Red);
 	}
+	// Check if a entry gets selected
 	if (key == sf::Keyboard::Return) {
 		// Start new scene
-		game->startScene(move(scenes[selectedItemIndex]));
+		if (selectedItemIndex < scenes.size()) {
+			if (scenes[selectedItemIndex] != nullptr) {
+				game->startScene(move(scenes[selectedItemIndex]));
+			}
+		}
 	}
-
 }
-
 
 Menu::~Menu()
 {

@@ -28,7 +28,7 @@ namespace theseus
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
-
+			// Generates a new menu scene, Menu(window.width, window.height, menuitems, scenes, current game)
 			Menu(float width, float height, const std::vector<std::string>& menuItems, std::vector<std::unique_ptr<engine::Scene> >& scenes, engine::Game * game);
 
 			//---- Destructor ---------------------------------------------------------------------------------------

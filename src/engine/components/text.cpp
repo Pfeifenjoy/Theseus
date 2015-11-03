@@ -6,12 +6,12 @@
 using namespace theseus::engine::components;
 
 void Text::setText(int layer, std::string text)
-{	
+{
 	if (!font.loadFromFile("./resources/fonts/arial.ttf"))
 	{
 		throw std::invalid_argument("Couldn't load font.");
 	}
-	else{
+	else {
 		texts[layer].setFont(font);
 		texts[layer].setString(text);
 		activateLayer(layer, &texts[layer]);
@@ -24,9 +24,14 @@ void Text::setColor(int layer, sf::Color color)
 	texts[layer].setColor(color);
 }
 
-void Text::setTextSize(int layer, int textSize)
+void Text::setCharSize(int layer, int textSize)
 {
 	texts[layer].setCharacterSize(textSize);
+}
+
+int  Text::getTextWidth(int layer)
+{
+	return texts[layer].getLocalBounds().width;
 }
 
 

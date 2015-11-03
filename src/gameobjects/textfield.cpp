@@ -7,12 +7,22 @@
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
 
-Textfield::Textfield(std::string text, sf::Vector2f position, sf::Color textcolor)
+Textfield::Textfield(std::string text, sf::Color textcolor)
 {
-	setPosition(position);
 	setText(4, text);
 	setColor(4, textcolor);
 
 }
+
+int Textfield::getTextWidth()
+{
+	return Text::getTextWidth(4);
+}
+
+void Textfield::setCharSize(int size)
+{
+	Text::setCharSize(4, size);
+}
+
 
 Textfield::~Textfield() {}
