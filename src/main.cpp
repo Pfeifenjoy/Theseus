@@ -19,6 +19,8 @@
 #include "gameobjects/npc.hpp"
 #include "gameobjects/button.hpp"
 #include "scenes/menu.hpp"
+#include "gameobjects/bizagi_cd.hpp"
+#include "gameobjects/throwing_cup.hpp"
 
 #include <iostream>
 #include <memory>
@@ -70,7 +72,8 @@ int main()
 	TextureManager::instance().loadTexture("item_level_5_exam.png");
 	TextureManager::instance().loadTexture("item_level_5_appleturnover.png");
 	TextureManager::instance().loadTexture("item_level_6_cup.png");
-	
+	TextureManager::instance().loadTexture("item_level_1_bizagi_cd.png");
+	TextureManager::instance().loadTexture("item_level_6_cup2.png");
 	
 	Layer layer(100, 40);
 	auto objects = layer.getGameObjects();
@@ -113,7 +116,11 @@ int main()
 	auto cup = unique_ptr<SetlxCup>(new SetlxCup(sf::Vector2f(32, 318)));
 	initScene->addGameObject(move(cup));
 
-	
+	auto bizagi = unique_ptr<BizagiCD>(new BizagiCD(sf::Vector2f(64, 318)));
+	initScene->addGameObject(move(bizagi));
+
+	auto throwing = unique_ptr<ThrowingCup>(new ThrowingCup(sf::Vector2f(32, 382)));
+	initScene->addGameObject(move(throwing));
 	//---------------------------------------------------------------------------------
 	int x = 0;
 	for(x = 0; x < 100; x++) {
