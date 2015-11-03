@@ -142,7 +142,7 @@ int main()
 	scenes.push_back(move(initScene));
 
 
-	unique_ptr<Menu> menuScene = unique_ptr<Menu>(new Menu(900, 600, menuItems, scenes, &game));
+	unique_ptr<Menu> menuScene = unique_ptr<Menu>(new Menu(menuItems, scenes, &game));
 
 	//Start the game with that scene
 	game.run(move(menuScene));

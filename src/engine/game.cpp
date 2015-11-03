@@ -14,7 +14,7 @@ const bool FULLSCREEN = false;
 Game::Game()
 {
 
-	if(FULLSCREEN)
+	if (FULLSCREEN)
 		window.create(sf::VideoMode().getFullscreenModes()[0], "", sf::Style::Fullscreen);
 	else window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGTH), "");
 	window.setVerticalSyncEnabled(true);
@@ -32,7 +32,7 @@ void Game::run(unique_ptr<Scene> initialScene)
 	sf::Clock fpsClock;
 	int fpsCounter = 0;
 	bool exit = false;
-	while(!exit)
+	while (!exit)
 	{
 		// measure fps
 		++fpsCounter;
@@ -58,7 +58,7 @@ void Game::run(unique_ptr<Scene> initialScene)
 			exit = event.type == sf::Event::Closed;
 
 			// handle event
-			switch(event.type)
+			switch (event.type)
 			{
 			case sf::Event::KeyPressed:
 				activeScene->handleKeyDownEvent(event.key.code);
@@ -81,10 +81,17 @@ void Game::run(unique_ptr<Scene> initialScene)
 	}
 }
 
+sf::Vector2i Game::getScreenResolution() {
+	if (FULLSCREEN)
+		return sf::Vector2i(sf::VideoMode().getDesktopMode().width, sf::VideoMode().getDesktopMode().height);
+	else
+		return sf::Vector2i(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGTH);
+}
+
 void Game::startScene(std::unique_ptr<Scene> scene)
 {
 	sceneToLoad = std::move(scene);
 }
 
 
-Game::~Game(){}
+Game::~Game() {}

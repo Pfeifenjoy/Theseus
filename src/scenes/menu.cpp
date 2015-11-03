@@ -15,12 +15,14 @@ using namespace theseus::engine::components;
 
 // ToDo: exit menu / start last scene / quit program
 
-Menu::Menu(float width, float height, const std::vector<std::string>& menuItems, std::vector<unique_ptr<Scene> >& scenes, Game * game)
+Menu::Menu(const std::vector<std::string>& menuItems, std::vector<unique_ptr<Scene> >& scenes, Game * game)
 {
 
 	this->numberOfItems = menuItems.size();
 	this->scenes = move(scenes);
 	this->game = game;
+	this->screenWidth = game->getScreenResolution().x;
+	this->screenHeigth = game->getScreenResolution().y;
 
 	// Generate Buttons with the provided text
 	for (int i = 0; i < numberOfItems; i++) {
@@ -28,7 +30,7 @@ Menu::Menu(float width, float height, const std::vector<std::string>& menuItems,
 		unique_ptr<Textfield>	button = unique_ptr<Textfield>(new Textfield(menuItems[i], sf::Color::White));
 		
 		// Center the button
-		button->setPosition(sf::Vector2f(width / 2 - button->getTextWidth() / 2, height / (numberOfItems + 2) * (1 + i)));
+		button->setPosition(sf::Vector2f(screenWidth / 2 - button->getTextWidth() / 2, screenHeigth / (numberOfItems + 2) * (1 + i)));
 		
 		buttons.push_back(button.get());
 		this->addGameObject(move(button));
@@ -40,7 +42,7 @@ Menu::Menu(float width, float height, const std::vector<std::string>& menuItems,
 
 	unique_ptr<Textfield> infoField = unique_ptr<Textfield>(new Textfield("Use <W>, <S> and <Return> to select an entry.", sf::Color::White));
 	infoField->setCharSize(14);
-	infoField->setPosition(sf::Vector2f(width / 2 - infoField->getTextWidth() / 2, height / (numberOfItems + 2) * (1 + numberOfItems)));
+	infoField->setPosition(sf::Vector2f(screenWidth / 2 - infoField->getTextWidth() / 2, screenHeigth / (numberOfItems + 2) * (1 + numberOfItems)));
 	this->addGameObject(move(infoField));
 }
 
