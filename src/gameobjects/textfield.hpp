@@ -1,8 +1,8 @@
 /**
 * @author Philipp Pütz
 */
-#ifndef _THESEUS_GAME_OBJECTS_BUTTON_H
-#define _THESEUS_GAME_OBJECTS_BUTTON_H
+#ifndef _THESEUS_GAME_OBJECTS_TEXTFIELD_H
+#define _THESEUS_GAME_OBJECTS_TEXTFIELD_H
 
 #include "../engine/gameobject.hpp"
 #include "../engine/components/text.hpp"
@@ -12,7 +12,7 @@ namespace theseus
 {
 	namespace gameobjects
 	{
-		class Button
+		class Textfield
 			: public engine::GameObject
 			, public virtual engine::components::Text
 		{
@@ -21,11 +21,11 @@ namespace theseus
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
-			Button(std::string text, sf::Vector2f position, sf::Color textcolor);
+			Textfield(std::string text, sf::Vector2f position, sf::Color textcolor);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 
-			~Button();
+			~Textfield();
 		};
 	}
 }

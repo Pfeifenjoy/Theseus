@@ -1,3 +1,6 @@
+/**
+*   Author: Philipp Pütz, Arwed Mett
+*/
 #include "brick.hpp"
 #include "../../engine/scene.hpp"
 #include "../../engine/game.hpp"

@@ -1,5 +1,5 @@
 /**
- *   Author: Leon Mutschke
+ *   Author: Leon Mutschke, Philipp Pütz
  */
 
 #ifndef _THESEUS_GAME_FLOOR_H

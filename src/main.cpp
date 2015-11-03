@@ -17,7 +17,7 @@
 #include "gameobjects/floor.hpp"
 #include "gameobjects/player.hpp"
 #include "gameobjects/npc.hpp"
-#include "gameobjects/button.hpp"
+#include "gameobjects/textfield.hpp"
 #include "scenes/menu.hpp"
 
 #include <iostream>
@@ -74,9 +74,9 @@ int main()
 	initScene->addGameObject(move(man));
 
 	int x = 0;
-	for(x = 0; x < 1000; x++) {
+	for(x = 0; x < 100; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
-		npc->setPosition(sf::Vector2f(rand() % 10000, rand() % 10000));
+		npc->setPosition(sf::Vector2f(rand() % 1000, rand() % 1000));
 		initScene->addGameObject(move(npc));
 	}
 
@@ -93,7 +93,7 @@ int main()
 	scenes.push_back(move(initScene));
 
 
-	unique_ptr<Menu> menuScene = unique_ptr<Menu>(new Menu(500, 500, menuItems, scenes, &game));
+	unique_ptr<Menu> menuScene = unique_ptr<Menu>(new Menu(900, 600, menuItems, scenes, &game));
 
 	//Start the game with that scene
 	game.run(move(menuScene));

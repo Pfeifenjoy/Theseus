@@ -4,7 +4,7 @@
 #include "menu.hpp"
 #include "../engine/game.hpp"
 #include "../engine/scene.hpp"
-#include "../gameobjects/button.hpp"
+#include "../gameobjects/textfield.hpp"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -25,7 +25,7 @@ Menu::Menu(float width, float height, const std::vector<std::string>& menuItems,
 	// Generate Buttons with the provided text
 	for (int i = 0; i < numberOfItems; i++)
 	{
-		unique_ptr<Button>	button = unique_ptr<Button>(new Button(menuItems[i], sf::Vector2f(width / 3, height / (numberOfItems + 1) * (1 + i)), sf::Color::White));
+		unique_ptr<Textfield>	button = unique_ptr<Textfield>(new Textfield(menuItems[i], sf::Vector2f(width / 3, height / (numberOfItems + 1) * (1 + i)), sf::Color::White));
 
 		buttons.push_back(button.get());
 		this->addGameObject(move(button));
@@ -39,7 +39,7 @@ Menu::Menu(float width, float height, const std::vector<std::string>& menuItems,
 
 void Menu::handleKeyDownEvent(sf::Keyboard::Key key)
 {
-	// Select Button below/above
+	// Select Textfield below/above
 	if (key == sf::Keyboard::W && (selectedItemIndex - 1) >= 0) {
 		buttons[selectedItemIndex]->setColor(4, sf::Color::White);
 		buttons[--selectedItemIndex]->setColor(4, sf::Color::Red);

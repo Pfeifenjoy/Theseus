@@ -6,7 +6,7 @@
 
 #include "../engine/scene.hpp"
 #include "../engine/game.hpp"
-#include "../gameobjects/button.hpp"
+#include "../gameobjects/textfield.hpp"
 #include <memory>
 #include <vector>
 
@@ -22,7 +22,7 @@ namespace theseus
 		private:
 			int selectedItemIndex;
 			int numberOfItems;
-			std::vector<gameobjects::Button *>  buttons;
+			std::vector<gameobjects::Textfield *>  buttons;
 			std::vector<std::unique_ptr<Scene> > scenes;
 			engine::Game * game;
 

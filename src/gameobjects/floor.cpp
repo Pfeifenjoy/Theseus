@@ -1,5 +1,5 @@
 /**
-*   Author: Leon Mutschke
+*   Author: Leon Mutschke, Philipp Pütz
 */
 
 #include "floor.hpp"
