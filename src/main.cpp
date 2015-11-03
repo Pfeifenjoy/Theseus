@@ -3,7 +3,7 @@
 #include "engine/texturemanager.hpp"
 #include "gameobjects/ball.hpp"
 #include "gameobjects/character.hpp"
-#include "gameobjects/map/layer.hpp"
+#include "map/layer.hpp"
 #include "gameobjects/coffee.hpp"
 #include "gameobjects/chalk.hpp"
 #include "gameobjects/math_solution.hpp"
@@ -19,6 +19,8 @@
 #include "gameobjects/npc.hpp"
 #include "gameobjects/textfield.hpp"
 #include "scenes/menu.hpp"
+#include "gameobjects/bizagi_cd.hpp"
+#include "gameobjects/throwing_cup.hpp"
 
 #include <iostream>
 #include <memory>
@@ -26,7 +28,7 @@
 using namespace std;
 using namespace theseus::engine;
 using namespace theseus::gameobjects;
-using namespace theseus::gameobjects::map;
+using namespace theseus::map;
 
 int main()
 {
@@ -59,8 +61,20 @@ int main()
 	TextureManager::instance().loadTexture("wall_T_upsidedown_cross.png");
 	TextureManager::instance().loadTexture("ball.png");
 	TextureManager::instance().loadTexture("floor_black.png");
-
-
+	TextureManager::instance().loadTexture("item_table.png");
+	TextureManager::instance().loadTexture("item_table2.png");
+	TextureManager::instance().loadTexture("item_level_4_UML.png");
+	TextureManager::instance().loadTexture("item_level_3_solutions.png");
+	TextureManager::instance().loadTexture("item_level_4_meter.png");
+	TextureManager::instance().loadTexture("item_level_6_fructiv.png");
+	TextureManager::instance().loadTexture("item_coffee.png");
+	TextureManager::instance().loadTexture("item_level_2_chalk.png");
+	TextureManager::instance().loadTexture("item_level_5_exam.png");
+	TextureManager::instance().loadTexture("item_level_5_appleturnover.png");
+	TextureManager::instance().loadTexture("item_level_6_cup.png");
+	TextureManager::instance().loadTexture("item_level_1_bizagi_cd.png");
+	TextureManager::instance().loadTexture("item_level_6_cup2.png");
+	
 	Layer layer(100, 40);
 	auto objects = layer.getGameObjects();
 	cout << objects.size() <<endl;
@@ -73,6 +87,41 @@ int main()
 	man->setPosition(sf::Vector2f (65, 65));
 	initScene->addGameObject(move(man));
 
+	//Testing if the gameobject images are correct ---------------------
+
+	auto uml = unique_ptr<UMLDiagramm>(new UMLDiagramm(sf::Vector2f(32, 64)));
+	initScene->addGameObject(move(uml));
+
+	auto meter = unique_ptr<Instrument>(new Instrument(sf::Vector2f(32, 128)));
+	initScene->addGameObject(move(meter));
+	
+	auto solution = unique_ptr<MathSolution>(new MathSolution(sf::Vector2f(32, 192)));
+	initScene->addGameObject(move(solution));
+
+	auto fructiv = unique_ptr<Fructiv>(new Fructiv(sf::Vector2f(32, 254)));
+	initScene->addGameObject(move(fructiv));
+	
+	auto coffee = unique_ptr<Coffee>(new Coffee(sf::Vector2f(64, 64)));
+	initScene->addGameObject(move(coffee));
+	
+	auto chalk = unique_ptr<Chalk>(new Chalk(sf::Vector2f(64, 128)));
+	initScene->addGameObject(move(chalk));
+	
+	auto cexam = unique_ptr<CExam>(new CExam(sf::Vector2f(64, 192)));
+	initScene->addGameObject(move(cexam));
+
+	auto apple = unique_ptr<Apfeltasche>(new Apfeltasche(sf::Vector2f(64, 254)));
+	initScene->addGameObject(move(apple));
+
+	auto cup = unique_ptr<SetlxCup>(new SetlxCup(sf::Vector2f(32, 318)));
+	initScene->addGameObject(move(cup));
+
+	auto bizagi = unique_ptr<BizagiCD>(new BizagiCD(sf::Vector2f(64, 318)));
+	initScene->addGameObject(move(bizagi));
+
+	auto throwing = unique_ptr<ThrowingCup>(new ThrowingCup(sf::Vector2f(32, 382)));
+	initScene->addGameObject(move(throwing));
+	//---------------------------------------------------------------------------------
 	int x = 0;
 	for(x = 0; x < 100; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);

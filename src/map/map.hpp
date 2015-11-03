@@ -1,17 +1,16 @@
 /**
- * author Arwed Mett
+ * @author Arwed Mett
  */
 #ifndef THESEUS_MAP_MAP
 #define THESEUS_MAP_MAP
 #include <vector>
 #include <memory>
 #include "layer.hpp"
-#include "../../engine/scene.hpp"
-#include "../../engine/components/update.hpp"
-#include "../../engine/components/drawable.hpp"
+#include "../engine/scene.hpp"
+#include "../engine/components/update.hpp"
+#include "../engine/components/drawable.hpp"
 
 namespace theseus {
-namespace gameobjects {
 namespace map {
 	class Map;
 	std::ostream& operator<<(std::ostream&, const Map&);
@@ -28,7 +27,6 @@ namespace map {
 			Map(engine::Scene&);
 			friend std::ostream& operator<<(std::ostream&, const Map&);
 	};
-}
 }
 }
 #endif

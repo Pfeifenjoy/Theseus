@@ -1,7 +1,7 @@
 /*
 * @author Dominic Steinhauser
 */
-#include "apfeltasche.hpp"
+#include "bizagi_cd.hpp"
 #include "../engine/texturemanager.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -13,17 +13,16 @@ using namespace std::placeholders;
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
 
-Apfeltasche::Apfeltasche(sf::Vector2f position) {
+BizagiCD::BizagiCD(sf::Vector2f position) {
 
 	// texture
-	setTexture(3, TextureManager::instance().getTexture("item_level_5_appleturnover.png"));
+	setTexture(3, TextureManager::instance().getTexture("item_level_1_bizagi_cd.png"));
 
-	//position
+	// position
 	setPosition(position);
-	
 
 
 }
 
-Apfeltasche::~Apfeltasche() {
+BizagiCD::~BizagiCD() {
 }

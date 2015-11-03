@@ -16,7 +16,7 @@ using namespace theseus::engine;
 Fructiv::Fructiv(sf::Vector2f position) {
 
 	// texture
-	setTexture(3, TextureManager::instance().getTexture("ball.png"));
+	setTexture(3, TextureManager::instance().getTexture("item_level_6_fructiv.png"));
 
 	// position
 	setPosition(position);

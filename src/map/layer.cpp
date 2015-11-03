@@ -1,9 +1,10 @@
 #include "layer.hpp"
 #include <cassert>
 #include <time.h>
-#include "brick.hpp"
+#include "../gameobjects/brick.hpp"
 
-using namespace theseus::gameobjects::map;
+using namespace theseus::map;
+using namespace theseus::gameobjects;
 using namespace std;
 
 Layer::Layer(int width, int height) {
@@ -213,7 +214,7 @@ vector<unique_ptr<theseus::engine::GameObject> > Layer::getGameObjects() {
 	return result;
 }
 
-ostream& theseus::gameobjects::map::operator<<(ostream& os, const Layer& layer) {
+ostream& theseus::map::operator<<(ostream& os, const Layer& layer) {
 	int i = 0, j = 0;
 
 	for(i = 0; i < (int) layer.layer[0].size(); i++) {
