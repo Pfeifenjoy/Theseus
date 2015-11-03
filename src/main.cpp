@@ -69,6 +69,7 @@ int main()
 	TextureManager::instance().loadTexture("item_level_2_chalk.png");
 	TextureManager::instance().loadTexture("item_level_5_exam.png");
 	TextureManager::instance().loadTexture("item_level_5_appleturnover.png");
+	TextureManager::instance().loadTexture("item_level_6_cup.png");
 	
 	
 	Layer layer(100, 40);
@@ -108,6 +109,9 @@ int main()
 
 	auto apple = unique_ptr<Apfeltasche>(new Apfeltasche(sf::Vector2f(64, 254)));
 	initScene->addGameObject(move(apple));
+
+	auto cup = unique_ptr<SetlxCup>(new SetlxCup(sf::Vector2f(32, 318)));
+	initScene->addGameObject(move(cup));
 
 	
 	//---------------------------------------------------------------------------------
