@@ -11,14 +11,15 @@ namespace theseus {
 namespace map {
 	class Room {
 		private:
-			int x;
-			int y;
-			int width;
-			int height;
-			std::vector<std::shared_ptr<engine::GameObject> > gameobjects;
+			sf::Vector2f position;
+			float width;
+			float height;
+			std::vector<std::unique_ptr<theseus::engine::GameObject> > gameobjects;
 		public:
-			Room(int x, int y, int width, int height) : x(x), y(y), width(width), height(height) {}
+			Room(float width, float height) :width(width), height(height) {}
+			void setPosition(sf::Vector2f);
 			void addGameObject(std::shared_ptr<engine::GameObject>);
+			std::vector<std::unique_ptr<theseus::engine::GameObject> > getGameObjects();
 
 	};
 }
