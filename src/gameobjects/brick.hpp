@@ -1,5 +1,5 @@
 /**
- * author Philipp Pütz, Arwed Mett
+ * @author Philipp Pütz, Arwed Mett
  */
 #ifndef _THESEUS_GAME_OBJECTS_BRICK_H
 #define _THESEUS_GAME_OBJECTS_BRICK_H

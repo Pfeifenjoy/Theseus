@@ -1,3 +1,6 @@
+/**
+ * @autor Arwed Mett
+ */
 #ifndef THESEUS_MAP_ROOM
 #define THESEUS_MAP_ROOM
 #include <vector>

@@ -15,7 +15,7 @@ Layer::Layer(int width, int height) {
 	this->addWall(1, 0, EAST, width);
 	this->addWall(1, height - 1, EAST, width - 1);
 	this->addWall(width - 1, 1, SOUTH, height - 2);
-	this->fillWithRooms(7, 10, 100);
+	this->fillWithRooms(7, 10, rand() % 20 + 1);
 	fillWithWalls(3, 20, 16, 200);
 	fillWithWalls(3, 20, 8, 200);
 	fillWithWalls(3, 20, 4, 200);
@@ -125,7 +125,8 @@ void Layer::addRoom(int x, int y, int width, int height) {
 
 void Layer::addDoor(int x, int y, int width, int height) {
 	int side = rand() % 4;
-	int offset = rand() % ((side % 2 ? width : height) - 2) + 1;
+	int offset = rand() % ((side % 2 ? height : width) - 2) + 1;
+	//int offset = (side % 2 ? height : width) - 2;
 	switch(side) {
 		case 0: x += offset; break;
 		case 1: y += offset; x += width - 1; break;
