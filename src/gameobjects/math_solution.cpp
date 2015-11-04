@@ -16,7 +16,7 @@ using namespace theseus::engine;
 MathSolution::MathSolution(sf::Vector2f position) {
 
 	// texture
-	setTexture(3, TextureManager::instance().getTexture("item_level_3_solutions.png"));
+	setTexture(1, TextureManager::instance().getTexture("item_level_3_solutions.png"));
 
 	// position
 	setPosition(position);

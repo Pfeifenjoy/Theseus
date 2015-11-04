@@ -16,7 +16,7 @@ using namespace theseus::engine;
 Chalk::Chalk(sf::Vector2f position) {
 
 	// texture
-	setTexture(3, TextureManager::instance().getTexture("item_level_2_chalk.png"));
+	setTexture(1, TextureManager::instance().getTexture("item_level_2_chalk.png"));
 
 	// position
 	setPosition(position);
