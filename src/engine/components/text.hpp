@@ -33,7 +33,10 @@ namespace theseus
 				void setColor(int layer, sf::Color);
 
 				// Sets the text size in px
-				void setTextSize(int layer, int textSize);
+				virtual void setCharSize(int layer, int textSize);
+
+				// Retuns the width of the text
+				virtual int getTextWidth(int layer);
 
 				/**
 				* Returns a reference(!) to the text.

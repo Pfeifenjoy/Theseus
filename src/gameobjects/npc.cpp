@@ -23,7 +23,7 @@ NPC::NPC()
 	evCollisionDetected.subscribe(bind(&NPC::onCollision, this, _1));
 
 	// texture
-	setTexture(3, TextureManager::instance().getTexture("player2.png"));
+	setTexture(2, TextureManager::instance().getTexture("player2.png"));
 
 }
 

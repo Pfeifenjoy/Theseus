@@ -16,7 +16,7 @@ using namespace theseus::engine;
 Apfeltasche::Apfeltasche(sf::Vector2f position) {
 
 	// texture
-	setTexture(3, TextureManager::instance().getTexture("ball.png"));
+	setTexture(1, TextureManager::instance().getTexture("item_level_5_appleturnover.png"));
 
 	//position
 	setPosition(position);

@@ -1,33 +1,36 @@
-/**
-* @author Philipp Pütz
+/*
+* @author Dominic Steinhauser
 */
-#ifndef _THESEUS_GAME_OBJECTS_BUTTON_H
-#define _THESEUS_GAME_OBJECTS_BUTTON_H
+#ifndef _THESEUS_GAME_OBJECTS_THROWING_CUP_H
+#define _THESEUS_GAME_OBJECTS_THROWING_CUP_H
 
 #include "../engine/gameobject.hpp"
-#include "../engine/components/text.hpp"
+#include "../engine/components/sprite.hpp"
 #include <SFML/System.hpp>
 
 namespace theseus
 {
 	namespace gameobjects
 	{
-		class Button
+		class ThrowingCup
 			: public engine::GameObject
-			, public virtual engine::components::Text
+			, public virtual engine::components::Sprite
 		{
 		private:
-					
+
+
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
-			Button(std::string text, sf::Vector2f position, sf::Color textcolor);
+			ThrowingCup(sf::Vector2f position);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 
-			~Button();
+			virtual ~ThrowingCup();
 		};
 	}
 }
 
 #endif
+#pragma once
+

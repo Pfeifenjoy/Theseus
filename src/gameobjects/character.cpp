@@ -18,6 +18,7 @@ const int PLAYER_H = 50;
 Character::Character()
 {
 	// animation
+	setAnimatedLayer(2);
 	setFrameSize(sf::Vector2i(PLAYER_W, PLAYER_H));
 	setNumberOfFrames(4);
 	setFrameRate(7);

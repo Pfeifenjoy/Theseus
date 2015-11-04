@@ -1,9 +1,8 @@
-/**
- *   Author: Leon Mutschke, Philipp Pütz
- */
-
-#ifndef _THESEUS_GAME_FLOOR_H
-#define _THESEUS_GAME_FLOOR_H
+/*
+* @author Dominic Steinhauser
+*/
+#ifndef _THESEUS_GAME_OBJECTS_BIZAGI_CD_H
+#define _THESEUS_GAME_OBJECTS_BIZAGI_CD_H
 
 #include "../engine/gameobject.hpp"
 #include "../engine/components/sprite.hpp"
@@ -13,7 +12,7 @@ namespace theseus
 {
 	namespace gameobjects
 	{
-		class Floor
+		class BizagiCD
 			: public engine::GameObject
 			, public virtual engine::components::Sprite
 		{
@@ -23,11 +22,11 @@ namespace theseus
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
-			Floor(sf::Vector2f position, sf::Vector2f size);
+			BizagiCD(sf::Vector2f position);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 
-			virtual ~Floor();
+			virtual ~BizagiCD();
 		};
 	}
 }

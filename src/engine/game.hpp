@@ -63,6 +63,9 @@ namespace engine
 		 */
 		void startScene(std::unique_ptr<Scene> scene);
 
+		// Returns the resolution of the screen
+		sf::Vector2i getScreenResolution();
+
 	};
 }
 }

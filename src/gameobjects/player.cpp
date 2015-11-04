@@ -21,7 +21,7 @@ Player::Player()
 	evOnUpdate.subscribe(bind(&Player::onUpdate, this, _1));
 
 	// texture
-	setTexture(3, TextureManager::instance().getTexture("player.png"));
+	setTexture(2, TextureManager::instance().getTexture("player.png"));
 
 }
 
