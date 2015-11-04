@@ -16,7 +16,7 @@ using namespace theseus::engine;
 Table::Table(sf::Vector2f position) {
 
 	// texture
-	setTexture(3, TextureManager::instance().getTexture("item_table.png"));
+	setTexture(2, TextureManager::instance().getTexture("item_table.png"));
 
 	// position
 	setPosition(position);
