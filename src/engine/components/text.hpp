@@ -38,6 +38,9 @@ namespace theseus
 				// Retuns the width of the text
 				virtual int getTextWidth(int layer);
 
+				// Retuns the style of the text (use sf::Text::Bold etc ...)
+				virtual void setStyle(int layer, sf::Text::Style style);
+
 				/**
 				* Returns a reference(!) to the text.
 				*/

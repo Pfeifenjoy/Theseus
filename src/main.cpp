@@ -21,6 +21,8 @@
 #include "scenes/menu.hpp"
 #include "gameobjects/bizagi_cd.hpp"
 #include "gameobjects/throwing_cup.hpp"
+#include "gameobjects/healthbar.hpp"
+#include "gameobjects/timer.hpp"
 
 #include <iostream>
 #include <memory>
@@ -74,6 +76,7 @@ int main()
 	TextureManager::instance().loadTexture("item_level_6_cup.png");
 	TextureManager::instance().loadTexture("item_level_1_bizagi_cd.png");
 	TextureManager::instance().loadTexture("item_level_6_cup2.png");
+	TextureManager::instance().loadTexture("heart.png");
 	
 	Layer layer(100, 40);
 	auto objects = layer.getGameObjects();
@@ -121,6 +124,21 @@ int main()
 
 	auto throwing = unique_ptr<ThrowingCup>(new ThrowingCup(sf::Vector2f(32, 382)));
 	initScene->addGameObject(move(throwing));
+
+	auto table = unique_ptr<Table>(new Table(sf::Vector2f(32, 446), 0));
+	initScene->addGameObject(move(table));
+
+	auto table2 = unique_ptr<Table>(new Table(sf::Vector2f(96, 446), 1));
+	initScene->addGameObject(move(table2));
+
+	// HUD
+
+	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15), 3));
+	initScene->addGameObject(move(healthbar));
+	
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 315));
+	initScene->addGameObject(move(timer));
+
 	//---------------------------------------------------------------------------------
 	int x = 0;
 	for(x = 0; x < 100; x++) {
