@@ -119,7 +119,9 @@ void Layer::addRoom(int x, int y, int width, int height) {
 			}
 		}
 		this->addDoor(x, y, width, height);
-		this->rooms.push_back(unique_ptr<Room> (new Room(x + 1, y + 1, width - 1, height - 1)));
+		sf::Vector2f position((x+1)*Brick::WIDTH, (y+1)*Brick::HEIGHT);
+		sf::Vector2f size((width - 1) * Brick::WIDTH, (height-1) * Brick::HEIGHT);
+		this->gameobjects.push_back(unique_ptr<Room> (new Room(position, size)));
 	}
 }
 
@@ -191,7 +193,7 @@ void Layer::generateGameObjectField() {
 				case 30: type = CROSS; break;
 			}
 			unique_ptr<Brick > brick(new Brick(type, i, j));
-			this->bricks.push_back(move(brick));
+			this->gameobjects.push_back(move(brick));
 		}
 	}
 }
@@ -208,11 +210,7 @@ void Layer::addWall(int x, int y, Direction direction, int length) {
 
 
 vector<unique_ptr<theseus::engine::GameObject> > Layer::getGameObjects() {
-	vector<unique_ptr<theseus::engine::GameObject> > result;
-	for(auto& brick: this->bricks) {
-		result.push_back(move(brick));
-	}
-	return result;
+	return move(this->gameobjects);
 }
 
 ostream& theseus::map::operator<<(ostream& os, const Layer& layer) {
@@ -233,8 +231,6 @@ ostream& theseus::map::operator<<(ostream& os, const Layer& layer) {
 	}
 	os << "\x1B[0m";
 
-	os << "Details:" << endl;
-	os << "\tCounted " << layer.rooms.size() << " rooms." << endl;
 
 	return os;
 }
