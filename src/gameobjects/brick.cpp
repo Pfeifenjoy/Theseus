@@ -69,7 +69,7 @@ void Brick::setType(BrickType brickType) {
 		bottomRight = size;
 		break;
 	case LEFT_END:
-		setTexture(3, TextureManager::instance().getTexture("wall_left_end.png"));
+		setTexture(2, TextureManager::instance().getTexture("wall_left_end.png"));
 		size = sf::Vector2f(32,64);
 		topLeft = sf::Vector2f(0, figureOffset);
 		bottomRight = size;
@@ -118,6 +118,6 @@ void Brick::setType(BrickType brickType) {
 
 	this->setCollisionAreaTopLeft(topLeft);
 	this->setCollisionAreaBottomRight(bottomRight);
-	this->sprite(3).setTextureRect(sf::IntRect( 0, 0, size.x, size.y));
-	//this->sprite(3).getTexture()->isRepeated();
+	this->sprite(2).setTextureRect(sf::IntRect( 0, 0, size.x, size.y));
+	//this->sprite(2).getTexture()->isRepeated();
 }
