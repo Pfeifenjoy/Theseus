@@ -1,5 +1,5 @@
 /**
-* @author Philipp Pütz
+* @author Philipp PÃ¼tz
 */
 #include "menu.hpp"
 #include "../engine/game.hpp"
@@ -28,10 +28,10 @@ Menu::Menu(const std::vector<std::string>& menuItems, std::vector<unique_ptr<Sce
 	for (int i = 0; i < numberOfItems; i++) {
 
 		unique_ptr<Textfield>	button = unique_ptr<Textfield>(new Textfield(menuItems[i], sf::Color::White));
-		
+
 		// Center the button
 		button->setPosition(sf::Vector2f(screenWidth / 2 - button->getTextWidth() / 2, screenHeigth / (numberOfItems + 2) * (1 + i)));
-		
+
 		buttons.push_back(button.get());
 		this->addGameObject(move(button));
 	}
@@ -60,7 +60,7 @@ void Menu::handleKeyDownEvent(sf::Keyboard::Key key)
 	// Check if a entry gets selected
 	if (key == sf::Keyboard::Return) {
 		// Start new scene
-		if (selectedItemIndex < scenes.size()) {
+		if (selectedItemIndex < (int) scenes.size()) {
 			if (scenes[selectedItemIndex] != nullptr) {
 				game->startScene(move(scenes[selectedItemIndex]));
 			}
