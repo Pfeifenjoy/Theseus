@@ -1,5 +1,5 @@
 /**
- * autor Tobias Dorra, Arwed Mett
+ * @autor Tobias Dorra, Arwed Mett
  */
 #ifndef _THESEUS_ENGINE_GAME_H
 #define _THESEUS_ENGINE_GAME_H

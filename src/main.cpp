@@ -97,19 +97,19 @@ int main()
 
 	auto meter = unique_ptr<Instrument>(new Instrument(sf::Vector2f(32, 128)));
 	initScene->addGameObject(move(meter));
-	
+
 	auto solution = unique_ptr<MathSolution>(new MathSolution(sf::Vector2f(32, 192)));
 	initScene->addGameObject(move(solution));
 
 	auto fructiv = unique_ptr<Fructiv>(new Fructiv(sf::Vector2f(32, 254)));
 	initScene->addGameObject(move(fructiv));
-	
+
 	auto coffee = unique_ptr<Coffee>(new Coffee(sf::Vector2f(64, 64)));
 	initScene->addGameObject(move(coffee));
-	
+
 	auto chalk = unique_ptr<Chalk>(new Chalk(sf::Vector2f(64, 128)));
 	initScene->addGameObject(move(chalk));
-	
+
 	auto cexam = unique_ptr<CExam>(new CExam(sf::Vector2f(64, 192)));
 	initScene->addGameObject(move(cexam));
 

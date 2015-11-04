@@ -16,7 +16,7 @@ using namespace theseus::engine;
 ThrowingCup::ThrowingCup(sf::Vector2f position) {
 
 	// texture
-	setTexture(3, TextureManager::instance().getTexture("item_level_6_cup2.png"));
+	setTexture(1, TextureManager::instance().getTexture("item_level_6_cup2.png"));
 
 	// position
 	setPosition(position);

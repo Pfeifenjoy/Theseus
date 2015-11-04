@@ -16,7 +16,7 @@ using namespace theseus::engine;
 BizagiCD::BizagiCD(sf::Vector2f position) {
 
 	// texture
-	setTexture(3, TextureManager::instance().getTexture("item_level_1_bizagi_cd.png"));
+	setTexture(1, TextureManager::instance().getTexture("item_level_1_bizagi_cd.png"));
 
 	// position
 	setPosition(position);
