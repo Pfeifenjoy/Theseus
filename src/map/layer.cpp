@@ -76,14 +76,21 @@ int Layer::drawLine(int x, int y, Direction direction, int length, FieldStatus s
 	while(length--) {
 		if(x < 0 || y < 0 || x >= (int) layer.size() || y >= (int) this->layer[x].size())
 		   	return realLength;
+		if(status == VERTICAL_RESTRICTED || status == HORIZONTAL_RESTRICTED)
+			this->memorizedCorridorFloors.push_back(sf::Vector2<int> (x, y));
 		if(status != OCCUPIED) {
 			switch(this->layer[x][y]) {
 				case OCCUPIED: if(status == OCCUPIED) return realLength; break;
 				case RESTRICTED: if(status == OCCUPIED) return realLength;
 				case VERTICAL_RESTRICTED: if(status == HORIZONTAL_RESTRICTED)
-											  { layer[x][y] = RESTRICTED; break; }
+											  {
+												  layer[x][y] = RESTRICTED; break;
+											  }
 				case HORIZONTAL_RESTRICTED: if(status == VERTICAL_RESTRICTED)
-												 { layer[x][y] = RESTRICTED; break; }
+												 {
+													 layer[x][y] = RESTRICTED; break;
+												 }
+
 				case FREE: layer[x][y] = status;
 			}
 		} else {
@@ -117,6 +124,7 @@ void Layer::addRoom(int x, int y, int width, int height) {
 		for(i = x + 1; i < x + width -1; i++) {
 			for(j = y + 1; j < y + height -1; j++) {
 				layer[i][j] = RESTRICTED;
+				setFloor(i, j, ROOM);
 			}
 		}
 		this->addDoor(x, y, width, height);
@@ -137,6 +145,7 @@ void Layer::addDoor(int x, int y, int width, int height) {
 		case 3: y += offset; break;
 	}
 	this->layer[x][y] = RESTRICTED;
+	setFloor(x, y, ROOM);
 	switch(side) {
 		case 0: y--; break;
 		case 1: x++; break;
@@ -165,12 +174,8 @@ void Layer::generateGameObjectField() {
 	short k;
 	for(i = 0; i < (int) layer.size() ; i++) {
 		for(j = 0; j < (int) layer[i].size() ; j++) {
-			if(this->layer[i][j] != OCCUPIED) {
-				if((layer[i-1][j] == FREE || layer[i+1][j] == FREE
-						|| layer[i][j-1] == FREE || layer[i][j+1] == FREE) || layer[i][j] != RESTRICTED)
-					this->setFloor(i, j, CORRIDOR);
-				else this->setFloor(i, j, ROOM);
-
+			if(this->layer[i][j] == FREE) {
+				this->setFloor(i, j, CORRIDOR);
 			}
 			if(this->layer[i][j] != OCCUPIED) continue;
 			k = 0;
@@ -203,6 +208,9 @@ void Layer::generateGameObjectField() {
 			unique_ptr<Brick > brick(new Brick(type, i, j));
 			this->gameobjects.push_back(move(brick));
 		}
+	}
+	for(auto position : this->memorizedCorridorFloors) {
+		setFloor(position.x, position.y, CORRIDOR);
 	}
 }
 

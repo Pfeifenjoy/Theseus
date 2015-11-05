@@ -33,6 +33,7 @@ namespace map {
 			std::vector<std::vector<FieldStatus> > layer;
 			int drawLine(int x, int y, Direction direction, int length, FieldStatus status);
 			std::vector<std::unique_ptr<theseus::engine::GameObject> > gameobjects;
+			std::vector<sf::Vector2<int> > memorizedCorridorFloors;
 			void generateGameObjectField();
 			void addDoor(int x, int y, int width, int height);
 			void setFloor(int x, int y, theseus::gameobjects::FloorType);
