@@ -63,6 +63,7 @@ int main()
 	TextureManager::instance().loadTexture("wall_T_upsidedown_cross.png");
 	TextureManager::instance().loadTexture("ball.png");
 	TextureManager::instance().loadTexture("floor_black.png");
+	TextureManager::instance().loadTexture("floor_red.png");
 	TextureManager::instance().loadTexture("item_table.png");
 	TextureManager::instance().loadTexture("item_table2.png");
 	TextureManager::instance().loadTexture("item_level_4_UML.png");
@@ -136,7 +137,7 @@ int main()
 	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15), 3));
 	initScene->addGameObject(move(healthbar));
 	
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 315));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 10));
 	initScene->addGameObject(move(timer));
 
 	//---------------------------------------------------------------------------------

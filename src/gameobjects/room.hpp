@@ -9,7 +9,7 @@
 namespace theseus {
 namespace gameobjects {
 	class Room : public engine::GameObject
-			   //, public virtual engine::components::Sprite
+			   , public virtual engine::components::Sprite
    	{
 		public:
 			Room(sf::Vector2f position, sf::Vector2f size);

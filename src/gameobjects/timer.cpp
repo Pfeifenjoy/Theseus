@@ -7,13 +7,11 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
-
 using namespace std;
 using namespace std::placeholders;
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
 
-// Todo: Resolve the flatter bug...
 
 Timer::Timer(sf::Vector2f position, int startTime) {
 
@@ -33,7 +31,7 @@ Timer::Timer(sf::Vector2f position, int startTime) {
 	setText(4, stringTimer);
 	setColor(4, sf::Color::Black);
 	setStyle(4, sf::Text::Style::Bold);
-
+	
 	// Set the position
 	setPosition(position);
 }
@@ -41,12 +39,15 @@ Timer::Timer(sf::Vector2f position, int startTime) {
 void Timer::onUpdate(float timePassed) {
 
 	actualTime -= timePassed;
-
-	// Updates the timer text
-	char stringTimer[24];
-	sprintf(stringTimer, "%02d : %02d ", (int)trunc(actualTime / 60), (int)round((int)actualTime % 60));
-	setText(4, stringTimer);
-
+	if (actualTime >= 0) {
+		// Updates the timer text
+		char stringTimer[24];
+		sprintf(stringTimer, "%02d : %02d ", (int)trunc(actualTime / 60), (int)round((int)actualTime % 60));
+		setText(4, stringTimer);
+	}
+	else {
+		//Abort Level
+	}
 }
 
 float Timer::getActualTime() {
