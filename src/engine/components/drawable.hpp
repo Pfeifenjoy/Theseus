@@ -36,6 +36,17 @@ namespace components
 		 */
 		void onUnregisterComponents(Scene& scene);
 
+		/**
+		 * Updates the registration of the component at the scene.
+		 */
+		void onUpdateRegistration(Scene& scene);
+
+		/**
+		 * the position at which the drawable is saved in the scene
+		 * this can vary from the actual position of the game object.
+		 */
+		sf::Vector2f positionInSync;
+
 
 	protected:
 

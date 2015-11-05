@@ -5,14 +5,16 @@
 #include "components/keyboardinput.hpp"
 #include "components/solide.hpp"
 #include "components/collisiondetector.hpp"
+#include "components/camera.hpp"
 #include "gameobject.hpp"
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 using namespace theseus::engine;
 
-const float MAX_GAMEOBJECT_W = 300;
-const float MAX_GAMEOBJECT_H = 300;
+const float MAX_GAMEOBJECT_W = 200;
+const float MAX_GAMEOBJECT_H = 200;
 
 void Scene::addGameObject(std::unique_ptr<GameObject> gameObject)
 {
@@ -58,19 +60,24 @@ unique_ptr<GameObject> Scene::removeGameObject(GameObject* gameObject)
 	return result;
 }
 
-void Scene::registerDrawable(int layer, const components::Drawable* drawable)
+void Scene::setCamera(const components::Camera * camera)
 {
-	drawables[layer].push_back(drawable);
+	activeCamera = camera;
 }
 
-void Scene::unregisterDrawable(const components::Drawable* drawable)
+void Scene::registerDrawable(int layer, const components::Drawable* drawable)
 {
-	for (int i = 0; i < 5; ++i)
-	{
-		auto& layer = drawables[i];
-		layer.erase(remove(layer.begin(), layer.end(), drawable), layer.end());
-		// https://en.wikipedia.org/wiki/Erase%E2%80%93remove_idiom
-	}
+	drawables[layer].insert(drawable->getPosition(), drawable);
+}
+
+void Scene::unregisterDrawable(int layer, sf::Vector2f position, const components::Drawable* drawable)
+{
+	drawables[layer].remove(position, drawable);
+}
+
+void Scene::reRegisterDrawable(int layer, sf::Vector2f oldPosition, const components::Drawable* drawable)
+{
+	drawables[layer].updatePosition(oldPosition, drawable->getPosition(), drawable);
 }
 
 void Scene::registerUpdate(components::Update * updateComponent)
@@ -98,9 +105,9 @@ void Scene::registerSolide(components::Solide * component)
 	solide.insert(component->getPosition(), component);
 }
 
-void Scene::unRegisterSolide(components::Solide * component)
+void Scene::unRegisterSolide(sf::Vector2f position, components::Solide * component)
 {
-	solide.remove(component->getPosition(), component);
+	solide.remove(position, component);
 }
 
 void Scene::reRegisterSolide(sf::Vector2f oldPosition, components::Solide * component)
@@ -145,13 +152,53 @@ void Scene::checkCollisions(components::CollisionDetector* component)
 
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	sf::View view;
+	
+	if (activeCamera != nullptr)
+	{
+		view = activeCamera->view();
+		view.move(activeCamera->getPosition());
+	}
+	else
+	{
+		view = target.getDefaultView();
+	}
+
+	sf::Vector2f drawArea_lt(view.getCenter().x - view.getSize().x / 2 - MAX_GAMEOBJECT_W
+			, view.getCenter().y - view.getSize().y / 2 - MAX_GAMEOBJECT_H);
+
+	sf::Vector2f drawArea_rb(view.getCenter().x + view.getSize().x / 2 + MAX_GAMEOBJECT_W
+			, view.getCenter().y + view.getSize().y / 2 + MAX_GAMEOBJECT_H);
+
+	target.setView(view);
+
 	// Draw!
 	for (int i = 0; i < 5; ++i)
 	{
-		auto& layer = drawables[i];
-		for(auto drawable : layer)
+		auto objectsToDraw = drawables[i].find(drawArea_lt, drawArea_rb); 
+		if (i == 3)
 		{
-			drawable->draw(i, target, states);
+			// layer 2 has to be sorted first
+			vector<const components::Drawable *> layer2;
+			for(auto drawable : objectsToDraw)
+			{
+				layer2.push_back(drawable.second);
+			}
+			sort(layer2.begin(), layer2.end(), [](const components::Drawable * first, const components::Drawable * second)->bool{
+					return first->getPosition().y < second->getPosition().y;
+					});
+			for (auto drawable : layer2)
+			{
+				drawable->draw(i, target, states);
+			}
+			
+		}
+		else
+		{
+			for(auto drawable : objectsToDraw)
+			{
+				drawable.second->draw(i, target, states);
+			}
 		}
 	
 	}
@@ -168,7 +215,6 @@ void Scene::handleUpdateEvent(float timePassed)
 	}
 
 	// do reregistration stuff
-	needsRegistrationUpdate_previous.clear();
 	swap(needsRegistrationUpdate, needsRegistrationUpdate_previous);
 	while (!needsRegistrationUpdate_previous.empty())
 	{
