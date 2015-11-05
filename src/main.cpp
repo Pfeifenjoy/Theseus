@@ -18,6 +18,7 @@
 #include "gameobjects/player.hpp"
 #include "gameobjects/npc.hpp"
 #include "gameobjects/textfield.hpp"
+#include "gameobjects/maincamera.hpp"
 #include "scenes/menu.hpp"
 #include "gameobjects/bizagi_cd.hpp"
 #include "gameobjects/throwing_cup.hpp"
@@ -123,11 +124,17 @@ int main()
 	initScene->addGameObject(move(throwing));
 	//---------------------------------------------------------------------------------
 	int x = 0;
-	for(x = 0; x < 100; x++) {
+	for(x = 0; x < 300; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		npc->setPosition(sf::Vector2f(rand() % 1000, rand() % 1000));
 		initScene->addGameObject(move(npc));
 	}
+
+	// set up camera
+	auto camera = unique_ptr<MainCamera>(new MainCamera());
+	auto camera_ptr = camera.get();
+	initScene->addGameObject(move(camera));
+	initScene->setCamera(camera_ptr);
 
 	auto floor = unique_ptr<Floor>(new Floor(sf::Vector2f(0,0), sf::Vector2f(100 * Brick::WIDTH, 40 * Brick::HEIGHT)));
 	initScene->addGameObject(move(floor));

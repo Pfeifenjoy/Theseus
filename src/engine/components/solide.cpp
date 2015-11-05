@@ -25,7 +25,7 @@ void Solide::onRegisterComponents(Scene& scene)
 
 void Solide::onUnregisterComponents(Scene& scene)
 {
-	scene.unRegisterSolide(this);
+	scene.unRegisterSolide(positionInSync, this);
 }
 
 void Solide::onUpdateRegistration(Scene& scene)

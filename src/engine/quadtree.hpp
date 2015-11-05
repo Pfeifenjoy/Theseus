@@ -63,7 +63,21 @@ public:
 private:
 
 	/**
-	 * Returns a reference to the child node which is responsible for the given position.
+	 * Returns a reference to the child node which is responsible for the given position. (const)
+	 */
+	const std::unique_ptr<QuadTree>& chooseChildNode(sf::Vector2f position) const
+	{
+		if (position.x <= center.x && position.y <= center.y)
+			return child_lt;
+		if (position.x > center.x && position.y <= center.y)
+			return child_rt;
+		if (position.x <= center.x && position.y > center.y)
+			return child_lb;
+		return child_rb;
+	}
+
+	/**
+	 * Returns a reference to the child node which is responsible for the given position. (non-const)
 	 */
 	std::unique_ptr<QuadTree>& chooseChildNode(sf::Vector2f position)
 	{
@@ -79,7 +93,7 @@ private:
 	float maxYAboveCenter(float defaultValue)
 	{
 		if (child_lt != nullptr && child_rt != nullptr)
-			return std::max(child_lt->max_y, child_rt->max_x);
+			return std::max(child_lt->max_y, child_rt->max_y);
 		if (child_lt != nullptr)
 			return child_lt->max_y;
 		if (child_rt != nullptr)
@@ -230,7 +244,7 @@ public:
 	/**
 	 * Returns a set of all entries that are in the rectangle defined by the parameters left_top and right_bottom.
 	 */
-	std::list<std::pair<sf::Vector2f, T> >	find(sf::Vector2f left_top, sf::Vector2f right_bottom)
+	std::list<std::pair<sf::Vector2f, T> >	find(sf::Vector2f left_top, sf::Vector2f right_bottom) const
 	{
 		auto& left_top_child = chooseChildNode(left_top);
 		auto& right_bottom_child = chooseChildNode(right_bottom);
@@ -269,15 +283,12 @@ public:
 		}
 
 		// if the rect spans only over a single child, it's results can be forwarded.
+		//  ... in most cases...
 		if (&left_top_child == &right_bottom_child)
 		{
 			if (left_top_child != nullptr)
 			{
 				return left_top_child->find(left_top, right_bottom);
-			}
-			else
-			{
-				return {};
 			}
 
 		}
@@ -326,7 +337,7 @@ public:
 					&& childToRemoveFrom->child_lt == nullptr
 					&& childToRemoveFrom->child_rt == nullptr
 					&& childToRemoveFrom->child_lb == nullptr
-					&& childToRemoveFrom->child_rt == nullptr)
+					&& childToRemoveFrom->child_rb == nullptr)
 				childToRemoveFrom.reset();
 			if (success)
 				recalcMinMaxAfterRemove();

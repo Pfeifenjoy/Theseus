@@ -23,6 +23,7 @@ namespace engine
 		class KeyboardInput;
 		class Solide;
 		class CollisionDetector;
+		class Camera;
 	}
 
 	class Scene : public sf::Drawable
@@ -36,7 +37,7 @@ namespace engine
 		std::unordered_set<components::Base *> needsRegistrationUpdate_previous;
 		
 		// All drawable objects, grouped by layer
-		std::array<std::vector<const components::Drawable *> , 5> drawables;
+		std::array<QuadTree<const components::Drawable *> , 5> drawables;
 
 		// All game objects that need to be updated in each frame.
 		std::vector<components::Update *> update;
@@ -46,6 +47,9 @@ namespace engine
 
 		// All game objects that are involved in colision detection (Solide component)
 		QuadTree<components::Solide *> solide;
+
+		// The active camera
+		const components::Camera* activeCamera = nullptr;
 
 	public:
 		//---- Constructors / Destructor ----------------------------------------------------------------
@@ -68,6 +72,11 @@ namespace engine
 		std::unique_ptr<GameObject> removeGameObject(GameObject* gameObject);
 
 		/**
+		 * Sets the active camera
+		 */
+		void setCamera(const components::Camera * camera);
+
+		/**
 		 * Draws the scene to the screen
 		 */
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -78,7 +87,8 @@ namespace engine
 		 * Adds a graphic that will be displayed during the drawing phase.
 		 */
 		void registerDrawable(int layer, const components::Drawable* drawable);
-		void unregisterDrawable(const components::Drawable* drawable);
+		void reRegisterDrawable(int layer, sf::Vector2f oldPosition, const components::Drawable*);
+		void unregisterDrawable(int layer, sf::Vector2f position, const components::Drawable* drawable);
 
 		/**
 		 * Registers a game object to be updated in each frame. 
@@ -96,7 +106,7 @@ namespace engine
 		 * Registers a game object that should be used for collision detection.
 		 */
 		void registerSolide(components::Solide *);
-		void unRegisterSolide(components::Solide *);
+		void unRegisterSolide(sf::Vector2f position, components::Solide *);
 		void reRegisterSolide(sf::Vector2f oldPosition, components::Solide *); 	// should be called after the location of the GO has changed
 		void checkCollisions(components::CollisionDetector * component);
 
