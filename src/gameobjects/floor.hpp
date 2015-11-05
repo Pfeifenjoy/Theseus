@@ -1,5 +1,5 @@
 /**
- *   Author: Leon Mutschke, Philipp Pütz
+ *   Author: Leon Mutschke, Philipp PÃ¼tz
  */
 
 #ifndef _THESEUS_GAME_FLOOR_H
@@ -13,6 +13,7 @@ namespace theseus
 {
 	namespace gameobjects
 	{
+		enum FloorType {CORRIDOR, ROOM};
 		class Floor
 			: public engine::GameObject
 			, public virtual engine::components::Sprite
@@ -23,7 +24,7 @@ namespace theseus
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
-			Floor(sf::Vector2f position, sf::Vector2f size);
+			Floor(sf::Vector2f position, sf::Vector2f size, FloorType);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 

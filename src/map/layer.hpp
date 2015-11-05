@@ -6,6 +6,7 @@
 #define THESEUS_MAP_LAYER
 #include "../gameobjects/room.hpp"
 #include "../gameobjects/brick.hpp"
+#include "../gameobjects/floor.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
@@ -34,6 +35,7 @@ namespace map {
 			std::vector<std::unique_ptr<theseus::engine::GameObject> > gameobjects;
 			void generateGameObjectField();
 			void addDoor(int x, int y, int width, int height);
+			void setFloor(int x, int y, theseus::gameobjects::FloorType);
 		public:
 			/**
 			 * Initialize a squared layer.

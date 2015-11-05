@@ -1,5 +1,5 @@
 /**
-*   Author: Leon Mutschke, Philipp Pütz
+*   Author: Leon Mutschke, Philipp PÃ¼tz
 */
 
 #include "floor.hpp"
@@ -14,19 +14,22 @@ using namespace std::placeholders;
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
 
-Floor::Floor(sf::Vector2f position, sf::Vector2f size) {
+Floor::Floor(sf::Vector2f position, sf::Vector2f size, FloorType type) {
 
 	// texture
-	
+
 
 	//position
 	setPosition(position);
 
 	sf::Texture *texture;
+	switch(type) {
+		case CORRIDOR: texture = &TextureManager::instance().getTexture("floor_black.png"); break;
+		case ROOM: texture = &TextureManager::instance().getTexture("floor_red.png"); break;
+	}
 
-	texture = &TextureManager::instance().getTexture("floor_black.png");
 	setTexture(0,*texture);
-	
+
 	// Repeat texture if nessesary
 	texture->setRepeated(true);
 

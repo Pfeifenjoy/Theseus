@@ -120,9 +120,9 @@ void Layer::addRoom(int x, int y, int width, int height) {
 			}
 		}
 		this->addDoor(x, y, width, height);
-		sf::Vector2f position((x+1)*Brick::WIDTH, (y+1)*Brick::HEIGHT);
-		sf::Vector2f size((width - 1) * Brick::WIDTH, (height-1) * Brick::HEIGHT);
-		this->gameobjects.push_back(unique_ptr<Room> (new Room(position, size)));
+		//sf::Vector2f position((x+1)*Brick::WIDTH, (y+1)*Brick::HEIGHT);
+		//sf::Vector2f size((width - 1) * Brick::WIDTH, (height-1) * Brick::HEIGHT);
+		//this->gameobjects.push_back(unique_ptr<Room> (new Room(position, size)));
 	}
 }
 
@@ -165,11 +165,12 @@ void Layer::generateGameObjectField() {
 	short k;
 	for(i = 0; i < (int) layer.size() ; i++) {
 		for(j = 0; j < (int) layer[i].size() ; j++) {
-			if(this->layer[i][j] == FREE) {
-				sf::Vector2f position(Brick::WIDTH * i - 6, Brick::HEIGHT * j);
-				sf::Vector2f size(Brick::WIDTH + 12, Brick::HEIGHT);
-				auto floor = unique_ptr<Floor>(new Floor(position, size));
-				this->gameobjects.push_back(move(floor));
+			if(this->layer[i][j] != OCCUPIED) {
+				if((layer[i-1][j] == FREE || layer[i+1][j] == FREE
+						|| layer[i][j-1] == FREE || layer[i][j+1] == FREE) || layer[i][j] != RESTRICTED)
+					this->setFloor(i, j, CORRIDOR);
+				else this->setFloor(i, j, ROOM);
+
 			}
 			if(this->layer[i][j] != OCCUPIED) continue;
 			k = 0;
@@ -203,6 +204,15 @@ void Layer::generateGameObjectField() {
 			this->gameobjects.push_back(move(brick));
 		}
 	}
+}
+
+void Layer::setFloor(int x, int y, FloorType type) {
+	int extraWidthLeft = layer[x-1][y] == OCCUPIED ? 6 : 0;
+	int extraWidthRight = layer[x+1][y] == OCCUPIED ? 6 : 0;
+	sf::Vector2f position(Brick::WIDTH * x - extraWidthLeft, Brick::HEIGHT * y);
+	sf::Vector2f size(Brick::WIDTH + extraWidthRight + extraWidthLeft, Brick::HEIGHT);
+	unique_ptr<Floor> floor(new Floor(position, size, type));
+	this->gameobjects.push_back(move(floor));
 }
 
 void Layer::addWall(int x, int y, Direction direction, int length) {
