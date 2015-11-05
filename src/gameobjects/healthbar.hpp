@@ -1,43 +1,44 @@
 /*
-* @author Dominic Steinhauser
+* @author Philipp Pütz
 */
-#ifndef _THESEUS_GAME_OBJECTS_TABLE_H
-#define _THESEUS_GAME_OBJECTS_TABLE_H
+#ifndef _THESEUS_GAME_OBJECTS_HEALTHBAR_H
+#define _THESEUS_GAME_OBJECTS_HEALTHBAR_H
 
 #include "../engine/gameobject.hpp"
 #include "../engine/components/sprite.hpp"
-#include "../engine/components/solide.hpp"
 #include <SFML/System.hpp>
 
 namespace theseus
 {
 	namespace gameobjects
 	{
-		class Table
+		class HealthBar
 			: public engine::GameObject
 			, public virtual engine::components::Sprite
-			, public virtual theseus::engine::components::Solide
 		{
 		private:
-			int tableType;
-
+			int healthPoints;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
-			Table(sf::Vector2f position, int tableType);
+			HealthBar(sf::Vector2f position, int healthPoints);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 
-			virtual ~Table();
+			virtual ~HealthBar();
 
-			void setType(int tableType);
-			
+
+			int getHealthPoints();
+
+			void decrementHealthPoints();
+
+			void incrementHealthPoints();
+
+			void setHealthPoints(int healthPoints);
 		};
 	}
 }
 
 #endif
-#pragma once
 
-#pragma once

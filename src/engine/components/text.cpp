@@ -24,6 +24,12 @@ void Text::setColor(int layer, sf::Color color)
 	texts[layer].setColor(color);
 }
 
+void Text::setStyle(int layer, sf::Text::Style style)
+{
+	texts[layer].setStyle(style);
+}
+
+
 void Text::setCharSize(int layer, int textSize)
 {
 	texts[layer].setCharacterSize(textSize);

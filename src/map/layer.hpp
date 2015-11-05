@@ -4,7 +4,7 @@
 
 #ifndef THESEUS_MAP_LAYER
 #define THESEUS_MAP_LAYER
-#include "room.hpp"
+#include "../gameobjects/room.hpp"
 #include "../gameobjects/brick.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -30,9 +30,8 @@ namespace map {
 	class Layer {
 		private:
 			std::vector<std::vector<FieldStatus> > layer;
-			std::vector<std::unique_ptr<Room> > rooms;
 			int drawLine(int x, int y, Direction direction, int length, FieldStatus status);
-			std::vector<std::unique_ptr<theseus::gameobjects::Brick> > bricks;
+			std::vector<std::unique_ptr<theseus::engine::GameObject> > gameobjects;
 			void generateGameObjectField();
 			void addDoor(int x, int y, int width, int height);
 		public:

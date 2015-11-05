@@ -22,6 +22,10 @@
 #include "scenes/menu.hpp"
 #include "gameobjects/bizagi_cd.hpp"
 #include "gameobjects/throwing_cup.hpp"
+#include "gameobjects/healthbar.hpp"
+#include "gameobjects/timer.hpp"
+#include "gameobjects/itemcounter.hpp"
+#include "gameobjects/caffeinelevel.hpp"
 
 #include <iostream>
 #include <memory>
@@ -62,6 +66,7 @@ int main()
 	TextureManager::instance().loadTexture("wall_T_upsidedown_cross.png");
 	TextureManager::instance().loadTexture("ball.png");
 	TextureManager::instance().loadTexture("floor_black.png");
+	TextureManager::instance().loadTexture("floor_red.png");
 	TextureManager::instance().loadTexture("item_table.png");
 	TextureManager::instance().loadTexture("item_table2.png");
 	TextureManager::instance().loadTexture("item_level_4_UML.png");
@@ -75,6 +80,7 @@ int main()
 	TextureManager::instance().loadTexture("item_level_6_cup.png");
 	TextureManager::instance().loadTexture("item_level_1_bizagi_cd.png");
 	TextureManager::instance().loadTexture("item_level_6_cup2.png");
+	TextureManager::instance().loadTexture("heart.png");
 	
 	Layer layer(100, 40);
 	auto objects = layer.getGameObjects();
@@ -95,19 +101,19 @@ int main()
 
 	auto meter = unique_ptr<Instrument>(new Instrument(sf::Vector2f(32, 128)));
 	initScene->addGameObject(move(meter));
-	
+
 	auto solution = unique_ptr<MathSolution>(new MathSolution(sf::Vector2f(32, 192)));
 	initScene->addGameObject(move(solution));
 
 	auto fructiv = unique_ptr<Fructiv>(new Fructiv(sf::Vector2f(32, 254)));
 	initScene->addGameObject(move(fructiv));
-	
+
 	auto coffee = unique_ptr<Coffee>(new Coffee(sf::Vector2f(64, 64)));
 	initScene->addGameObject(move(coffee));
-	
+
 	auto chalk = unique_ptr<Chalk>(new Chalk(sf::Vector2f(64, 128)));
 	initScene->addGameObject(move(chalk));
-	
+
 	auto cexam = unique_ptr<CExam>(new CExam(sf::Vector2f(64, 192)));
 	initScene->addGameObject(move(cexam));
 
@@ -122,11 +128,32 @@ int main()
 
 	auto throwing = unique_ptr<ThrowingCup>(new ThrowingCup(sf::Vector2f(32, 382)));
 	initScene->addGameObject(move(throwing));
+
+	auto table = unique_ptr<Table>(new Table(sf::Vector2f(32, 446), 0));
+	initScene->addGameObject(move(table));
+
+	auto table2 = unique_ptr<Table>(new Table(sf::Vector2f(96, 446), 1));
+	initScene->addGameObject(move(table2));
+
+	// HUD
+
+	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15), 3));
+	initScene->addGameObject(move(healthbar));
+	
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 310));
+	initScene->addGameObject(move(timer));
+
+	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40), 3));
+	initScene->addGameObject(move(itemCounter));
+
+	auto caffeineLevel = unique_ptr<CaffeineLevel>(new CaffeineLevel(sf::Vector2f((float)game.getScreenResolution().x, 15), 24, 115));
+	initScene->addGameObject(move(caffeineLevel));
+
 	//---------------------------------------------------------------------------------
 	int x = 0;
 	for(x = 0; x < 300; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
-		npc->setPosition(sf::Vector2f(rand() % 1000, rand() % 1000));
+		npc->setPosition(sf::Vector2f(rand() % 1000,rand() % 1000));
 		initScene->addGameObject(move(npc));
 	}
 
@@ -153,6 +180,7 @@ int main()
 
 	//Start the game with that scene
 	game.run(move(menuScene));
+
 
 	TextureManager::reset();
 	return 0;
