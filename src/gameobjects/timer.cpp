@@ -23,8 +23,17 @@ Timer::Timer(sf::Vector2f position, int startTime) {
 	evOnUpdate.subscribe(bind(&Timer::onUpdate, this, _1));
 
 	// Calculates the string which will be displayed
-	char stringTimer[24];
-	sprintf(stringTimer, "%02d : %02d ", (int)trunc(this->startTime / 60), (int)round((int)this->startTime % 60));
+	string stringMinutes = to_string((int)trunc(this->startTime / 60));
+	if (stringMinutes.size() == 1) {
+		stringMinutes = "0" + stringMinutes;
+	}
+
+	string stringSeconds = to_string((int)round((int)this->startTime % 60));
+	if (stringSeconds.size() == 1) {
+		stringSeconds = "0" + stringSeconds;
+	}
+
+	string stringTimer = stringMinutes + " : " + stringSeconds;
 
 	//Set the text of the timer
 	setCharSize(4, 26);
@@ -39,10 +48,20 @@ Timer::Timer(sf::Vector2f position, int startTime) {
 void Timer::onUpdate(float timePassed) {
 
 	actualTime -= timePassed;
-	if (actualTime >= 0) {
+	if (actualTime >= 0 && lastDisplayedTime - actualTime > 1) {
 		// Updates the timer text
-		char stringTimer[24];
-		sprintf(stringTimer, "%02d : %02d ", (int)trunc(actualTime / 60), (int)round((int)actualTime % 60));
+		lastDisplayedTime = actualTime;
+		string stringMinutes = to_string((int)trunc(this->actualTime / 60));
+		if (stringMinutes.size() == 1) {
+			stringMinutes = "0" + stringMinutes;
+		}
+
+		string stringSeconds = to_string((int)round((int)this->actualTime % 60));
+		if (stringSeconds.size() == 1) {
+			stringSeconds = "0" + stringSeconds;
+		}
+
+		string stringTimer = stringMinutes + " : " + stringSeconds;
 		setText(4, stringTimer);
 	}
 	else {

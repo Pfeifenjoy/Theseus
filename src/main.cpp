@@ -23,6 +23,8 @@
 #include "gameobjects/throwing_cup.hpp"
 #include "gameobjects/healthbar.hpp"
 #include "gameobjects/timer.hpp"
+#include "gameobjects/itemcounter.hpp"
+#include "gameobjects/caffeinelevel.hpp"
 
 #include <iostream>
 #include <memory>
@@ -137,14 +139,20 @@ int main()
 	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15), 3));
 	initScene->addGameObject(move(healthbar));
 	
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 10));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 310));
 	initScene->addGameObject(move(timer));
+
+	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40), 3));
+	initScene->addGameObject(move(itemCounter));
+
+	auto caffeineLevel = unique_ptr<CaffeineLevel>(new CaffeineLevel(sf::Vector2f((float)game.getScreenResolution().x, 15), 24, 115));
+	initScene->addGameObject(move(caffeineLevel));
 
 	//---------------------------------------------------------------------------------
 	int x = 0;
 	for(x = 0; x < 100; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
-		npc->setPosition(sf::Vector2f(rand() % 1000, rand() % 1000));
+		npc->setPosition(sf::Vector2f(rand() % 1000,rand() % 1000));
 		initScene->addGameObject(move(npc));
 	}
 
@@ -165,6 +173,7 @@ int main()
 
 	//Start the game with that scene
 	game.run(move(menuScene));
+
 
 	TextureManager::reset();
 	return 0;
