@@ -79,7 +79,7 @@ int main()
 	TextureManager::instance().loadTexture("item_level_1_bizagi_cd.png");
 	TextureManager::instance().loadTexture("item_level_6_cup2.png");
 	TextureManager::instance().loadTexture("heart.png");
-	
+
 	Layer layer(100, 40);
 	auto objects = layer.getGameObjects();
 	cout << objects.size() <<endl;
@@ -137,7 +137,7 @@ int main()
 
 	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15), 3));
 	initScene->addGameObject(move(healthbar));
-	
+
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 10));
 	initScene->addGameObject(move(timer));
 
@@ -155,8 +155,8 @@ int main()
 	initScene->addGameObject(move(camera));
 	initScene->setCamera(camera_ptr);
 
-	auto floor = unique_ptr<Floor>(new Floor(sf::Vector2f(0,0), sf::Vector2f(100 * Brick::WIDTH, 40 * Brick::HEIGHT)));
-	initScene->addGameObject(move(floor));
+//	auto floor = unique_ptr<Floor>(new Floor(sf::Vector2f(0,0), sf::Vector2f(100 * Brick::WIDTH, 40 * Brick::HEIGHT)));
+//	initScene->addGameObject(move(floor));
 
 
 	vector<std::string >  menuItems;

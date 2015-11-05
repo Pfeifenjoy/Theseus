@@ -2,6 +2,7 @@
 #include <cassert>
 #include <time.h>
 #include "../gameobjects/brick.hpp"
+#include "../gameobjects/floor.hpp"
 
 using namespace theseus::map;
 using namespace theseus::gameobjects;
@@ -164,6 +165,12 @@ void Layer::generateGameObjectField() {
 	short k;
 	for(i = 0; i < (int) layer.size() ; i++) {
 		for(j = 0; j < (int) layer[i].size() ; j++) {
+			if(this->layer[i][j] == FREE) {
+				sf::Vector2f position(Brick::WIDTH * i - 6, Brick::HEIGHT * j);
+				sf::Vector2f size(Brick::WIDTH + 12, Brick::HEIGHT);
+				auto floor = unique_ptr<Floor>(new Floor(position, size));
+				this->gameobjects.push_back(move(floor));
+			}
 			if(this->layer[i][j] != OCCUPIED) continue;
 			k = 0;
 			if(j-1 >= 0)
