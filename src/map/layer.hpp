@@ -41,7 +41,7 @@ namespace map {
 			void populateGameObjects(std::vector<std::unique_ptr<Positionable> >);
 			void populateRoomObjects(std::vector<std::unique_ptr<RoomDescription> >);
 			std::vector<std::unique_ptr<theseus::engine::GameObject> > getGameObjects();
-			void fillWithRooms(int minSize, int maxSize, int numWalls);
+			void fillWithRooms(sf::Vector2<int> minSize, sf::Vector2<int> maxSize, int numWalls);
 			void addRoom(int x, int y, int width, int height);
 			bool checkField(int x, int y, int width = 1, int height = 1);
 			void freeRestrictions();

@@ -1,4 +1,5 @@
 #include "level-description.hpp"
+#include <cassert>
 
 using namespace std;
 using namespace theseus::map;
@@ -22,6 +23,34 @@ vector<unique_ptr<RoomDescription> > LevelDescription::getRooms() {
 
 void LevelDescription::addRoom(unique_ptr<RoomDescription> room) {
 	this->rooms.push_back(move(room));
+}
+
+void LevelDescription::setMinRoomSize(sf::Vector2f size) {
+	assert(this->maxRoomSize.x < size.x);
+	assert(this->maxRoomSize.y < size.y);
+	this->minRoomSize = size;
+}
+
+void LevelDescription::setMaxRoomSize(sf::Vector2f size) {
+	assert(this->minRoomSize.x > size.x);
+	assert(this->minRoomSize.y > size.y);
+	this->maxRoomSize = size;
+}
+
+void LevelDescription::setMaxAmountOfStandardRooms(int amount) {
+	this->maxAmountOfStandardRooms = amount;
+}
+
+sf::Vector2f LevelDescription::getMinRoomSize() {
+	return this->minRoomSize;
+}
+
+sf::Vector2f LevelDescription::getMaxRoomSize() {
+	return this->maxRoomSize;
+}
+
+int LevelDescription::getMaxAmountOfStandardRooms() {
+	return this->maxAmountOfStandardRooms;
 }
 
 sf::Vector2f LevelDescription::getDimensions() {

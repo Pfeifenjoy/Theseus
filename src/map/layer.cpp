@@ -23,7 +23,12 @@ Layer::Layer(unique_ptr<LevelDescription> description) {
 	this->addWall(1, height - 1, EAST, width - 1);
 	this->addWall(width - 1, 1, SOUTH, height - 2);
 	this->populateRoomObjects(description->getRooms());
-	this->fillWithRooms(7, 10, rand() % 20 + 1);
+
+	sf::Vector2f minSizeF = description->getMinRoomSize();
+	sf::Vector2f maxSizeF = description->getMaxRoomSize();
+	sf::Vector2<int> minSize(floor(minSizeF.x / Brick::WIDTH), floor(minSizeF.y / Brick::HEIGHT));
+	sf::Vector2<int> maxSize(floor(maxSizeF.x / Brick::WIDTH), floor(maxSizeF.y / Brick::HEIGHT));
+	this->fillWithRooms(minSize, maxSize, description->getMaxAmountOfStandardRooms());
 	fillWithWalls(3, 20, 16, 200);
 	fillWithWalls(3, 20, 8, 200);
 	fillWithWalls(3, 20, 4, 200);
@@ -33,13 +38,13 @@ Layer::Layer(unique_ptr<LevelDescription> description) {
 	this->populateGameObjects(description->getFreeObjects());
 }
 
-void Layer::fillWithRooms(int minSize, int maxSize, int numRooms) {
+void Layer::fillWithRooms(sf::Vector2<int> minSize, sf::Vector2<int> maxSize, int numRooms) {
 	assert(numRooms > 0);
-	assert(minSize > 0);
-	assert(maxSize > minSize);
+	assert(minSize.x > 0 && minSize.y > 0);
+	assert(maxSize.x > minSize.x && maxSize.y > minSize.y);
 	while(numRooms--) {
-		int width = rand() % (maxSize - minSize) + minSize;
-		int height = rand() % (maxSize - minSize) + minSize;
+		int width = rand() % (maxSize.x - minSize.x) + minSize.x;
+		int height = rand() % (maxSize.y - minSize.y) + minSize.y;
 		int x = (int) this->layer.size() - width < 0 ? 0 :
 				rand() % (int) (this->layer.size() - width);
         int y = (int) this->layer[x].size() - height < 0 ? 0 :
