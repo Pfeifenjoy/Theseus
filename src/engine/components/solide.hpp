@@ -1,5 +1,5 @@
 #ifndef _THESEUS_ENGINE_COMPONENTS_SOLIDE_H
-#define _THESEUS_ENGINE_COMPONENTS_SOLIDE_H 
+#define _THESEUS_ENGINE_COMPONENTS_SOLIDE_H
 
 #include "base.hpp"
 #include "position.hpp"
@@ -47,7 +47,7 @@ public:
 	virtual ~Solide();
 
 	//---- Getters / Setters ----------------------------------------------------------------------------------------------
-	
+
 	/**
 	 * The left top corner of the collision area.
 	 * This is given relative to the position of the game object.

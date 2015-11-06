@@ -3,6 +3,7 @@
 #include <time.h>
 #include "../gameobjects/brick.hpp"
 #include "../gameobjects/floor.hpp"
+#include <math.h>
 
 using namespace theseus::map;
 using namespace theseus::gameobjects;
@@ -11,6 +12,7 @@ using namespace std;
 Layer::Layer(int width, int height) {
 	srand(time(NULL));
 	this->layer = vector<vector<FieldStatus> > (width, vector<FieldStatus> (height, FREE));
+	this->amountFreeFields = width * height;
 
 	this->addWall(0, 0, SOUTH, height);
 	this->addWall(1, 0, EAST, width);
@@ -98,6 +100,7 @@ int Layer::drawLine(int x, int y, Direction direction, int length, FieldStatus s
 				return realLength;
 			}
 			layer[x][y] = status;
+			this->amountFreeFields--;
 		}
 		realLength++;
 		switch(direction) {
@@ -233,6 +236,30 @@ void Layer::addWall(int x, int y, Direction direction, int length) {
 	if(realLength == 0) return;
 }
 
+void Layer::populateGameObjects(LevelDescription description) {
+	auto freeObjects = description.getFreeObjects();
+	for(auto& object : freeObjects) {
+		if(this->amountFreeFields <= 0) return;
+		bool unset = true;
+		while(unset) {
+			sf::Vector2f topLeft = object->getCollisionAreaTopLeft();
+			sf::Vector2f rightBottom = object->getCollisionAreaBottomRight();
+			int width = (int) ceil((rightBottom.x - topLeft.x) / Brick::WIDTH);
+			int height = (int) ceil((rightBottom.y - rightBottom.y) / Brick::HEIGHT);
+			int x = (int) this->layer.size() - width < 0 ? 0 :
+					rand() % (int) (this->layer.size() - width);
+			int y = (int) this->layer[x].size() - height < 0 ? 0 :
+					rand() % (int) (this->layer[x].size() - height);
+
+			if(this->checkField(x, y, width, height)) {
+				sf::Vector2f position(x * Brick::WIDTH, y * Brick::HEIGHT);
+				object->setPosition(position);
+				this->gameobjects.push_back(move(object));
+				unset = false;
+			}
+		}
+	}
+}
 
 vector<unique_ptr<theseus::engine::GameObject> > Layer::getGameObjects() {
 	return move(this->gameobjects);

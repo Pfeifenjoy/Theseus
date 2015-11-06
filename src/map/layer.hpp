@@ -10,6 +10,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
+#include "level-description.hpp"
 
 namespace theseus {
 namespace map {
@@ -30,6 +31,7 @@ namespace map {
 	std::ostream& operator<<(std::ostream&, const Layer&);
 	class Layer {
 		private:
+			long amountFreeFields;
 			std::vector<std::vector<FieldStatus> > layer;
 			int drawLine(int x, int y, Direction direction, int length, FieldStatus status);
 			std::vector<std::unique_ptr<theseus::engine::GameObject> > gameobjects;
@@ -37,6 +39,7 @@ namespace map {
 			void generateGameObjectField();
 			void addDoor(int x, int y, int width, int height);
 			void setFloor(int x, int y, theseus::gameobjects::FloorType);
+			void populateGameObjects(LevelDescription);
 		public:
 			/**
 			 * Initialize a squared layer.
