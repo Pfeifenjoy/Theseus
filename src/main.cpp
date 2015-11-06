@@ -85,6 +85,9 @@ int main()
 
 
 	unique_ptr<LevelDescription> description(new LevelDescription(sf::Vector2f (Brick::WIDTH * 100, Brick::HEIGHT * 40)));
+	unique_ptr<RoomDescription> room1(new RoomDescription(Brick::WIDTH * 20, Brick::HEIGHT * 20));
+
+	description->addRoom(move(room1));
 	int x = 0;
 	for(x = 0; x < 500; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);

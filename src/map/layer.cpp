@@ -17,18 +17,19 @@ Layer::Layer(unique_ptr<LevelDescription> description) {
 	int height = (int) (dimensions.y / Brick::HEIGHT);
 
 	this->layer = vector<vector<FieldStatus> > (width, vector<FieldStatus> (height, FREE));
-	this->amountFreeFields = width * height;
 
 	this->addWall(0, 0, SOUTH, height);
 	this->addWall(1, 0, EAST, width);
 	this->addWall(1, height - 1, EAST, width - 1);
 	this->addWall(width - 1, 1, SOUTH, height - 2);
+	this->populateRoomObjects(description->getRooms());
 	this->fillWithRooms(7, 10, rand() % 20 + 1);
 	fillWithWalls(3, 20, 16, 200);
 	fillWithWalls(3, 20, 8, 200);
 	fillWithWalls(3, 20, 4, 200);
 	fillWithWalls(3, 20, 2, 200);
 	this->generateGameObjectField();
+	this->freeRestrictions();
 	this->populateGameObjects(description->getFreeObjects());
 }
 
@@ -106,7 +107,6 @@ int Layer::drawLine(int x, int y, Direction direction, int length, FieldStatus s
 				return realLength;
 			}
 			layer[x][y] = status;
-			this->amountFreeFields--;
 		}
 		realLength++;
 		switch(direction) {
@@ -242,29 +242,63 @@ void Layer::addWall(int x, int y, Direction direction, int length) {
 	if(realLength == 0) return;
 }
 
-void Layer::populateGameObjects(vector<unique_ptr<Positionable> > freeGameObjects) {
-	for(auto& object : freeGameObjects) {
-		if(this->amountFreeFields <= 0) return;
-		bool unset = true;
-		while(unset) {
-			sf::Vector2f topLeft = object->getCollisionAreaTopLeft();
-			sf::Vector2f rightBottom = object->getCollisionAreaBottomRight();
-			int width = (int) ceil((rightBottom.x - topLeft.x) / Brick::WIDTH);
-			cout << width << endl;
-			int height = (int) ceil((rightBottom.y - topLeft.y) / Brick::HEIGHT);
-			cout << height << endl;
-			int x = (int) this->layer.size() - width < 0 ? 0 :
-					rand() % (int) (this->layer.size() - width);
-			int y = (int) this->layer[x].size() - height < 0 ? 0 :
-					rand() % (int) (this->layer[x].size() - height);
-
-			if(this->checkField(x, y, width, height)) {
-				sf::Vector2f position(x * Brick::WIDTH, y * Brick::HEIGHT);
-				object->setPosition(position);
-				this->gameobjects.push_back(move(object));
-				unset = false;
+void Layer::freeRestrictions() {
+	for(auto& column: this->layer) {
+		for(auto& field: column) {
+			if(field != OCCUPIED && field != FREE) {
+				field = FREE;
 			}
 		}
+	}
+}
+
+vector<sf::Vector2<int> > Layer::getPossiblePlaces(int width, int height) {
+	vector<sf::Vector2<int> > places;
+	int i, j;
+	for(i = 0; i < (int)this->layer.size() - width; i++) {
+		for(j = 0; j < (int)this->layer[i].size() - height; j++) {
+			if(checkField(i, j, width, height))
+				places.push_back(sf::Vector2<int> (i, j));
+		}
+	}
+	return places;
+}
+
+void Layer::occupy(int x, int y, int width, int height) {
+	int i, j;
+	for(i = x; i < x + width; i++) {
+		for(j = y; j < y + height; j++) {
+			this->layer[i][j] = RESTRICTED;
+		}
+	}
+}
+
+void Layer::populateGameObjects(vector<unique_ptr<Positionable> > freeGameObjects) {
+	for(auto& object : freeGameObjects) {
+		sf::Vector2f topLeft = object->getCollisionAreaTopLeft();
+		sf::Vector2f rightBottom = object->getCollisionAreaBottomRight();
+		int width = (int) ceil((rightBottom.x - topLeft.x) / Brick::WIDTH);
+		int height = (int) ceil((rightBottom.y - topLeft.y) / Brick::HEIGHT);
+		auto possiblePlaces = this->getPossiblePlaces(width, height);
+		auto field = rand() % possiblePlaces.size();
+		auto coords = possiblePlaces[field];
+		sf::Vector2f position(coords.x * Brick::WIDTH, coords.y * Brick::HEIGHT);
+		object->setPosition(position);
+		this->gameobjects.push_back(move(object));
+		this->occupy(coords.x, coords.y, width, height);
+	}
+}
+
+void Layer::populateRoomObjects(vector<unique_ptr<RoomDescription> > rooms) {
+	for(auto& room: rooms) {
+		int width = ceil(room->getWidth() / Brick::WIDTH);
+		int height = ceil(room->getHeight() / Brick::HEIGHT);
+		auto possiblePlaces = getPossiblePlaces(width, height);
+		if(possiblePlaces.size() == 0) continue;
+		auto startField = rand() % possiblePlaces.size();
+		auto position = possiblePlaces[startField];
+		addRoom(position.x, position.y, width, height);
+		//this->occupy(position.x, position.y, room->getWidth(), room->getHeight());
 	}
 }
 

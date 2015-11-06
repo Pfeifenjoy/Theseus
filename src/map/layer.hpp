@@ -31,7 +31,6 @@ namespace map {
 	std::ostream& operator<<(std::ostream&, const Layer&);
 	class Layer {
 		private:
-			long amountFreeFields;
 			std::vector<std::vector<FieldStatus> > layer;
 			int drawLine(int x, int y, Direction direction, int length, FieldStatus status);
 			std::vector<std::unique_ptr<theseus::engine::GameObject> > gameobjects;
@@ -40,10 +39,14 @@ namespace map {
 			void addDoor(int x, int y, int width, int height);
 			void setFloor(int x, int y, theseus::gameobjects::FloorType);
 			void populateGameObjects(std::vector<std::unique_ptr<Positionable> >);
+			void populateRoomObjects(std::vector<std::unique_ptr<RoomDescription> >);
 			std::vector<std::unique_ptr<theseus::engine::GameObject> > getGameObjects();
 			void fillWithRooms(int minSize, int maxSize, int numWalls);
 			void addRoom(int x, int y, int width, int height);
 			bool checkField(int x, int y, int width = 1, int height = 1);
+			void freeRestrictions();
+			void occupy(int x, int y, int width, int height);
+			std::vector<sf::Vector2<int> > getPossiblePlaces(int width, int height);
 			/**
 			 * Fill the layer with random walls.
 			 * This generates a labyrinth.

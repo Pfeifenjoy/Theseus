@@ -16,6 +16,14 @@ vector<unique_ptr<Positionable> > LevelDescription::getFreeObjects() {
 	return move(this->freeObjects);
 }
 
+vector<unique_ptr<RoomDescription> > LevelDescription::getRooms() {
+	return move(this->rooms);
+}
+
+void LevelDescription::addRoom(unique_ptr<RoomDescription> room) {
+	this->rooms.push_back(move(room));
+}
+
 sf::Vector2f LevelDescription::getDimensions() {
 	return this->dimensions;
 }
