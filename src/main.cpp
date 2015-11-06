@@ -86,18 +86,14 @@ int main()
 
 	unique_ptr<LevelDescription> description(new LevelDescription(sf::Vector2f (Brick::WIDTH * 100, Brick::HEIGHT * 40)));
 	int x = 0;
-	for(x = 0; x < 1000; x++) {
+	for(x = 0; x < 500; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		npc->setPosition(sf::Vector2f(rand() % 10000,rand() % 10000));
 		description->addFreeGameObject(move(npc));
 	}
 	Layer layer(move(description));
-	auto objects = layer.getGameObjects();
-	cout << objects.size() <<endl;
-	for(auto& object: objects) {
-		initScene->addGameObject(move(object));
-	}
 	cout << layer << endl;
+	initScene = layer.toScene();
 
 	auto man = unique_ptr<Player>(new Player);
 	man->setPosition(sf::Vector2f (65, 65));

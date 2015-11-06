@@ -272,6 +272,15 @@ vector<unique_ptr<theseus::engine::GameObject> > Layer::getGameObjects() {
 	return move(this->gameobjects);
 }
 
+unique_ptr<theseus::engine::Scene> Layer::toScene() {
+	unique_ptr<theseus::engine::Scene> scene(new theseus::engine::Scene());
+	auto objects = this->getGameObjects();
+	for(auto& object: objects) {
+		scene->addGameObject(move(object));
+	}
+	return scene;
+}
+
 ostream& theseus::map::operator<<(ostream& os, const Layer& layer) {
 	int i = 0, j = 0;
 

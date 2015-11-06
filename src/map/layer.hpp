@@ -40,14 +40,7 @@ namespace map {
 			void addDoor(int x, int y, int width, int height);
 			void setFloor(int x, int y, theseus::gameobjects::FloorType);
 			void populateGameObjects(std::vector<std::unique_ptr<Positionable> >);
-		public:
-			/**
-			 * Initialize a squared layer.
-			 * @param width {int}
-			 * @param height {int}
-			 */
-			Layer(std::unique_ptr<LevelDescription>);
-			void printSquare(int x, int y, int width, int height);
+			std::vector<std::unique_ptr<theseus::engine::GameObject> > getGameObjects();
 			void fillWithRooms(int minSize, int maxSize, int numWalls);
 			void addRoom(int x, int y, int width, int height);
 			bool checkField(int x, int y, int width = 1, int height = 1);
@@ -68,9 +61,19 @@ namespace map {
 			 * @param length {int} maximal Length of the wall.
 			 */
 			void addWall(int x, int y, Direction direction, int length);
-			std::vector<std::unique_ptr<theseus::engine::GameObject> > getGameObjects();
+		public:
 			/**
-			 * Generate a Steam which includes a Unicode representation of the layer and provides Data about the layer.
+			 * Initialize a squared layer.
+			 * @param width {int}
+			 * @param height {int}
+			 */
+			Layer(std::unique_ptr<LevelDescription>);
+			/**
+			 * Transform the layer into a Scene.
+			 */
+			std::unique_ptr<theseus::engine::Scene> toScene();
+			/**
+			 * Print the Layer in ASCII art. Only works in Unicode Command Lines.
 			 */
 			friend std::ostream& operator<<(std::ostream&, const Layer&);
 	};
