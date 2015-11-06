@@ -17,10 +17,10 @@ float RoomDescription::getWidth() {
 	return this->width;
 }
 
-void RoomDescription::addGameObject(unique_ptr<GameObject> gameObject){
+void RoomDescription::addGameObject(unique_ptr<Positionable> gameObject){
 	this->gameobjects.push_back(move(gameObject));
 }
 
-vector<unique_ptr<GameObject> > RoomDescription::getGameObjects() {
+vector<unique_ptr<Positionable> > RoomDescription::getGameObjects() {
 	return move(this->gameobjects);
 }

@@ -39,6 +39,8 @@ namespace map {
 			void addDoor(int x, int y, int width, int height);
 			void setFloor(int x, int y, theseus::gameobjects::FloorType);
 			void populateGameObjects(std::vector<std::unique_ptr<Positionable> >);
+			void populateGameObjects(std::vector<std::unique_ptr<Positionable> >,
+					sf::Vector2<int>, sf::Vector2<int>);
 			void populateRoomObjects(std::vector<std::unique_ptr<RoomDescription> >);
 			std::vector<std::unique_ptr<theseus::engine::GameObject> > getGameObjects();
 			void fillWithRooms(sf::Vector2<int> minSize, sf::Vector2<int> maxSize, int numWalls);
@@ -47,6 +49,10 @@ namespace map {
 			void freeRestrictions();
 			void occupy(int x, int y, int width, int height);
 			std::vector<sf::Vector2<int> > getPossiblePlaces(int width, int height);
+			/**
+			 * Returns all possible Places in a certain area.
+			 */
+			std::vector<sf::Vector2<int> > getPossiblePlaces(sf::Vector2<int>, sf::Vector2<int>, sf::Vector2<int>);
 			/**
 			 * Fill the layer with random walls.
 			 * This generates a labyrinth.

@@ -151,7 +151,6 @@ void Layer::addRoom(int x, int y, int width, int height) {
 void Layer::addDoor(int x, int y, int width, int height) {
 	int side = rand() % 4;
 	int offset = rand() % ((side % 2 ? height : width) - 2) + 1;
-	//int offset = (side % 2 ? height : width) - 2;
 	switch(side) {
 		case 0: x += offset; break;
 		case 1: y += offset; x += width - 1; break;
@@ -191,36 +190,37 @@ void Layer::generateGameObjectField() {
 			if(this->layer[i][j] == FREE) {
 				this->setFloor(i, j, CORRIDOR);
 			}
-			if(this->layer[i][j] != OCCUPIED) continue;
-			k = 0;
-			if(j-1 >= 0)
-				k += this->layer[i][j - 1] == OCCUPIED ? 2 : 0;
-			if(i + 1 < (int) layer.size())
-				k += this->layer[i + 1][j] == OCCUPIED ? 4 : 0;
-			if(j + 1 < (int) layer[i].size())
-				k += this->layer[i][j + 1] == OCCUPIED ? 8 : 0;
-			if(i - 1 >= 0)
-				k += this->layer[i - 1][j] == OCCUPIED ? 16 : 0;
-			BrickType type = HORIZONAL;
-			switch(k) {
-				case 2: type = BOTTOM_END; break;
-				case 4: type = LEFT_END; break;
-				case 8: type = TOP_END; break;
-				case 16: type = RIGHT_END; break;
-				case 10: type = VERTICAL; break;
-				case 20: type = HORIZONAL; break;
-				case 6: type = EDGE_LEFT_BOTTOM; break;
-				case 12: type = EDGE_LEFT_TOP; break;
-				case 24: type = EDGE_RIGHT_TOP; break;
-				case 18: type = EDGE_RIGHT_BOTTOM; break;
-				case 22: type = T_UPSIDEDOWN_CROSS; break;
-				case 14: type = LEFT_MIDDLE; break;
-				case 28: type = T_CROSS; break;
-				case 26: type = RIGHT_MIDDLE; break;
-				case 30: type = CROSS; break;
+			else if(this->layer[i][j] == OCCUPIED) {
+				k = 0;
+				if(j-1 >= 0)
+					k += this->layer[i][j - 1] == OCCUPIED ? 2 : 0;
+				if(i + 1 < (int) layer.size())
+					k += this->layer[i + 1][j] == OCCUPIED ? 4 : 0;
+				if(j + 1 < (int) layer[i].size())
+					k += this->layer[i][j + 1] == OCCUPIED ? 8 : 0;
+				if(i - 1 >= 0)
+					k += this->layer[i - 1][j] == OCCUPIED ? 16 : 0;
+				BrickType type = HORIZONAL;
+				switch(k) {
+					case 2: type = BOTTOM_END; break;
+					case 4: type = LEFT_END; break;
+					case 8: type = TOP_END; break;
+					case 16: type = RIGHT_END; break;
+					case 10: type = VERTICAL; break;
+					case 20: type = HORIZONAL; break;
+					case 6: type = EDGE_LEFT_BOTTOM; break;
+					case 12: type = EDGE_LEFT_TOP; break;
+					case 24: type = EDGE_RIGHT_TOP; break;
+					case 18: type = EDGE_RIGHT_BOTTOM; break;
+					case 22: type = T_UPSIDEDOWN_CROSS; break;
+					case 14: type = LEFT_MIDDLE; break;
+					case 28: type = T_CROSS; break;
+					case 26: type = RIGHT_MIDDLE; break;
+					case 30: type = CROSS; break;
+				}
+				unique_ptr<Brick > brick(new Brick(type, i, j));
+				this->gameobjects.push_back(move(brick));
 			}
-			unique_ptr<Brick > brick(new Brick(type, i, j));
-			this->gameobjects.push_back(move(brick));
 		}
 	}
 	for(auto position : this->memorizedCorridorFloors) {
@@ -257,16 +257,21 @@ void Layer::freeRestrictions() {
 	}
 }
 
-vector<sf::Vector2<int> > Layer::getPossiblePlaces(int width, int height) {
+vector<sf::Vector2<int> > Layer::getPossiblePlaces(sf::Vector2<int> position, sf::Vector2<int> area, sf::Vector2<int> size) {
 	vector<sf::Vector2<int> > places;
 	int i, j;
-	for(i = 0; i < (int)this->layer.size() - width; i++) {
-		for(j = 0; j < (int)this->layer[i].size() - height; j++) {
-			if(checkField(i, j, width, height))
+	for(i = position.x; i < position.x + area.x - size.x; i++) {
+		for(j = position.y; j < position.y + area.y - size.y; j++) {
+			if(checkField(i, j, size.x, size.y))
 				places.push_back(sf::Vector2<int> (i, j));
 		}
 	}
 	return places;
+}
+vector<sf::Vector2<int> > Layer::getPossiblePlaces(int width, int height) {
+	return getPossiblePlaces(sf::Vector2<int> (0, 0),
+			sf::Vector2<int> (this->layer.size(), this->layer[0].size()),
+			sf::Vector2<int> (width, height));
 }
 
 void Layer::occupy(int x, int y, int width, int height) {
@@ -279,18 +284,26 @@ void Layer::occupy(int x, int y, int width, int height) {
 }
 
 void Layer::populateGameObjects(vector<unique_ptr<Positionable> > freeGameObjects) {
+	return this->populateGameObjects(move(freeGameObjects),
+		   	sf::Vector2<int> (0,0),
+			sf::Vector2<int> (this->layer.size(), this->layer[0].size()));
+}
+
+void Layer::populateGameObjects(vector<unique_ptr<Positionable> > freeGameObjects, sf::Vector2<int> position, sf::Vector2<int> area) {
 	for(auto& object : freeGameObjects) {
 		sf::Vector2f topLeft = object->getCollisionAreaTopLeft();
 		sf::Vector2f rightBottom = object->getCollisionAreaBottomRight();
 		int width = (int) ceil((rightBottom.x - topLeft.x) / Brick::WIDTH);
 		int height = (int) ceil((rightBottom.y - topLeft.y) / Brick::HEIGHT);
-		auto possiblePlaces = this->getPossiblePlaces(width, height);
-		auto field = rand() % possiblePlaces.size();
-		auto coords = possiblePlaces[field];
-		sf::Vector2f position(coords.x * Brick::WIDTH, coords.y * Brick::HEIGHT);
-		object->setPosition(position);
-		this->gameobjects.push_back(move(object));
-		this->occupy(coords.x, coords.y, width, height);
+		auto possiblePlaces = this->getPossiblePlaces(position, area, sf::Vector2<int> (width, height));
+		if(possiblePlaces.size() > 0) {
+			auto field = rand() % possiblePlaces.size();
+			auto coords = possiblePlaces[field];
+			sf::Vector2f position(coords.x * Brick::WIDTH, coords.y * Brick::HEIGHT);
+			object->setPosition(position);
+			this->gameobjects.push_back(move(object));
+			this->occupy(coords.x, coords.y, width, height);
+		}
 	}
 }
 
@@ -299,10 +312,15 @@ void Layer::populateRoomObjects(vector<unique_ptr<RoomDescription> > rooms) {
 		int width = ceil(room->getWidth() / Brick::WIDTH);
 		int height = ceil(room->getHeight() / Brick::HEIGHT);
 		auto possiblePlaces = getPossiblePlaces(width + 1, height + 1);
-		if(possiblePlaces.size() == 0) continue;
-		auto startField = rand() % possiblePlaces.size();
-		auto position = possiblePlaces[startField];
-		addRoom(position.x + 1, position.y + 1, width, height);
+		assert(possiblePlaces.size() > 0);
+		if(possiblePlaces.size() != 0) {
+			auto startField = rand() % possiblePlaces.size();
+			auto position = possiblePlaces[startField];
+			auto roomObjects = room->getGameObjects();
+			this->populateGameObjects(move(roomObjects),
+					position, sf::Vector2<int> (width, height));
+			addRoom(position.x + 1, position.y + 1, width, height);
+		}
 	}
 }
 
