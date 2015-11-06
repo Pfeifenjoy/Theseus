@@ -298,12 +298,11 @@ void Layer::populateRoomObjects(vector<unique_ptr<RoomDescription> > rooms) {
 	for(auto& room: rooms) {
 		int width = ceil(room->getWidth() / Brick::WIDTH);
 		int height = ceil(room->getHeight() / Brick::HEIGHT);
-		auto possiblePlaces = getPossiblePlaces(width, height);
+		auto possiblePlaces = getPossiblePlaces(width + 1, height + 1);
 		if(possiblePlaces.size() == 0) continue;
 		auto startField = rand() % possiblePlaces.size();
 		auto position = possiblePlaces[startField];
-		addRoom(position.x, position.y, width, height);
-		//this->occupy(position.x, position.y, room->getWidth(), room->getHeight());
+		addRoom(position.x + 1, position.y + 1, width, height);
 	}
 }
 
