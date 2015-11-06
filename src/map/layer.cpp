@@ -9,8 +9,13 @@ using namespace theseus::map;
 using namespace theseus::gameobjects;
 using namespace std;
 
-Layer::Layer(int width, int height) {
+Layer::Layer(unique_ptr<LevelDescription> description) {
 	srand(time(NULL));
+
+	auto dimensions = description->getDimensions();
+	int width = (int) (dimensions.x / Brick::WIDTH);
+	int height = (int) (dimensions.y / Brick::HEIGHT);
+
 	this->layer = vector<vector<FieldStatus> > (width, vector<FieldStatus> (height, FREE));
 	this->amountFreeFields = width * height;
 
@@ -24,6 +29,7 @@ Layer::Layer(int width, int height) {
 	fillWithWalls(3, 20, 4, 200);
 	fillWithWalls(3, 20, 2, 200);
 	this->generateGameObjectField();
+	this->populateGameObjects(description->getFreeObjects());
 }
 
 void Layer::fillWithRooms(int minSize, int maxSize, int numRooms) {
@@ -236,16 +242,17 @@ void Layer::addWall(int x, int y, Direction direction, int length) {
 	if(realLength == 0) return;
 }
 
-void Layer::populateGameObjects(LevelDescription description) {
-	auto freeObjects = description.getFreeObjects();
-	for(auto& object : freeObjects) {
+void Layer::populateGameObjects(vector<unique_ptr<Positionable> > freeGameObjects) {
+	for(auto& object : freeGameObjects) {
 		if(this->amountFreeFields <= 0) return;
 		bool unset = true;
 		while(unset) {
 			sf::Vector2f topLeft = object->getCollisionAreaTopLeft();
 			sf::Vector2f rightBottom = object->getCollisionAreaBottomRight();
 			int width = (int) ceil((rightBottom.x - topLeft.x) / Brick::WIDTH);
-			int height = (int) ceil((rightBottom.y - rightBottom.y) / Brick::HEIGHT);
+			cout << width << endl;
+			int height = (int) ceil((rightBottom.y - topLeft.y) / Brick::HEIGHT);
+			cout << height << endl;
 			int x = (int) this->layer.size() - width < 0 ? 0 :
 					rand() % (int) (this->layer.size() - width);
 			int y = (int) this->layer[x].size() - height < 0 ? 0 :

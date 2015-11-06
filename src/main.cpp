@@ -26,6 +26,7 @@
 #include "gameobjects/timer.hpp"
 #include "gameobjects/itemcounter.hpp"
 #include "gameobjects/caffeinelevel.hpp"
+#include "map/level-description.hpp"
 
 #include <iostream>
 #include <memory>
@@ -82,7 +83,15 @@ int main()
 	TextureManager::instance().loadTexture("item_level_6_cup2.png");
 	TextureManager::instance().loadTexture("heart.png");
 
-	Layer layer(100, 40);
+
+	unique_ptr<LevelDescription> description(new LevelDescription(sf::Vector2f (Brick::WIDTH * 100, Brick::HEIGHT * 40)));
+	int x = 0;
+	for(x = 0; x < 1000; x++) {
+		auto npc = unique_ptr<NPC>(new NPC);
+		npc->setPosition(sf::Vector2f(rand() % 10000,rand() % 10000));
+		description->addFreeGameObject(move(npc));
+	}
+	Layer layer(move(description));
 	auto objects = layer.getGameObjects();
 	cout << objects.size() <<endl;
 	for(auto& object: objects) {
@@ -150,12 +159,6 @@ int main()
 	initScene->addGameObject(move(caffeineLevel));
 
 	//---------------------------------------------------------------------------------
-	int x = 0;
-	for(x = 0; x < 1000; x++) {
-		auto npc = unique_ptr<NPC>(new NPC);
-		npc->setPosition(sf::Vector2f(rand() % 10000,rand() % 10000));
-		initScene->addGameObject(move(npc));
-	}
 
 	// set up camera
 	auto camera = unique_ptr<MainCamera>(new MainCamera());

@@ -1,3 +1,6 @@
+/**
+ * @autor Arwed Mett
+ */
 #ifndef _THESEUS_GAME_OBJECTS_CHARACTER_H
 #define _THESEUS_GAME_OBJECTS_CHARACTER_H
 
@@ -7,13 +10,15 @@
 #include "../engine/components/speed.hpp"
 #include "../engine/components/collisionresolver.hpp"
 #include <SFML/System.hpp>
+#include "../map/positionable.hpp"
 
 namespace theseus
 {
 namespace gameobjects
 {
 	class Character
-		: public engine::GameObject
+		//: public engine::GameObject
+		: public theseus::map::Positionable
 		, public virtual engine::components::Animation
 		, public virtual engine::components::Speed
 		, public virtual engine::components::CollisionResolver

@@ -39,14 +39,14 @@ namespace map {
 			void generateGameObjectField();
 			void addDoor(int x, int y, int width, int height);
 			void setFloor(int x, int y, theseus::gameobjects::FloorType);
-			void populateGameObjects(LevelDescription);
+			void populateGameObjects(std::vector<std::unique_ptr<Positionable> >);
 		public:
 			/**
 			 * Initialize a squared layer.
 			 * @param width {int}
 			 * @param height {int}
 			 */
-			Layer(int width, int height);
+			Layer(std::unique_ptr<LevelDescription>);
 			void printSquare(int x, int y, int width, int height);
 			void fillWithRooms(int minSize, int maxSize, int numWalls);
 			void addRoom(int x, int y, int width, int height);
