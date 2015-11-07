@@ -7,13 +7,14 @@
 #include "../engine/gameobject.hpp"
 #include "../engine/components/sprite.hpp"
 #include <SFML/System.hpp>
+#include "../map/positionable.hpp"
 
 namespace theseus
 {
 	namespace gameobjects
 	{
 		class Chalk
-			: public engine::GameObject
+			: public theseus::map::Positionable
 			, public virtual engine::components::Sprite
 		{
 		private:
@@ -22,7 +23,7 @@ namespace theseus
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
-			Chalk(sf::Vector2f position);
+			Chalk();
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 

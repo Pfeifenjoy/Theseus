@@ -13,13 +13,14 @@ using namespace std::placeholders;
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
 
-UMLDiagramm::UMLDiagramm(sf::Vector2f position) {
+UMLDiagramm::UMLDiagramm() {
 
 	// texture
 	setTexture(1, TextureManager::instance().getTexture("item_level_4_UML.png"));
 
-	// position
-	setPosition(position);
+	//
+	setCollisionAreaTopLeft(sf::Vector2f(0, 0));
+	setCollisionAreaBottomRight(sf::Vector2f(15, 20));
 
 
 
