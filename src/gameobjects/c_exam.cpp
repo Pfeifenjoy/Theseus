@@ -19,7 +19,7 @@ CExam::CExam() {
 	setTexture(1, TextureManager::instance().getTexture("item_level_5_exam.png"));
 
 	setCollisionAreaTopLeft(sf::Vector2f(0, 0));
-	setCollisionAreaBottomRight(sf::Vector2f(15, 20));
+	setCollisionAreaBottomRight(sf::Vector2f(40, 30));
 
 
 }
