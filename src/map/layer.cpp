@@ -40,12 +40,12 @@ Layer::Layer(unique_ptr<LevelDescription> description) {
 }
 
 void Layer::fillWithRooms(sf::Vector2<int> minSize, sf::Vector2<int> maxSize, int numRooms) {
-	assert(numRooms > 0);
+	assert(numRooms >= 0);
 	assert(minSize.x > 0 && minSize.y > 0);
-	assert(maxSize.x > minSize.x && maxSize.y > minSize.y);
+	assert(maxSize.x >= minSize.x && maxSize.y >= minSize.y);
 	while(numRooms--) {
-		int width = rand() % (maxSize.x - minSize.x) + minSize.x;
-		int height = rand() % (maxSize.y - minSize.y) + minSize.y;
+		int width = rand() % ((maxSize.x - minSize.x) == 0 ? 1 : maxSize.x - minSize.x) + minSize.x;
+		int height = rand() % ((maxSize.y - minSize.y) == 0 ? 1 : maxSize.y - minSize.y) + minSize.y;
 		int x = (int) this->layer.size() - width < 0 ? 0 :
 				rand() % (int) (this->layer.size() - width);
         int y = (int) this->layer[x].size() - height < 0 ? 0 :
@@ -173,7 +173,7 @@ void Layer::fillWithWalls(int minLength, int maxLength, int granularity, int num
 	assert(numWalls >= 0);
 	assert(granularity % 2 == 0);
 	assert(minLength > 0);
-	assert(maxLength > 0 && maxLength > minLength);
+	assert(maxLength >= minLength);
     while(numWalls--) {
         int x = granularity * (rand() % ((this->layer.size() - 2) / granularity));
         int y = granularity * (rand() % ((this->layer[x].size() - 2) / granularity));

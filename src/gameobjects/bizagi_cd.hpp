@@ -1,5 +1,5 @@
 /*
-* @author Dominic Steinhauser
+* @author Dominic Steinhauser, Arwed Mett
 */
 #ifndef _THESEUS_GAME_OBJECTS_BIZAGI_CD_H
 #define _THESEUS_GAME_OBJECTS_BIZAGI_CD_H
