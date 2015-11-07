@@ -40,8 +40,8 @@ unique_ptr<LevelDescription> createLevel1() {
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<BizagiCD> (new BizagiCD()));
 
-	level->setMaxAmountOfStandardRooms(4);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 15, Brick::HEIGHT * 15));
+	level->setMaxAmountOfStandardRooms(1);
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 3, Brick::HEIGHT * 3));
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 15, Brick::HEIGHT * 15));
 
 	//set amount of coffee
