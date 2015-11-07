@@ -35,6 +35,13 @@ using namespace theseus::engine;
 using namespace theseus::gameobjects;
 using namespace theseus::map;
 
+unique_ptr<LevelDescription> createLevel1() {
+	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 20, Brick::HEIGHT * 20)));
+
+	level->addFreeGameObject(unique_ptr<BizagiCD> (new BizagiCD()));
+	return level;
+}
+
 int main()
 {
 	cout << "Hello." << endl;
@@ -84,10 +91,9 @@ int main()
 	TextureManager::instance().loadTexture("heart.png");
 
 
-	unique_ptr<LevelDescription> description(new LevelDescription(sf::Vector2f (Brick::WIDTH * 100, Brick::HEIGHT * 40)));
-	unique_ptr<RoomDescription> room1(new RoomDescription(Brick::WIDTH * 20, Brick::HEIGHT * 20));
+	unique_ptr<LevelDescription> description = createLevel1();
 
-	description->addRoom(move(room1));
+
 	int x = 0;
 	for(x = 0; x < 100; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
@@ -133,8 +139,6 @@ int main()
 	auto cup = unique_ptr<SetlxCup>(new SetlxCup(sf::Vector2f(32, 318)));
 	initScene->addGameObject(move(cup));
 
-	auto bizagi = unique_ptr<BizagiCD>(new BizagiCD(sf::Vector2f(64, 318)));
-	initScene->addGameObject(move(bizagi));
 
 	auto throwing = unique_ptr<ThrowingCup>(new ThrowingCup(sf::Vector2f(32, 382)));
 	initScene->addGameObject(move(throwing));

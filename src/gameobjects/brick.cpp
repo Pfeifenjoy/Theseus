@@ -1,5 +1,5 @@
 /**
-*   Author: Philipp Pütz, Arwed Mett
+*   Author: Philipp PÃ¼tz, Arwed Mett
 */
 #include "brick.hpp"
 #include "../engine/scene.hpp"
@@ -72,7 +72,7 @@ void Brick::setType(BrickType brickType) {
 		setTexture(2, TextureManager::instance().getTexture("wall_left_end.png"));
 		size = sf::Vector2f(32,64);
 		topLeft = sf::Vector2f(0, figureOffset);
-		bottomRight = size;
+		bottomRight = sf::Vector2f(26, 64);
 		break;
 	case RIGHT_MIDDLE:
 		setTexture(2, TextureManager::instance().getTexture("wall_right_middle.png"));
@@ -82,7 +82,7 @@ void Brick::setType(BrickType brickType) {
 	case RIGHT_END:
 		setTexture(2, TextureManager::instance().getTexture("wall_right_end.png"));
 		size = sf::Vector2f(32,64);
-		bottomRight = size;
+		bottomRight = sf::Vector2f(26, 64);
 		topLeft = sf::Vector2f(0, figureOffset);
 		break;
 	case BOTTOM_END:
