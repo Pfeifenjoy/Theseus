@@ -113,6 +113,11 @@ namespace engine
 		//---- Methods: Handle Events -------------------------------------------------------------------
 		
 		/**
+		 * This event gets called after the scene has been started.
+		 */
+		void handleSceneStartedEvent();
+		
+		/**
 		 * Passes the update event to the game objects.
 		 */
 		void handleUpdateEvent(float timePassed);

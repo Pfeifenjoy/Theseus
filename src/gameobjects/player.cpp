@@ -23,6 +23,9 @@ Player::Player()
 	// texture
 	setTexture(2, TextureManager::instance().getTexture("player.png"));
 
+	// camera
+	view().setCenter(0,0);
+
 }
 
 void Player::onUpdate(float)
