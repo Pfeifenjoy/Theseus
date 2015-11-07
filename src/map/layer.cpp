@@ -4,6 +4,8 @@
 #include "../gameobjects/brick.hpp"
 #include "../gameobjects/floor.hpp"
 #include <math.h>
+#include "../gameobjects/parking-area.hpp"
+//#include "../gameobjects/parking-slot.hpp"
 
 using namespace theseus::map;
 using namespace theseus::gameobjects;
@@ -368,6 +370,16 @@ void Layer::createParkingAreas() {
 			position = sf::Vector2f(this->layer.size() * Brick::WIDTH + i* size.x - 6, j * size.y);
 			this->gameobjects.push_back(unique_ptr<Floor> (new Floor(position, size, GRAS)));
 		}
+	}
+	ParkingArea p1(sf::Vector2f (12, -5 * Brick::HEIGHT), sf::Vector2<int> (this->layer.size() * Brick::WIDTH, 4 * Brick::HEIGHT));
+	auto slots = p1.getSlots();
+	for(auto& slot : slots) {
+		this->gameobjects.push_back(move(slot));
+	}
+	ParkingArea p2(sf::Vector2f (12, (this->layer[0].size()+1) * Brick::HEIGHT), sf::Vector2<int> (this->layer.size() * Brick::WIDTH, 4 * Brick::HEIGHT));
+	slots = p2.getSlots();
+	for(auto& slot : slots) {
+		this->gameobjects.push_back(move(slot));
 	}
 }
 

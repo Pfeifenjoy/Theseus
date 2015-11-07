@@ -58,6 +58,8 @@ int main()
 	unique_ptr<Scene> initScene = unique_ptr<Scene>(new Scene());
 //
 	// load the textures
+	TextureManager::instance().loadTexture("parking_area.png");
+	TextureManager::instance().loadTexture("parking_area_double.png");
 	TextureManager::instance().loadTexture("player.png");
 	TextureManager::instance().loadTexture("player2.png");
 	TextureManager::instance().loadTexture("wall_horizontal.png");
