@@ -13,7 +13,7 @@ namespace theseus
 {
 	namespace gameobjects
 	{
-		enum FloorType {CORRIDOR, ROOM};
+		enum FloorType {CORRIDOR, ROOM, GRAS};
 		class Floor
 			: public engine::GameObject
 			, public virtual engine::components::Sprite

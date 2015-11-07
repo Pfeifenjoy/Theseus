@@ -36,6 +36,7 @@ Layer::Layer(unique_ptr<LevelDescription> description) {
 	this->generateGameObjectField();
 	this->freeRestrictions();
 	this->populateGameObjects(description->getFreeObjects());
+	this->createParkingAreas();
 }
 
 void Layer::fillWithRooms(sf::Vector2<int> minSize, sf::Vector2<int> maxSize, int numRooms) {
@@ -229,8 +230,12 @@ void Layer::generateGameObjectField() {
 }
 
 void Layer::setFloor(int x, int y, FloorType type) {
-	int extraWidthLeft = layer[x-1][y] == OCCUPIED ? 6 : 0;
-	int extraWidthRight = layer[x+1][y] == OCCUPIED ? 6 : 0;
+	int extraWidthLeft = 0;
+	int extraWidthRight = 0;
+	if(x > 0 && x < (int) this->layer.size()) {
+		extraWidthLeft = layer[x-1][y] == OCCUPIED ? 6 : 0;
+		extraWidthRight = layer[x+1][y] == OCCUPIED ? 6 : 0;
+	}
 	sf::Vector2f position(Brick::WIDTH * x - extraWidthLeft, Brick::HEIGHT * y);
 	sf::Vector2f size(Brick::WIDTH + extraWidthRight + extraWidthLeft, Brick::HEIGHT);
 	unique_ptr<Floor> floor(new Floor(position, size, type));
@@ -335,6 +340,35 @@ unique_ptr<theseus::engine::Scene> Layer::toScene() {
 		scene->addGameObject(move(object));
 	}
 	return scene;
+}
+void Layer::createParkingAreas() {
+	sf::Vector2f position;
+	sf::Vector2f size(128, 128);
+	int i, j;
+	for(i = -10; i < (int) this->layer.size() + 10; i++) {
+		for(j = -10; j < 0; j++) {
+			position = sf::Vector2f(i * size.x, j *size.y);
+			this->gameobjects.push_back(unique_ptr<Floor> (new Floor(position, size, GRAS)));
+		}
+	}
+	for(i = -10; i < (int) this->layer.size() + 10; i++) {
+		for(j = 0; j <  10; j++) {
+			position = sf::Vector2f(i * size.x, this->layer[0].size() * Brick::HEIGHT + j * size.y);
+			this->gameobjects.push_back(unique_ptr<Floor> (new Floor(position, size, GRAS)));
+		}
+	}
+	for(i = -10; i < 0; i++) {
+		for(j = -10; j < (int) this->layer[0].size() + 10; j++) {
+			position = sf::Vector2f(i * size.x + 6, j *size.y);
+			this->gameobjects.push_back(unique_ptr<Floor> (new Floor(position, size, GRAS)));
+		}
+	}
+	for(i = 0; i < 10; i++) {
+		for(j = -10; j < (int) this->layer[0].size() + 10; j++) {
+			position = sf::Vector2f(this->layer.size() * Brick::WIDTH + i* size.x - 6, j * size.y);
+			this->gameobjects.push_back(unique_ptr<Floor> (new Floor(position, size, GRAS)));
+		}
+	}
 }
 
 ostream& theseus::map::operator<<(ostream& os, const Layer& layer) {

@@ -49,6 +49,7 @@ namespace map {
 			void freeRestrictions();
 			void occupy(int x, int y, int width, int height);
 			std::vector<sf::Vector2<int> > getPossiblePlaces(int width, int height);
+
 			/**
 			 * Returns all possible Places in a certain area.
 			 */
@@ -70,6 +71,7 @@ namespace map {
 			 * @param length {int} maximal Length of the wall.
 			 */
 			void addWall(int x, int y, Direction direction, int length);
+			void createParkingAreas();
 		public:
 			/**
 			 * Initialize a squared layer.

@@ -68,6 +68,7 @@ int main()
 	TextureManager::instance().loadTexture("ball.png");
 	TextureManager::instance().loadTexture("floor_black.png");
 	TextureManager::instance().loadTexture("floor_red.png");
+	TextureManager::instance().loadTexture("gras.png");
 	TextureManager::instance().loadTexture("item_table.png");
 	TextureManager::instance().loadTexture("item_table2.png");
 	TextureManager::instance().loadTexture("item_level_4_UML.png");
@@ -161,6 +162,7 @@ int main()
 
 	// set up camera
 	auto camera = unique_ptr<MainCamera>(new MainCamera());
+	camera->setPosition(sf::Vector2f(-300, -300));
 	auto camera_ptr = camera.get();
 	initScene->addGameObject(move(camera));
 	initScene->setCamera(camera_ptr);
