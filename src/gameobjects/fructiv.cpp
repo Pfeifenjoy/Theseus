@@ -13,13 +13,13 @@ using namespace std::placeholders;
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
 
-Fructiv::Fructiv(sf::Vector2f position) {
+Fructiv::Fructiv() {
 
 	// texture
 	setTexture(1, TextureManager::instance().getTexture("item_level_6_fructiv.png"));
 
-	// position
-	setPosition(position);
+	setCollisionAreaTopLeft(sf::Vector2f(0, 0));
+	setCollisionAreaBottomRight(sf::Vector2f(10, 10));
 
 
 }
