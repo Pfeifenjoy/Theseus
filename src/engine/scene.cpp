@@ -235,4 +235,9 @@ void Scene::handleKeyDownEvent(sf::Keyboard::Key key)
 	}
 }
 
+void Scene::handleSceneStartedEvent()
+{
+	solide.shuffle();
+}
+
 Scene::~Scene(){}

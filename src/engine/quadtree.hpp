@@ -8,6 +8,7 @@
 #include <list>
 #include <algorithm>
 #include <limits>
+#include <random>
 
 namespace theseus
 {
@@ -309,6 +310,38 @@ public:
 	}
 
 	/**
+	 * Returns a list of all values in the tree.
+	 */
+	std::list<std::pair<sf::Vector2f, T> >	findAll() const
+	{
+		std::list<std::pair<sf::Vector2f, T> > result;
+		if (child_lt != nullptr)	
+		{
+			result = child_lt->findAll();
+		}
+		if (child_rt != nullptr)
+		{
+			auto l = child_rt->findAll();
+			result.splice(result.begin(), l);
+		}
+		if (child_lb != nullptr)
+		{
+			auto l = child_lb->findAll();
+			result.splice(result.begin(), l);
+		}
+		if (child_rb != nullptr)
+		{
+			auto l = child_rb->findAll();
+			result.splice(result.begin(), l);
+		}
+		if (!isEmpty)
+		{
+			result.push_back(std::make_pair(center, value));
+		}
+		return result;
+	}
+
+	/**
 	 * removes an element from the tree
 	 *
 	 * return value:
@@ -346,6 +379,39 @@ public:
 
 		// Value was not found
 		return false;
+	}
+
+	/**
+	 * Re-inserts all elements in a random order.
+	 */
+	void shuffle()
+	{
+		// get all values
+		auto elements_lst = findAll();
+		std::vector<std::pair<sf::Vector2f, T> > elements;
+		elements.insert(elements.begin(), elements_lst.begin(), elements_lst.end());
+
+		// shuffle them
+		std::random_device rd;
+		std::mt19937 g(rd());
+		std::shuffle(elements.begin(), elements.end(), g);
+		
+		// empty the tree
+		isEmpty = true;
+		child_lt.reset();
+		child_rt.reset();
+		child_lb.reset();
+		child_rb.reset();
+		max_x = std::numeric_limits<float>::min();
+		min_x = std::numeric_limits<float>::max();
+		max_y = std::numeric_limits<float>::min();
+		min_y = std::numeric_limits<float>::max();
+
+		// re-insert the values
+		for (auto entry : elements)
+		{
+			insert(entry.first, entry.second);	
+		}
 	}
 
 	/**
