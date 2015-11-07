@@ -54,7 +54,6 @@ unique_ptr<LevelDescription> createLevel1() {
 	int x = 0;
 	for (x = 0; x < 10; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
-		npc->setPosition(sf::Vector2f(rand() % 10000, rand() % 10000));
 		level->addFreeGameObject(move(npc));
 	}
 
@@ -80,7 +79,6 @@ unique_ptr<LevelDescription> createLevel2() {
 	int x = 0;
 	for (x = 0; x < 20; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
-		npc->setPosition(sf::Vector2f(rand() % 10000, rand() % 10000));
 		level->addFreeGameObject(move(npc));
 	}
 
@@ -107,7 +105,6 @@ unique_ptr<LevelDescription> createLevel3() {
 	int x = 0;
 	for (x = 0; x < 30; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
-		npc->setPosition(sf::Vector2f(rand() % 10000, rand() % 10000));
 		level->addFreeGameObject(move(npc));
 	}
 
@@ -136,7 +133,6 @@ unique_ptr<LevelDescription> createLevel4() {
 	int x = 0;
 	for (x = 0; x < 40; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
-		npc->setPosition(sf::Vector2f(rand() % 10000, rand() % 10000));
 		level->addFreeGameObject(move(npc));
 	}
 
@@ -166,7 +162,6 @@ unique_ptr<LevelDescription> createLevel5() {
 	int x = 0;
 	for (x = 0; x < 50; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
-		npc->setPosition(sf::Vector2f(rand() % 10000, rand() % 10000));
 		level->addFreeGameObject(move(npc));
 	}
 
@@ -192,7 +187,6 @@ unique_ptr<LevelDescription> createLevel6() {
 	int x = 0;
 	for (x = 0; x < 60; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
-		npc->setPosition(sf::Vector2f(rand() % 10000, rand() % 10000));
 		level->addFreeGameObject(move(npc));
 	}
 
@@ -254,7 +248,7 @@ int main()
 	unique_ptr<LevelDescription> description = createLevel6();
 
 
-	
+
 	Layer layer(move(description));
 	cout << layer << endl;
 	initScene = layer.toScene();
@@ -267,7 +261,7 @@ int main()
 
 	//Testing if the gameobject images are correct ---------------------
 
-	
+
 
 	auto table = unique_ptr<Table>(new Table(sf::Vector2f(32, 446), 0));
 	initScene->addGameObject(move(table));
