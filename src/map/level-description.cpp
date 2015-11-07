@@ -26,14 +26,14 @@ void LevelDescription::addRoom(unique_ptr<RoomDescription> room) {
 }
 
 void LevelDescription::setMinRoomSize(sf::Vector2f size) {
-	assert(this->maxRoomSize.x <= size.x);
-	assert(this->maxRoomSize.y <= size.y);
+	assert(this->maxRoomSize.x >= size.x);
+	assert(this->maxRoomSize.y >= size.y);
 	this->minRoomSize = size;
 }
 
 void LevelDescription::setMaxRoomSize(sf::Vector2f size) {
-	assert(this->minRoomSize.x >= size.x);
-	assert(this->minRoomSize.y >= size.y);
+	assert(this->minRoomSize.x <= size.x);
+	assert(this->minRoomSize.y <= size.y);
 	this->maxRoomSize = size;
 }
 

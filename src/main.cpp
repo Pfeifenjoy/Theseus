@@ -40,7 +40,7 @@ unique_ptr<LevelDescription> createLevel1() {
 
 	level->addFreeGameObject(unique_ptr<BizagiCD> (new BizagiCD()));
 	level->setMaxAmountOfStandardRooms(1);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 15, Brick::HEIGHT * 15));
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 3, Brick::HEIGHT * 3));
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 15, Brick::HEIGHT * 15));
 
 	return level;
