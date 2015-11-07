@@ -26,6 +26,7 @@ void Game::run(unique_ptr<Scene> initialScene)
 	activeScene = std::move(initialScene);
 	initialScene = nullptr;
 	sceneToLoad = nullptr;
+	activeScene->handleSceneStartedEvent();
 
 	// Main loop
 	sf::Clock timing;
@@ -48,6 +49,7 @@ void Game::run(unique_ptr<Scene> initialScene)
 			inactiveScenes.push(std::move(activeScene));
 			activeScene = std::move(sceneToLoad);
 			sceneToLoad = nullptr;
+			activeScene->handleSceneStartedEvent();
 		}
 
 		// process events

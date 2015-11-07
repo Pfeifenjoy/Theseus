@@ -10,6 +10,7 @@
 #include "../engine/components/update.hpp"
 #include "../engine/components/animation.hpp"
 #include "../engine/components/speed.hpp"
+#include "../engine/components/camera.hpp"
 #include <SFML/System.hpp>
 #include "character.hpp"
 
@@ -22,6 +23,7 @@ namespace theseus
 			, public virtual engine::components::Update
 			, public virtual engine::components::Animation
 			, public virtual engine::components::Speed
+			, public virtual engine::components::Camera
 		{
 		private:
 			// events

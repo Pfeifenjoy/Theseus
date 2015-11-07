@@ -34,5 +34,4 @@ namespace theseus
 }
 
 #endif
-#pragma once
 
