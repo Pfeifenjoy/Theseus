@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include "scene.hpp"
+#include "../scenes/menu.hpp"
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
 #include <iostream>
@@ -32,7 +33,8 @@ void Game::run(unique_ptr<Scene> initialScene)
 	sf::Clock timing;
 	sf::Clock fpsClock;
 	int fpsCounter = 0;
-	bool exit = false;
+	exit = false;
+	menuIsOpen = false;
 	while (!exit)
 	{
 		// measure fps
@@ -57,13 +59,31 @@ void Game::run(unique_ptr<Scene> initialScene)
 		while (window.pollEvent(event))
 		{
 			// window closed?
-			exit = event.type == sf::Event::Closed;
+			if (event.type == sf::Event::Closed) {
+				exit = true;
+			}
 
 			// handle event
 			switch (event.type)
 			{
 			case sf::Event::KeyPressed:
-				activeScene->handleKeyDownEvent(event.key.code);
+				if (event.key.code == sf::Keyboard::Escape && !menuIsOpen) {
+					menuIsOpen = true;
+					vector<std::string >  menuItems;
+					menuItems.push_back("Spiel fortsetzen");
+					menuItems.push_back("Spiel beenden");
+
+					vector<unique_ptr<Scene> > scenes;
+					scenes.push_back(move(activeScene));
+					scenes.push_back(nullptr);
+
+					unique_ptr<Menu> menuScene = unique_ptr<Menu>(new Menu(menuItems, scenes, this));
+					activeScene = std::move(menuScene);
+					activeScene->handleSceneStartedEvent();
+				}
+				else {
+					activeScene->handleKeyDownEvent(event.key.code);
+				}				
 				break;
 			default:
 				// do nothing
@@ -91,8 +111,14 @@ sf::Vector2i Game::getScreenResolution() {
 }
 
 void Game::startScene(std::unique_ptr<Scene> scene)
-{
+{	
+	menuIsOpen = false;
 	sceneToLoad = std::move(scene);
+}
+
+void Game::quitGame()
+{
+	exit = true;
 }
 
 

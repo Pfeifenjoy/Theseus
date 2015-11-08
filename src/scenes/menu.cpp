@@ -13,8 +13,6 @@ using namespace theseus::engine;
 using namespace theseus::gameobjects;
 using namespace theseus::engine::components;
 
-// ToDo: exit menu / start last scene / quit program
-
 Menu::Menu(const std::vector<std::string>& menuItems, std::vector<unique_ptr<Scene> >& scenes, Game * game)
 {
 
@@ -63,6 +61,10 @@ void Menu::handleKeyDownEvent(sf::Keyboard::Key key)
 		if (selectedItemIndex < (int) scenes.size()) {
 			if (scenes[selectedItemIndex] != nullptr) {
 				game->startScene(move(scenes[selectedItemIndex]));
+			}
+			else {
+				game->quitGame();
+				cout << "exit" << ends;
 			}
 		}
 	}

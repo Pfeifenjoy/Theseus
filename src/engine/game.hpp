@@ -27,6 +27,9 @@ namespace engine
 		std::unique_ptr<Scene> activeScene = nullptr;
 		std::unique_ptr<Scene> sceneToLoad = nullptr;
 
+		// Exist variable
+		bool exit;
+		bool menuIsOpen;
 
 	public:
 
@@ -65,6 +68,9 @@ namespace engine
 
 		// Returns the resolution of the screen
 		sf::Vector2i getScreenResolution();
+
+		// Immediately quits the game
+		void quitGame();
 
 	};
 }
