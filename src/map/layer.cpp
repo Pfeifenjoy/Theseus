@@ -4,8 +4,7 @@
 #include "../gameobjects/brick.hpp"
 #include "../gameobjects/floor.hpp"
 #include <math.h>
-#include "../gameobjects/parking-area.hpp"
-//#include "../gameobjects/parking-slot.hpp"
+#include "parking-area.hpp"
 
 using namespace theseus::map;
 using namespace theseus::gameobjects;

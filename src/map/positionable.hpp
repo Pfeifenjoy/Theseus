@@ -1,3 +1,6 @@
+/**
+ * @autor Arwed Mett
+ */
 #ifndef THESEUS_MAP_POSITIONABLE
 #define THESEUS_MAP_POSITIONABLE
 #include "../engine/gameobject.hpp"

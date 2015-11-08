@@ -2,6 +2,7 @@
 #include <iostream>
 
 using namespace theseus::gameobjects;
+using namespace theseus::map;
 using namespace std;
 
 ParkingArea::ParkingArea(sf::Vector2f position, sf::Vector2<int> size) {
