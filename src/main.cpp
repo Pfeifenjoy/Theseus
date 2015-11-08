@@ -19,6 +19,7 @@
 #include "gameobjects/npc.hpp"
 #include "gameobjects/textfield.hpp"
 #include "scenes/menu.hpp"
+#include "scenes/intro.hpp"
 #include "gameobjects/bizagi_cd.hpp"
 #include "gameobjects/throwing_cup.hpp"
 #include "gameobjects/healthbar.hpp"
@@ -274,7 +275,7 @@ int main()
 	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15), 3));
 	initScene->addGameObject(move(healthbar));
 
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 10));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 110));
 	initScene->addGameObject(move(timer));
 
 	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40), 3));
@@ -285,20 +286,22 @@ int main()
 
 	//---------------------------------------------------------------------------------
 
+	// Create the Intro
+	unique_ptr<Intro> introScene = unique_ptr<Intro>(new Intro(game.getScreenResolution().x, game.getScreenResolution().y));
+
 	vector<std::string >  menuItems;
 	menuItems.push_back("Spiel starten!");
-	menuItems.push_back("Optionen");
-	menuItems.push_back("Beenden");
+	menuItems.push_back("Spiel beenden");
 
 	vector<unique_ptr<Scene> > scenes;
 	scenes.push_back(move(initScene));
+	scenes.push_back(nullptr);
 
 
 	unique_ptr<Menu> menuScene = unique_ptr<Menu>(new Menu(menuItems, scenes, &game));
 
 	//Start the game with that scene
 	game.run(move(menuScene));
-
 
 	TextureManager::reset();
 	return 0;
