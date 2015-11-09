@@ -6,6 +6,7 @@
 #include "../gameobjects/textfield.hpp"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
 
 using namespace std;
 using namespace theseus::engine;

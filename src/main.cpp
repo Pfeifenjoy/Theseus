@@ -300,7 +300,7 @@ int main()
 
 
 	vector<unique_ptr<Scene> > scenes;
-	scenes.push_back(move(initScene));
+	scenes.push_back(move(introScene));
 	scenes.push_back(nullptr);
 
 
