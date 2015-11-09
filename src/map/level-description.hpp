@@ -91,7 +91,7 @@ namespace theseus {
 			 * Set the player to the new level.
 			 * This can be used to transfer the status of the player between levels.
 			 */
-			void setPlayer(std::unique_ptr<Player>);
+			void setPlayer(std::unique_ptr<theseus::gameobjects::Player>);
 		};
 	}
 }
