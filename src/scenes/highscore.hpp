@@ -28,7 +28,7 @@ namespace theseus
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 			// Generates a new Intro scene
-			Highscore(int screenWidth, int screenHeigth);
+			Highscore(int screenWidth, int screenHeigth, float time);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 

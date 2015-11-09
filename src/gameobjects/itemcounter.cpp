@@ -27,6 +27,9 @@ ItemCounter::ItemCounter(sf::Vector2f position, int numberOfItemsToCollect) {
 	// Set the position
 	setPosition(position);
 
+	//setTexture(4, TextureManager::instance().getTexture("INSERT TEXTURE HERE"));
+	//sprite(4).setPosition(sf::Vector2f(20, 0));
+
 }
 
 // Returns the actual number of items

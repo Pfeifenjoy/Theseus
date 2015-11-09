@@ -19,6 +19,7 @@
 #include "gameobjects/textfield.hpp"
 #include "scenes/menu.hpp"
 #include "scenes/intro.hpp"
+#include "scenes/highscore.hpp"
 #include "gameobjects/bizagi_cd.hpp"
 #include "gameobjects/throwing_cup.hpp"
 #include "gameobjects/healthbar.hpp"
@@ -289,7 +290,7 @@ int main()
 	TextureManager::instance().loadTexture("heart.png");
 
 
-	unique_ptr<LevelDescription> description = createLevel1();
+	unique_ptr<LevelDescription> description = createLevel6();
 
 
 
@@ -335,14 +336,20 @@ int main()
 
 	// Create the Intro
 	unique_ptr<Intro> introScene = unique_ptr<Intro>(new Intro(game.getScreenResolution().x, game.getScreenResolution().y));
+	unique_ptr<Highscore> highscore = unique_ptr<Highscore>(new Highscore(game.getScreenResolution().x, game.getScreenResolution().y, 0));
 
 	vector<std::string >  menuItems;
 	menuItems.push_back("Spiel starten!");
+	//menuItems.push_back("Highscore");
 	menuItems.push_back("Spiel beenden");
 
 
 	vector<unique_ptr<Scene> > scenes;
 	scenes.push_back(move(initScene));
+<<<<<<< HEAD
+	//scenes.push_back(move(highscore));
+=======
+>>>>>>> 574fc3b67e6d579e92fe96633e721ac9e20d692b
 	scenes.push_back(nullptr);
 
 
