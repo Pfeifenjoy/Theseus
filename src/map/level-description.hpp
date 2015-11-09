@@ -5,7 +5,7 @@
 #define THESEUS_LEVEL_DESCRIPTION
 #include <memory>
 #include <vector>
-#include "positionable.hpp"
+#include "../engine/components/positionable.hpp"
 #include "room-description.hpp"
 #include "../gameobjects/player.hpp"
 #include "../gameobjects/brick.hpp"
@@ -14,7 +14,7 @@ namespace theseus {
 	namespace map {
 		class LevelDescription {
 		private:
-			std::vector<std::unique_ptr<Positionable> > freeObjects;
+			std::vector<std::unique_ptr<theseus::engine::components::Positionable> > freeObjects;
 			std::vector<std::unique_ptr<RoomDescription> > rooms;
 			std::unique_ptr<theseus::gameobjects::Player> player;
 			sf::Vector2f dimensions;
@@ -24,14 +24,14 @@ namespace theseus {
 		public:
 			LevelDescription(sf::Vector2f dimensions) : dimensions(dimensions) {}
 			sf::Vector2f getDimensions();
-			std::vector<std::unique_ptr<Positionable> > getFreeObjects();
+			std::vector<std::unique_ptr<theseus::engine::components::Positionable> > getFreeObjects();
 			std::vector<std::unique_ptr<RoomDescription> > getRooms();
 			std::unique_ptr<theseus::gameobjects::Player> getPlayer();
 			sf::Vector2f getMinRoomSize();
 			sf::Vector2f getMaxRoomSize();
 			int getMaxAmountOfStandardRooms();
-			void addFreeGameObject(std::unique_ptr<Positionable>);
-			void addFreeGameObjects(std::vector<std::unique_ptr<Positionable> >);
+			void addFreeGameObject(std::unique_ptr<theseus::engine::components::Positionable>);
+			void addFreeGameObjects(std::vector<std::unique_ptr<theseus::engine::components::Positionable> >);
 			void addRoom(std::unique_ptr<RoomDescription>);
 			void addRooms(std::vector<std::unique_ptr<RoomDescription> >);
 			void setMinRoomSize(sf::Vector2f);

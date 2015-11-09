@@ -1,5 +1,5 @@
 /*
-* @author Dominic Steinhauser, Philipp Pütz
+* @author Dominic Steinhauser, Philipp PÃ¼tz
 */
 #include "table.hpp"
 #include "../engine/texturemanager.hpp"

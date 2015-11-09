@@ -26,8 +26,10 @@ Character::Character()
 	// walking
 	setDirection(sf::Vector2i(0,0), true);
 
-	this->setCollisionAreaTopLeft(sf::Vector2f(-2, 40));
-	this->setCollisionAreaBottomRight(sf::Vector2f(22, 50));
+	this->setPosition(sf::Vector2f(-2, 40));
+	this->setSize(sf::Vector2f(22, 50));
+	this->setCollisionAreaTopLeft(this->getPosition());
+	this->setCollisionAreaBottomRight(this->getSize());
 }
 
 

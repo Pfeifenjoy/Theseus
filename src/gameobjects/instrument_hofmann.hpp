@@ -7,14 +7,14 @@
 #include "../engine/gameobject.hpp"
 #include "../engine/components/sprite.hpp"
 #include <SFML/System.hpp>
-#include "../map/positionable.hpp"
+#include "../engine/components/positionable.hpp"
 
 namespace theseus
 {
 	namespace gameobjects
 	{
 		class Instrument
-			: public theseus::map::Positionable
+			: public theseus::engine::components::Positionable
 			, public virtual engine::components::Sprite
 		{
 		private:
@@ -22,7 +22,7 @@ namespace theseus
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
-			
+
 			Instrument();
 
 			//---- Destructor ---------------------------------------------------------------------------------------

@@ -10,7 +10,7 @@
 #include "../engine/components/speed.hpp"
 #include "../engine/components/collisionresolver.hpp"
 #include <SFML/System.hpp>
-#include "../map/positionable.hpp"
+#include "../engine/components/positionable.hpp"
 
 namespace theseus
 {
@@ -18,7 +18,7 @@ namespace gameobjects
 {
 	class Character
 		//: public engine::GameObject
-		: public theseus::map::Positionable
+		: public theseus::engine::components::Positionable
 		, public virtual engine::components::Animation
 		, public virtual engine::components::Speed
 		, public virtual engine::components::CollisionResolver
