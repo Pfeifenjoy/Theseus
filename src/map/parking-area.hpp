@@ -6,6 +6,9 @@
 #include "../gameobjects/parking-slot.hpp"
 namespace theseus {
 namespace map {
+	/**
+	 * This is a helper class which generates parking slots, which will be placed in a bigger area.
+	 */
 	class ParkingArea
    	{
 		private:
