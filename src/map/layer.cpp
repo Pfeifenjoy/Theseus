@@ -52,6 +52,7 @@ Layer::Layer(unique_ptr<LevelDescription> description) {
 	//Place all Positionable objects of the level-description.
 	this->populateGameObjects(description->getFreeObjects());
 
+	this->createGras();
 	this->createParkingAreas();
 }
 
@@ -358,8 +359,11 @@ unique_ptr<theseus::engine::Scene> Layer::toScene() {
 	}
 	return scene;
 }
-void Layer::createParkingAreas() {
+
+void Layer::createGras() {
 	sf::Vector2f position;
+	//The Gras needs to be devided into small subtextures. Otherwise it will not render properly.
+	//Therefor we choose the value 128.
 	sf::Vector2f size(128, 128);
 	int i, j;
 	for(i = -10; i < (int) this->layer.size() + 10; i++) {
@@ -386,12 +390,15 @@ void Layer::createParkingAreas() {
 			this->gameobjects.push_back(unique_ptr<Floor> (new Floor(position, size, GRAS)));
 		}
 	}
-	ParkingArea p1(sf::Vector2f (12, -5 * Brick::HEIGHT), sf::Vector2<int> (this->layer.size() * Brick::WIDTH, 4 * Brick::HEIGHT));
+}
+
+void Layer::createParkingAreas() {
+	ParkingArea p1(sf::Vector2f (Brick::OFFSET * 2, -5 * Brick::HEIGHT), sf::Vector2<int> (this->layer.size() * Brick::WIDTH, 4 * Brick::HEIGHT));
 	auto slots = p1.getSlots();
 	for(auto& slot : slots) {
 		this->gameobjects.push_back(move(slot));
 	}
-	ParkingArea p2(sf::Vector2f (12, (this->layer[0].size()+1) * Brick::HEIGHT), sf::Vector2<int> (this->layer.size() * Brick::WIDTH, 4 * Brick::HEIGHT));
+	ParkingArea p2(sf::Vector2f (Brick::OFFSET * 2, (this->layer[0].size()+1) * Brick::HEIGHT), sf::Vector2<int> (this->layer.size() * Brick::WIDTH, 4 * Brick::HEIGHT));
 	slots = p2.getSlots();
 	for(auto& slot : slots) {
 		this->gameobjects.push_back(move(slot));
