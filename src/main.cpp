@@ -186,7 +186,7 @@ unique_ptr<LevelDescription> createLevel6() {
 
 	//set amount of students
 	int x = 0;
-	for (x = 0; x < 1500; x++) {
+	for (x = 0; x < 100; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		level->addFreeGameObject(move(npc));
 	}
