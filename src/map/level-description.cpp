@@ -56,3 +56,7 @@ int LevelDescription::getMaxAmountOfStandardRooms() {
 sf::Vector2f LevelDescription::getDimensions() {
 	return this->dimensions;
 }
+
+void LevelDescription::setPlayer(unique_ptr<theseus::gameobjects::Player> player) {
+	this->player = move(player);
+}
