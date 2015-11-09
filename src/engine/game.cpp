@@ -10,7 +10,7 @@ using namespace std;
 
 const int DEFAULT_WINDOW_WIDTH = 900;
 const int DEFAULT_WINDOW_HEIGTH = 600;
-const bool FULLSCREEN = true;
+const bool FULLSCREEN = false;
 
 Game::Game()
 {

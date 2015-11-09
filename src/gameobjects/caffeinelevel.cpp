@@ -24,10 +24,10 @@ CaffeineLevel::CaffeineLevel(sf::Vector2f position, float startLevel, float maxi
 
 	string stringCaffeineLevel = "Koffeinspiegel: " + to_string((int) round(this->actualLevel / (this->maximumLevel / 100))) + "%";
 
-	//Set the text of the item counter
-	setCharSize(4, 16);
+	//Set the text of the item counter ---- edited by Leon Mutschke on 09.11.2015
+	setCharSize(4, 22);
 	setText(4, stringCaffeineLevel);
-	setColor(4, sf::Color::Black);
+	setColor(4, sf::Color::Yellow);
 	//setStyle(4, sf::Text::Style::Bold);
 
 	// Set the position

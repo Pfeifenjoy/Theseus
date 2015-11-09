@@ -46,6 +46,7 @@ namespace map {
 			std::vector<std::unique_ptr<theseus::engine::GameObject> > getGameObjects();
 			void fillWithRooms(sf::Vector2<int> minSize, sf::Vector2<int> maxSize, int numWalls);
 			void addRoom(int x, int y, int width, int height);
+			void forceAddRoom(int x, int y, int width, int height);
 			bool checkField(int x, int y, int width = 1, int height = 1);
 			void freeRestrictions();
 			void occupy(int x, int y, int width, int height);
@@ -76,8 +77,7 @@ namespace map {
 		public:
 			/**
 			 * Initialize a squared layer.
-			 * @param width {int}
-			 * @param height {int}
+			 * It will work as a generator which interpretes the LevelDescription.
 			 */
 			Layer(std::unique_ptr<LevelDescription>);
 			/**
