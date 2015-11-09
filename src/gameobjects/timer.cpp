@@ -35,10 +35,10 @@ Timer::Timer(sf::Vector2f position, int startTime) {
 
 	string stringTimer = stringMinutes + " : " + stringSeconds;
 
-	//Set the text of the timer
-	setCharSize(4, 26);
+	//Set the text of the timer ---- edited by Leon Mutschke on 09.11.2015
+	setCharSize(4, 30);
 	setText(4, stringTimer);
-	setColor(4, sf::Color::Black);
+	setColor(4, sf::Color::Yellow);
 	setStyle(4, sf::Text::Style::Bold);
 	
 	// Set the position
