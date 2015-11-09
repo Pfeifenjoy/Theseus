@@ -12,6 +12,12 @@
 
 namespace theseus {
 	namespace map {
+		/**
+		 * This clas describes a level.
+		 * it can be passed to a theseus::map::Layer object
+		 * which acts like a generator.
+		 * It describes which objects will be generated and placed.
+		 */
 		class LevelDescription {
 		private:
 			std::vector<std::unique_ptr<theseus::engine::components::Positionable> > freeObjects;
@@ -23,6 +29,12 @@ namespace theseus {
 			int maxAmountOfStandardRooms = 5;
 		public:
 			LevelDescription(sf::Vector2f dimensions) : dimensions(dimensions) {}
+
+			//--------------------------------------------------------------------------------//
+			// Only relevant for the Generator
+			// This are all getters.
+			// The generate will generate the Layer -> Scene by the given information.
+			//--------------------------------------------------------------------------------//
 			sf::Vector2f getDimensions();
 			std::vector<std::unique_ptr<theseus::engine::components::Positionable> > getFreeObjects();
 			std::vector<std::unique_ptr<RoomDescription> > getRooms();
@@ -30,13 +42,56 @@ namespace theseus {
 			sf::Vector2f getMinRoomSize();
 			sf::Vector2f getMaxRoomSize();
 			int getMaxAmountOfStandardRooms();
+			//--------------------------------------------------------------------------------//
+
+			/**
+			 * Add GO's which will be placed randomly on the field.
+			 * The generator cannot insure that these objects will be placed if the map is to small.
+			 */
 			void addFreeGameObject(std::unique_ptr<theseus::engine::components::Positionable>);
+
+			/**
+			 * Add GO's which will be placed randomly on the field.
+			 * The generator cannot insure that these objects will be placed if the map is to small.
+			 */
 			void addFreeGameObjects(std::vector<std::unique_ptr<theseus::engine::components::Positionable> >);
+
+			/**
+			 * Add a special Room to the level.
+			 * The generator will try its best to place it on the layer.
+			 * Still if there is not enough space it might not be placed.
+			 */
 			void addRoom(std::unique_ptr<RoomDescription>);
+
+			/**
+			 * Add special rooms to the level.
+			 * The generator will try its best to place them on the layer.
+			 * Still if there is not enough space a room might not be placed.
+			 */
 			void addRooms(std::vector<std::unique_ptr<RoomDescription> >);
+
+			/**
+			 * Specify the minimum width and height of a standard room.
+			 */
 			void setMinRoomSize(sf::Vector2f);
+
+			/**
+			 * Specify the maximum width and height of a standard room.
+			 */
+
 			void setMaxRoomSize(sf::Vector2f);
+
+			/**
+			 * Set the amount of standard rooms.
+			 * These rooms might not be all placed in the level.
+			 */
 			void setMaxAmountOfStandardRooms(int);
+
+			/**
+			 * Set the player to the new level.
+			 * This can be used to transfer the status of the player between levels.
+			 */
+			void setPlayer(std::unique_ptr<Player>);
 		};
 	}
 }
