@@ -36,63 +36,12 @@ using namespace theseus::gameobjects;
 using namespace theseus::map;
 
 unique_ptr<LevelDescription> createLevel1() {
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 40, Brick::HEIGHT * 40)));
+	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 80, Brick::HEIGHT * 40)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<BizagiCD> (new BizagiCD()));
 
-	level->setMaxAmountOfStandardRooms(4);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 3, Brick::HEIGHT * 3));
-
-	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 15, Brick::HEIGHT * 15));
-
-	//set amount of coffee
-	for (int i = 0; i < 10; i++) {
-		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
-	}
-
-	//set amount of students
-	int x = 0;
-	for (x = 0; x < 10; x++) {
-		auto npc = unique_ptr<NPC>(new NPC);
-		level->addFreeGameObject(move(npc));
-	}
-
-	return level;
-}
-
-unique_ptr<LevelDescription> createLevel2() {
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 40, Brick::HEIGHT * 40)));
-	//set level specific object
-	level->addFreeGameObject(unique_ptr<BizagiCD>(new BizagiCD()));
-
-	level->setMaxAmountOfStandardRooms(4);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 3, Brick::HEIGHT * 3));
-
-	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 15, Brick::HEIGHT * 15));
-
-	//set amount of coffee
-	for (int i = 0; i < 12; i++) {
-		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
-	}
-
-	//set amount of students
-	int x = 0;
-	for (x = 0; x < 20; x++) {
-		auto npc = unique_ptr<NPC>(new NPC);
-		level->addFreeGameObject(move(npc));
-	}
-
-	return level;
-}
-
-unique_ptr<LevelDescription> createLevel3() {
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 40, Brick::HEIGHT * 40)));
-	//set level specific object
-	for (int i = 0; i < 5; i++) {
-		level->addFreeGameObject(unique_ptr<MathSolution>(new MathSolution()));
-	}
 	level->setMaxAmountOfStandardRooms(5);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 3, Brick::HEIGHT * 3));
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
 
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
 
@@ -111,8 +60,59 @@ unique_ptr<LevelDescription> createLevel3() {
 	return level;
 }
 
+unique_ptr<LevelDescription> createLevel2() {
+	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 40)));
+	//set level specific object
+	level->addFreeGameObject(unique_ptr<BizagiCD>(new BizagiCD()));
+
+	level->setMaxAmountOfStandardRooms(5);
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
+
+	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
+
+	//set amount of coffee
+	for (int i = 0; i < 15; i++) {
+		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
+	}
+
+	//set amount of students
+	int x = 0;
+	for (x = 0; x < 40; x++) {
+		auto npc = unique_ptr<NPC>(new NPC);
+		level->addFreeGameObject(move(npc));
+	}
+
+	return level;
+}
+
+unique_ptr<LevelDescription> createLevel3() {
+	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 50)));
+	//set level specific object
+	for (int i = 0; i < 5; i++) {
+		level->addFreeGameObject(unique_ptr<MathSolution>(new MathSolution()));
+	}
+	level->setMaxAmountOfStandardRooms(5);
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
+
+	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
+
+	//set amount of coffee
+	for (int i = 0; i < 15; i++) {
+		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
+	}
+
+	//set amount of students
+	int x = 0;
+	for (x = 0; x < 40; x++) {
+		auto npc = unique_ptr<NPC>(new NPC);
+		level->addFreeGameObject(move(npc));
+	}
+
+	return level;
+}
+
 unique_ptr<LevelDescription> createLevel4() {
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 40, Brick::HEIGHT * 40)));
+	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<Instrument>(new Instrument()));
 
@@ -120,9 +120,9 @@ unique_ptr<LevelDescription> createLevel4() {
 		level->addFreeGameObject(unique_ptr<UMLDiagramm>(new UMLDiagramm()));
 	}
 
-	level->setMaxAmountOfStandardRooms(5);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 3, Brick::HEIGHT * 3));
-	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 7, Brick::HEIGHT * 7));
+	level->setMaxAmountOfStandardRooms(6);
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
+	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
 
 	//set amount of coffee
 	for (int i = 0; i < 15; i++) {
@@ -140,7 +140,7 @@ unique_ptr<LevelDescription> createLevel4() {
 }
 
 unique_ptr<LevelDescription> createLevel5() {
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 40, Brick::HEIGHT * 40)));
+	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<CExam>(new CExam()));
 
@@ -148,10 +148,10 @@ unique_ptr<LevelDescription> createLevel5() {
 		level->addFreeGameObject(unique_ptr<Apfeltasche>(new Apfeltasche()));
 	}
 
-	level->setMaxAmountOfStandardRooms(5);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 3, Brick::HEIGHT * 3));
+	level->setMaxAmountOfStandardRooms(6);
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
 
-	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 7, Brick::HEIGHT * 7));
+	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
 
 	//set amount of coffee
 	for (int i = 0; i < 10; i++) {
@@ -169,14 +169,16 @@ unique_ptr<LevelDescription> createLevel5() {
 }
 
 unique_ptr<LevelDescription> createLevel6() {
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 40, Brick::HEIGHT * 40)));
+
+	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<SetlxCup>(new SetlxCup()));
 
-	level->setMaxAmountOfStandardRooms(7);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 3, Brick::HEIGHT * 3));
+	level->setMaxAmountOfStandardRooms(6);
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
 
-	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
+	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
+
 
 	//set amount of coffee
 	for (int i = 0; i < 15; i++) {
@@ -185,7 +187,7 @@ unique_ptr<LevelDescription> createLevel6() {
 
 	//set amount of students
 	int x = 0;
-	for (x = 0; x < 60; x++) {
+	for (x = 0; x < 100; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		level->addFreeGameObject(move(npc));
 	}
@@ -255,19 +257,23 @@ int main()
 
 	auto man = unique_ptr<Player>(new Player);
 	auto man_ptr = man.get();
+	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f (65, 65));
 	initScene->addGameObject(move(man));
 	initScene->setCamera(man_ptr);
+
+
 
 	//Testing if the gameobject images are correct ---------------------
 
 
 
 	auto table = unique_ptr<Table>(new Table(sf::Vector2f(32, 446), 0));
-	initScene->addGameObject(move(table));
+	//initScene->addGameObject(move(table));
 
 	auto table2 = unique_ptr<Table>(new Table(sf::Vector2f(96, 446), 1));
-	initScene->addGameObject(move(table2));
+	//initScene->addGameObject(move(table2));
+
 
 	// HUD
 
@@ -291,6 +297,7 @@ int main()
 	vector<std::string >  menuItems;
 	menuItems.push_back("Spiel starten!");
 	menuItems.push_back("Spiel beenden");
+
 
 	vector<unique_ptr<Scene> > scenes;
 	scenes.push_back(move(initScene));

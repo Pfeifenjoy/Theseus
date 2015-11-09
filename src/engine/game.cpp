@@ -29,6 +29,8 @@ void Game::run(unique_ptr<Scene> initialScene)
 	sceneToLoad = nullptr;
 	activeScene->handleSceneStartedEvent();
 
+	window.setMouseCursorVisible(false);
+
 	// Main loop
 	sf::Clock timing;
 	sf::Clock fpsClock;
