@@ -64,10 +64,12 @@ unique_ptr<LevelDescription> createLevel1() {
 		level->addFreeGameObject(move(npc));
 	}
 
+	unique_ptr<RoomDescription> mensa(new RoomDescription(Brick::WIDTH * 10, Brick::HEIGHT * 10));
 	//set professor Runge
 	auto runge = unique_ptr<Runge>(new Runge);
-	level->addFreeGameObject(move(runge));
+	mensa->addGameObject(move(runge));
 
+	level->addRoom(move(mensa));
 	return level;
 }
 
@@ -340,7 +342,7 @@ int main()
 
 
 	vector<unique_ptr<Scene> > scenes;
-	scenes.push_back(move(introScene));
+	scenes.push_back(move(initScene));
 	scenes.push_back(nullptr);
 
 
