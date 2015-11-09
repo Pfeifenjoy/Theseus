@@ -297,7 +297,7 @@ int main()
 	cout << layer << endl;
 	initScene = layer.toScene();
 
-	auto man = unique_ptr<Player>(new Player);
+	auto man = unique_ptr<Player>(new Player(100, 100, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f (65, 65));
@@ -319,7 +319,7 @@ int main()
 
 	// HUD
 
-	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15), 3));
+	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15)));
 	initScene->addGameObject(move(healthbar));
 
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 110));
