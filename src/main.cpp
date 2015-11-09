@@ -170,7 +170,7 @@ unique_ptr<LevelDescription> createLevel5() {
 }
 
 unique_ptr<LevelDescription> createLevel6() {
-<<<<<<< HEAD
+
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<SetlxCup>(new SetlxCup()));
@@ -179,16 +179,7 @@ unique_ptr<LevelDescription> createLevel6() {
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
 
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
-=======
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 80, Brick::HEIGHT * 60)));
-	//set level specific object
-	level->addFreeGameObject(unique_ptr<SetlxCup>(new SetlxCup()));
 
-	level->setMaxAmountOfStandardRooms(2);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 3, Brick::HEIGHT * 3));
-
-	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
->>>>>>> 1dfad4ff7a3ed828b29d3f4e6294bba32939eb0d
 
 	//set amount of coffee
 	for (int i = 0; i < 15; i++) {
@@ -272,8 +263,8 @@ int main()
 	initScene->addGameObject(move(man));
 	initScene->setCamera(man_ptr);
 
-<<<<<<< HEAD
-=======
+
+
 	//Testing if the gameobject images are correct ---------------------
 
 
@@ -284,7 +275,7 @@ int main()
 	auto table2 = unique_ptr<Table>(new Table(sf::Vector2f(96, 446), 1));
 	//initScene->addGameObject(move(table2));
 
->>>>>>> 1dfad4ff7a3ed828b29d3f4e6294bba32939eb0d
+
 	// HUD
 
 	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15), 3));
