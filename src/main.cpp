@@ -152,7 +152,7 @@ int main()
 
 	//---------------------------------------------------------------------------------
 	int x = 0;
-	for(x = 0; x < 100; x++) {
+	for(x = 0; x < 500; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		npc->setPosition(sf::Vector2f(rand() % 1000,rand() % 1000));
 		initScene->addGameObject(move(npc));

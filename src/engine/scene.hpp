@@ -1,19 +1,20 @@
 #ifndef _ENGINE_SCENE_H
 #define _ENGINE_SCENE_H
 
-#include "quadtree.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <vector>
 #include <memory>
 #include <array>
 #include <unordered_set>
+#include "grid.hpp"
 
 namespace theseus
 {
 namespace engine
 {
 	class GameObject;
+	class GeneralEnvelope;
 
 	namespace components
 	{
@@ -24,6 +25,7 @@ namespace engine
 		class Solide;
 		class CollisionDetector;
 		class Camera;
+		class GeneralMessageReceiver;
 	}
 
 	class Scene : public sf::Drawable
@@ -37,7 +39,7 @@ namespace engine
 		std::unordered_set<components::Base *> needsRegistrationUpdate_previous;
 		
 		// All drawable objects, grouped by layer
-		std::array<QuadTree<const components::Drawable *> , 5> drawables;
+		std::array<Grid<const components::Drawable *, 100, 100, 64> , 5> drawables;
 
 		// All game objects that need to be updated in each frame.
 		std::vector<components::Update *> update;
@@ -46,10 +48,13 @@ namespace engine
 		std::vector<components::KeyboardInput *> keyboardInput;
 
 		// All game objects that are involved in colision detection (Solide component)
-		QuadTree<components::Solide *> solide;
+		Grid<components::Solide *, 100, 100, 64> solide;
 
 		// The active camera
 		const components::Camera* activeCamera = nullptr;
+
+		// All game objects that can receive messages
+		Grid<components::GeneralMessageReceiver *, 100, 100, 64> messageReceiver;
 
 	public:
 		//---- Constructors / Destructor ----------------------------------------------------------------
@@ -109,6 +114,14 @@ namespace engine
 		void unRegisterSolide(sf::Vector2f position, components::Solide *);
 		void reRegisterSolide(sf::Vector2f oldPosition, components::Solide *); 	// should be called after the location of the GO has changed
 		void checkCollisions(components::CollisionDetector * component);
+
+		/**
+		 * Messaging system
+		 */
+		void registerMessageReceiver(components::GeneralMessageReceiver *);
+		void unRegisterMessageReceiver(sf::Vector2f position, components::GeneralMessageReceiver *);
+		void reRegisterMessageReceiver(sf::Vector2f oldPosition, sf::Vector2f newPosition, components::GeneralMessageReceiver *);
+		void deliverMessage(const GeneralEnvelope& envelope);
 
 		//---- Methods: Handle Events -------------------------------------------------------------------
 		
