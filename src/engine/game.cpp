@@ -10,7 +10,7 @@ using namespace std;
 
 const int DEFAULT_WINDOW_WIDTH = 900;
 const int DEFAULT_WINDOW_HEIGTH = 600;
-const bool FULLSCREEN = false;
+const bool FULLSCREEN = true;
 
 Game::Game()
 {
@@ -28,6 +28,8 @@ void Game::run(unique_ptr<Scene> initialScene)
 	initialScene = nullptr;
 	sceneToLoad = nullptr;
 	activeScene->handleSceneStartedEvent();
+
+	window.setMouseCursorVisible(false);
 
 	// Main loop
 	sf::Clock timing;
