@@ -26,6 +26,13 @@
 #include "gameobjects/itemcounter.hpp"
 #include "gameobjects/caffeinelevel.hpp"
 #include "map/level-description.hpp"
+// include professor
+#include "gameobjects/runge.hpp"
+#include "gameobjects/glaser.hpp"
+#include "gameobjects/huebl.hpp"
+#include "gameobjects/hofmann.hpp"
+#include "gameobjects/kruse.hpp"
+#include "gameobjects/stroetmann.hpp"
 
 #include <iostream>
 #include <memory>
@@ -57,6 +64,10 @@ unique_ptr<LevelDescription> createLevel1() {
 		level->addFreeGameObject(move(npc));
 	}
 
+	//set professor Runge
+	auto runge = unique_ptr<Runge>(new Runge);
+	level->addFreeGameObject(move(runge));
+
 	return level;
 }
 
@@ -81,6 +92,11 @@ unique_ptr<LevelDescription> createLevel2() {
 		auto npc = unique_ptr<NPC>(new NPC);
 		level->addFreeGameObject(move(npc));
 	}
+
+	//set professor Glaser
+	auto glaser = unique_ptr<Glaser>(new Glaser);
+	level->addFreeGameObject(move(glaser));
+
 
 	return level;
 }
@@ -107,6 +123,10 @@ unique_ptr<LevelDescription> createLevel3() {
 		auto npc = unique_ptr<NPC>(new NPC);
 		level->addFreeGameObject(move(npc));
 	}
+
+	//set professor Huebl
+	auto huebl = unique_ptr<Huebl>(new Huebl);
+	level->addFreeGameObject(move(huebl));
 
 	return level;
 }
@@ -135,6 +155,10 @@ unique_ptr<LevelDescription> createLevel4() {
 		auto npc = unique_ptr<NPC>(new NPC);
 		level->addFreeGameObject(move(npc));
 	}
+
+	//set professor Hofmann
+	auto hofmann = unique_ptr<Hofmann>(new Hofmann);
+	level->addFreeGameObject(move(hofmann));
 
 	return level;
 }
@@ -165,6 +189,10 @@ unique_ptr<LevelDescription> createLevel5() {
 		level->addFreeGameObject(move(npc));
 	}
 
+	//set professor Kruse
+	auto kruse = unique_ptr<Kruse>(new Kruse);
+	level->addFreeGameObject(move(kruse));
+
 	return level;
 }
 
@@ -192,6 +220,10 @@ unique_ptr<LevelDescription> createLevel6() {
 		level->addFreeGameObject(move(npc));
 	}
 
+	//set professor Stroetmann
+	auto stroetmann = unique_ptr<Stroetmann>(new Stroetmann);
+	level->addFreeGameObject(move(stroetmann));
+
 	return level;
 }
 
@@ -212,6 +244,14 @@ int main()
 	TextureManager::instance().loadTexture("parking_area_double.png");
 	TextureManager::instance().loadTexture("player.png");
 	TextureManager::instance().loadTexture("player2.png");
+	//texture professor ------------------------------------------------------------
+	TextureManager::instance().loadTexture("charset_level_1.png");
+	TextureManager::instance().loadTexture("charset_level_2.png");
+	TextureManager::instance().loadTexture("charset_level_3.png");
+	TextureManager::instance().loadTexture("charset_level_4.png");
+	TextureManager::instance().loadTexture("charset_level_5.png");
+	TextureManager::instance().loadTexture("charset_level_6.png");
+	//-------------------------------------------------------------------------------
 	TextureManager::instance().loadTexture("wall_horizontal.png");
 	TextureManager::instance().loadTexture("wall_vertical.png");
 	TextureManager::instance().loadTexture("wall_edge_left_bottom.png");
@@ -247,7 +287,7 @@ int main()
 	TextureManager::instance().loadTexture("heart.png");
 
 
-	unique_ptr<LevelDescription> description = createLevel6();
+	unique_ptr<LevelDescription> description = createLevel1();
 
 
 
