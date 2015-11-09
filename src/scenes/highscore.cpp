@@ -62,12 +62,37 @@ void Highscore::handleKeyDownEvent(sf::Keyboard::Key key)
 string Highscore::getHighscore(float timeLeft)
 {
 	string mark;
-	if (timeLeft > 10 && timeLeft < 100) {
+	// if at least 3 minutes after completing the last level are remaining, then you get an 1,0. otherwise the mark rises by 0.5 every 30 seconds
+	if (timeLeft >= 180) {
 		mark = "1.0";
 		return mark;
 	}
-	else {
+	else if (timeLeft >= 150 && timeLeft < 180) {
+		mark = "1.5";
+		return mark;
+	}
+	else if (timeLeft >= 120 && timeLeft < 150) {
+		mark = "2,0";
+		return mark;
+	}
+	else if (timeLeft >= 90 && timeLeft < 120) {
+		mark = "2.5";
+		return mark;
+	}
+	else if (timeLeft >= 60 && timeLeft < 90) {
+		mark = "3.0";
+		return mark;
+	}
+	else if (timeLeft >= 30 && timeLeft < 60) {
+		mark = "3.5";
+		return mark;
+	}
+	else if (timeLeft > 0 && timeLeft < 30) {
 		mark = "4.0";
+		return mark;
+	}
+	else {
+		mark = "5.0";
 		return mark;
 	}
 }
