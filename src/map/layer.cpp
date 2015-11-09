@@ -19,24 +19,39 @@ Layer::Layer(unique_ptr<LevelDescription> description) {
 
 	this->layer = vector<vector<FieldStatus> > (width, vector<FieldStatus> (height, FREE));
 
+	//Create a walls around the layer, that no object can leave the layer.
 	this->addWall(0, 0, SOUTH, height);
 	this->addWall(1, 0, EAST, width);
 	this->addWall(1, height - 1, EAST, width - 1);
 	this->addWall(width - 1, 1, SOUTH, height - 2);
+
+	//Get rooms which must be placed on the layer first.
 	this->populateRoomObjects(description->getRooms());
 
+	//Fill the map with the rest of the rooms.
+	//This process must not garanty that the rooms are set.
 	sf::Vector2f minSizeF = description->getMinRoomSize();
 	sf::Vector2f maxSizeF = description->getMaxRoomSize();
 	sf::Vector2<int> minSize(floor(minSizeF.x / Brick::WIDTH), floor(minSizeF.y / Brick::HEIGHT));
 	sf::Vector2<int> maxSize(floor(maxSizeF.x / Brick::WIDTH), floor(maxSizeF.y / Brick::HEIGHT));
 	this->fillWithRooms(minSize, maxSize, description->getMaxAmountOfStandardRooms());
+
+	//Repeat the wall generation with a different granularity
+	//to make the layer more interesting
 	fillWithWalls(3, 20, 16, 200);
 	fillWithWalls(3, 20, 8, 200);
 	fillWithWalls(3, 20, 4, 200);
 	fillWithWalls(3, 20, 2, 200);
+
+	//Transform the layer-matrix into gameobjects.
 	this->generateGameObjectField();
+
+	//Delete restricted fields of the layer.
 	this->freeRestrictions();
+
+	//Place all Positionable objects of the level-description.
 	this->populateGameObjects(description->getFreeObjects());
+
 	this->createParkingAreas();
 }
 
