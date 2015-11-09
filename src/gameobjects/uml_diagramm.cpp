@@ -19,8 +19,8 @@ UMLDiagramm::UMLDiagramm() {
 	setTexture(1, TextureManager::instance().getTexture("item_level_4_UML.png"));
 
 	//
-	setCollisionAreaTopLeft(sf::Vector2f(0, 0));
-	setCollisionAreaBottomRight(sf::Vector2f(15, 20));
+	setPosition(sf::Vector2f(0, 0));
+	setSize(sf::Vector2f(15, 20));
 
 
 

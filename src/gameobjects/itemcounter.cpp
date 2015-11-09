@@ -48,7 +48,6 @@ void ItemCounter::incrementCounter() {
 		string stringItemCounter = to_string(this->numberOfItems) + " / " + to_string(this->numberOfItemsToCollect);
 		setText(4, stringItemCounter);
 	}
-
 }
 
 ItemCounter::~ItemCounter() {

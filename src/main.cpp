@@ -1,7 +1,6 @@
 #include "engine/game.hpp"
 #include "engine/scene.hpp"
 #include "engine/texturemanager.hpp"
-#include "gameobjects/ball.hpp"
 #include "gameobjects/character.hpp"
 #include "map/layer.hpp"
 #include "gameobjects/coffee.hpp"

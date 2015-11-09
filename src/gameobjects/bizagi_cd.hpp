@@ -6,7 +6,7 @@
 
 #include "../engine/gameobject.hpp"
 #include "../engine/components/sprite.hpp"
-#include "../map/positionable.hpp"
+#include "../engine/components/positionable.hpp"
 #include <SFML/System.hpp>
 
 namespace theseus
@@ -14,7 +14,7 @@ namespace theseus
 	namespace gameobjects
 	{
 		class BizagiCD
-			: public theseus::map::Positionable
+			: public theseus::engine::components::Positionable
 			, public virtual engine::components::Sprite
 		{
 		private:

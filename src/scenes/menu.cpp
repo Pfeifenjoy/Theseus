@@ -1,5 +1,5 @@
 /**
-* @author Philipp PÃ¼tz
+* @author Philipp Pütz
 */
 #include "menu.hpp"
 #include "../engine/game.hpp"
@@ -64,7 +64,6 @@ void Menu::handleKeyDownEvent(sf::Keyboard::Key key)
 			}
 			else {
 				game->quitGame();
-				cout << "exit" << ends;
 			}
 		}
 	}

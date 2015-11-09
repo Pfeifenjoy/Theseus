@@ -289,16 +289,16 @@ void Layer::occupy(int x, int y, int width, int height) {
 	}
 }
 
-void Layer::populateGameObjects(vector<unique_ptr<Positionable> > freeGameObjects) {
+void Layer::populateGameObjects(vector<unique_ptr<theseus::engine::components::Positionable> > freeGameObjects) {
 	return this->populateGameObjects(move(freeGameObjects),
 		   	sf::Vector2<int> (0,0),
 			sf::Vector2<int> (this->layer.size(), this->layer[0].size()));
 }
 
-void Layer::populateGameObjects(vector<unique_ptr<Positionable> > freeGameObjects, sf::Vector2<int> position, sf::Vector2<int> area) {
+void Layer::populateGameObjects(vector<unique_ptr<theseus::engine::components::Positionable> > freeGameObjects, sf::Vector2<int> position, sf::Vector2<int> area) {
 	for(auto& object : freeGameObjects) {
-		sf::Vector2f topLeft = object->getCollisionAreaTopLeft();
-		sf::Vector2f rightBottom = object->getCollisionAreaBottomRight();
+		sf::Vector2f topLeft = object->getPosition();
+		sf::Vector2f rightBottom = object->getSize();
 		int width = (int) ceil((rightBottom.x - topLeft.x) / Brick::WIDTH);
 		int height = (int) ceil((rightBottom.y - topLeft.y) / Brick::HEIGHT);
 		auto possiblePlaces = this->getPossiblePlaces(position, area, sf::Vector2<int> (width, height));

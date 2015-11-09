@@ -11,6 +11,7 @@
 #include <vector>
 #include <iostream>
 #include "level-description.hpp"
+#include "../engine/components/position.hpp"
 
 namespace theseus {
 namespace map {
@@ -38,8 +39,8 @@ namespace map {
 			void generateGameObjectField();
 			void addDoor(int x, int y, int width, int height);
 			void setFloor(int x, int y, theseus::gameobjects::FloorType);
-			void populateGameObjects(std::vector<std::unique_ptr<Positionable> >);
-			void populateGameObjects(std::vector<std::unique_ptr<Positionable> >,
+			void populateGameObjects(std::vector<std::unique_ptr<theseus::engine::components::Positionable> >);
+			void populateGameObjects(std::vector<std::unique_ptr<theseus::engine::components::Positionable> >,
 					sf::Vector2<int>, sf::Vector2<int>);
 			void populateRoomObjects(std::vector<std::unique_ptr<RoomDescription> >);
 			std::vector<std::unique_ptr<theseus::engine::GameObject> > getGameObjects();

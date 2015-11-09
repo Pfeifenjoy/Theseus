@@ -1,5 +1,5 @@
 /*
-* @author Philipp Pütz
+* @author Philipp PÃ¼tz
 */
 #ifndef _THESEUS_GAME_OBJECTS_CAFFEINELEVEL_H
 #define _THESEUS_GAME_OBJECTS_CAFFEINELEVEL_H
