@@ -203,6 +203,11 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	for (int i = 0; i < 5; ++i)
 	{
 		auto objectsToDraw = drawables[i].find(drawArea_lt, drawArea_rb); 
+		if (i == 4)
+		{
+			objectsToDraw = drawables[i].find(sf::Vector2f(0, 0), sf::Vector2f(10000, 10000));
+			target.setView(target.getDefaultView());
+		}
 		if (i == 2)
 		{
 			// layer 2 has to be sorted first

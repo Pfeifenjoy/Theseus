@@ -56,6 +56,7 @@ namespace engine
 		// All game objects that can receive messages
 		Grid<components::GeneralMessageReceiver *, 100, 100, 64> messageReceiver;
 
+
 	public:
 		//---- Constructors / Destructor ----------------------------------------------------------------
 		
