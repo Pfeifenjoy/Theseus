@@ -1,5 +1,5 @@
 /**
- * @author Philipp Pütz
+ * @author Philipp PÃ¼tz
  */
 #include "textfield.hpp"
 #include <SFML/Graphics.hpp>
@@ -11,7 +11,6 @@ Textfield::Textfield(std::string text, sf::Color textcolor)
 {
 	setText(4, text);
 	setColor(4, textcolor);
-
 }
 
 int Textfield::getTextWidth()
