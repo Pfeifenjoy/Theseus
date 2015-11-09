@@ -1,5 +1,5 @@
 /**
-* @author Philipp Pütz
+* @author Philipp PÃ¼tz
 */
 #include "text.hpp"
 

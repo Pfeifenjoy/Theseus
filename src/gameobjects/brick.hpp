@@ -53,7 +53,7 @@ namespace gameobjects
 
 		void setType(BrickType);
 
-		enum { WIDTH = 32, HEIGHT = 64 };
+		enum { WIDTH = 32, HEIGHT = 64, OFFSET=6, LAYER=2 };
 	};
 }
 }

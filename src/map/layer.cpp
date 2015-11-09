@@ -38,10 +38,10 @@ Layer::Layer(unique_ptr<LevelDescription> description) {
 
 	//Repeat the wall generation with a different granularity
 	//to make the layer more interesting
-	fillWithWalls(3, 20, 16, 200);
-	fillWithWalls(3, 20, 8, 200);
-	fillWithWalls(3, 20, 4, 200);
-	fillWithWalls(3, 20, 2, 200);
+	int granularity;
+	for(granularity = 16; granularity > 1; granularity >>= 1) {
+		fillWithWalls(((width / 2) + (height / 2)) / 8, ((width / 2) + (height / 2)) / 2, granularity, ((width / 2)*(height / 2)) / 4);
+	}
 
 	//Transform the layer-matrix into gameobjects.
 	this->generateGameObjectField();
@@ -249,8 +249,8 @@ void Layer::setFloor(int x, int y, FloorType type) {
 	int extraWidthLeft = 0;
 	int extraWidthRight = 0;
 	if(x > 0 && x < (int) this->layer.size()) {
-		extraWidthLeft = layer[x-1][y] == OCCUPIED ? 6 : 0;
-		extraWidthRight = layer[x+1][y] == OCCUPIED ? 6 : 0;
+		extraWidthLeft = layer[x-1][y] == OCCUPIED ? Brick::OFFSET : 0;
+		extraWidthRight = layer[x+1][y] == OCCUPIED ? Brick::OFFSET : 0;
 	}
 	sf::Vector2f position(Brick::WIDTH * x - extraWidthLeft, Brick::HEIGHT * y);
 	sf::Vector2f size(Brick::WIDTH + extraWidthRight + extraWidthLeft, Brick::HEIGHT);
@@ -375,13 +375,13 @@ void Layer::createParkingAreas() {
 	}
 	for(i = -10; i < 0; i++) {
 		for(j = -10; j < (int) this->layer[0].size() + 10; j++) {
-			position = sf::Vector2f(i * size.x + 6, j *size.y);
+			position = sf::Vector2f(i * size.x + Brick::OFFSET, j *size.y);
 			this->gameobjects.push_back(unique_ptr<Floor> (new Floor(position, size, GRAS)));
 		}
 	}
 	for(i = 0; i < 10; i++) {
 		for(j = -10; j < (int) this->layer[0].size() + 10; j++) {
-			position = sf::Vector2f(this->layer.size() * Brick::WIDTH + i* size.x - 6, j * size.y);
+			position = sf::Vector2f(this->layer.size() * Brick::WIDTH + i* size.x - Brick::OFFSET, j * size.y);
 			this->gameobjects.push_back(unique_ptr<Floor> (new Floor(position, size, GRAS)));
 		}
 	}
