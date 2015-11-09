@@ -346,10 +346,6 @@ int main()
 
 	vector<unique_ptr<Scene> > scenes;
 	scenes.push_back(move(initScene));
-<<<<<<< HEAD
-	//scenes.push_back(move(highscore));
-=======
->>>>>>> 574fc3b67e6d579e92fe96633e721ac9e20d692b
 	scenes.push_back(nullptr);
 
 
