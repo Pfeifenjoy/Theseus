@@ -18,10 +18,10 @@ ItemCounter::ItemCounter(sf::Vector2f position, int numberOfItemsToCollect) {
 	string stringItemCounter = to_string(this->numberOfItems) + " / " + to_string(this->numberOfItemsToCollect);
 
 
-	//Set the text of the item counter
-	setCharSize(4, 20);
+	//Set the text of the item counter ---- edited by Leon Mutschke on 09.11.2015
+	setCharSize(4, 30);
 	setText(4, stringItemCounter);
-	setColor(4, sf::Color::Black);
+	setColor(4, sf::Color::Yellow);
 	setStyle(4, sf::Text::Style::Bold);
 
 	// Set the position

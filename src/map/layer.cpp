@@ -143,26 +143,27 @@ int Layer::drawLine(int x, int y, Direction direction, int length, FieldStatus s
 
 void Layer::addRoom(int x, int y, int width, int height) {
 	if(checkField(x, y, width, height)){
-		addWall(x, y, EAST, width);
-		addWall(x, y + 1, SOUTH, height - 1);
-		addWall(x + width - 1, y + 1, SOUTH, height - 1);
-		addWall(x + 1, y + height - 1, EAST, width - 1);
-		drawLine(x - 1, y - 1, EAST, width + 2, VERTICAL_RESTRICTED);
-		drawLine(x - 1, y - 1, SOUTH, height + 2, HORIZONTAL_RESTRICTED);
-		drawLine(x - 1, y + height, EAST, width + 2, VERTICAL_RESTRICTED);
-		drawLine(x + width , y - 1, SOUTH, height + 2, HORIZONTAL_RESTRICTED);
-		int i, j;
-		for(i = x + 1; i < x + width -1; i++) {
-			for(j = y + 1; j < y + height -1; j++) {
-				layer[i][j] = RESTRICTED;
-				setFloor(i, j, ROOM);
-			}
-		}
-		this->addDoor(x, y, width, height);
-		//sf::Vector2f position((x+1)*Brick::WIDTH, (y+1)*Brick::HEIGHT);
-		//sf::Vector2f size((width - 1) * Brick::WIDTH, (height-1) * Brick::HEIGHT);
-		//this->gameobjects.push_back(unique_ptr<Room> (new Room(position, size)));
+		forceAddRoom(x, y, width, height);
 	}
+}
+
+void Layer::forceAddRoom(int x, int y, int width, int height) {
+	addWall(x, y, EAST, width);
+	addWall(x, y + 1, SOUTH, height - 1);
+	addWall(x + width - 1, y + 1, SOUTH, height - 1);
+	addWall(x + 1, y + height - 1, EAST, width - 1);
+	drawLine(x - 1, y - 1, EAST, width + 2, VERTICAL_RESTRICTED);
+	drawLine(x - 1, y - 1, SOUTH, height + 2, HORIZONTAL_RESTRICTED);
+	drawLine(x - 1, y + height, EAST, width + 2, VERTICAL_RESTRICTED);
+	drawLine(x + width , y - 1, SOUTH, height + 2, HORIZONTAL_RESTRICTED);
+	int i, j;
+	for(i = x + 1; i < x + width -1; i++) {
+		for(j = y + 1; j < y + height -1; j++) {
+			layer[i][j] = RESTRICTED;
+			setFloor(i, j, ROOM);
+		}
+	}
+	this->addDoor(x, y, width, height);
 }
 
 void Layer::addDoor(int x, int y, int width, int height) {
@@ -312,10 +313,9 @@ void Layer::populateGameObjects(vector<unique_ptr<theseus::engine::components::P
 
 void Layer::populateGameObjects(vector<unique_ptr<theseus::engine::components::Positionable> > freeGameObjects, sf::Vector2<int> position, sf::Vector2<int> area) {
 	for(auto& object : freeGameObjects) {
-		sf::Vector2f topLeft = object->getPosition();
-		sf::Vector2f rightBottom = object->getSize();
-		int width = (int) ceil((rightBottom.x - topLeft.x) / Brick::WIDTH);
-		int height = (int) ceil((rightBottom.y - topLeft.y) / Brick::HEIGHT);
+		sf::Vector2f size = object->getSize();
+		int width = (int) ceil(size.x / Brick::WIDTH);
+		int height = (int) ceil(size.y / Brick::HEIGHT);
 		auto possiblePlaces = this->getPossiblePlaces(position, area, sf::Vector2<int> (width, height));
 		if(possiblePlaces.size() > 0) {
 			auto field = rand() % possiblePlaces.size();
@@ -332,15 +332,16 @@ void Layer::populateRoomObjects(vector<unique_ptr<RoomDescription> > rooms) {
 	for(auto& room: rooms) {
 		int width = ceil(room->getWidth() / Brick::WIDTH);
 		int height = ceil(room->getHeight() / Brick::HEIGHT);
-		auto possiblePlaces = getPossiblePlaces(width + 1, height + 1);
+		auto possiblePlaces = getPossiblePlaces(width + 2, height + 2); //Prevent room at the border of the layer.
+		//Check if the leveldescription is plausable
 		assert(possiblePlaces.size() > 0);
 		if(possiblePlaces.size() != 0) {
 			auto startField = rand() % possiblePlaces.size();
 			auto position = possiblePlaces[startField];
 			auto roomObjects = room->getGameObjects();
 			this->populateGameObjects(move(roomObjects),
-					position, sf::Vector2<int> (width, height));
-			addRoom(position.x + 1, position.y + 1, width, height);
+					sf::Vector2<int> (position.x + 2, position.y + 2), sf::Vector2<int> (width - 2, height - 2));
+			forceAddRoom(position.x + 1, position.y + 1, width, height);
 		}
 	}
 }
