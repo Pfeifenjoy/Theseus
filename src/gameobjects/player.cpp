@@ -52,6 +52,12 @@ void Player::onUpdate(float timePassed)
 	}
 	else setSpeedMultiplier(1); // normal speed
 
+	// Interact message on <E>
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
+		Interact interact;
+		MessageSender<Interact>::sendMessage(interact, 16, 16);
+		cout << "Interact sended" << endl;
+	}
 
 	// <WASD> Movings
 	sf::Vector2i direction(0, 0);
