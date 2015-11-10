@@ -45,66 +45,7 @@ using namespace theseus::engine;
 using namespace theseus::gameobjects;
 using namespace theseus::map;
 
-unique_ptr<LevelDescription> createLevel1() {
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 80, Brick::HEIGHT * 40)));
-	//set level specific object
-	level->addFreeGameObject(unique_ptr<BizagiCD> (new BizagiCD()));
 
-	level->setMaxAmountOfStandardRooms(5);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
-
-	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
-
-	//set amount of coffee
-	for (int i = 0; i < 15; i++) {
-		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
-	}
-
-	//set amount of students
-	int x = 0;
-	for (x = 0; x < 30; x++) {
-		auto npc = unique_ptr<NPC>(new NPC);
-		level->addFreeGameObject(move(npc));
-	}
-
-	unique_ptr<RoomDescription> mensa(new RoomDescription(Brick::WIDTH * 10, Brick::HEIGHT * 10));
-	//set professor Runge
-	auto runge = unique_ptr<Runge>(new Runge);
-	mensa->addGameObject(move(runge));
-
-	level->addRoom(move(mensa));
-	return level;
-}
-
-unique_ptr<LevelDescription> createLevel2() {
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 40)));
-	//set level specific object
-	level->addFreeGameObject(unique_ptr<BizagiCD>(new BizagiCD()));
-
-	level->setMaxAmountOfStandardRooms(5);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
-
-	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
-
-	//set amount of coffee
-	for (int i = 0; i < 15; i++) {
-		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
-	}
-
-	//set amount of students
-	int x = 0;
-	for (x = 0; x < 40; x++) {
-		auto npc = unique_ptr<NPC>(new NPC);
-		level->addFreeGameObject(move(npc));
-	}
-
-	//set professor Glaser
-	auto glaser = unique_ptr<Glaser>(new Glaser);
-	level->addFreeGameObject(move(glaser));
-
-
-	return level;
-}
 
 unique_ptr<LevelDescription> createLevel3() {
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 50)));

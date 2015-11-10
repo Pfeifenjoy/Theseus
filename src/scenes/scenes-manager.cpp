@@ -6,6 +6,7 @@
 #include "../map/level-description.hpp"
 #include "../gameobjects/brick.hpp"
 #include "../gameobjects/runge.hpp"
+#include "../gameobjects/glaser.hpp"
 #include "../gameobjects/npc.hpp"
 #include "../gameobjects/coffee.hpp"
 #include "../gameobjects/bizagi_cd.hpp"
@@ -82,6 +83,47 @@ void ScenesManager::loadLevel1() {
 	scene->setCamera(man_ptr);
 
 	this->game.run(*(scene));
+}
 
-	scene->checkFinished();
+void ScenesManager::loadLevel2() {
+
+	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 40)));
+	//set level specific object
+	level->addFreeGameObject(unique_ptr<BizagiCD>(new BizagiCD()));
+
+	level->setMaxAmountOfStandardRooms(5);
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
+
+	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
+
+	//set amount of coffee
+	for (int i = 0; i < 15; i++) {
+		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
+	}
+
+	//set amount of students
+	int x = 0;
+	for (x = 0; x < 40; x++) {
+		auto npc = unique_ptr<NPC>(new NPC);
+		level->addFreeGameObject(move(npc));
+	}
+
+	//set professor Glaser
+	auto glaser = unique_ptr<Glaser>(new Glaser);
+	level->addFreeGameObject(move(glaser));
+
+	auto scene = Layer(move(level)).toScene();
+	this->game.run(*(scene));
+}
+void ScenesManager::loadLevel3() {
+
+}
+void ScenesManager::loadLevel4() {
+
+}
+void ScenesManager::loadLevel5() {
+
+}
+void ScenesManager::loadLevel6() {
+
 }

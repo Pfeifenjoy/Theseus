@@ -18,11 +18,11 @@ namespace scenes {
 			//void loadHighScore();
 
 			void loadLevel1();
-			//void loadLevel2();
-			//void loadLevel3();
-			//void loadLevel4();
-			//void loadLevel5();
-			//void loadLevel6();
+			void loadLevel2();
+			void loadLevel3();
+			void loadLevel4();
+			void loadLevel5();
+			void loadLevel6();
 	};
 }
 }
