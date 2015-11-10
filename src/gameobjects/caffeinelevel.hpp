@@ -29,7 +29,7 @@ namespace theseus
 
 			virtual ~CaffeineLevel();
 
-			void CaffeineLevel::setCaffeineLevel(const theseus::messages::UpdateCaffeineLevel& message);
+			void setCaffeineLevel(const theseus::messages::UpdateCaffeineLevel& message);
 		};
 	}
 }
