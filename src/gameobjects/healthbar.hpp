@@ -19,8 +19,6 @@ namespace theseus
 			, public virtual engine::components::Sprite
 			, public virtual engine::components::MessageReceiver<theseus::messages::UpdateLifePoints>
 		{
-		private:
-			int healthPoints;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
