@@ -27,12 +27,14 @@ Floor::Floor(sf::Vector2f position, sf::Vector2f size, FloorType type) {
 		case CORRIDOR: texture = &TextureManager::instance().getTexture("floor_black.png"); break;
 		case ROOM: texture = &TextureManager::instance().getTexture("floor_red.png"); break;
 		case GRAS: texture = &TextureManager::instance().getTexture("gras.png"); break;
+		default: texture = &TextureManager::instance().getTexture("gras.png"); break;
 	}
 
 	setTexture(0,*texture);
 
 	// Repeat texture if nessesary
-	texture->setRepeated(true);
+	if(texture != nullptr)
+		texture->setRepeated(true);
 
 	//Set size of the wall IntRect(startposition x, startposition y, length x, height y)
 	this->sprite(0).setTextureRect(sf::IntRect(0, 0, size.x, size.y));
