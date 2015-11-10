@@ -1,5 +1,5 @@
 /**
-* @author Philipp Pütz
+* @author Philipp PÃ¼tz, Arwed Mett
 */
 #ifndef _THESEUS_GAME_OBJECTS_MENU_H
 #define _THESEUS_GAME_OBJECTS_MENU_H
@@ -9,29 +9,29 @@
 #include "../gameobjects/textfield.hpp"
 #include <memory>
 #include <vector>
+#include <utility>
+#include <string>
 
 namespace theseus
 {
-	namespace engine
+	namespace scenes
 	{
 
 		class Menu
-			: public engine::Scene
-		
+			: public theseus::engine::Scene
+
 		{
 		private:
-			int selectedItemIndex;
-			int numberOfItems;
-			std::vector<gameobjects::Textfield *>  buttons;
-			std::vector<std::unique_ptr<Scene> > scenes;
-			engine::Game * game;
+			short selectedItemIndex;
+			std::vector<theseus::gameobjects::Textfield *> buttons;
 			int screenWidth;
 			int screenHeigth;
+			sf::Keyboard::Key lastKeyEvent;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 			// Generates a new menu scene
-			Menu(const std::vector<std::string>& menuItems, std::vector<std::unique_ptr<engine::Scene> >& scenes, engine::Game * game);
+			Menu(const std::vector<std::string>& menuItem, theseus::engine::Game *game);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 
@@ -44,6 +44,13 @@ namespace theseus
 			* Passes the key-down event to the game objects.
 			*/
 			void handleKeyDownEvent(sf::Keyboard::Key key);
+
+			void updateSelection();
+			void setSelectedItemIndex(short);
+			short getSelectedItemIndex();
+			sf::Keyboard::Key getLastKeyEvent();
+
+
 		};
 
 	}

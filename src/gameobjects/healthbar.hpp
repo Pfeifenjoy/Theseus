@@ -1,5 +1,5 @@
 /*
-* @author Philipp Pütz
+* @author Philipp PÃ¼tz
 */
 #ifndef _THESEUS_GAME_OBJECTS_HEALTHBAR_H
 #define _THESEUS_GAME_OBJECTS_HEALTHBAR_H
@@ -31,7 +31,7 @@ namespace theseus
 
 			virtual ~HealthBar();
 
-			void HealthBar::setHealthPoints(const theseus::messages::UpdateLifePoints& message);
+			void setHealthPoints(const theseus::messages::UpdateLifePoints& message);
 		};
 	}
 }

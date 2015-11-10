@@ -1,5 +1,5 @@
 /**
-* @author Philipp Pütz, Leon Mutschke
+* @author Philipp PÃ¼tz, Leon Mutschke
 */
 #include "intro.hpp"
 #include "../engine/scene.hpp"
@@ -10,17 +10,18 @@
 
 using namespace std;
 using namespace theseus::engine;
+using namespace theseus::scenes;
 using namespace theseus::gameobjects;
 using namespace theseus::engine::components;
 
 string SLIDE_1 = "Herzlich Willkommen beim DHBW-Labyrinth-Spiel!\n\n\n"
 "ACHTUNG! An der DHBW gibt es aktuell besondere Vorkommnisse...\n"
-"Die Dozenten und Professoren sind wütend und wild geworden! Ein Virus ist aus\n"
-"einem Computer ausgebrochen und hat sämtliche Dozenten und \n"
+"Die Dozenten und Professoren sind wÃ¼tend und wild geworden! Ein Virus ist aus\n"
+"einem Computer ausgebrochen und hat sÃ¤mtliche Dozenten und \n"
 "Professoren infiziert. Diese haben nun ihre offene, freundliche \n"
-"und nette Einstellung gegenüber den Studenten verloren und versuchen \n"
-"nun alle Studenten zu exmatrikulieren. Bring ihnen ihre Gegenstände\n"
-"und Dokumente zurück, um sie zu heilen!"
+"und nette Einstellung gegenÃ¼ber den Studenten verloren und versuchen \n"
+"nun alle Studenten zu exmatrikulieren. Bring ihnen ihre GegenstÃ¤nde\n"
+"und Dokumente zurÃ¼ck, um sie zu heilen!"
 "\n\n\n"
 "Beachte, dass DU der einzige bist, der die DHBW retten kann...\n"
 "Doch pass auf, dass die Dozenten und Professoren dich nicht\n"
@@ -45,9 +46,9 @@ Intro::Intro(int screenWidth, int screenHeigth)
 }
 
 void Intro::handleKeyDownEvent(sf::Keyboard::Key key)
-{	
+{
 	if (key == sf::Keyboard::Space) {
-		cout << "Ich solle mich beenden..." << endl;
+		this->finished = true;
 	}
 
 }

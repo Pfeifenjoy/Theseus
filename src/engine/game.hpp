@@ -22,14 +22,8 @@ namespace engine
 		// The window which is drawn to
 		sf::RenderWindow window;
 
-		// The stack of loaded scenes.
-		std::stack<std::unique_ptr<Scene> > inactiveScenes;
-		std::unique_ptr<Scene> activeScene = nullptr;
-		std::unique_ptr<Scene> sceneToLoad = nullptr;
-
-		// Exist variable
 		bool exit;
-		bool menuIsOpen;
+
 
 	public:
 
@@ -50,27 +44,11 @@ namespace engine
 
 		/**
 		 * Runs the main loop with the given Scene as the initial scene.
-		 *
-		 * !!! Caution !!! only call this function once, in the
-		 * main function of your application.
-		 * If you want to change the active scene during the running
-		 * game, you can use the startScene() method.
 		 */
-		void run(std::unique_ptr<Scene> initialScene);
-
-		/**
-		 * Displays the given scene and lets the player
-		 * interact with it.
-		 * The current scene will be paused until the started scene
-		 * is stopped.
-		 */
-		void startScene(std::unique_ptr<Scene> scene);
+		bool run(Scene& initialScene);
 
 		// Returns the resolution of the screen
 		sf::Vector2i getScreenResolution();
-
-		// Immediately quits the game
-		void quitGame();
 
 	};
 }

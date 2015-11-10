@@ -40,7 +40,7 @@ unique_ptr<GameObject> Scene::removeGameObject(GameObject* gameObject)
 	// stop at this point if the requested game object was not found.
 	if (found == gameObjects.end())
 		return nullptr;
-	
+
 	// remove the game object from the list of all game objects
 	unique_ptr<GameObject> result = move(*found);
 	gameObjects.erase(found);
@@ -54,7 +54,7 @@ unique_ptr<GameObject> Scene::removeGameObject(GameObject* gameObject)
 
 	// unregister the components
 	result->unregisterComponents(*this);
-	
+
 	// return
 	// if the caller picks up the returned smart pointer,
 	// he becomes its owner.
@@ -86,7 +86,7 @@ void Scene::registerUpdate(components::Update * updateComponent)
 {
 	update.push_back(updateComponent);
 }
-		
+
 void Scene::unregisterUpdate(components::Update * component)
 {
 	update.erase(remove(update.begin(), update.end(), component), update.end());
@@ -148,7 +148,7 @@ void Scene::checkCollisions(components::CollisionDetector* component)
 	// collisions with other solide game objects.
 	auto collisionArea_tl = component->getAbsoluteCollisionAreaTopLeft();
 	auto collisionArea_br = component->getAbsoluteCollisionAreaBottomRight();
-	
+
 	// all solide game objects that are near to the collision area are candidates that
 	// could possibly collide with the collision area.
 	sf::Vector2f checkArea_tl;
@@ -164,7 +164,7 @@ void Scene::checkCollisions(components::CollisionDetector* component)
 	{
 		auto otherCollisionArea_tl = result.second->getAbsoluteCollisionAreaTopLeft();
 		auto otherCollisionArea_br = result.second->getAbsoluteCollisionAreaBottomRight();
-		if (collisionArea_tl.x < otherCollisionArea_br.x 			// the collision-candidate is not completely left to the collision area 
+		if (collisionArea_tl.x < otherCollisionArea_br.x 			// the collision-candidate is not completely left to the collision area
 				&& collisionArea_br.x > otherCollisionArea_tl.x 	// the collision-candidate is not completely right to the collision area
 				&& collisionArea_br.y > otherCollisionArea_tl.y  	// the collision-candidate is not completely under the collision area
 				&& collisionArea_tl.y < otherCollisionArea_br.y 	// the collision-candidate is not completely above the collision area
@@ -180,7 +180,7 @@ void Scene::checkCollisions(components::CollisionDetector* component)
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	sf::View view;
-	
+
 	if (activeCamera != nullptr)
 	{
 		view = activeCamera->view();
@@ -202,7 +202,7 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	// Draw!
 	for (int i = 0; i < 5; ++i)
 	{
-		auto objectsToDraw = drawables[i].find(drawArea_lt, drawArea_rb); 
+		auto objectsToDraw = drawables[i].find(drawArea_lt, drawArea_rb);
 		if (i == 4)
 		{
 			objectsToDraw = drawables[i].find(sf::Vector2f(0, 0), sf::Vector2f(10000, 10000));
@@ -223,7 +223,7 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 			{
 				drawable->draw(i, target, states);
 			}
-			
+
 		}
 		else
 		{
@@ -232,7 +232,7 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 				drawable.second->draw(i, target, states);
 			}
 		}
-	
+
 	}
 }
 
@@ -251,7 +251,7 @@ void Scene::handleUpdateEvent(float timePassed)
 	while (!needsRegistrationUpdate_previous.empty())
 	{
 		auto position = needsRegistrationUpdate_previous.begin();
-		auto element = *position;	
+		auto element = *position;
 		needsRegistrationUpdate_previous.erase(position);
 		element->refreshComponentRegistrations(*this);
 	}
@@ -263,13 +263,17 @@ void Scene::handleKeyDownEvent(sf::Keyboard::Key key)
 	{
 		auto deliverTo = *it;
 		needsRegistrationUpdate.insert(deliverTo);
-		deliverTo->handleKeyDown(key);	
+		deliverTo->handleKeyDown(key);
 	}
 }
 
 void Scene::handleSceneStartedEvent()
 {
 	//solide.shuffle();
+}
+
+bool Scene::checkFinished() {
+	return this->finished;
 }
 
 Scene::~Scene(){}

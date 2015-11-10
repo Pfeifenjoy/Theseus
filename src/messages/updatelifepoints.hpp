@@ -1,11 +1,11 @@
 /**
-*  @Author: Philipp Pütz
+*  @Author: Philipp PÃ¼tz
 */
 
 #ifndef _THESEUS_ENGINE_MESSAGE_UPDATELIFEPOINTS_H
 #define _THESEUS_ENGINE_MESSAGE_UPDATELIFEPOINTS_H
 
-#include "../engine/message.hpp";
+#include "../engine/message.hpp"
 
 namespace theseus
 {

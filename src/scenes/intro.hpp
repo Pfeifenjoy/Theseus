@@ -1,5 +1,5 @@
 /**
-* @author Philipp Pütz
+* @author Philipp PÃ¼tz, Arwed Mett
 */
 #ifndef _THESEUS_GAME_INTRO_H
 #define _THESEUS_GAME_INTRO_H
@@ -11,7 +11,7 @@
 
 namespace theseus
 {
-	namespace engine
+	namespace scenes
 	{
 
 		class Intro
