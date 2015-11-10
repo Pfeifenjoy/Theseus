@@ -14,6 +14,7 @@
 #include "../engine/components/messagesender.hpp"
 #include "../messages/updatelifepoints.hpp"
 #include "../messages/updateCaffeineLevel.hpp"
+#include "../messages/interact.hpp"
 #include <SFML/System.hpp>
 #include "character.hpp"
 
@@ -29,6 +30,7 @@ namespace theseus
 			, public virtual engine::components::Camera
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateLifePoints>
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateCaffeineLevel>
+			, public virtual engine::components::MessageSender<theseus::messages::Interact>
 		{
 		private:
 			// events

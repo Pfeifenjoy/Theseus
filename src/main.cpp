@@ -234,8 +234,8 @@ int main()
 //	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 110));
 //	initScene->addGameObject(move(timer));
 //
-//	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40), 3));
-//	initScene->addGameObject(move(itemCounter));
+//  auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40), 3));
+//  initScene->addGameObject(move(itemCounter));
 //
 //	auto caffeineLevel = unique_ptr<CaffeineLevel>(new CaffeineLevel(sf::Vector2f((float)game.getScreenResolution().x, 15), 24, 115));
 //	initScene->addGameObject(move(caffeineLevel));
