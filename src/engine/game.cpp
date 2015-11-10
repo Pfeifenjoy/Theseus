@@ -21,14 +21,8 @@ Game::Game()
 	window.setVerticalSyncEnabled(true);
 }
 
-void Game::run(unique_ptr<Scene> initialScene)
+void Game::run(Scene& scene)
 {
-	// Start the scene
-	activeScene = std::move(initialScene);
-	initialScene = nullptr;
-	sceneToLoad = nullptr;
-	activeScene->handleSceneStartedEvent();
-
 	window.setMouseCursorVisible(false);
 
 	// Main loop
@@ -36,7 +30,6 @@ void Game::run(unique_ptr<Scene> initialScene)
 	sf::Clock fpsClock;
 	int fpsCounter = 0;
 	exit = false;
-	menuIsOpen = false;
 	while (!exit)
 	{
 		// measure fps
@@ -47,14 +40,7 @@ void Game::run(unique_ptr<Scene> initialScene)
 			fpsCounter = 0;
 			fpsClock.restart();
 		}
-		// start the next scene
-		if (sceneToLoad != nullptr)
-		{
-			inactiveScenes.push(std::move(activeScene));
-			activeScene = std::move(sceneToLoad);
-			sceneToLoad = nullptr;
-			activeScene->handleSceneStartedEvent();
-		}
+
 
 		// process events
 		sf::Event event;
@@ -69,37 +55,24 @@ void Game::run(unique_ptr<Scene> initialScene)
 			switch (event.type)
 			{
 			case sf::Event::KeyPressed:
-				if (event.key.code == sf::Keyboard::Escape && !menuIsOpen) {
-					menuIsOpen = true;
-					vector<std::string >  menuItems;
-					menuItems.push_back("Spiel fortsetzen");
-					menuItems.push_back("Spiel beenden");
-
-					vector<unique_ptr<Scene> > scenes;
-					scenes.push_back(move(activeScene));
-					scenes.push_back(nullptr);
-
-					unique_ptr<Menu> menuScene = unique_ptr<Menu>(new Menu(menuItems, scenes, this));
-					activeScene = std::move(menuScene);
-					activeScene->handleSceneStartedEvent();
-				}
-				else {
-					activeScene->handleKeyDownEvent(event.key.code);
-				}				
+				scene.handleKeyDownEvent(event.key.code);
 				break;
 			default:
 				// do nothing
 				break;
 			}
 		}
+		if(scene.checkFinished()){
+			break;
+		}
 
 		// update
 		float elapsedTime = timing.restart().asSeconds();
-		activeScene->handleUpdateEvent(elapsedTime);
+		scene.handleUpdateEvent(elapsedTime);
 
 		// render the active scene
 		window.clear(sf::Color::Black);
-		window.draw(*activeScene);
+		window.draw(scene);
 		window.display();
 
 	}
@@ -112,16 +85,6 @@ sf::Vector2i Game::getScreenResolution() {
 		return sf::Vector2i(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGTH);
 }
 
-void Game::startScene(std::unique_ptr<Scene> scene)
-{	
-	menuIsOpen = false;
-	sceneToLoad = std::move(scene);
-}
-
-void Game::quitGame()
-{
-	exit = true;
-}
 
 
 Game::~Game() {}

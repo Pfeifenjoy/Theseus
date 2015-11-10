@@ -1,5 +1,5 @@
 /**
-* @author Philipp Pütz
+* @author Philipp Pütz, Arwed Mett
 */
 #include "menu.hpp"
 #include "../engine/game.hpp"
@@ -7,36 +7,40 @@
 #include "../gameobjects/textfield.hpp"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <cassert>
 
 using namespace std;
-using namespace theseus::engine;
+using namespace theseus::scenes;
 using namespace theseus::gameobjects;
 using namespace theseus::engine::components;
 
-Menu::Menu(const std::vector<std::string>& menuItems, std::vector<unique_ptr<Scene> >& scenes, Game * game)
+const sf::Color& ACTIVE_BUTTON = sf::Color::Red;
+const sf::Color& INACTIVE_BUTTON = sf::Color::White;
+const int BUTTON_LAYER = 4;
+
+Menu::Menu(const std::vector<std::string>& scenes, theseus::engine::Game* game)
 {
 
-	this->numberOfItems = menuItems.size();
-	this->scenes = move(scenes);
-	this->game = game;
 	this->screenWidth = game->getScreenResolution().x;
 	this->screenHeigth = game->getScreenResolution().y;
 
+	int numberOfItems = (int) scenes.size();
 	// Generate Buttons with the provided text
-	for (int i = 0; i < numberOfItems; i++) {
+	int i;
+	for (i = 0; i < (int) scenes.size(); i++) {
 
-		unique_ptr<Textfield>	button = unique_ptr<Textfield>(new Textfield(menuItems[i], sf::Color::White));
+		unique_ptr<Textfield>	button(new Textfield(scenes[i], sf::Color::White));
 
 		// Center the button
-		button->setPosition(sf::Vector2f(screenWidth / 2 - button->getTextWidth() / 2, screenHeigth / (numberOfItems + 2) * (1 + i)));
+		button->setPosition(sf::Vector2f(screenWidth / 2 - button->getTextWidth() / 2, screenHeigth / (scenes.size() + 2) * (1 + i)));
 
 		buttons.push_back(button.get());
 		this->addGameObject(move(button));
 	}
 
 	// Select first button
-	this->selectedItemIndex = 0;
-	buttons[0]->setColor(4, sf::Color::Red);
+	this->setSelectedItemIndex(0);
+	this->updateSelection();
 
 	unique_ptr<Textfield> infoField = unique_ptr<Textfield>(new Textfield("Verwende <W>, <S> und <Return> um einen Menüeintrag auszuwählen.", sf::Color::White));
 	infoField->setCharSize(14);
@@ -46,28 +50,46 @@ Menu::Menu(const std::vector<std::string>& menuItems, std::vector<unique_ptr<Sce
 
 void Menu::handleKeyDownEvent(sf::Keyboard::Key key)
 {
+	this->lastKeyEvent = key;
 	// Select Textfield below/above
-	if (key == sf::Keyboard::W && (selectedItemIndex - 1) >= 0) {
-		buttons[selectedItemIndex]->setColor(4, sf::Color::White);
-		buttons[--selectedItemIndex]->setColor(4, sf::Color::Red);
+	if (key == sf::Keyboard::W) {
+		this->setSelectedItemIndex(selectedItemIndex - 1);
+		this->updateSelection();
 	}
-	if (key == sf::Keyboard::S && (selectedItemIndex + 1) < numberOfItems) {
-		buttons[selectedItemIndex]->setColor(4, sf::Color::White);
-		buttons[++selectedItemIndex]->setColor(4, sf::Color::Red);
+	if (key == sf::Keyboard::S) {
+		this->setSelectedItemIndex(selectedItemIndex + 1);
+		this->updateSelection();
 	}
 	// Check if a entry gets selected
-	if (key == sf::Keyboard::Return) {
-		// Start new scene
-		if (selectedItemIndex < (int) scenes.size()) {
-			if (scenes[selectedItemIndex] != nullptr) {
-				game->startScene(move(scenes[selectedItemIndex]));
-			}
-			else {
-				game->quitGame();
-			}
-		}
+	if (key == sf::Keyboard::Return || key == sf::Keyboard::Escape) {
+		this->finished = true;
 	}
+
 }
+
+void Menu::setSelectedItemIndex(short i) {
+	if(i < 0) i = 0;
+	if(i >= (short) this->buttons.size()) i = this->buttons.size() - 1;
+	this->selectedItemIndex = i;
+	this->updateSelection();
+}
+
+void Menu::updateSelection() {
+	for(auto& button: this->buttons) {
+		button->setColor(BUTTON_LAYER, INACTIVE_BUTTON);
+	}
+	this->buttons[selectedItemIndex]->setColor(BUTTON_LAYER, ACTIVE_BUTTON);
+}
+
+short Menu::getSelectedItemIndex() {
+	return this->selectedItemIndex;
+}
+
+sf::Keyboard::Key Menu::getLastKeyEvent() {
+	return this->lastKeyEvent;
+}
+
+
 
 Menu::~Menu()
 {

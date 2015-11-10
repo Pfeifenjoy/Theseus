@@ -35,6 +35,8 @@
 #include "gameobjects/kruse.hpp"
 #include "gameobjects/stroetmann.hpp"
 
+#include "scenes/scenes-manager.hpp"
+
 #include <iostream>
 #include <memory>
 
@@ -236,9 +238,6 @@ int main()
 	cout << "Hello." << endl;
 	srand((unsigned)time(NULL));
 
-//	// Load the game
-	theseus::engine::Game game;
-//
 	// Create the first scene
 	unique_ptr<Scene> initScene = unique_ptr<Scene>(new Scene());
 //
@@ -290,70 +289,24 @@ int main()
 	TextureManager::instance().loadTexture("heart.png");
 
 
-	unique_ptr<LevelDescription> description = createLevel6();
-
-
-
-	Layer layer(move(description));
-	cout << layer << endl;
-	initScene = layer.toScene();
-
-	auto man = unique_ptr<Player>(new Player);
-	auto man_ptr = man.get();
-	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
-	man->setPosition(sf::Vector2f (65, 65));
-	initScene->addGameObject(move(man));
-	initScene->setCamera(man_ptr);
-
-
-
-	//Testing if the gameobject images are correct ---------------------
-
-
-
-	auto table = unique_ptr<Table>(new Table(sf::Vector2f(32, 446), 0));
-	//initScene->addGameObject(move(table));
-
-	auto table2 = unique_ptr<Table>(new Table(sf::Vector2f(96, 446), 1));
-	//initScene->addGameObject(move(table2));
-
-
 	// HUD
 
-	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15), 3));
-	initScene->addGameObject(move(healthbar));
-
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 110));
-	initScene->addGameObject(move(timer));
-
-	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40), 3));
-	initScene->addGameObject(move(itemCounter));
-
-	auto caffeineLevel = unique_ptr<CaffeineLevel>(new CaffeineLevel(sf::Vector2f((float)game.getScreenResolution().x, 15), 24, 115));
-	initScene->addGameObject(move(caffeineLevel));
+//	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15), 3));
+//	initScene->addGameObject(move(healthbar));
+//
+//	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 110));
+//	initScene->addGameObject(move(timer));
+//
+//	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40), 3));
+//	initScene->addGameObject(move(itemCounter));
+//
+//	auto caffeineLevel = unique_ptr<CaffeineLevel>(new CaffeineLevel(sf::Vector2f((float)game.getScreenResolution().x, 15), 24, 115));
+//	initScene->addGameObject(move(caffeineLevel));
 
 	//---------------------------------------------------------------------------------
 
-	// Create the Intro
-	unique_ptr<Intro> introScene = unique_ptr<Intro>(new Intro(game.getScreenResolution().x, game.getScreenResolution().y));
-	unique_ptr<Highscore> highscore = unique_ptr<Highscore>(new Highscore(game.getScreenResolution().x, game.getScreenResolution().y, 0));
 
-	vector<std::string >  menuItems;
-	menuItems.push_back("Spiel starten!");
-	//menuItems.push_back("Highscore");
-	menuItems.push_back("Spiel beenden");
-
-
-	vector<unique_ptr<Scene> > scenes;
-	scenes.push_back(move(initScene));
-	scenes.push_back(nullptr);
-
-
-	unique_ptr<Menu> menuScene = unique_ptr<Menu>(new Menu(menuItems, scenes, &game));
-
-	//Start the game with that scene
-	game.run(move(menuScene));
-
+	theseus::scenes::ScenesManager spiel;
 	TextureManager::reset();
 	return 0;
 }

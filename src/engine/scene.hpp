@@ -1,3 +1,6 @@
+/**
+ * @author Tobias Dorra, Arwed Mett
+ */
 #ifndef _ENGINE_SCENE_H
 #define _ENGINE_SCENE_H
 
@@ -33,11 +36,11 @@ namespace engine
 	private:
 		// All game objects of this scene
 		std::vector<std::unique_ptr<GameObject> > gameObjects;
-			
+
 		// All game object on which updateRegistration potentially needs to be called.
 		std::unordered_set<components::Base *> needsRegistrationUpdate;
 		std::unordered_set<components::Base *> needsRegistrationUpdate_previous;
-		
+
 		// All drawable objects, grouped by layer
 		std::array<Grid<const components::Drawable *, 100, 100, 64> , 5> drawables;
 
@@ -56,17 +59,19 @@ namespace engine
 		// All game objects that can receive messages
 		Grid<components::GeneralMessageReceiver *, 100, 100, 64> messageReceiver;
 
+	protected:
+		bool finished=false;
 
 	public:
 		//---- Constructors / Destructor ----------------------------------------------------------------
-		
+
 		/**
 		 * Destructor
 		 */
 		virtual ~Scene();
 
 		//---- Methods ----------------------------------------------------------------------------------
-		
+
 		/**
 		 * Adds a game object to the scene
 		 */
@@ -97,7 +102,7 @@ namespace engine
 		void unregisterDrawable(int layer, sf::Vector2f position, const components::Drawable* drawable);
 
 		/**
-		 * Registers a game object to be updated in each frame. 
+		 * Registers a game object to be updated in each frame.
 		 */
 		void registerUpdate(components::Update *);
 		void unregisterUpdate(components::Update *);
@@ -125,12 +130,12 @@ namespace engine
 		void deliverMessage(const GeneralEnvelope& envelope);
 
 		//---- Methods: Handle Events -------------------------------------------------------------------
-		
+
 		/**
 		 * This event gets called after the scene has been started.
 		 */
 		void handleSceneStartedEvent();
-		
+
 		/**
 		 * Passes the update event to the game objects.
 		 */
@@ -140,6 +145,11 @@ namespace engine
 		 * Passes the key-down event to the game objects.
 		 */
 		virtual void handleKeyDownEvent(sf::Keyboard::Key key);
+
+		/**
+		 * Check if the scene is finished.
+		 */
+		bool checkFinished();
 	};
 }
 }
