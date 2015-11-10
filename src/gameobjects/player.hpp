@@ -1,5 +1,5 @@
 /**
-*  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser, Philipp Pütz
+*  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser, Philipp PÃ¼tz
 */
 
 
@@ -13,7 +13,7 @@
 #include "../engine/components/camera.hpp"
 #include "../engine/components/messagesender.hpp"
 #include "../messages/updatelifepoints.hpp"
-#include "../messages/updateCaffeineLevel.hpp"
+#include "../messages/updatecaffeinelevel.hpp"
 #include <SFML/System.hpp>
 #include "character.hpp"
 
@@ -54,7 +54,7 @@ namespace theseus
 
 			int getLifePoints();
 
-			
+
 		};
 	}
 }
