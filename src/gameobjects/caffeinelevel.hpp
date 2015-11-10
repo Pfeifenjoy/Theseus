@@ -6,6 +6,8 @@
 
 #include "../engine/gameobject.hpp"
 #include "../engine/components/text.hpp"
+#include "../engine/components/messagereceiver.hpp"
+#include "../messages/updatecaffeinelevel.hpp"
 #include <SFML/System.hpp>
 
 namespace theseus
@@ -15,33 +17,19 @@ namespace theseus
 		class CaffeineLevel
 			: public engine::GameObject
 			, public virtual engine::components::Text
+			, public virtual engine::components::MessageReceiver<theseus::messages::UpdateCaffeineLevel>
 
 		{
-		private:
-			float startLevel;
-			float actualLevel;
-			float maximumLevel;
-
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
-			CaffeineLevel(sf::Vector2f position, float startLevel, float maximumLevel);
+			// sf::Vector2f( (!) whole screen width (i will center me by myself), 'normal' y position)
+			CaffeineLevel(sf::Vector2f position);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 
 			virtual ~CaffeineLevel();
 
-			// Returns the actual caffeine level
-			float getActualLevel();
-
-			// Returns the maximum caffeine level
-			float getMaximumLevel();
-
-			// Decrements the caffeine level by a certan amough of points
-			void decrementCaffeineLevel(float points);
-
-			// Increments the caffeine level by a certan amough of points
-			void incrementCaffeineLevel(float points);
-
+			void CaffeineLevel::setCaffeineLevel(const theseus::messages::UpdateCaffeineLevel& message);
 		};
 	}
 }

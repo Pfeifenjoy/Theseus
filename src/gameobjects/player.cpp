@@ -38,16 +38,22 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints)
 }
 
 void Player::onUpdate(float timePassed)
-{
+{	
+	// <Space> for more speed
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && caffeineLevel > 0 &&
 		(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) ||
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))) {
+		// reduce caffeinelevel
 		caffeineLevel -= 5 * timePassed;
+		UpdateCaffeineLevel updateCaffeineLevel;
+		updateCaffeineLevel.setCaffeineLevel((int)round(this->caffeineLevel / (this->maxCaffeineLevel / 100)));
+		MessageSender<UpdateCaffeineLevel>::sendMessage(updateCaffeineLevel, 10000, 10000);
 		setSpeedMultiplier(3);
 	}
 	else setSpeedMultiplier(1); // normal speed
 
 
+	// <WASD> Movings
 	sf::Vector2i direction(0, 0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
 		direction.x -= 1;
@@ -65,7 +71,7 @@ void Player::decrementLifePoints() {
 		this->lifePoints--;
 		UpdateLifePoints updateLifePoints;
 		updateLifePoints.setLifePoints(this->lifePoints);
-		sendMessage(updateLifePoints, 10000, 10000);
+		MessageSender<UpdateLifePoints>::sendMessage(updateLifePoints, 10000, 10000);
 	}
 }
 
