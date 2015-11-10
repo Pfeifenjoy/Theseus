@@ -1,5 +1,5 @@
 /**
-* @author Philipp Pütz
+* @author Philipp PÃ¼tz
 */
 #ifndef _THESEUS_GAME_OBJECTS_TEXTFIELD_H
 #define _THESEUS_GAME_OBJECTS_TEXTFIELD_H
@@ -17,7 +17,7 @@ namespace theseus
 			, public virtual engine::components::Text
 		{
 		private:
-					
+
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
@@ -28,9 +28,11 @@ namespace theseus
 			~Textfield();
 
 			// Returns the width of the textfield
+			using Text::getTextWidth;
 			int getTextWidth();
 
 			// Sets the character size of the string in px
+			using Text::setCharSize;
 			void setCharSize(int size);
 
 		};

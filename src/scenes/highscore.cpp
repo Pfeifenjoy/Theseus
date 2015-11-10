@@ -14,7 +14,7 @@ using namespace theseus::engine::components;
 
 
 string HEADING = "Highscore";
-string CONCRAT = "Herzlichen Glückwunsch";
+string CONCRAT = "Herzlichen GlÃ¼ckwunsch";
 string FAIL = "Das Studium wurde leider nicht bestanden...";
 
 
@@ -22,23 +22,23 @@ Highscore::Highscore(int screenWidth, int screenHeigth, float time)
 {
 	this->screenWidth = screenWidth;
 	this->screenHeigth = screenHeigth;
-	
+
 	unique_ptr<Textfield> heading = unique_ptr<Textfield>(new Textfield(HEADING, sf::Color::White));
 	unique_ptr<Textfield> textfield = unique_ptr<Textfield>(new Textfield("Deine Abschlussnote " + getHighscore(time), sf::Color::White));
 	unique_ptr<Textfield> concrats;
-	
+
 	if (time != 0) {
 		concrats = unique_ptr<Textfield>(new Textfield(CONCRAT, sf::Color::White));
 	}
 	else {
 		concrats = unique_ptr<Textfield>(new Textfield(FAIL, sf::Color::White));
 	}
-	
+
 
 
 	heading->setCharSize(80);
 	textfield->setCharSize(40);
-	
+
 
 	// Center the textfield
 	textfield->setPosition(sf::Vector2f(screenWidth / 2 - textfield->getTextWidth() / 2, 240));
