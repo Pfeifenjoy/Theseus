@@ -21,7 +21,7 @@ Game::Game()
 	window.setVerticalSyncEnabled(true);
 }
 
-void Game::run(Scene& scene)
+bool Game::run(Scene& scene)
 {
 	window.setMouseCursorVisible(false);
 
@@ -76,6 +76,7 @@ void Game::run(Scene& scene)
 		window.display();
 
 	}
+	return exit;
 }
 
 sf::Vector2i Game::getScreenResolution() {

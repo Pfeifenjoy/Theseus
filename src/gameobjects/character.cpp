@@ -24,7 +24,10 @@ Character::Character()
 	setFrameRate(7);
 
 	// walking
-	setDirection(sf::Vector2i(0,0), true);
+	setDirection(sf::Vector2i(0, 0), true);
+
+	// speed settings
+	this->speedMultiplier = 1;
 
 	this->setPosition(sf::Vector2f(-2, 40));
 	this->setSize(sf::Vector2f(22, 50));
@@ -35,6 +38,17 @@ Character::Character()
 
 void Character::setDirection(sf::Vector2i d, bool force_update)
 {
+
+	if (d == sf::Vector2i(0, 0))			setSpeed(sf::Vector2f(0, 0));
+	else if (d == sf::Vector2i(0, 1))		setSpeed(sf::Vector2f(0, SPEED * speedMultiplier));
+	else if (d == sf::Vector2i(0, -1))		setSpeed(sf::Vector2f(0, -SPEED * speedMultiplier));
+	else if (d == sf::Vector2i(1, 0))		setSpeed(sf::Vector2f(SPEED * speedMultiplier, 0));
+	else if (d == sf::Vector2i(1, 1))   	setSpeed(sf::Vector2f(SPEED_DIAGONAL * speedMultiplier, SPEED_DIAGONAL * speedMultiplier));
+	else if (d == sf::Vector2i(1, -1))		setSpeed(sf::Vector2f(SPEED_DIAGONAL * speedMultiplier, -SPEED_DIAGONAL * speedMultiplier));
+	else if (d == sf::Vector2i(-1, 0))		setSpeed(sf::Vector2f(-SPEED * speedMultiplier, 0));
+	else if (d == sf::Vector2i(-1, 1))		setSpeed(sf::Vector2f(-SPEED_DIAGONAL * speedMultiplier, SPEED_DIAGONAL * speedMultiplier));
+	else if (d == sf::Vector2i(-1, -1))		setSpeed(sf::Vector2f(-SPEED_DIAGONAL * speedMultiplier, -SPEED_DIAGONAL * speedMultiplier));
+
 	// making changes to the animation will reset it to continue at the first frame.
 	// this is why we must only update it when the direction really has changed.
 	// Otherwise the animation would be resetted to the first frame on every update,
@@ -44,52 +58,16 @@ void Character::setDirection(sf::Vector2i d, bool force_update)
 
 	direction = d;
 
-	if (d == sf::Vector2i(0, 0))
-	{
-		setSpeed(sf::Vector2f(0, 0));
-	}
-	else if (d == sf::Vector2i(0, 1))
-	{
-		setSpeed(sf::Vector2f(0, SPEED));
-		setFirstFramePosition(sf::Vector2i(0, 0));
-	}
-	else if (d == sf::Vector2i(0, -1))
-	{
-		setSpeed(sf::Vector2f(0, -SPEED));
-		setFirstFramePosition(sf::Vector2i(0, 3 * PLAYER_H));
-	}
-	else if (d == sf::Vector2i(1, 0))
-	{
-		setSpeed(sf::Vector2f(SPEED, 0));
-		setFirstFramePosition(sf::Vector2i(0, 2 * PLAYER_H));
-	}
-	else if (d == sf::Vector2i(1, 1))
-	{
-		setSpeed(sf::Vector2f(SPEED_DIAGONAL, SPEED_DIAGONAL));
-		setFirstFramePosition(sf::Vector2i(0, 4 * PLAYER_H));
-	}
-	else if (d == sf::Vector2i(1, -1))
-	{
-		setSpeed(sf::Vector2f(SPEED_DIAGONAL, -SPEED_DIAGONAL));
-		setFirstFramePosition(sf::Vector2i(0, 6 * PLAYER_H));
-	}
-	else if (d == sf::Vector2i(-1, 0))
-	{
-		setSpeed(sf::Vector2f(-SPEED, 0));
-		setFirstFramePosition(sf::Vector2i(0, PLAYER_H));
-	}
-	else if (d == sf::Vector2i(-1, 1))
-	{
-		setSpeed(sf::Vector2f(-SPEED_DIAGONAL, SPEED_DIAGONAL));
-		setFirstFramePosition(sf::Vector2i(0, 5 * PLAYER_H));
-	}
-	else if (d == sf::Vector2i(-1, -1))
-	{
-		setSpeed(sf::Vector2f(-SPEED_DIAGONAL, -SPEED_DIAGONAL));
-		setFirstFramePosition(sf::Vector2i(0, 7 * PLAYER_H));
-	}
+	if (d == sf::Vector2i(0, 1))		setFirstFramePosition(sf::Vector2i(0, 0));
+	else if (d == sf::Vector2i(0, -1))	setFirstFramePosition(sf::Vector2i(0, 3 * PLAYER_H));
+	else if (d == sf::Vector2i(1, 0))	setFirstFramePosition(sf::Vector2i(0, 2 * PLAYER_H));
+	else if (d == sf::Vector2i(1, 1))	setFirstFramePosition(sf::Vector2i(0, 4 * PLAYER_H));
+	else if (d == sf::Vector2i(1, -1))	setFirstFramePosition(sf::Vector2i(0, 6 * PLAYER_H));
+	else if (d == sf::Vector2i(-1, 0))	setFirstFramePosition(sf::Vector2i(0, PLAYER_H));
+	else if (d == sf::Vector2i(-1, 1))	setFirstFramePosition(sf::Vector2i(0, 5 * PLAYER_H));
+	else if (d == sf::Vector2i(-1, -1))	setFirstFramePosition(sf::Vector2i(0, 7 * PLAYER_H));
 
-	if (d == sf::Vector2i(0,0))
+	if (d == sf::Vector2i(0, 0))
 	{
 		seek(0);
 		pause();
@@ -98,6 +76,10 @@ void Character::setDirection(sf::Vector2i d, bool force_update)
 	{
 		start();
 	}
+}
+
+void Character::setSpeedMultiplier(float value) {
+	this->speedMultiplier = value;
 }
 
 Character::~Character()

@@ -19,7 +19,7 @@ using namespace std;
 ScenesManager::ScenesManager() {
 	{
 		Intro intro(game.getScreenResolution().x, game.getScreenResolution().y);
-		this->game.run(intro);
+		if(this->game.run(intro)) { return; }
 	}
 	this->loadStart();
 
@@ -30,7 +30,6 @@ void ScenesManager::loadStart() {
 	vector<string> buttons;
 
 	buttons.push_back("Start");
-	buttons.push_back("Options");
 	buttons.push_back("Quit");
 	Menu menu(buttons, &(this->game));
 	this->game.run(menu);
@@ -75,7 +74,7 @@ void ScenesManager::loadLevel1() {
 
 	auto scene = Layer(move(level)).toScene();
 
-	auto man = unique_ptr<Player>(new Player);
+	auto man = unique_ptr<Player>(new Player(100, 100, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f (65, 65));

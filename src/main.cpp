@@ -235,12 +235,8 @@ unique_ptr<LevelDescription> createLevel6() {
 
 int main()
 {
-	cout << "Hello." << endl;
 	srand((unsigned)time(NULL));
 
-	// Create the first scene
-	unique_ptr<Scene> initScene = unique_ptr<Scene>(new Scene());
-//
 	// load the textures
 	TextureManager::instance().loadTexture("parking_area.png");
 	TextureManager::instance().loadTexture("parking_area_double.png");

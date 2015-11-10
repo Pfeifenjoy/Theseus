@@ -45,7 +45,7 @@ namespace engine
 		/**
 		 * Runs the main loop with the given Scene as the initial scene.
 		 */
-		void run(Scene& initialScene);
+		bool run(Scene& initialScene);
 
 		// Returns the resolution of the screen
 		sf::Vector2i getScreenResolution();

@@ -27,6 +27,9 @@ namespace gameobjects
 		// state changes
 		sf::Vector2i direction;
 
+		// Speed Settings
+		float speedMultiplier;
+
 	public:
 		void setDirection(sf::Vector2i direction, bool force_update = false);
 		//---- Constructor --------------------------------------------------------------------------------------
@@ -36,6 +39,9 @@ namespace gameobjects
 		//---- Destructor ---------------------------------------------------------------------------------------
 
 		~Character();
+
+		// Speed Multiplier setter
+		void setSpeedMultiplier(float value);
 	};
 }
 }

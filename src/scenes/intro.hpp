@@ -1,5 +1,5 @@
 /**
-* @author Philipp Pütz
+* @author Philipp Pütz, Arwed Mett
 */
 #ifndef _THESEUS_GAME_INTRO_H
 #define _THESEUS_GAME_INTRO_H

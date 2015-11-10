@@ -6,13 +6,13 @@
 
 namespace theseus
 {
-namespace engine 
-{
+	namespace engine
+	{
 
-class Message
-{};
+		class Message
+		{};
 
-}
+	}
 }
 
 #endif

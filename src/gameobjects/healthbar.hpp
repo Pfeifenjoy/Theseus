@@ -1,11 +1,13 @@
 /*
-* @author Philipp Pütz
+* @author Philipp PÃ¼tz
 */
 #ifndef _THESEUS_GAME_OBJECTS_HEALTHBAR_H
 #define _THESEUS_GAME_OBJECTS_HEALTHBAR_H
 
 #include "../engine/gameobject.hpp"
 #include "../engine/components/sprite.hpp"
+#include "../engine/components/messagereceiver.hpp"
+#include "../messages/updatelifepoints.hpp"
 #include <SFML/System.hpp>
 
 namespace theseus
@@ -15,6 +17,7 @@ namespace theseus
 		class HealthBar
 			: public engine::GameObject
 			, public virtual engine::components::Sprite
+			, public virtual engine::components::MessageReceiver<theseus::messages::UpdateLifePoints>
 		{
 		private:
 			int healthPoints;
@@ -22,20 +25,13 @@ namespace theseus
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
-			HealthBar(sf::Vector2f position, int healthPoints);
+			HealthBar(sf::Vector2f position);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 
 			virtual ~HealthBar();
 
-
-			int getHealthPoints();
-
-			void decrementHealthPoints();
-
-			void incrementHealthPoints();
-
-			void setHealthPoints(int healthPoints);
+			void setHealthPoints(const theseus::messages::UpdateLifePoints& message);
 		};
 	}
 }

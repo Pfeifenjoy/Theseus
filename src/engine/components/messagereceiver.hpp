@@ -55,7 +55,7 @@ class MessageReceiver : GeneralMessageReceiver
 
 	protected:
 		
-		Publisher<const T&> onMessageReceived;
+		Publisher<const T&> evOnMessageReceived;
 
 	public:
 		void processMessage(const GeneralEnvelope& )
