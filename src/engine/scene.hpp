@@ -11,6 +11,8 @@
 #include <array>
 #include <unordered_set>
 #include "grid.hpp"
+#include <typeinfo>
+#include <unordered_map>
 
 namespace theseus
 {
@@ -28,6 +30,8 @@ namespace engine
 		class Solide;
 		class CollisionDetector;
 		class Camera;
+		template<class T>
+		class MessageReceiver;
 		class GeneralMessageReceiver;
 	}
 
@@ -57,7 +61,7 @@ namespace engine
 		const components::Camera* activeCamera = nullptr;
 
 		// All game objects that can receive messages
-		Grid<components::GeneralMessageReceiver *, 100, 100, 64> messageReceiver;
+		std::unordered_map<size_t, Grid<components::GeneralMessageReceiver *, 100, 100, 64> > messageReceiver;		
 
 	protected:
 		bool finished=false;
@@ -124,10 +128,14 @@ namespace engine
 		/**
 		 * Messaging system
 		 */
-		void registerMessageReceiver(components::GeneralMessageReceiver *);
-		void unRegisterMessageReceiver(sf::Vector2f position, components::GeneralMessageReceiver *);
-		void reRegisterMessageReceiver(sf::Vector2f oldPosition, sf::Vector2f newPosition, components::GeneralMessageReceiver *);
-		void deliverMessage(const GeneralEnvelope& envelope);
+		template <class T_Message>
+		void registerMessageReceiver(components::MessageReceiver<T_Message> *);
+		template <class T_Message>
+		void unRegisterMessageReceiver(sf::Vector2f position, components::MessageReceiver<T_Message> *);
+		template <class T_Message>
+		void reRegisterMessageReceiver(sf::Vector2f oldPosition, components::MessageReceiver<T_Message> *);
+		template <class T_Message>
+		void deliverMessage(const T_Message& message, sf::Vector2f tl, sf::Vector2f br);
 
 		//---- Methods: Handle Events -------------------------------------------------------------------
 
@@ -152,6 +160,36 @@ namespace engine
 		bool checkFinished();
 	};
 }
+}
+
+#include "components/messagereceiver.hpp"
+
+template <class T_Message>
+void theseus::engine::Scene::registerMessageReceiver(theseus::engine::components::MessageReceiver<T_Message> * receiver)
+{
+	messageReceiver[typeid(T_Message).hash_code()].insert(receiver->getPosition(), receiver);	
+}
+
+template <class T_Message>
+void theseus::engine::Scene::unRegisterMessageReceiver(sf::Vector2f position, theseus::engine::components::MessageReceiver<T_Message> * receiver)
+{
+	messageReceiver[typeid(T_Message).hash_code()].remove(position, receiver);
+}
+
+template <class T_Message>
+void theseus::engine::Scene::reRegisterMessageReceiver(sf::Vector2f position, theseus::engine::components::MessageReceiver<T_Message> * receiver)
+{
+	messageReceiver[typeid(T_Message).hash_code()].updatePosition(position, receiver->getPosition(), receiver);
+}
+
+template <class T_Message>
+void theseus::engine::Scene::deliverMessage(const T_Message& message, sf::Vector2f tl, sf::Vector2f br)
+{
+	auto receivers = messageReceiver[typeid(T_Message).hash_code()].find(tl, br);
+	for (auto receiver : receivers)
+	{
+		dynamic_cast<theseus::engine::components::MessageReceiver<T_Message> >(receiver).processMessage(message);
+	}
 }
 
 #endif

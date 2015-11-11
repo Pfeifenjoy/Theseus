@@ -24,8 +24,12 @@ namespace components
 class GeneralMessageReceiver : public virtual Base
 			     , public virtual Position
 {
+};
+
+template <class T>
+class MessageReceiver : GeneralMessageReceiver
+{
 	private:
-		
 		sf::Vector2f positionInSync;
 
 		void onRegisterComponents(Scene& scene)
@@ -36,22 +40,13 @@ class GeneralMessageReceiver : public virtual Base
 
 		void onRegistrationUpdate(Scene& scene)
 		{
-			scene.reRegisterMessageReceiver(positionInSync, getPosition(), this);
+			scene.reRegisterMessageReceiver(positionInSync, this);
 		}
 
 		void onUnRegisterComponents(Scene& scene)
 		{
 			scene.unRegisterMessageReceiver(positionInSync, this);
 		}
-		
-	public:
-		virtual void processMessage(const GeneralEnvelope& message) = 0;
-};
-
-template <class T>
-class MessageReceiver : GeneralMessageReceiver
-{
-	private:
 
 	protected:
 		
