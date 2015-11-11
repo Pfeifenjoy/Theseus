@@ -7,6 +7,8 @@
 #include "../engine/gameobject.hpp"
 #include "../engine/components/text.hpp"
 #include "../engine/components/sprite.hpp"
+#include "../engine/components/messagereceiver.hpp"
+#include "../messages/updateitemcounter.hpp"
 #include <SFML/System.hpp>
 
 namespace theseus
@@ -17,6 +19,7 @@ namespace theseus
 			: public engine::GameObject
 			, public virtual engine::components::Text
 			, public virtual engine::components::Sprite
+			, public virtual engine::components::MessageReceiver<theseus::messages::UpdateItemCounter>
 
 		{
 		private:
@@ -27,20 +30,13 @@ namespace theseus
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 			// Creates a new ItemCounter
-			ItemCounter(sf::Vector2f position, int numberofItemsToCollect);
+			ItemCounter(sf::Vector2f position);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 
-			virtual ~ItemCounter();
+			 ~ItemCounter();
 
-			// Returns the actual number of items
-			int getNumberOfItems();
-
-			// Returns the number of items which should collected
-			int getNumberOfItemsToCollect();
-
-			// Adds 1 item to the collected item counter
-			void incrementCounter();
+			 void updateText(const theseus::messages::UpdateItemCounter& message);
 
 		};
 	}

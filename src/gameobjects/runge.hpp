@@ -1,8 +1,6 @@
 /**
 *  @Author: Leon Mutschke
 */
-
-
 #ifndef _THESEUS_GAME_OBJECTS_RUNGE_H
 #define _THESEUS_GAME_OBJECTS_RUNGE_H
 

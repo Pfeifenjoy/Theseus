@@ -15,6 +15,7 @@
 #include "../messages/updatelifepoints.hpp"
 #include "../messages/interact.hpp"
 #include "../messages/updatecaffeinelevel.hpp"
+#include "../messages/updateitemcounter.hpp"
 #include <SFML/System.hpp>
 #include "character.hpp"
 
@@ -31,6 +32,7 @@ namespace theseus
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateLifePoints>
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateCaffeineLevel>
 			, public virtual engine::components::MessageSender<theseus::messages::Interact>
+			, public virtual engine::components::MessageSender<theseus::messages::UpdateItemCounter>
 		{
 		private:
 			// events
@@ -40,6 +42,7 @@ namespace theseus
 			int lifePoints;
 			float caffeineLevel;
 			float maxCaffeineLevel;
+			int inventoryItem;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
@@ -56,7 +59,12 @@ namespace theseus
 
 			int getLifePoints();
 
+			// Increments the caffeinelevel by a certain value
+			void incrementCaffeineLevel(int value);
 
+			// Increment inventory item value by 1
+			void incrementInventoryItemValue();
+			
 		};
 	}
 }

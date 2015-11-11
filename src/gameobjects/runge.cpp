@@ -32,6 +32,7 @@ void Runge::onCollision(const components::Solide&)
 	changeDirection();
 }
 
+
 void Runge::changeDirection()
 {
 	sf::Vector2i direction(0, 0);
