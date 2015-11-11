@@ -10,6 +10,7 @@
 #include "../gameobjects/npc.hpp"
 #include "../gameobjects/coffee.hpp"
 #include "../gameobjects/bizagi_cd.hpp"
+#include "../gameobjects/caffeinelevel.hpp"
 #include "../map/layer.hpp"
 
 using namespace theseus::scenes;
@@ -74,6 +75,9 @@ void ScenesManager::loadLevel1() {
 	level->addRoom(move(mensa));
 
 	auto scene = Layer(move(level)).toScene();
+
+	auto caffeineLevel = unique_ptr<CaffeineLevel>(new CaffeineLevel(sf::Vector2f((float)game.getScreenResolution().x, 15)));
+	scene->addGameObject(move(caffeineLevel));
 
 	auto man = unique_ptr<Player>(new Player(100, 100, 3));
 	auto man_ptr = man.get();

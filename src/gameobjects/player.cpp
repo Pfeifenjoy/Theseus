@@ -55,6 +55,7 @@ void Player::onUpdate(float timePassed)
 	// Interact message on <E>
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
 		Interact interact;
+		interact.setPlayer(this);
 		MessageSender<Interact>::sendMessage(interact, 16, 16);
 		cout << "Interact sended" << endl;
 	}
@@ -85,6 +86,17 @@ int Player::getLifePoints() {
 	return this->lifePoints;
 }
 
+void Player::incrementCaffeineLevel(int value) {
+	this->caffeineLevel += value;
+	UpdateCaffeineLevel updateCaffeineLevel;
+	updateCaffeineLevel.setCaffeineLevel((int)round(this->caffeineLevel / (this->maxCaffeineLevel / 100)));
+	MessageSender<UpdateCaffeineLevel>::sendMessage(updateCaffeineLevel, 10000, 10000);
+}
+
+
+void Player::incrementInventoryItemValue() {
+	this->inventoryItem++;
+}
 
 Player::~Player()
 {}

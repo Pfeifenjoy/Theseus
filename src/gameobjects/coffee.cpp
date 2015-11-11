@@ -13,6 +13,8 @@ using namespace std::placeholders;
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
 
+const int CAFFEINEVALUE = 25;
+
 Coffee::Coffee() {
 
 	// texture
@@ -21,7 +23,13 @@ Coffee::Coffee() {
 	setPosition(sf::Vector2f(0, 0));
 	setSize(sf::Vector2f(10, 10));
 
+	// register for interact event
+	evOnMessageReceived.subscribe(std::bind(&Coffee::incrementCaffeineLevel, this, _1));
 
+}
+
+void Coffee::incrementCaffeineLevel(const theseus::messages::Interact& message) {
+	message.getPlayer()->incrementCaffeineLevel(CAFFEINEVALUE);
 }
 
 Coffee::~Coffee() {
