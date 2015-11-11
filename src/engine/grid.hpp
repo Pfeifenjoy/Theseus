@@ -18,7 +18,7 @@ template <class T, int width, int height, int cellSize>
 class Grid
 {
 	private:
-		std::array<std::unordered_multimap<T, sf::Vector2<float> >, width * height> entries; 
+		std::vector<std::unordered_multimap<T, sf::Vector2<float> >> entries;
 
 		std::pair<int, int> toCellCoordinates(sf::Vector2f position) const
 		{
@@ -41,6 +41,15 @@ class Grid
 		}
 
 	public:
+
+		Grid()
+		{
+			entries.reserve(width * height);
+			for (int i = 0; i < width * height; ++i)
+			{
+				entries.emplace_back();
+			}
+		}
 
 		void insert(sf::Vector2f position, T value)
 		{

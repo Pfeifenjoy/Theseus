@@ -6,8 +6,6 @@
 
 #include "../engine/scene.hpp"
 #include "../gameobjects/textfield.hpp"
-#include <memory>
-#include <vector>
 
 namespace theseus
 {
@@ -21,7 +19,7 @@ namespace theseus
 		private:
 			int screenWidth;
 			int screenHeigth;
-			gameobjects::Textfield * textfield;
+			//gameobjects::Textfield * textfield;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------

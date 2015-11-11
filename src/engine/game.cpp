@@ -19,17 +19,16 @@ Game::Game()
 		window.create(sf::VideoMode().getFullscreenModes()[0], "", sf::Style::Fullscreen);
 	else window.create(sf::VideoMode(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGTH), "");
 	window.setVerticalSyncEnabled(true);
+	window.setMouseCursorVisible(false);
 }
 
 bool Game::run(Scene& scene)
 {
-	window.setMouseCursorVisible(false);
-
 	// Main loop
 	sf::Clock timing;
 	sf::Clock fpsClock;
 	int fpsCounter = 0;
-	exit = false;
+	int exit = false;
 	while (!exit)
 	{
 		// measure fps

@@ -5,21 +5,25 @@ using namespace theseus::engine;
 
 const std::string TEXTURES_PATH_PREFIX = "./resources/images/";
 
-unique_ptr<TextureManager> TextureManager::me = nullptr;
+std::unique_ptr<TextureManager>& TextureManager::me()
+{
+	static unique_ptr<TextureManager> mePtr = nullptr;
+	return mePtr;
+}
 
 TextureManager::TextureManager()
 {}
 
 TextureManager& TextureManager::instance()
 {
-	if (me == nullptr)
-		me = unique_ptr<TextureManager>(new TextureManager);
-	return *me;
+	if (me() == nullptr)
+		me() = unique_ptr<TextureManager>(new TextureManager);
+	return *me();
 }
 
 void TextureManager::reset()
 {
-	me.release();
+	me().release();
 }
 
 void TextureManager::loadTexture(const string& filename)

@@ -3,19 +3,23 @@
  */
 #ifndef THESEUS_SCENES_SCENES_MANAGER
 #define THESEUS_SCENES_SCENES_MANAGER
+
 #include <memory>
 #include "../engine/scene.hpp"
 #include "../engine/game.hpp"
+
 namespace theseus {
 namespace scenes {
 	class ScenesManager {
 		private:
 			theseus::engine::Game game;
 		public:
-			ScenesManager();
+			//ScenesManager();
 
 			void loadStart();
 			//void loadHighScore();
+
+			void run();
 
 			void loadLevel1();
 			void loadLevel2();

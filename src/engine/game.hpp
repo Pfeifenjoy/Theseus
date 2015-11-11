@@ -22,9 +22,6 @@ namespace engine
 		// The window which is drawn to
 		sf::RenderWindow window;
 
-		bool exit;
-
-
 	public:
 
 		//---- Constructors --------------------------------------------------------------

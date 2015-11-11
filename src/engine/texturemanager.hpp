@@ -23,7 +23,7 @@ namespace engine
 	private:
 
 		// The single singleton instance
-		static std::unique_ptr<TextureManager> me;
+		static std::unique_ptr<TextureManager>& me();
 
 		// The loaded textures
 		std::unordered_map<std::string, std::unique_ptr<sf::Texture> > textures;

@@ -11,7 +11,8 @@ void Text::setText(int layer, std::string text)
 	{
 		throw std::invalid_argument("Couldn't load font.");
 	}
-	else {
+	else
+	{
 		texts[layer].setFont(font);
 		texts[layer].setString(text);
 		activateLayer(layer, &texts[layer]);

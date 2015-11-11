@@ -176,6 +176,7 @@ unique_ptr<LevelDescription> createLevel6() {
 
 int main()
 {
+	// init random number generator
 	srand((unsigned)time(NULL));
 
 	// load the textures
@@ -244,6 +245,7 @@ int main()
 
 
 	theseus::scenes::ScenesManager spiel;
+	spiel.run();
 	TextureManager::reset();
 	return 0;
 }

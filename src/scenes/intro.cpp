@@ -41,7 +41,7 @@ Intro::Intro(int screenWidth, int screenHeigth)
 	// Center the textfield
 	textfield->setPosition(sf::Vector2f(screenWidth / 2 - textfield->getTextWidth() / 2, 80));
 
-	this->textfield = textfield.get();
+	//this->textfield = textfield.get();
 	this->addGameObject(move(textfield));
 }
 
@@ -50,7 +50,6 @@ void Intro::handleKeyDownEvent(sf::Keyboard::Key key)
 	if (key == sf::Keyboard::Space) {
 		this->finished = true;
 	}
-
 }
 
 Intro::~Intro()

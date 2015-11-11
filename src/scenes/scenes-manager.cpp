@@ -17,13 +17,13 @@ using namespace theseus::map;
 using namespace theseus::gameobjects;
 using namespace std;
 
-ScenesManager::ScenesManager() {
+void ScenesManager::run()
+{
 	{
 		Intro intro(game.getScreenResolution().x, game.getScreenResolution().y);
-		if(this->game.run(intro)) { return; }
+		if (this->game.run(intro)) return;
 	}
 	this->loadStart();
-
 }
 
 void ScenesManager::loadStart() {
@@ -35,19 +35,19 @@ void ScenesManager::loadStart() {
 	Menu menu(buttons, &(this->game));
 	this->game.run(menu);
 
-	if(menu.getLastKeyEvent() != sf::Keyboard::Return)
+	if (menu.getLastKeyEvent() != sf::Keyboard::Return)
 		return;
-	switch(menu.getSelectedItemIndex()) {
-		case 0: this->loadLevel1(); break;
-		case 1: break;
-		case 2: break;
+	switch (menu.getSelectedItemIndex()) {
+	case 0: this->loadLevel1(); break;
+	case 1: break;
+	case 2: break;
 	}
 }
 
 void ScenesManager::loadLevel1() {
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 80, Brick::HEIGHT * 40)));
 	//set level specific object
-	level->addFreeGameObject(unique_ptr<BizagiCD> (new BizagiCD()));
+	level->addFreeGameObject(unique_ptr<BizagiCD>(new BizagiCD()));
 
 	level->setMaxAmountOfStandardRooms(5);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
@@ -78,7 +78,7 @@ void ScenesManager::loadLevel1() {
 	auto man = unique_ptr<Player>(new Player(100, 100, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
-	man->setPosition(sf::Vector2f (65, 65));
+	man->setPosition(sf::Vector2f(65, 65));
 	scene->addGameObject(move(man));
 	scene->setCamera(man_ptr);
 
