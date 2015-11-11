@@ -32,6 +32,7 @@ namespace gameobjects
 
 	public:
 		void setDirection(sf::Vector2i direction, bool force_update = false);
+
 		//---- Constructor --------------------------------------------------------------------------------------
 
 		Character();

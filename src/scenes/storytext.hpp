@@ -1,34 +1,34 @@
 /**
-* @author Philipp Pütz, Arwed Mett
+* @author Philipp Pütz, Arwed Mett, Dominic Steinhauser
 */
-#ifndef _THESEUS_GAME_INTRO_H
-#define _THESEUS_GAME_INTRO_H
+#ifndef _THESEUS_SCENES_STORYTEXT_H
+#define _THESEUS_SCENES_STORYTEXT_H
 
 #include "../engine/scene.hpp"
 #include "../gameobjects/textfield.hpp"
+#include <string>
 
 namespace theseus
 {
 	namespace scenes
 	{
 
-		class Intro
+		class StoryText
 			: public engine::Scene
 
 		{
 		private:
 			int screenWidth;
 			int screenHeigth;
-			//gameobjects::Textfield * textfield;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 			// Generates a new Intro scene
-			Intro(int screenWidth, int screenHeigth);
+			StoryText(int screenWidth, int screenHeigth, std::string storyText);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 
-			~Intro();
+			~StoryText();
 
 
 			//---- Methods ------------------------------------------------------------------------------------------

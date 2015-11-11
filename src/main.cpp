@@ -18,7 +18,7 @@
 #include "gameobjects/npc.hpp"
 #include "gameobjects/textfield.hpp"
 #include "scenes/menu.hpp"
-#include "scenes/intro.hpp"
+#include "scenes/storytext.hpp"
 #include "scenes/highscore.hpp"
 #include "gameobjects/bizagi_cd.hpp"
 #include "gameobjects/throwing_cup.hpp"

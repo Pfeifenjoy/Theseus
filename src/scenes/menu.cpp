@@ -42,7 +42,7 @@ Menu::Menu(const std::vector<std::string>& scenes, theseus::engine::Game* game)
 	this->setSelectedItemIndex(0);
 	this->updateSelection();
 
-	unique_ptr<Textfield> infoField = unique_ptr<Textfield>(new Textfield("Verwende <W>, <S> und <Return> um einen Menüeintrag auszuwählen.", sf::Color::White));
+	unique_ptr<Textfield> infoField = unique_ptr<Textfield>(new Textfield("Verwende <W>, <S> und <Return> um einen Menüeintrag auszuwaehlen.", sf::Color::White));
 	infoField->setCharSize(14);
 	infoField->setPosition(sf::Vector2f(screenWidth / 2 - infoField->getTextWidth() / 2, screenHeigth / (numberOfItems + 2) * (1 + numberOfItems)));
 	this->addGameObject(move(infoField));
