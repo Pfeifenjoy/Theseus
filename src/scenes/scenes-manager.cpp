@@ -19,12 +19,12 @@ using namespace std;
 
 string const INTRO = "Herzlich Willkommen beim DHBW-Labyrinth-Spiel!\n\n\n"
 "ACHTUNG! An der DHBW gibt es aktuell besondere Vorkommnisse...\n"
-"Die Dozenten und Professoren sind wütend und wild geworden! Ein Virus ist aus\n"
-"einem Computer ausgebrochen und hat sämtliche Dozenten und \n"
+"Die Dozenten und Professoren sind wuetend und wild geworden! Ein Virus ist aus\n"
+"einem Computer ausgebrochen und hat saemtliche Dozenten und \n"
 "Professoren infiziert. Diese haben nun ihre offene, freundliche \n"
-"und nette Einstellung gegenüber den Studenten verloren und versuchen \n"
-"nun alle Studenten zu exmatrikulieren. Bring ihnen ihre Gegenstände\n"
-"und Dokumente zurück, um sie zu heilen!"
+"und nette Einstellung gegenueber den Studenten verloren und versuchen \n"
+"nun alle Studenten zu exmatrikulieren. Bring ihnen ihre Gegenstaende\n"
+"und Dokumente zurueck, um sie zu heilen!"
 "\n\n\n"
 "Beachte, dass DU der einzige bist, der die DHBW retten kann...\n"
 "Doch pass auf, dass die Dozenten und Professoren dich nicht\n"
@@ -37,53 +37,53 @@ string const CONTROL = "Steuerung\n\n\n"
 "Kaffee-Boost:	Leertaste\n"
 "Pause:			ESC \n"
 "Interagieren:	E\n"
-"Bestätigen:	Leertaste";
+"Bestaetigen:	Leertaste";
 
 string const LEVEL1 = "Die erste Herausforderung ist es, Herrn Runge zu heilen.\n"
-"Er war immer sehr nett und stellte keine besonders hohen Ansprüche. \n"
+"Er war immer sehr nett und stellte keine besonders hohen Ansprueche. \n"
 "Allerdings findet er gerade die Installations - CD seines Lieblingsprogramms Bizagi nicht.\n"
-"Komme ihm nicht zu nahe!Das Virus und seine schlechte Laune führen dazu,\n"
-"dass er keine Studenten sehen möchte.Falls er doch einen Studenten sieht, \n "
+"Komme ihm nicht zu nahe!Das Virus und seine schlechte Laune fuehren dazu,\n"
+"dass er keine Studenten sehen moechte.Falls er doch einen Studenten sieht, \n "
 "versucht er diesen zu exmatrikulieren.\n"
 "Also tritt ihm nicht zu nahe!\n"
-"Suche die im DHBW - Gebäude verschwundene Bizagi - Installations - CD und bringe\n"
-"sie innerhalb der vorgegeben Zeit Herrn Runge zurück,\n"
+"Suche die im DHBW - Gebaeude verschwundene Bizagi - Installations - CD und bringe\n"
+"sie innerhalb der vorgegeben Zeit Herrn Runge zurueck,\n"
 "der irgendwo innerhalb der DHBW herum irrt.\n"
 "1. Suche die CD\n"
 "2. Gebe die CD Herrn Runge";
 
-string const LEVEL2 = "Herr Glaser geht öfter während der Vorlesung die Kreide aus!\n"
-"Aus Frust die Vorlesung nicht, wie gewohnt, durchführen zu können, rennt er planlos\n"
-"durch die Gänge.Das Virus macht ihn von einem liebevollen Menschen, zu einem Gegner,\n"
+string const LEVEL2 = "Herr Glaser geht oefter waehrend der Vorlesung die Kreide aus!\n"
+"Aus Frust die Vorlesung nicht, wie gewohnt, durchfuehren zu koennen, rennt er planlos\n"
+"durch die Gaenge.Das Virus macht ihn von einem liebevollen Menschen, zu einem Gegner,\n"
 "der als Hobby Studenten exmatrikuliert.\n\n"
-"Deine Aufgabe ist es, ihn zu heilen!Sammle dafür in der vorgegebenen Zeit 3 Kreidestücke\n"
+"Deine Aufgabe ist es, ihn zu heilen!Sammle dafuer in der vorgegebenen Zeit 3 Kreidestuecke\n"
 "und bringe sie Herrn Glaser!";
 
-string const LEVEL3 = "Herrn Hübl ist es langweilig...\n\n"
-"Das Virus beeinflusst ihn so, dass er keine Studenten mehr sehen möchte\n"
+string const LEVEL3 = "Herrn Huebl ist es langweilig...\n\n"
+"Das Virus beeinflusst ihn so, dass er keine Studenten mehr sehen moechte\n"
 "und deshalb diese exmatrikuliert.\n"
-"Um ihn zu heilen, müssen ihm 5 Lösungen zu seinen Mathe-Aufgabenblättern\n"
-"übergeben werden.\n";
+"Um ihn zu heilen, muessen ihm 5 Loesungen zu seinen Mathe-Aufgabenblaettern\n"
+"uebergeben werden.\n";
 
-string const LEVEL4 = "Puuh ist das wieder eine schlechte Luft hier! Im Gebäude ist der Sauerstoffgehalt\n"
-"ja im negativen Bereich... Hätte Herr Hofmann sein Messgerät, \n"
-"würde dies nicht passieren. Aber er findet es nicht.\n"
-"Ist Herr Hofmann überhaupt auf der Suche danach?\n"
+string const LEVEL4 = "Puuh ist das wieder eine schlechte Luft hier! Im Gebaeude ist der Sauerstoffgehalt\n"
+"ja im negativen Bereich... Haette Herr Hofmann sein Messgeraet, \n"
+"wuerde dies nicht passieren. Aber er findet es nicht.\n"
+"Ist Herr Hofmann ueberhaupt auf der Suche danach?\n"
 "Auch er hat das Virus in sich.Trete ihm nicht zu nahe!\n"
-"Finde das Messgerät und beruhige / heile Herr Hofmann!\n"
-"Pass auf, denn exmatrikulierte Studenten können Dich jetzt auch attackieren und\n"
+"Finde das Messgeraet und beruhige / heile Herr Hofmann!\n"
+"Pass auf, denn exmatrikulierte Studenten koennen Dich jetzt auch attackieren und\n"
 "dir wertvolle Zeit zum vollenden des Levels stehlen!";
 
-string const LEVEL5 = "Wo ist die denn die C-Klausur??? Ohne C-Klausur ist für Herr Kruse die Welt\n"
-"nur halb so schön...\n"
-"Suche diese und bringe sie Herr Kruse zurück!Meide den Kontakt zu deinen Kommilitonen,\n"
-"da diese von Virus infiziert sein könnten.Falls du mit einem kranken von ihnen\n"
+string const LEVEL5 = "Wo ist die denn die C-Klausur??? Ohne C-Klausur ist fuer Herr Kruse die Welt\n"
+"nur halb so schoen...\n"
+"Suche diese und bringe sie Herr Kruse zurueck!Meide den Kontakt zu deinen Kommilitonen,\n"
+"da diese von Virus infiziert sein koennten.Falls du mit einem kranken von ihnen\n"
 "in Kontakt kommst, wird du langsamer...\n\n"
-"Hinweis: Finde eine Apfeltasche und übergebe diesen Herrn Kruse.Dadurch ist er für\n"
+"Hinweis: Finde eine Apfeltasche und uebergebe diesen Herrn Kruse.Dadurch ist er fuer\n"
 "30 Sekunden abgelenkt und exmatrikuliert keinen Studenten.";
 
 string const LEVEL6 = "Herr Stroetmann wurde am schlimmsten von dem Virus befallen...\n\n"
-"Hinweis : Suche fructiv zu deiner eigenen Sicherheit!\n\n\n\n\n\n\n\n\n"
+"Hinweis : Suche Frucktiv zu deiner eigenen Sicherheit!\n\n\n\n\n\n\n\n\n"
 "Die Rettung der DHBW ist Nahe...";
 
 
