@@ -11,6 +11,9 @@
 #include "../gameobjects/coffee.hpp"
 #include "../gameobjects/bizagi_cd.hpp"
 #include "../gameobjects/caffeinelevel.hpp"
+#include "../gameobjects/healthbar.hpp"
+#include "../gameobjects/timer.hpp"
+#include "../gameobjects/itemcounter.hpp"
 #include "../map/layer.hpp"
 
 using namespace theseus::scenes;
@@ -91,8 +94,8 @@ string const LEVEL6 = "Herr Stroetmann wurde am schlimmsten von dem Virus befall
 
 void ScenesManager::run()
 {
-	{	
-	theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL6);
+	{
+		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL6);
 		if (this->game.run(Storytext)) return;
 	}
 	this->loadStart();
@@ -150,7 +153,16 @@ void ScenesManager::loadLevel1() {
 	auto caffeineLevel = unique_ptr<CaffeineLevel>(new CaffeineLevel(sf::Vector2f((float)game.getScreenResolution().x, 15)));
 	scene->addGameObject(move(caffeineLevel));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, 3));
+	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15)));
+	scene->addGameObject(move(healthbar));
+
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	scene->addGameObject(move(timer));
+
+	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40)));
+	scene->addGameObject(move(itemCounter));
+
+	auto man = unique_ptr<Player>(new Player(100, 100, 3, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(65, 65));

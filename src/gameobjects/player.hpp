@@ -43,11 +43,16 @@ namespace theseus
 			float caffeineLevel;
 			float maxCaffeineLevel;
 			int inventoryItem;
+			int maxInventoryItems;
+
+			void updateItemCounter();
+			void updateCaffeineLevel();
+			void updateLifePoints();
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
-			Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints);
+			Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int itemsToCollect);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 

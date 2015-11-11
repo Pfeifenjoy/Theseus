@@ -7,6 +7,8 @@
 #include "../engine/gameobject.hpp"
 #include "../engine/components/sprite.hpp"
 #include "../engine/components/positionable.hpp"
+#include "../engine/components/messagereceiver.hpp"
+#include "../messages/interact.hpp"
 #include <SFML/System.hpp>
 
 namespace theseus
@@ -16,6 +18,7 @@ namespace theseus
 		class BizagiCD
 			: public theseus::engine::components::Positionable
 			, public virtual engine::components::Sprite
+			, public virtual engine::components::MessageReceiver<theseus::messages::Interact>
 		{
 		private:
 
@@ -28,6 +31,8 @@ namespace theseus
 			//---- Destructor ---------------------------------------------------------------------------------------
 
 			virtual ~BizagiCD();
+
+			void updateItem(const theseus::messages::Interact& message);
 		};
 	}
 }
