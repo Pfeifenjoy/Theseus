@@ -162,6 +162,8 @@ namespace engine
 }
 }
 
+//---- Implementation of the template methods -----------------------------------------------------------------------------------------------------------
+
 #include "components/messagereceiver.hpp"
 
 template <class T_Message>
@@ -188,7 +190,8 @@ void theseus::engine::Scene::deliverMessage(const T_Message& message, sf::Vector
 	auto receivers = messageReceiver[typeid(T_Message).hash_code()].find(tl, br);
 	for (auto receiver : receivers)
 	{
-		dynamic_cast<theseus::engine::components::MessageReceiver<T_Message> >(receiver).processMessage(message);
+		needsRegistrationUpdate.insert(receiver.second);
+		dynamic_cast<theseus::engine::components::MessageReceiver<T_Message>*>(receiver.second)->processMessage(message);
 	}
 }
 

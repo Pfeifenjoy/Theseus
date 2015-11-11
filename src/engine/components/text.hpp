@@ -22,8 +22,9 @@ namespace theseus
 
 				// The Sprite to draw
 				std::array<sf::Text, 5> texts;
-				sf::Font font;
 
+				// The font to use for the text.
+				static sf::Font& font();
 			public:
 
 				// Sets the texts to show

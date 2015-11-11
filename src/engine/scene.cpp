@@ -8,7 +8,6 @@
 #include "components/camera.hpp"
 #include "components/messagereceiver.hpp"
 #include "gameobject.hpp"
-#include "envelope.hpp"
 #include <algorithm>
 #include <vector>
 

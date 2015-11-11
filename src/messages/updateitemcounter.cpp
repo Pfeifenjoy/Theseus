@@ -4,9 +4,7 @@
 
 #include "updateitemcounter.hpp"
 
-using namespace std;
 using namespace theseus::messages;
-using namespace theseus::engine;
 
 void UpdateItemCounter::setInventoryValue(int value) {
 	this->inventoryValue = value;
