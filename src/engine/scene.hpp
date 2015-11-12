@@ -190,8 +190,12 @@ void theseus::engine::Scene::deliverMessage(const T_Message& message, sf::Vector
 	auto receivers = messageReceiver[typeid(T_Message).hash_code()].find(tl, br);
 	for (auto receiver : receivers)
 	{
-		needsRegistrationUpdate.insert(receiver.second);
-		dynamic_cast<theseus::engine::components::MessageReceiver<T_Message>*>(receiver.second)->processMessage(message);
+		sf::Vector2f position = receiver.second->getPosition();
+		if (position.x > tl.x && position.y > tl.y && position.x < br.x && position.y < br.y)
+		{
+			needsRegistrationUpdate.insert(receiver.second);
+			dynamic_cast<theseus::engine::components::MessageReceiver<T_Message>*>(receiver.second)->processMessage(message);
+		}
 	}
 }
 
