@@ -21,7 +21,14 @@ Fructiv::Fructiv() {
 	setPosition(sf::Vector2f(0, 0));
 	setSize(sf::Vector2f(10, 10));
 
+	// register for interact message
+	evOnMessageReceived.subscribe(std::bind(&Fructiv::updateItem, this, _1));
 
+
+}
+
+void Fructiv::updateItem(const theseus::messages::Interact& message) {
+	message.getPlayer()->incrementInventoryItemValue();
 }
 
 Fructiv::~Fructiv() {
