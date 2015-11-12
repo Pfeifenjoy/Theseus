@@ -97,7 +97,7 @@ void theseus::engine::components::MessageSender<T>::sendMessage(const T& message
 {
 	auto position = getPosition();
 	auto destination_tl = sf::Vector2f( position.x - maxDistanceX, position.y - maxDistanceY);
-	auto destination_br = sf::Vector2f( position.x + maxDistanceX, position.y - maxDistanceY);
+	auto destination_br = sf::Vector2f( position.x + maxDistanceX, position.y + maxDistanceY);
 	sendMessage(message, destination_tl, destination_br);
 }
 
