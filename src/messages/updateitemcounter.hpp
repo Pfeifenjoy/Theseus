@@ -5,12 +5,10 @@
 #ifndef _THESEUS_MESSAGES_UPDATEITEMCOUNTER_H
 #define _THESEUS_MESSAGES_UPDATEITEMCOUNTER_H
 
-#include "../engine/message.hpp"
-
 namespace theseus
 {
 	namespace messages {
-		class UpdateItemCounter : public theseus::engine::Message
+		class UpdateItemCounter 
 		{
 		private:
 			int inventoryValue;
