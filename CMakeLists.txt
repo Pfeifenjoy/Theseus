@@ -4,7 +4,7 @@ project(theseus)
 # Define sources and executable
 set(EXECUTABLE_NAME "theseus")
 FILE(GLOB_RECURSE SRCS "src/*.cpp")
-add_executable(${EXECUTABLE_NAME} ${SRCS})
+add_executable(${EXECUTABLE_NAME} ${SRCS} ${CMAKE_CURRENT_SOURCE_DIR}/CMakeRes.rc)
 
 # Set Compiler flags for G++
 set(CMAKE_CXX_FLAGS "-Wall -std=c++11")

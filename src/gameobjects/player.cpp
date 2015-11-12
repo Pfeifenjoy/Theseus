@@ -29,7 +29,12 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	this->maxInventoryItems = itemsToCollect;
 	this->inventoryItem = 0;
 
+	// subscribe for update
 	evOnUpdate.subscribe(bind(&Player::onUpdate, this, _1));
+
+	// subscribe for exmatriculation
+	evOnMessageReceived.subscribe(std::bind(&Player::exmatriculated, this, _1));
+
 
 	// Update the HUD
 	updateCaffeineLevel();
@@ -89,10 +94,26 @@ int Player::getLifePoints() {
 }
 
 void Player::incrementCaffeineLevel(int value) {
-	this->caffeineLevel += value;
+	if (this->caffeineLevel + value > maxCaffeineLevel) {
+		this->caffeineLevel = maxCaffeineLevel;
+	}
+	else {
+		this->caffeineLevel += value;
+	}	
 	updateCaffeineLevel();
 }
 
+
+void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
+	if (this->lifePoints <= 1) {
+		// Quit Game
+	}
+	else {
+		// Reset position
+		this->lifePoints--;
+		updateLifePoints();
+	}
+}
 
 void Player::incrementInventoryItemValue() {
 	this->inventoryItem++;
