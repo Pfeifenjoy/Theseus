@@ -16,11 +16,13 @@ namespace scenes {
 	class ScenesManager {
 		private:
 			theseus::engine::Game game;
+			float playedTime;
+			int lifePoints = 3;
 		public:
 			//ScenesManager();
 
 			bool loadStart();
-			//void loadHighScore();
+			void loadHighScore();
 
 			void run();
 
