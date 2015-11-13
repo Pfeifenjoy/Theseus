@@ -17,8 +17,6 @@ using namespace theseus::gameobjects;
 using namespace theseus::engine;
 using namespace theseus::messages;
 
-const float EXMATRICULATION_TIME = 2;
-
 NPC::NPC()
 {
 	exmatriculatedBool = false;
