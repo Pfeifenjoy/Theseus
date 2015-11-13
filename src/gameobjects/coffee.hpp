@@ -20,9 +20,6 @@ namespace theseus
 			, public virtual engine::components::Sprite
 			, public theseus::engine::components::MessageReceiver<theseus::messages::Interact>
 		{
-		private:
-
-
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
@@ -33,6 +30,8 @@ namespace theseus
 			virtual ~Coffee();
 
 			void incrementCaffeineLevel(const theseus::messages::Interact& message);
+
+			void removeMySelf(theseus::engine::Scene& scene);
 		};
 	}
 }

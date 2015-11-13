@@ -13,7 +13,7 @@ namespace theseus
 		public:
 			Exmatriculation();
 
-			~Exmatriculation();
+			virtual ~Exmatriculation();
 
 		};
 	}
