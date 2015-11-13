@@ -118,7 +118,7 @@ void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
 			updateLifePoints();
 		}
 	}
-	else if(message.getProfessorSended()) {
+	else if(message.getProfessorSended() && this->inventoryItem == this->maxInventoryItems) {
 		// You won the level - register for scene access
 		evUpdateComponentRegistrations.subscribe(std::bind(&Player::endScene, this, _1));
 	}
