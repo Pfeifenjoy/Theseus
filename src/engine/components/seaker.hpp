@@ -1,3 +1,6 @@
+/**
+ * @autor Arwed Mett
+ */
 #ifndef THESEUS_ENGINE_COMPONENTS_SEAKER
 #define THESEUS_ENGINE_COMPONENTS_SEAKER
 #include "../../map/map.hpp"
