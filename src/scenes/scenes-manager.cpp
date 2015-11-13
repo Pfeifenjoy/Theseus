@@ -168,7 +168,8 @@ bool ScenesManager::loadLevel1() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	if(this->game.run(*(scene)) || man->getLifePoints() == 0 || timer->getActualTime()) {
+	auto status = this->game.run(*(scene));
+	if(status || man->getLifePoints() == 0 || timer->getActualTime()) {
 		return false;
 	}
 	else {
