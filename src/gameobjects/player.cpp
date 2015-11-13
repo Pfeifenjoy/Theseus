@@ -31,7 +31,7 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 
 	evOnUpdate.subscribe(bind(&Player::onUpdate, this, _1));
 
-	//MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Player::exmatriculated, this, _1));
+	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Player::exmatriculated, this, _1));
 
 	// Update the HUD
 	updateCaffeineLevel();
@@ -79,17 +79,17 @@ void Player::onUpdate(float timePassed)
 	setDirection(direction);
 }
 
-//void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
-//	if (this->lifePoints <= 1) {
-//		this->lifePoints--;
-//		updateLifePoints();
-//		Abort Game
-//	}
-//	else {
-//		this->lifePoints--;
-//		updateLifePoints();
-//	}
-//}
+void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
+	if (this->lifePoints <= 1) {
+		this->lifePoints--;
+		updateLifePoints();
+		//Abort Game
+	}
+	else {
+		this->lifePoints--;
+		updateLifePoints();
+	}
+}
 
 void Player::decrementLifePoints() {
 	if (this->lifePoints > 0) {

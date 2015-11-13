@@ -22,7 +22,7 @@ Fructiv::Fructiv() {
 	setSize(sf::Vector2f(10, 10));
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&Fructiv::updateItem, this, _1));
+	MessageReceiver<theseus::messages::Interact>::evOnMessageReceived.subscribe(std::bind(&Fructiv::updateItem, this, _1));
 
 
 }

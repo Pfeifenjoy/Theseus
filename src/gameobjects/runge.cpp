@@ -63,7 +63,7 @@ void Runge::onUpdate(float time)
 		changeDirection();
 	}
 	
-	// send exmtariculation message
+	// send exmatriculation message
 	Exmatriculation exmatriculation;
 	MessageSender<Exmatriculation>::sendMessage(exmatriculation, 100, 100);
 

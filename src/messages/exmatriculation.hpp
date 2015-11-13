@@ -11,10 +11,7 @@ namespace theseus
 		class Exmatriculation
 		{
 		public:
-			Exmatriculation();
-
-			virtual ~Exmatriculation();
-
+			~Exmatriculation();
 		};
 	}
 }

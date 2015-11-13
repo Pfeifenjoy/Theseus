@@ -24,7 +24,7 @@ namespace theseus
 			, public virtual engine::components::Update
 			, public virtual engine::components::Animation
 			, public virtual engine::components::Speed
-			//, public virtual engine::components::MessageReceiver<theseus::messages::Exmatriculation>
+			, public virtual engine::components::MessageReceiver<theseus::messages::Exmatriculation>
 		{
 		private:
 			// events
@@ -42,7 +42,7 @@ namespace theseus
 
 			virtual ~NPC();
 
-			//void exmatriculated(const theseus::messages::Exmatriculation& message);
+			void exmatriculated(const theseus::messages::Exmatriculation& message);
 		};
 	}
 }

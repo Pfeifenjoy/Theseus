@@ -22,7 +22,7 @@ CExam::CExam() {
 	setSize(sf::Vector2f(40, 30));
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&CExam::updateItem, this, _1));
+	MessageReceiver<theseus::messages::Interact>::evOnMessageReceived.subscribe(std::bind(&CExam::updateItem, this, _1));
 
 }
 

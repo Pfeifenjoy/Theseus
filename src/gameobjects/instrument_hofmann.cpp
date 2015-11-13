@@ -22,7 +22,7 @@ Instrument::Instrument() {
 	setSize(sf::Vector2f(10,15));
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&Instrument::updateItem, this, _1));
+	MessageReceiver<theseus::messages::Interact>::evOnMessageReceived.subscribe(std::bind(&Instrument::updateItem, this, _1));
 
 }
 

@@ -23,7 +23,7 @@ UMLDiagramm::UMLDiagramm() {
 	setSize(sf::Vector2f(15, 20));
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&UMLDiagramm::updateItem, this, _1));
+	MessageReceiver<theseus::messages::Interact>::evOnMessageReceived.subscribe(std::bind(&UMLDiagramm::updateItem, this, _1));
 
 
 }
