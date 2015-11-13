@@ -428,7 +428,12 @@ void Layer::populatePlayer(unique_ptr<theseus::gameobjects::Player> player) {
 }
 
 void Layer::populateProf(unique_ptr<theseus::engine::components::Positionable> prof) {
-	prof->setPosition(sf::Vector2f ( 50, 50));
+
+	auto places = getPossiblePlaces(1,1);
+	assert(places.size() > 0);
+
+	auto place = places[rand() % places.size()];
+	prof->setPosition(sf::Vector2f(place.x * Brick::WIDTH, place.y * Brick::HEIGHT));
 	this->gameobjects.push_back(move(prof));
 }
 

@@ -144,6 +144,7 @@ void ScenesManager::loadLevel1() {
 	unique_ptr<RoomDescription> mensa(new RoomDescription(Brick::WIDTH * 10, Brick::HEIGHT * 10));
 	//set professor Runge
 	auto runge = unique_ptr<Runge>(new Runge);
+	//runge->setSize(sf::Vector2f (Brick::WIDTH, Brick::HEIGHT));
 	level->setProf(move(runge));
 
 	level->addRoom(move(mensa));
