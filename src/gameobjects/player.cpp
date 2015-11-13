@@ -1,5 +1,5 @@
 /**
- *  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser, Philipp Pütz
+ *  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser, Philipp PÃ¼tz
  */
 
 #include "player.hpp"
@@ -45,7 +45,7 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 }
 
 void Player::onUpdate(float timePassed)
-{	
+{
 	// <Space> for more speed
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && caffeineLevel > 0 &&
 		(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) ||
@@ -75,6 +75,9 @@ void Player::onUpdate(float timePassed)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
 		direction.y += 1;
 	setDirection(direction);
+
+	if(this->map != nullptr)
+		this->map->updatePlayerPosition(this->getPosition() + getCollisionAreaTopLeft());
 }
 
 void Player::decrementLifePoints() {
@@ -116,6 +119,10 @@ void Player::updateLifePoints() {
 	UpdateLifePoints updateLifePoints;
 	updateLifePoints.setLifePoints(this->lifePoints);
 	MessageSender<UpdateLifePoints>::sendMessage(updateLifePoints, 10000, 10000);
+}
+
+void Player::setMap(theseus::map::Map *map) {
+	this->map = map;
 }
 
 Player::~Player()

@@ -16,6 +16,7 @@
 #include "../messages/interact.hpp"
 #include "../messages/updatecaffeinelevel.hpp"
 #include "../messages/updateitemcounter.hpp"
+#include "../map/map.hpp"
 #include <SFML/System.hpp>
 #include "character.hpp"
 
@@ -48,6 +49,8 @@ namespace theseus
 			void updateItemCounter();
 			void updateCaffeineLevel();
 			void updateLifePoints();
+			theseus::map::Map* map;
+
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
@@ -69,7 +72,8 @@ namespace theseus
 
 			// Increment inventory item value by 1
 			void incrementInventoryItemValue();
-			
+
+			void setMap(theseus::map::Map*);
 		};
 	}
 }
