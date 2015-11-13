@@ -98,10 +98,18 @@ void ScenesManager::run()
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL6);
 		if (this->game.run(Storytext)) return;
 	}
-	this->loadStart();
+	if(this->loadStart())
+	if(this->loadLevel1())
+	if(this->loadLevel2())
+	if(this->loadLevel3())
+	if(this->loadLevel4())
+	if(this->loadLevel5())
+	if(this->loadLevel6()) {}
+
+
 }
 
-void ScenesManager::loadStart() {
+bool ScenesManager::loadStart() {
 
 	vector<string> buttons;
 
@@ -111,15 +119,15 @@ void ScenesManager::loadStart() {
 	this->game.run(menu);
 
 	if (menu.getLastKeyEvent() != sf::Keyboard::Return)
-		return;
+		return false;
 	switch (menu.getSelectedItemIndex()) {
-	case 0: this->loadLevel1(); break;
-	case 1: break;
-	case 2: break;
+		case 0: return true;
+		case 1: return false;
 	}
+	return false;
 }
 
-void ScenesManager::loadLevel1() {
+bool ScenesManager::loadLevel1() {
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 80, Brick::HEIGHT * 40)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<BizagiCD>(new BizagiCD()));
@@ -156,29 +164,19 @@ void ScenesManager::loadLevel1() {
 	level->setPlayer(move(man));
 
 	auto scene = Layer(move(level)).toScene();
-
-	auto caffeineLevel = unique_ptr<CaffeineLevel>(new CaffeineLevel(sf::Vector2f((float)game.getScreenResolution().x, 15)));
-	scene->addGameObject(move(caffeineLevel));
-
-	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15)));
-	scene->addGameObject(move(healthbar));
-
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
-	scene->addGameObject(move(timer));
-
-	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40)));
-	scene->addGameObject(move(itemCounter));
-
-	auto cd = unique_ptr<BizagiCD>(new BizagiCD());
-	cd->setPosition(sf::Vector2f(40, 68));
-	scene->addGameObject(move(cd));
+	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	this->game.run(*(scene));
-	
+	if(this->game.run(*(scene)) || man->getLifePoints() == 0 || timer->getActualTime()) {
+		return false;
+	}
+	else {
+		return true;
+	}
 }
 
-void ScenesManager::loadLevel2() {
+bool ScenesManager::loadLevel2() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 40)));
 	//set level specific object
@@ -207,16 +205,32 @@ void ScenesManager::loadLevel2() {
 
 	auto scene = Layer(move(level)).toScene();
 	this->game.run(*(scene));
+	return false;
 }
-void ScenesManager::loadLevel3() {
+bool ScenesManager::loadLevel3() {
+	return false;
+}
+bool ScenesManager::loadLevel4() {
+	return false;
+}
+bool ScenesManager::loadLevel5() {
+	return false;
 
 }
-void ScenesManager::loadLevel4() {
+bool ScenesManager::loadLevel6() {
+	return false;
 
 }
-void ScenesManager::loadLevel5() {
 
-}
-void ScenesManager::loadLevel6() {
+void ScenesManager::setHud(theseus::engine::Scene& scene, std::unique_ptr<theseus::gameobjects::Timer> timer) {
+	auto caffeineLevel = unique_ptr<CaffeineLevel>(new CaffeineLevel(sf::Vector2f((float)game.getScreenResolution().x, 15)));
+	scene.addGameObject(move(caffeineLevel));
 
+	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15)));
+	scene.addGameObject(move(healthbar));
+
+	scene.addGameObject(move(timer));
+
+	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40)));
+	scene.addGameObject(move(itemCounter));
 }

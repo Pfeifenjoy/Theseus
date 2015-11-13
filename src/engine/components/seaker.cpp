@@ -14,104 +14,104 @@ void Seaker::setMap(Map *map) {
 
 sf::Vector2<int> Seaker::nextDirection() {
 
-//	auto positiont = Position::getPosition() + getCollisionAreaTopLeft();
-//	sf::Vector2<int> position(round(positiont.x / theseus::gameobjects::Brick::WIDTH), round(positiont.y / theseus::gameobjects::Brick::HEIGHT));
-//	auto goal = this->map->getGoal();
-//	int size = this->map->map.size();
-//	int source = position.x + position.y * size;
-//	int aim = goal.x + goal.y * size;
-//	cout << "Player: " << goal.x << ", " << goal.y << endl;
-//	cout << "Prof: " << position.x << ", " << position.y << endl;
-//	std::vector<int> path;
-//
-//
-//	std::map<int, int> dist;
-//	dist[source] = 0;
-//
-//	std::map<int, int> backlink;
-//
-//	std::set<int> nodes;
-//
-//	for(int i = 0; i < size; i++) {
-//		for(int j = 0; j < size; j++) {
-//			if(this->map->map[i][j])
-//				nodes.insert(i + j*size);
-//		}
-//	}
-//
-//	while(!nodes.empty()) {
-//		std::map<int, int> intersection;
-//		for(auto x: dist)
-//			if(nodes.find(x.first) != nodes.end())
-//				intersection.insert(x);
-//
-//		pair<int, int> smallest(0, INT_MAX);
-//		for(auto x: intersection)
-//			if(x.second < smallest.second)
-//				smallest = x;
-//
-//		nodes.erase(smallest.first);
-//
-////		auto distance = getPosition(smallest.first) - goal;
-////		cout << distance.x << ", " << distance.y << endl;
-////		if(distance.x <= 1 && distance.x >= -1 && distance.y <= 1 && distance.y >= -1)
-////			break;
-//
-//		if(smallest.second == INT_MAX || dist[smallest.first] == 10) {
+	auto positiont = Position::getPosition() + getCollisionAreaTopLeft();
+	sf::Vector2<int> position(round(positiont.x / theseus::gameobjects::Brick::WIDTH), round(positiont.y / theseus::gameobjects::Brick::HEIGHT));
+	auto goal = this->map->getGoal();
+	int size = this->map->map.size();
+	int source = position.x + position.y * size;
+	int aim = goal.x + goal.y * size;
+	cout << "Player: " << goal.x << ", " << goal.y << endl;
+	cout << "Prof: " << position.x << ", " << position.y << endl;
+	std::vector<int> path;
+
+
+	std::map<int, int> dist;
+	dist[source] = 0;
+
+	std::map<int, int> backlink;
+
+	std::set<int> nodes;
+
+	for(int i = 0; i < size; i++) {
+		for(int j = 0; j < size; j++) {
+			if(this->map->map[i][j])
+				nodes.insert(i + j*size);
+		}
+	}
+
+	while(!nodes.empty()) {
+		std::map<int, int> intersection;
+		for(auto x: dist)
+			if(nodes.find(x.first) != nodes.end())
+				intersection.insert(x);
+
+		pair<int, int> smallest(0, INT_MAX);
+		for(auto x: intersection)
+			if(x.second < smallest.second)
+				smallest = x;
+
+		nodes.erase(smallest.first);
+
+//		auto distance = getPosition(smallest.first) - goal;
+//		cout << distance.x << ", " << distance.y << endl;
+//		if(distance.x <= 1 && distance.x >= -1 && distance.y <= 1 && distance.y >= -1)
 //			break;
-//		}
-//
-//		auto edges = getEdges(smallest.first);
-//		for(auto e : edges) {
-//			if(dist.find(e.second) == dist.end() || smallest.second + 1 < dist[e.second]) {
-//				dist[e.second] = smallest.second + 1;
-//				//cout << "ja: " << e.second % size << ", " << e.second / size << endl;
-//				backlink[e.second] = smallest.first;
-//			}
-//
-//		}
-//	}
-//
-//	int pos = aim;
-//	vector<int> backPath;
-//	while(pos != source) {
-//		if(pos == 0) break;
-//		backPath.push_back(pos);
-//		cout << " -> (" << pos % size << ", " << pos / size  << ")";
-//		pos = backlink[pos];
-//	}
-//	cout << endl;
-//
-//	if(backPath.size() > 0) {
-//		auto next = getPosition(backPath.back()) - position;
-//		cout << "next: " << next.x << ", " << next.y << endl;
-//		if(next.x <= 1 && next.x >= -1 && next.y <= 1 && next.y >= -1) {
-//			if(this->map->map[position.x + next.x][position.y + next.y]) {
-//				return next;
-//			}
-//		}
-//	}
-//
-//	sf::Vector2i next(0, 0);
-//	while (this->map->map[position.x + next.x][position.y + next.y] == false) {
-//		cout << "next: " << next.x << ", " << next.y << endl;
-//		int number = rand() % 9;
-//
-//		switch (number)
-//		{
-//			case 0: next = sf::Vector2i( 0, 0); break; // NPC is not moving
-//			case 1: next = sf::Vector2i(-1, 0); break; // NPC is moving left
-//			case 2: next = sf::Vector2i( 1, 0); break; // NPC is moving right
-//			case 3: next = sf::Vector2i(0, -1); break; // NPC is moving up
-//			case 4: next = sf::Vector2i( 0, 1); break; // NPC is moving down
-//			case 5: next = sf::Vector2i(-1,-1); break; // NPC is moving left up
-//			case 6: next = sf::Vector2i(1, -1); break; // NPC is moving right up
-//			case 7: next = sf::Vector2i(-1, 1); break; // NPC is moving left down
-//			case 8: next = sf::Vector2i( 1, 1); break; // NPC is moving right down
-//		}
-//	}
-//
-//	return next;
+
+		if(smallest.second == INT_MAX || dist[smallest.first] == 10) {
+			break;
+		}
+
+		auto edges = getEdges(smallest.first);
+		for(auto e : edges) {
+			if(dist.find(e.second) == dist.end() || smallest.second + 1 < dist[e.second]) {
+				dist[e.second] = smallest.second + 1;
+				//cout << "ja: " << e.second % size << ", " << e.second / size << endl;
+				backlink[e.second] = smallest.first;
+			}
+
+		}
+	}
+
+	int pos = aim;
+	vector<int> backPath;
+	while(pos != source) {
+		if(pos == 0) break;
+		backPath.push_back(pos);
+		cout << " -> (" << pos % size << ", " << pos / size  << ")";
+		pos = backlink[pos];
+	}
+	cout << endl;
+
+	if(backPath.size() > 0) {
+		auto next = getPosition(backPath.back()) - position;
+		cout << "next: " << next.x << ", " << next.y << endl;
+		if(next.x <= 1 && next.x >= -1 && next.y <= 1 && next.y >= -1) {
+			if(this->map->map[position.x + next.x][position.y + next.y]) {
+				return next;
+			}
+		}
+	}
+
+	sf::Vector2i next(0, 0);
+	while (this->map->map[position.x + next.x][position.y + next.y] == false) {
+		cout << "next: " << next.x << ", " << next.y << endl;
+		int number = rand() % 9;
+
+		switch (number)
+		{
+			case 0: next = sf::Vector2i( 0, 0); break; // NPC is not moving
+			case 1: next = sf::Vector2i(-1, 0); break; // NPC is moving left
+			case 2: next = sf::Vector2i( 1, 0); break; // NPC is moving right
+			case 3: next = sf::Vector2i(0, -1); break; // NPC is moving up
+			case 4: next = sf::Vector2i( 0, 1); break; // NPC is moving down
+			case 5: next = sf::Vector2i(-1,-1); break; // NPC is moving left up
+			case 6: next = sf::Vector2i(1, -1); break; // NPC is moving right up
+			case 7: next = sf::Vector2i(-1, 1); break; // NPC is moving left down
+			case 8: next = sf::Vector2i( 1, 1); break; // NPC is moving right down
+		}
+	}
+
+	return next;
 
 
 //	for(auto x: backPath)
