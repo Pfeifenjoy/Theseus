@@ -47,7 +47,7 @@ namespace theseus
 
 			virtual ~NPC();
 
-			void exmatriculated(const theseus::messages::Exmatriculation& message);
+			void exmatriculated();
 
 			void setExmatriculate();
 		};

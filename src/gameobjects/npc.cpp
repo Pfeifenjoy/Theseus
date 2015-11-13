@@ -28,7 +28,7 @@ NPC::NPC()
 	// texture
 	setTexture(2, TextureManager::instance().getTexture("player2.png"));
 
-	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&NPC::exmatriculated, this, _1));
+	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&NPC::exmatriculated, this));
 }
 
 void NPC::onCollision(const components::Solide&)
@@ -36,7 +36,7 @@ void NPC::onCollision(const components::Solide&)
 	changeDirection();
 }
 
-void NPC::exmatriculated(const theseus::messages::Exmatriculation& message) {
+void NPC::exmatriculated() {
 	exmatriculatedBool = true;
 	setTexture(2, TextureManager::instance().getTexture("player2_infected.png"));
 }
