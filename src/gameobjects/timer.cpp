@@ -46,8 +46,9 @@ Timer::Timer(sf::Vector2f position, int startTime) {
 
 void Timer::onUpdate(float timePassed) {
 
-	actualTime -= timePassed;
 	if (actualTime >= 0) {
+		actualTime -= timePassed;
+
 		// Updates the timer text
 		string stringMinutes = to_string((int)trunc(this->actualTime / 60));
 		if (stringMinutes.size() == 1) {
@@ -63,9 +64,14 @@ void Timer::onUpdate(float timePassed) {
 		setText(4, stringTimer);
 	}
 	else {
-		//Abort Level
+		evUpdateComponentRegistrations.subscribe(std::bind(&Timer::endScene, this, _1));
 	}
 }
+
+void Timer::endScene(Scene& scene) {
+	scene.setFinished();
+}
+
 
 float Timer::getActualTime() {
 	return actualTime;

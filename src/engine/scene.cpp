@@ -246,6 +246,10 @@ void Scene::handleSceneStartedEvent()
 	//solide.shuffle();
 }
 
+void Scene::setFinished() {
+	this->finished = true;
+}
+
 bool Scene::checkFinished() {
 	return this->finished;
 }

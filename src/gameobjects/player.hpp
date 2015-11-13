@@ -83,6 +83,8 @@ namespace theseus
 
 			void exmatriculated(const theseus::messages::Exmatriculation& message);
 
+			void endScene(theseus::engine::Scene& scene);
+
 		};
 	}
 }

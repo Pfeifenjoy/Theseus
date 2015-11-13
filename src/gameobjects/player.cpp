@@ -110,17 +110,24 @@ void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
 		if (this->lifePoints <= 1) {
 			this->lifePoints = 0;
 			updateLifePoints();
-			//Abort Game
+			//Abort Game - register for scene access
+			evUpdateComponentRegistrations.subscribe(std::bind(&Player::endScene, this, _1));
 		}
 		else {
 			this->lifePoints--;
 			updateLifePoints();
 		}
 	}
-	else {
-		// You won the level!
+	else if(message.getProfessorSended()) {
+		// You won the level - register for scene access
+		evUpdateComponentRegistrations.subscribe(std::bind(&Player::endScene, this, _1));
 	}
 }
+
+void Player::endScene(Scene& scene) {
+	scene.setFinished();
+}
+
 
 void Player::decrementLifePoints() {
 	if (this->lifePoints > 0) {

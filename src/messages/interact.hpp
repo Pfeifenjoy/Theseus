@@ -18,8 +18,7 @@ namespace theseus
 			theseus::gameobjects::Player * player;
 			
 		public:
-			Interact();
-
+			
 			~Interact();
 
 			void setPlayer(theseus::gameobjects::Player * player);

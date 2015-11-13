@@ -11,6 +11,7 @@
 #include "../engine/components/animation.hpp"
 #include "../engine/components/speed.hpp"
 #include "../engine/components/messagereceiver.hpp"
+#include "../engine/components/messagesender.hpp"
 #include "../messages/exmatriculation.hpp"
 #include <SFML/System.hpp>
 #include "character.hpp"
@@ -25,6 +26,7 @@ namespace theseus
 			, public virtual engine::components::Animation
 			, public virtual engine::components::Speed
 			, public virtual engine::components::MessageReceiver<theseus::messages::Exmatriculation>
+			, public virtual engine::components::MessageSender<theseus::messages::Exmatriculation>
 		{
 		private:
 			// events
@@ -32,6 +34,8 @@ namespace theseus
 			float time_passed = 0;
 			void onCollision(const theseus::engine::components::Solide&);
 			void changeDirection();
+			
+			bool exmatriculatedBool;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------

@@ -175,6 +175,7 @@ void ScenesManager::loadLevel1() {
 	scene->setCamera(man_ptr);
 
 	this->game.run(*(scene));
+	
 }
 
 void ScenesManager::loadLevel2() {

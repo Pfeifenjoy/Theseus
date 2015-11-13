@@ -158,6 +158,11 @@ namespace engine
 		 * Check if the scene is finished.
 		 */
 		bool checkFinished();
+
+		/**
+		* Declarates the scene as finished
+		*/
+		void setFinished();
 	};
 }
 }

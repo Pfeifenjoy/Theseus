@@ -17,9 +17,12 @@ using namespace theseus::gameobjects;
 using namespace theseus::engine;
 using namespace theseus::messages;
 
+const float EXMATRICULATION_TIME = 2;
 
 NPC::NPC()
 {
+	exmatriculatedBool = false;
+
 	evOnUpdate.subscribe(bind(&NPC::onUpdate, this, _1));
 	evCollisionDetected.subscribe(bind(&NPC::onCollision, this, _1));
 
@@ -27,7 +30,6 @@ NPC::NPC()
 	setTexture(2, TextureManager::instance().getTexture("player2.png"));
 
 	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&NPC::exmatriculated, this, _1));
-
 }
 
 void NPC::onCollision(const components::Solide&)
@@ -36,6 +38,7 @@ void NPC::onCollision(const components::Solide&)
 }
 
 void NPC::exmatriculated(const theseus::messages::Exmatriculation& message) {
+	exmatriculatedBool = true;
 	setTexture(2, TextureManager::instance().getTexture("player2_infected.png"));
 }
 
@@ -67,6 +70,11 @@ void NPC::onUpdate(float time)
 	{
 		time_passed = 0;
 		changeDirection();
+	}
+
+	if (exmatriculatedBool) {
+		Exmatriculation exmatriculation;
+		MessageSender<Exmatriculation>::sendMessage(exmatriculation, 80, 80);
 	}
 
 

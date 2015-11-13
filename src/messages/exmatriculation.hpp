@@ -10,8 +10,15 @@ namespace theseus
 	namespace messages {
 		class Exmatriculation
 		{
+		private:
+			bool professorSended = false;
+
 		public:
 			~Exmatriculation();
+
+			void setProfessorSended();
+
+			bool getProfessorSended() const;
 		};
 	}
 }
