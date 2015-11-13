@@ -30,8 +30,6 @@ namespace theseus
 			virtual ~Coffee();
 
 			void incrementCaffeineLevel(const theseus::messages::Interact& message);
-
-			void removeMySelf(theseus::engine::Scene& scene);
 		};
 	}
 }
