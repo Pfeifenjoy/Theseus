@@ -1,5 +1,5 @@
 /**
-*  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser
+*  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser, Philipp Pütz
 */
 
 
@@ -20,6 +20,7 @@ using namespace theseus::messages;
 NPC::NPC()
 {
 	exmatriculatedBool = false;
+	exmatriculate = false;
 
 	evOnUpdate.subscribe(bind(&NPC::onUpdate, this, _1));
 	evCollisionDetected.subscribe(bind(&NPC::onCollision, this, _1));
@@ -38,6 +39,10 @@ void NPC::onCollision(const components::Solide&)
 void NPC::exmatriculated(const theseus::messages::Exmatriculation& message) {
 	exmatriculatedBool = true;
 	setTexture(2, TextureManager::instance().getTexture("player2_infected.png"));
+}
+
+void NPC::setExmatriculate() {
+	this->exmatriculate = true;
 }
 
 void NPC::changeDirection()
@@ -70,7 +75,7 @@ void NPC::onUpdate(float time)
 		changeDirection();
 	}
 
-	if (exmatriculatedBool) {
+	if (exmatriculatedBool && exmatriculate) {
 		Exmatriculation exmatriculation;
 		MessageSender<Exmatriculation>::sendMessage(exmatriculation, 80, 80);
 	}
