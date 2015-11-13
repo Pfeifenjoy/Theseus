@@ -49,6 +49,9 @@ namespace theseus
 			int inventoryItem;
 			int maxInventoryItems;
 
+			float exmatriculationTime;
+			bool exmatricualtionProcessActive;
+
 			void updateItemCounter();
 			void updateCaffeineLevel();
 			void updateLifePoints();
@@ -77,7 +80,8 @@ namespace theseus
 			void incrementInventoryItemValue();
 
 			void setMap(theseus::map::Map*);
-			//void exmatriculated(const theseus::messages::Exmatriculation& message);
+
+			void exmatriculated(const theseus::messages::Exmatriculation& message);
 
 		};
 	}

@@ -15,6 +15,7 @@ using namespace std;
 using namespace std::placeholders;
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
+using namespace theseus::messages;
 
 
 NPC::NPC()
@@ -25,11 +26,17 @@ NPC::NPC()
 	// texture
 	setTexture(2, TextureManager::instance().getTexture("player2.png"));
 
+	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&NPC::exmatriculated, this, _1));
+
 }
 
 void NPC::onCollision(const components::Solide&)
 {
 	changeDirection();
+}
+
+void NPC::exmatriculated(const theseus::messages::Exmatriculation& message) {
+	setTexture(2, TextureManager::instance().getTexture("player2_infected.png"));
 }
 
 void NPC::changeDirection()

@@ -24,7 +24,7 @@ CaffeineLevel::CaffeineLevel(sf::Vector2f position) {
 	// Set the position
 	setPosition(sf::Vector2f(position.x / 2 - getTextWidth(4) / 2, position.y));
 
-	evOnMessageReceived.subscribe(std::bind(&CaffeineLevel::setCaffeineLevel, this, _1));
+	MessageReceiver<theseus::messages::UpdateCaffeineLevel>::evOnMessageReceived.subscribe(std::bind(&CaffeineLevel::setCaffeineLevel, this, _1));
 
 }
 

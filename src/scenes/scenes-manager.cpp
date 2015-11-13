@@ -149,7 +149,7 @@ void ScenesManager::loadLevel1() {
 
 	level->addRoom(move(mensa));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, 3, 3));
+	auto man = unique_ptr<Player>(new Player(1000, 1000, 3, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));

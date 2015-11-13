@@ -10,6 +10,8 @@
 #include "../engine/components/update.hpp"
 #include "../engine/components/animation.hpp"
 #include "../engine/components/speed.hpp"
+#include "../engine/components/messagereceiver.hpp"
+#include "../messages/exmatriculation.hpp"
 #include <SFML/System.hpp>
 #include "character.hpp"
 
@@ -22,6 +24,7 @@ namespace theseus
 			, public virtual engine::components::Update
 			, public virtual engine::components::Animation
 			, public virtual engine::components::Speed
+			, public virtual engine::components::MessageReceiver<theseus::messages::Exmatriculation>
 		{
 		private:
 			// events
@@ -38,6 +41,8 @@ namespace theseus
 			//---- Destructor ---------------------------------------------------------------------------------------
 
 			virtual ~NPC();
+
+			void exmatriculated(const theseus::messages::Exmatriculation& message);
 		};
 	}
 }

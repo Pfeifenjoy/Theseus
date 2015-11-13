@@ -16,8 +16,7 @@ using namespace std::placeholders;
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
 using namespace theseus::messages;
-
-
+ 
 Runge::Runge()
 {
 	evOnUpdate.subscribe(bind(&Runge::onUpdate, this, _1));
@@ -49,13 +48,12 @@ void Runge::onUpdate(float time)
 		time_passed = 0;
 		changeDirection();
 	}
-
-	// send exmtariculation message
+	
+	// send exmatriculation message
 	Exmatriculation exmatriculation;
-	MessageSender<Exmatriculation>::sendMessage(exmatriculation, 100, 100);
+	MessageSender<Exmatriculation>::sendMessage(exmatriculation, 80, 80);
 
 }
-
 
 
 Runge::~Runge()

@@ -22,13 +22,18 @@ Fructiv::Fructiv() {
 	setSize(sf::Vector2f(10, 10));
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&Fructiv::updateItem, this, _1));
+	MessageReceiver<theseus::messages::Interact>::evOnMessageReceived.subscribe(std::bind(&Fructiv::updateItem, this, _1));
 
 
 }
 
 void Fructiv::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
+	evUpdateComponentRegistrations.subscribe(std::bind(&Fructiv::removeMySelf, this, _1));
+}
+
+void Fructiv::removeMySelf(Scene& scene) {
+	scene.removeGameObject(this);
 }
 
 Fructiv::~Fructiv() {

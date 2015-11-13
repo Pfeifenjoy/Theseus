@@ -23,14 +23,20 @@ Chalk::Chalk() {
 	setSize(sf::Vector2f(10, 10));
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&Chalk::updateItem, this, _1));
+	MessageReceiver<theseus::messages::Interact>::evOnMessageReceived.subscribe(std::bind(&Chalk::updateItem, this, _1));
 
 
 }
 
 void Chalk::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
+	evUpdateComponentRegistrations.subscribe(std::bind(&Chalk::removeMySelf, this, _1));
 }
+
+void Chalk::removeMySelf(Scene& scene) {
+	scene.removeGameObject(this);
+}
+
 
 Chalk::~Chalk() {
 }

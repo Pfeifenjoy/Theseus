@@ -22,12 +22,17 @@ Instrument::Instrument() {
 	setSize(sf::Vector2f(10,15));
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&Instrument::updateItem, this, _1));
+	MessageReceiver<theseus::messages::Interact>::evOnMessageReceived.subscribe(std::bind(&Instrument::updateItem, this, _1));
 
 }
 
 void Instrument::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
+	evUpdateComponentRegistrations.subscribe(std::bind(&Instrument::removeMySelf, this, _1));
+}
+
+void Instrument::removeMySelf(Scene& scene) {
+	scene.removeGameObject(this);
 }
 
 Instrument::~Instrument() {

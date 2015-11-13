@@ -21,11 +21,10 @@ HealthBar::HealthBar(sf::Vector2f position) {
 	setTexture(4, *texture);
 	texture->setRepeated(true);
 
-	evOnMessageReceived.subscribe(std::bind(&HealthBar::setHealthPoints, this, _1));
+	MessageReceiver<theseus::messages::UpdateLifePoints>::evOnMessageReceived.subscribe(std::bind(&HealthBar::setHealthPoints, this, _1));
 
 	this->sprite(4).setTextureRect(sf::IntRect(0, 0, 0, 0));
-
-
+	
 	// position
 	setPosition(position);
 

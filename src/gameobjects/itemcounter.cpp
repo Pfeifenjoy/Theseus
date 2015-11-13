@@ -28,12 +28,11 @@ ItemCounter::ItemCounter(sf::Vector2f position) {
 	setPosition(position);
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&ItemCounter::updateMyText, this, _1));
+	MessageReceiver<theseus::messages::UpdateItemCounter>::evOnMessageReceived.subscribe(std::bind(&ItemCounter::updateMyText, this, _1));
 
 }
 
 void ItemCounter::updateMyText(const theseus::messages::UpdateItemCounter& message) {
-	cout << "Text2" << endl;
 	this->numberOfItemsToCollect = message.getMaxInventoryValue();
 	this->numberOfItems = message.getInventoryValue();
 	string stringItemCounter = to_string(this->numberOfItems) + " / " + to_string(this->numberOfItemsToCollect);

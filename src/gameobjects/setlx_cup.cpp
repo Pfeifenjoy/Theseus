@@ -22,13 +22,18 @@ SetlxCup::SetlxCup() {
 	setSize(sf::Vector2f(10, 10));
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&SetlxCup::updateItem, this, _1));
+	MessageReceiver<theseus::messages::Interact>::evOnMessageReceived.subscribe(std::bind(&SetlxCup::updateItem, this, _1));
 
 
 }
 
 void SetlxCup::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
+	evUpdateComponentRegistrations.subscribe(std::bind(&SetlxCup::removeMySelf, this, _1));
+}
+
+void SetlxCup::removeMySelf(Scene& scene) {
+	scene.removeGameObject(this);
 }
 
 SetlxCup::~SetlxCup() {

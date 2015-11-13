@@ -6,6 +6,4 @@
 
 using namespace theseus::messages;
 
-Exmatriculation::Exmatriculation() {}
-
 Exmatriculation::~Exmatriculation() {}

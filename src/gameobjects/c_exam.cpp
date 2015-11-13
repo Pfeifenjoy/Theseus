@@ -22,13 +22,19 @@ CExam::CExam() {
 	setSize(sf::Vector2f(40, 30));
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&CExam::updateItem, this, _1));
+	MessageReceiver<theseus::messages::Interact>::evOnMessageReceived.subscribe(std::bind(&CExam::updateItem, this, _1));
 
 }
 
 void CExam::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
+	evUpdateComponentRegistrations.subscribe(std::bind(&CExam::removeMySelf, this, _1));
 }
+
+void CExam::removeMySelf(Scene& scene) {
+	scene.removeGameObject(this);
+}
+
 
 CExam::~CExam() {
 }

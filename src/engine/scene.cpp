@@ -28,7 +28,7 @@ unique_ptr<GameObject> Scene::removeGameObject(GameObject* gameObject)
 	// find the game object in the list of all game objects.
 	auto found = gameObjects.end();
 	for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
-	{
+	{	
 		if (it->get() == gameObject)
 		{
 			found = it;
