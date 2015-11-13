@@ -81,6 +81,7 @@ template<class T>
 void theseus::engine::components::MessageReceiver<T>::onRegistrationUpdate(Scene& scene)
 {
 	scene.reRegisterMessageReceiver(positionInSync, this);
+	positionInSync = getPosition();
 }
 
 template<class T>
