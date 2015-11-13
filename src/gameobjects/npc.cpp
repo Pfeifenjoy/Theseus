@@ -1,5 +1,5 @@
 /**
-*  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser
+*  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser, Philipp Pütz
 */
 
 
@@ -20,6 +20,7 @@ using namespace theseus::messages;
 NPC::NPC()
 {
 	exmatriculatedBool = false;
+	exmatriculate = false;
 
 	evOnUpdate.subscribe(bind(&NPC::onUpdate, this, _1));
 	evCollisionDetected.subscribe(bind(&NPC::onCollision, this, _1));
@@ -27,7 +28,7 @@ NPC::NPC()
 	// texture
 	setTexture(2, TextureManager::instance().getTexture("player2.png"));
 
-	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&NPC::exmatriculated, this, _1));
+	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&NPC::exmatriculated, this));
 }
 
 void NPC::onCollision(const components::Solide&)
@@ -35,9 +36,13 @@ void NPC::onCollision(const components::Solide&)
 	changeDirection();
 }
 
-void NPC::exmatriculated(const theseus::messages::Exmatriculation& message) {
+void NPC::exmatriculated() {
 	exmatriculatedBool = true;
 	setTexture(2, TextureManager::instance().getTexture("player2_infected.png"));
+}
+
+void NPC::setExmatriculate() {
+	this->exmatriculate = true;
 }
 
 void NPC::changeDirection()
@@ -70,7 +75,7 @@ void NPC::onUpdate(float time)
 		changeDirection();
 	}
 
-	if (exmatriculatedBool) {
+	if (exmatriculatedBool && exmatriculate) {
 		Exmatriculation exmatriculation;
 		MessageSender<Exmatriculation>::sendMessage(exmatriculation, 80, 80);
 	}

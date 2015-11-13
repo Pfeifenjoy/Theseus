@@ -36,6 +36,7 @@ namespace theseus
 			void changeDirection();
 			
 			bool exmatriculatedBool;
+			bool exmatriculate;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
@@ -46,7 +47,9 @@ namespace theseus
 
 			virtual ~NPC();
 
-			void exmatriculated(const theseus::messages::Exmatriculation& message);
+			void exmatriculated();
+
+			void setExmatriculate();
 		};
 	}
 }
