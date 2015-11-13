@@ -52,7 +52,7 @@ void Runge::onUpdate(float time)
 	// send exmatriculation message
 	Exmatriculation exmatriculation;
 	exmatriculation.setProfessorSended();
-	MessageSender<Exmatriculation>::sendMessage(exmatriculation, 80, 80);
+	MessageSender<Exmatriculation>::sendMessage(exmatriculation, 85, 85);
 
 }
 
