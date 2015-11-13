@@ -14,7 +14,7 @@ namespace map {
 		private:
 			sf::Vector2<int> goal;
 		public:
-			std::vector<std::vector<bool> > map;
+			std::vector<std::vector<int> > map;
 			Map(std::vector<std::vector<theseus::map::FieldStatus> >& layer);
 			void updatePlayerPosition(sf::Vector2f);
 			sf::Vector2<int> getGoal();
