@@ -16,6 +16,7 @@ using namespace theseus::gameobjects;
 using namespace theseus::engine;
 using namespace theseus::messages;
 
+const float EXMATRICULATION_TIME = 2;
 
 Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int itemsToCollect)
 {
@@ -28,6 +29,9 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	this->lifePoints = lifePoints;
 	this->maxInventoryItems = itemsToCollect;
 	this->inventoryItem = 0;
+	
+	this->exmatriculationTime = 0;
+	this->exmatricualtionProcessActive = false;
 
 	// subscribe for update
 	evOnUpdate.subscribe(bind(&Player::onUpdate, this, _1));
@@ -65,9 +69,11 @@ void Player::onUpdate(float timePassed)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
 		Interact interact;
 		interact.setPlayer(this);
+
+		// Vektor/Graphicx workaround
 		sf::Vector2f position = this->getPosition();
 		MessageSender<Interact>::sendMessage(
-			interact, sf::Vector2f(position.x, position.y+40), sf::Vector2f(position.x + 32, position.y + 60));
+			interact, sf::Vector2f(position.x - 25, position.y + 25), sf::Vector2f(position.x + 57, position.y + 75));
 	}
 
 	// <WASD> Movings
@@ -82,19 +88,37 @@ void Player::onUpdate(float timePassed)
 		direction.y += 1;
 	setDirection(direction);
 
+	// count exmatriculation time
+	if (exmatricualtionProcessActive)
+		exmatriculationTime += timePassed;
+
 	if(this->map != nullptr)
 		this->map->updatePlayerPosition(this->getPosition() + getCollisionAreaTopLeft());
 }
 
 void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
-	if (this->lifePoints <= 1) {
-		this->lifePoints--;
-		updateLifePoints();
-		//Abort Game
+	
+	// start exmatriculation process
+	exmatricualtionProcessActive = true;
+
+	if (this->inventoryItem != this->maxInventoryItems && exmatriculationTime >= EXMATRICULATION_TIME) {
+		
+		// reset timers
+		exmatriculationTime = 0;
+		exmatricualtionProcessActive = false;
+
+		if (this->lifePoints <= 1) {
+			this->lifePoints = 0;
+			updateLifePoints();
+			//Abort Game
+		}
+		else {
+			this->lifePoints--;
+			updateLifePoints();
+		}
 	}
 	else {
-		this->lifePoints--;
-		updateLifePoints();
+		// You won the level!
 	}
 }
 

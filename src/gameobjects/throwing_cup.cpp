@@ -22,14 +22,18 @@ ThrowingCup::ThrowingCup() {
 	setSize(sf::Vector2f(10, 10));
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&ThrowingCup::updateItem, this, _1));
+	//evOnMessageReceived.subscribe(std::bind(&ThrowingCup::updateItem, this, _1));
 
 
 }
 
 void ThrowingCup::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
+	evUpdateComponentRegistrations.subscribe(std::bind(&ThrowingCup::removeMySelf, this, _1));
 }
 
+void ThrowingCup::removeMySelf(Scene& scene) {
+	scene.removeGameObject(this);
+}
 ThrowingCup::~ThrowingCup() {
 }

@@ -33,6 +33,8 @@ namespace theseus
 			virtual ~SetlxCup();
 
 			void updateItem(const theseus::messages::Interact& message);
+
+			void removeMySelf(theseus::engine::Scene& scene);
 		};
 	}
 }

@@ -49,6 +49,9 @@ namespace theseus
 			int inventoryItem;
 			int maxInventoryItems;
 
+			float exmatriculationTime;
+			bool exmatricualtionProcessActive;
+
 			void updateItemCounter();
 			void updateCaffeineLevel();
 			void updateLifePoints();
