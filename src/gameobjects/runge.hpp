@@ -8,6 +8,8 @@
 #include "../engine/components/update.hpp"
 #include "../engine/components/animation.hpp"
 #include "../engine/components/speed.hpp"
+#include "../messages/exmatriculation.hpp"
+#include "../engine/components/messagesender.hpp"
 #include <SFML/System.hpp>
 #include "character.hpp"
 
@@ -20,6 +22,7 @@ namespace theseus
 			, public virtual engine::components::Update
 			, public virtual engine::components::Animation
 			, public virtual engine::components::Speed
+			, public virtual engine::components::MessageSender<theseus::messages::Exmatriculation>
 		{
 		private:
 			// events

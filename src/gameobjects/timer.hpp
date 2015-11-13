@@ -22,7 +22,6 @@ namespace theseus
 		private:
 			float startTime;
 			float actualTime;
-			float lastDisplayedTime;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------

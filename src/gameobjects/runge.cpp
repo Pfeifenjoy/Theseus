@@ -15,6 +15,7 @@ using namespace std;
 using namespace std::placeholders;
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
+using namespace theseus::messages;
 
 
 Runge::Runge()
@@ -63,6 +64,9 @@ void Runge::onUpdate(float time)
 		changeDirection();
 	}
 
+	// Send exmatriculation message
+	Exmatriculation exmatriculation;
+	MessageSender<Exmatriculation>::sendMessage(exmatriculation, 100, 100);
 
 }
 
