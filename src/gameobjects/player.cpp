@@ -1,5 +1,5 @@
 /**
- *  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser, Philipp Pütz
+ *  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser, Philipp PÃ¼tz
  */
 
 #include "player.hpp"
@@ -20,7 +20,7 @@ using namespace theseus::messages;
 Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int itemsToCollect)
 {
 	if (startCaffeineLevel > maxCaffeineLevel) {
-		this->caffeineLevel = maxCaffeineLevel;
+		this->caffeineLevel = (float)maxCaffeineLevel;
 	}
 	else this->caffeineLevel = startCaffeineLevel;
 
@@ -33,8 +33,7 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	evOnUpdate.subscribe(bind(&Player::onUpdate, this, _1));
 
 	// subscribe for exmatriculation
-	evOnMessageReceived.subscribe(std::bind(&Player::exmatriculated, this, _1));
-
+	//MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Player::exmatriculated, this, _1));
 
 	// Update the HUD
 	updateCaffeineLevel();
@@ -50,7 +49,7 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 }
 
 void Player::onUpdate(float timePassed)
-{	
+{
 	// <Space> for more speed
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && caffeineLevel > 0 &&
 		(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) ||
@@ -80,7 +79,22 @@ void Player::onUpdate(float timePassed)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
 		direction.y += 1;
 	setDirection(direction);
+
+	if(this->map != nullptr)
+		this->map->updatePlayerPosition(this->getPosition() + getCollisionAreaTopLeft());
 }
+
+//void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
+//	if (this->lifePoints <= 1) {
+//		this->lifePoints--;
+//		updateLifePoints();
+//		Abort Game
+//	}
+//	else {
+//		this->lifePoints--;
+//		updateLifePoints();
+//	}
+//}
 
 void Player::decrementLifePoints() {
 	if (this->lifePoints > 0) {
@@ -104,6 +118,7 @@ void Player::incrementCaffeineLevel(int value) {
 }
 
 
+/*
 void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
 	if (this->lifePoints <= 1) {
 		// Quit Game
@@ -114,6 +129,7 @@ void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
 		updateLifePoints();
 	}
 }
+*/
 
 void Player::incrementInventoryItemValue() {
 	this->inventoryItem++;
@@ -137,6 +153,10 @@ void Player::updateLifePoints() {
 	UpdateLifePoints updateLifePoints;
 	updateLifePoints.setLifePoints(this->lifePoints);
 	MessageSender<UpdateLifePoints>::sendMessage(updateLifePoints, 10000, 10000);
+}
+
+void Player::setMap(theseus::map::Map *map) {
+	this->map = map;
 }
 
 Player::~Player()

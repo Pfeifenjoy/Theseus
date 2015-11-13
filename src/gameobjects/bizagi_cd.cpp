@@ -7,6 +7,7 @@
 #include <SFML/Window.hpp>
 #include <functional>
 #include <cmath>
+#include <iostream>
 
 using namespace std;
 using namespace std::placeholders;

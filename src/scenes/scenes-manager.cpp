@@ -144,9 +144,16 @@ void ScenesManager::loadLevel1() {
 	unique_ptr<RoomDescription> mensa(new RoomDescription(Brick::WIDTH * 10, Brick::HEIGHT * 10));
 	//set professor Runge
 	auto runge = unique_ptr<Runge>(new Runge);
-	mensa->addGameObject(move(runge));
+	//runge->setSize(sf::Vector2f (Brick::WIDTH, Brick::HEIGHT));
+	level->setProf(move(runge));
 
 	level->addRoom(move(mensa));
+
+	auto man = unique_ptr<Player>(new Player(100, 100, 3, 3));
+	auto man_ptr = man.get();
+	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
+	man->setPosition(sf::Vector2f(500, 500));
+	level->setPlayer(move(man));
 
 	auto scene = Layer(move(level)).toScene();
 
@@ -162,11 +169,9 @@ void ScenesManager::loadLevel1() {
 	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40)));
 	scene->addGameObject(move(itemCounter));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, 3, 3));
-	auto man_ptr = man.get();
-	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
-	man->setPosition(sf::Vector2f(65, 65));
-	scene->addGameObject(move(man));
+	auto cd = unique_ptr<BizagiCD>(new BizagiCD());
+	cd->setPosition(sf::Vector2f(40, 68));
+	scene->addGameObject(move(cd));
 	scene->setCamera(man_ptr);
 
 	this->game.run(*(scene));

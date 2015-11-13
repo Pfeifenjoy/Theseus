@@ -52,6 +52,15 @@ Layer::Layer(unique_ptr<LevelDescription> description) {
 	//Place all Positionable objects of the level-description.
 	this->populateGameObjects(description->getFreeObjects());
 
+	this->map = unique_ptr<Map>(new Map(this->layer));
+	auto player = description->getPlayer();
+	player->setMap(map.get());
+	this->populatePlayer(move(player));
+
+	auto prof = description->getProf();
+	prof->setMap(map.get());
+	this->gameobjects.push_back(move(map));
+	this->populateProf(move(prof));
 	this->createGras();
 	this->createParkingAreas();
 }
@@ -404,6 +413,30 @@ void Layer::createParkingAreas() {
 		this->gameobjects.push_back(move(slot));
 	}
 }
+
+void Layer::populatePlayer(unique_ptr<theseus::gameobjects::Player> player) {
+	int width = ceil((player->getCollisionAreaBottomRight().x - player->getCollisionAreaTopLeft().x)/Brick::WIDTH);
+	int height = ceil((player->getCollisionAreaBottomRight().y - player->getCollisionAreaTopLeft().y)/Brick::HEIGHT);
+
+	auto places = getPossiblePlaces(width, height);
+	assert(places.size() > 0);
+
+	auto place = places[rand() % places.size()];
+	player->setPosition(sf::Vector2f(place.x * Brick::WIDTH, place.y * Brick::HEIGHT));
+
+	this->gameobjects.push_back(move(player));
+}
+
+void Layer::populateProf(unique_ptr<theseus::engine::components::Positionable> prof) {
+
+	auto places = getPossiblePlaces(1,1);
+	assert(places.size() > 0);
+
+	auto place = places[rand() % places.size()];
+	prof->setPosition(sf::Vector2f(place.x * Brick::WIDTH, place.y * Brick::HEIGHT));
+	this->gameobjects.push_back(move(prof));
+}
+
 
 ostream& theseus::map::operator<<(ostream& os, const Layer& layer) {
 	int i = 0, j = 0;

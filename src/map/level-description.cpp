@@ -60,3 +60,15 @@ sf::Vector2f LevelDescription::getDimensions() {
 void LevelDescription::setPlayer(unique_ptr<theseus::gameobjects::Player> player) {
 	this->player = move(player);
 }
+
+unique_ptr<theseus::gameobjects::Player> LevelDescription::getPlayer() {
+	return move(this->player);
+}
+
+void LevelDescription::setProf(unique_ptr<theseus::engine::components::Seaker> prof) {
+	this->prof = move(prof);
+}
+
+unique_ptr<theseus::engine::components::Seaker> LevelDescription::getProf() {
+	return move(this->prof);
+}

@@ -12,6 +12,8 @@
 #include <iostream>
 #include "level-description.hpp"
 #include "../engine/components/position.hpp"
+#include "map.hpp"
+#include "field-status.hpp"
 
 namespace theseus {
 namespace map {
@@ -20,13 +22,6 @@ namespace map {
 		EAST = 1,
 		SOUTH = 2,
 		WEST = 3
-	};
-	enum FieldStatus {
-		FREE,
-		OCCUPIED, //A brick will be placed here.
-		VERTICAL_RESTRICTED, //No Vertical brick can be placed on the field
-		HORIZONTAL_RESTRICTED, //No horizontal bick can be placed on the field
-		RESTRICTED //This field is reserved, so no object (brick) can be placed on it.
 	};
 	class Layer;
 	std::ostream& operator<<(std::ostream&, const Layer&);
@@ -42,6 +37,8 @@ namespace map {
 			 * A Field can have the status specified in theseus::map::FieldStatus
 			 */
 			std::vector<std::vector<FieldStatus> > layer;
+
+			std::unique_ptr<theseus::map::Map> map;
 
 			/**
 			 * Stores the gameobjects which will be added to the generated scene.
@@ -173,6 +170,13 @@ namespace map {
 			 * Creates parking areas arount the layer.
 			 */
 			void createParkingAreas();
+
+			/**
+			 * Set Player on the field.
+			 */
+			void populatePlayer(std::unique_ptr<theseus::gameobjects::Player>);
+
+			void populateProf(std::unique_ptr<theseus::engine::components::Positionable>);
 
 		public:
 			/**

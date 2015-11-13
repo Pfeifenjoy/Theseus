@@ -8,6 +8,7 @@
 #include <functional>
 #include <cmath>
 
+
 using namespace std;
 using namespace std::placeholders;
 using namespace theseus::gameobjects;
@@ -21,7 +22,14 @@ Chalk::Chalk() {
 	setPosition(sf::Vector2f(0, 0));
 	setSize(sf::Vector2f(10, 10));
 
+	// register for interact message
+	evOnMessageReceived.subscribe(std::bind(&Chalk::updateItem, this, _1));
 
+
+}
+
+void Chalk::updateItem(const theseus::messages::Interact& message) {
+	message.getPlayer()->incrementInventoryItemValue();
 }
 
 Chalk::~Chalk() {

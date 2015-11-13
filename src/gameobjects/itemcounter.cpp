@@ -4,6 +4,7 @@
 #include "itemcounter.hpp"
 #include "../engine/texturemanager.hpp"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 using namespace std;
 using namespace theseus::gameobjects;
@@ -27,20 +28,18 @@ ItemCounter::ItemCounter(sf::Vector2f position) {
 	setPosition(position);
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&ItemCounter::updateText, this, _1));
+	evOnMessageReceived.subscribe(std::bind(&ItemCounter::updateMyText, this, _1));
 
 }
 
-void ItemCounter::updateText(const theseus::messages::UpdateItemCounter& message) {
+void ItemCounter::updateMyText(const theseus::messages::UpdateItemCounter& message) {
+	cout << "Text2" << endl;
 	this->numberOfItemsToCollect = message.getMaxInventoryValue();
 	this->numberOfItems = message.getInventoryValue();
-
 	string stringItemCounter = to_string(this->numberOfItems) + " / " + to_string(this->numberOfItemsToCollect);
 
 	setText(4, stringItemCounter);
-
 }
 
 
-ItemCounter::~ItemCounter() {
-}
+ItemCounter::~ItemCounter() {}
