@@ -12,7 +12,7 @@ using namespace std::placeholders;
 
 ItemCounter::ItemCounter(sf::Vector2f position) {
 	
-	this->numberOfItemsToCollect = numberOfItemsToCollect;
+	this->numberOfItemsToCollect = 0;
 	this->numberOfItems = 0;
 	
 	string stringItemCounter = to_string(this->numberOfItems) + " / " + to_string(this->numberOfItemsToCollect);
