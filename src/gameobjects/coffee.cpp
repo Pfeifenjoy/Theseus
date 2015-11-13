@@ -31,11 +31,11 @@ Coffee::Coffee() {
 
 void Coffee::incrementCaffeineLevel(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementCaffeineLevel(CAFFEINEVALUE);
-	//evUpdateComponentRegistrations.subscribe(bind(&Coffee::removeMySelf, this, _1));
+	evUpdateComponentRegistrations.subscribe(std::bind(&Coffee::removeMySelf, this, _1));
 
 }
 void Coffee::removeMySelf(Scene& scene) {
-	//scene.removeGameObject(this);
+	scene.removeGameObject(this);
 }
 
 

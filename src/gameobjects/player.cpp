@@ -29,9 +29,11 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	this->maxInventoryItems = itemsToCollect;
 	this->inventoryItem = 0;
 
+	// subscribe for update
 	evOnUpdate.subscribe(bind(&Player::onUpdate, this, _1));
 
 	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Player::exmatriculated, this, _1));
+
 
 	// Update the HUD
 	updateCaffeineLevel();
@@ -63,7 +65,9 @@ void Player::onUpdate(float timePassed)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
 		Interact interact;
 		interact.setPlayer(this);
-		MessageSender<Interact>::sendMessage(interact, 16, 16);
+		sf::Vector2f position = this->getPosition();
+		MessageSender<Interact>::sendMessage(
+			interact, sf::Vector2f(position.x, position.y+40), sf::Vector2f(position.x + 32, position.y + 60));
 	}
 
 	// <WASD> Movings
@@ -106,15 +110,20 @@ int Player::getLifePoints() {
 }
 
 void Player::incrementCaffeineLevel(int value) {
-	if (this->caffeineLevel + value > maxCaffeineLevel)
+	if (this->caffeineLevel + value > maxCaffeineLevel) {
 		this->caffeineLevel = maxCaffeineLevel;
-	else this->caffeineLevel += value;
+	}
+	else {
+		this->caffeineLevel += value;
+	}	
 	updateCaffeineLevel();
 }
 
 
 void Player::incrementInventoryItemValue() {
-	this->inventoryItem++;
+	if (!(this->inventoryItem >= this->maxInventoryItems)) {
+		this->inventoryItem++;
+	}
 	updateItemCounter();
 }
 

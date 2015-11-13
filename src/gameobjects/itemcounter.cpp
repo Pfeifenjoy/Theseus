@@ -33,7 +33,6 @@ ItemCounter::ItemCounter(sf::Vector2f position) {
 }
 
 void ItemCounter::updateMyText(const theseus::messages::UpdateItemCounter& message) {
-	cout << "Text2" << endl;
 	this->numberOfItemsToCollect = message.getMaxInventoryValue();
 	this->numberOfItems = message.getInventoryValue();
 	string stringItemCounter = to_string(this->numberOfItems) + " / " + to_string(this->numberOfItemsToCollect);

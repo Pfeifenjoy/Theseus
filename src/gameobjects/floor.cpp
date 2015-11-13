@@ -16,8 +16,6 @@ using namespace theseus::engine;
 
 Floor::Floor(sf::Vector2f position, sf::Vector2f size, FloorType type) {
 
-	// texture
-
 
 	//position
 	setPosition(position);

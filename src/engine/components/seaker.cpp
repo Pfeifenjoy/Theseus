@@ -15,7 +15,7 @@ void Seaker::setMap(Map *map) {
 sf::Vector2<int> Seaker::nextDirection() {
 
 	auto positiont = Position::getPosition() + getCollisionAreaTopLeft();
-	sf::Vector2<int> position(ceil(positiont.x / theseus::gameobjects::Brick::WIDTH), ceil(positiont.y / theseus::gameobjects::Brick::HEIGHT));
+	sf::Vector2<int> position(round(positiont.x / theseus::gameobjects::Brick::WIDTH), round(positiont.y / theseus::gameobjects::Brick::HEIGHT));
 //	if(this->map->map[position.x][position.y] == false) {
 //		position = sf::Vector2<int> (floor(positiont.x / theseus::gameobjects::Brick::WIDTH), floor(positiont.y / theseus::gameobjects::Brick::HEIGHT));
 //	}
@@ -88,11 +88,16 @@ sf::Vector2<int> Seaker::nextDirection() {
 	if(backPath.size() > 0) {
 		auto next = getPosition(backPath.back()) - position;
 		cout << "next: " << next.x << ", " << next.y << endl;
-		if(next.x <= 1 && next.x >= -1 && next.y <= 1 && next.y >= -1)
-			return next;
+		if(next.x <= 1 && next.x >= -1 && next.y <= 1 && next.y >= -1) {
+			if(this->map->map[position.x + next.x][position.y + next.y]) {
+				return next;
+			}
+		}
 	}
 
-		sf::Vector2i next(0, 0);
+	sf::Vector2i next(0, 0);
+	while (this->map->map[position.x + next.x][position.y + next.y] == false) {
+		cout << "next: " << next.x << ", " << next.y << endl;
 		int number = rand() % 9;
 
 		switch (number)
@@ -107,9 +112,9 @@ sf::Vector2<int> Seaker::nextDirection() {
 			case 7: next = sf::Vector2i(-1, 1); break; // NPC is moving left down
 			case 8: next = sf::Vector2i( 1, 1); break; // NPC is moving right down
 		}
-		cout << "next: " << next.x << ", " << next.y << endl;
-		return next;
+	}
 
+	return next;
 
 
 //	for(auto x: backPath)
