@@ -1,5 +1,5 @@
 /**
- *  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser, Philipp Pütz
+ *  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser, Philipp PÃ¼tz
  */
 
 #include "player.hpp"
@@ -77,6 +77,9 @@ void Player::onUpdate(float timePassed)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
 		direction.y += 1;
 	setDirection(direction);
+
+	if(this->map != nullptr)
+		this->map->updatePlayerPosition(this->getPosition() + getCollisionAreaTopLeft());
 }
 
 void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
@@ -132,6 +135,10 @@ void Player::updateLifePoints() {
 	UpdateLifePoints updateLifePoints;
 	updateLifePoints.setLifePoints(this->lifePoints);
 	MessageSender<UpdateLifePoints>::sendMessage(updateLifePoints, 10000, 10000);
+}
+
+void Player::setMap(theseus::map::Map *map) {
+	this->map = map;
 }
 
 Player::~Player()

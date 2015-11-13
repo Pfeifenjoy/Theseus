@@ -9,6 +9,7 @@
 #include "room-description.hpp"
 #include "../gameobjects/player.hpp"
 #include "../gameobjects/brick.hpp"
+#include "../engine/components/seaker.hpp"
 
 namespace theseus {
 	namespace map {
@@ -27,6 +28,7 @@ namespace theseus {
 			sf::Vector2f minRoomSize = sf::Vector2f(theseus::gameobjects::Brick::WIDTH * 7, theseus::gameobjects::Brick::HEIGHT * 7);
 			sf::Vector2f maxRoomSize = sf::Vector2f(theseus::gameobjects::Brick::WIDTH * 15, theseus::gameobjects::Brick::HEIGHT * 15);
 			int maxAmountOfStandardRooms = 5;
+			std::unique_ptr<theseus::engine::components::Seaker> prof;
 		public:
 			LevelDescription(sf::Vector2f dimensions) : dimensions(dimensions) {}
 
@@ -92,6 +94,11 @@ namespace theseus {
 			 * This can be used to transfer the status of the player between levels.
 			 */
 			void setPlayer(std::unique_ptr<theseus::gameobjects::Player>);
+
+			void setProf(std::unique_ptr<theseus::engine::components::Seaker>);
+
+			std::unique_ptr<theseus::engine::components::Seaker> getProf();
+
 		};
 	}
 }
