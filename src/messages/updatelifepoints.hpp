@@ -5,12 +5,10 @@
 #ifndef _THESEUS_ENGINE_MESSAGE_UPDATELIFEPOINTS_H
 #define _THESEUS_ENGINE_MESSAGE_UPDATELIFEPOINTS_H
 
-#include "../engine/message.hpp"
-
 namespace theseus
 {
 	namespace messages {
-		class UpdateLifePoints : public theseus::engine::Message
+		class UpdateLifePoints 
 		{
 		private:
 			int lifePoints = 0;

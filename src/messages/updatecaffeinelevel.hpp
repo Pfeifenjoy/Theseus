@@ -5,12 +5,10 @@
 #ifndef _THESEUS_MESSAGE_UPDATECAFFEINELEVEL_H
 #define _THESEUS_MESSAGE_UPDATECAFFEINELEVEL_H
 
-#include "../engine/message.hpp"
-
 namespace theseus
 {
 	namespace messages {
-		class UpdateCaffeineLevel : public theseus::engine::Message
+		class UpdateCaffeineLevel 
 		{
 		private:
 			// Actual caffeinelevel in percentage (!)

@@ -22,7 +22,6 @@ namespace theseus
 		{
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
-			// sf::Vector2f( (!) whole screen width (i will center me by myself), 'normal' y position)
 			CaffeineLevel(sf::Vector2f position);
 
 			//---- Destructor ---------------------------------------------------------------------------------------

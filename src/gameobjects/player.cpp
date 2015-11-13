@@ -20,7 +20,7 @@ using namespace theseus::messages;
 Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int itemsToCollect)
 {
 	if (startCaffeineLevel > maxCaffeineLevel) {
-		this->caffeineLevel = maxCaffeineLevel;
+		this->caffeineLevel = (float)maxCaffeineLevel;
 	}
 	else this->caffeineLevel = startCaffeineLevel;
 
@@ -30,6 +30,8 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	this->inventoryItem = 0;
 
 	evOnUpdate.subscribe(bind(&Player::onUpdate, this, _1));
+
+	//MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Player::exmatriculated, this, _1));
 
 	// Update the HUD
 	updateCaffeineLevel();
@@ -80,6 +82,18 @@ void Player::onUpdate(float timePassed)
 		this->map->updatePlayerPosition(this->getPosition() + getCollisionAreaTopLeft());
 }
 
+//void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
+//	if (this->lifePoints <= 1) {
+//		this->lifePoints--;
+//		updateLifePoints();
+//		Abort Game
+//	}
+//	else {
+//		this->lifePoints--;
+//		updateLifePoints();
+//	}
+//}
+
 void Player::decrementLifePoints() {
 	if (this->lifePoints > 0) {
 		this->lifePoints--;
@@ -92,7 +106,9 @@ int Player::getLifePoints() {
 }
 
 void Player::incrementCaffeineLevel(int value) {
-	this->caffeineLevel += value;
+	if (this->caffeineLevel + value > maxCaffeineLevel)
+		this->caffeineLevel = maxCaffeineLevel;
+	else this->caffeineLevel += value;
 	updateCaffeineLevel();
 }
 

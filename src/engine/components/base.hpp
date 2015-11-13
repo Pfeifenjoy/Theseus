@@ -2,13 +2,12 @@
 #define _THESEUS_ENGINE_COMPONENTS_BASE_H
 
 #include "../publisher.hpp"
-#include "../scene.hpp"
 
 namespace theseus
 {
 namespace engine
 {
-
+class Scene;
 namespace components
 {
 	class Base
@@ -29,5 +28,7 @@ namespace components
 }
 }
 }
+
+#include "../scene.hpp"
 
 #endif

@@ -17,6 +17,8 @@
 #include "../messages/updatecaffeinelevel.hpp"
 #include "../messages/updateitemcounter.hpp"
 #include "../map/map.hpp"
+#include "../engine/components/messagereceiver.hpp"
+#include "../messages/exmatriculation.hpp"
 #include <SFML/System.hpp>
 #include "character.hpp"
 
@@ -34,6 +36,7 @@ namespace theseus
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateCaffeineLevel>
 			, public virtual engine::components::MessageSender<theseus::messages::Interact>
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateItemCounter>
+			//, public virtual engine::components::MessageReceiver<theseus::messages::Exmatriculation>
 		{
 		private:
 			// events
@@ -74,6 +77,8 @@ namespace theseus
 			void incrementInventoryItemValue();
 
 			void setMap(theseus::map::Map*);
+			//void exmatriculated(const theseus::messages::Exmatriculation& message);
+
 		};
 	}
 }

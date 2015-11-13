@@ -5,19 +5,26 @@
 
 using namespace theseus::engine::components;
 
+sf::Font& Text::font()
+{
+	static bool loaded = false;
+	static sf::Font actual_font;
+	if (!loaded)
+	{
+		if (!actual_font.loadFromFile("./resources/fonts/arial.ttf"))
+		{
+			throw std::invalid_argument("Couldn't load font.");
+		}
+		loaded = true;
+	}
+	return actual_font;
+}
+
 void Text::setText(int layer, std::string text)
 {
-	if (!font.loadFromFile("./resources/fonts/arial.ttf"))
-	{
-		throw std::invalid_argument("Couldn't load font.");
-	}
-	else
-	{
-		texts[layer].setFont(font);
-		texts[layer].setString(text);
-		activateLayer(layer, &texts[layer]);
-	}
-
+	texts[layer].setFont(font());
+	texts[layer].setString(text);
+	activateLayer(layer, &texts[layer]);
 }
 
 void Text::setColor(int layer, sf::Color color)

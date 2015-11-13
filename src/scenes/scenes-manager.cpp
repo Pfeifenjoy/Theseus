@@ -169,6 +169,9 @@ void ScenesManager::loadLevel1() {
 	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40)));
 	scene->addGameObject(move(itemCounter));
 
+	auto cd = unique_ptr<BizagiCD>(new BizagiCD());
+	cd->setPosition(sf::Vector2f(40, 68));
+	scene->addGameObject(move(cd));
 	scene->setCamera(man_ptr);
 
 	this->game.run(*(scene));

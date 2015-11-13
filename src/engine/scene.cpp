@@ -8,7 +8,6 @@
 #include "components/camera.hpp"
 #include "components/messagereceiver.hpp"
 #include "gameobject.hpp"
-#include "envelope.hpp"
 #include <algorithm>
 #include <vector>
 
@@ -115,31 +114,6 @@ void Scene::unRegisterSolide(sf::Vector2f position, components::Solide * compone
 void Scene::reRegisterSolide(sf::Vector2f oldPosition, components::Solide * component)
 {
 	solide.updatePosition(oldPosition, component->getPosition(), component);
-}
-
-void Scene::deliverMessage(const GeneralEnvelope& envelope)
-{
-	auto receivers = messageReceiver.find(envelope.getDestinationTopLeft(), envelope.getDestinationBottomRight());
-	for ( auto receiver : receivers )
-	{
-		needsRegistrationUpdate.insert(receiver.second);
-		receiver.second->processMessage(envelope);
-	}
-}
-
-void Scene::registerMessageReceiver(components::GeneralMessageReceiver * receiver)
-{
-	messageReceiver.insert(receiver->getPosition(), receiver);
-}
-
-void Scene::unRegisterMessageReceiver(sf::Vector2f position, components::GeneralMessageReceiver * receiver)
-{
-	messageReceiver.remove(position, receiver);
-}
-
-void Scene::reRegisterMessageReceiver(sf::Vector2f oldPosition, sf::Vector2f newPosition, components::GeneralMessageReceiver * receiver)
-{
-	messageReceiver.updatePosition(oldPosition, newPosition, receiver);
 }
 
 void Scene::checkCollisions(components::CollisionDetector* component)

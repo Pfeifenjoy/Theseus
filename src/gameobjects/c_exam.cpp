@@ -21,7 +21,13 @@ CExam::CExam() {
 	setPosition(sf::Vector2f(0, 0));
 	setSize(sf::Vector2f(40, 30));
 
+	// register for interact message
+	evOnMessageReceived.subscribe(std::bind(&CExam::updateItem, this, _1));
 
+}
+
+void CExam::updateItem(const theseus::messages::Interact& message) {
+	message.getPlayer()->incrementInventoryItemValue();
 }
 
 CExam::~CExam() {

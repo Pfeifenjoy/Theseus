@@ -16,9 +16,9 @@ sf::Vector2<int> Seaker::nextDirection() {
 
 	auto positiont = Position::getPosition() + getCollisionAreaTopLeft();
 	sf::Vector2<int> position(ceil(positiont.x / theseus::gameobjects::Brick::WIDTH), ceil(positiont.y / theseus::gameobjects::Brick::HEIGHT));
-	if(this->map->map[position.x][position.y] == false) {
-		position = sf::Vector2<int> (floor(positiont.x / theseus::gameobjects::Brick::WIDTH), floor(positiont.y / theseus::gameobjects::Brick::HEIGHT));
-	}
+//	if(this->map->map[position.x][position.y] == false) {
+//		position = sf::Vector2<int> (floor(positiont.x / theseus::gameobjects::Brick::WIDTH), floor(positiont.y / theseus::gameobjects::Brick::HEIGHT));
+//	}
 	auto goal = this->map->getGoal();
 	int size = this->map->map.size();
 	int source = position.x + position.y * size;
@@ -86,12 +86,29 @@ sf::Vector2<int> Seaker::nextDirection() {
 	cout << endl;
 
 	if(backPath.size() > 0) {
-	auto next = getPosition(backPath.back()) - position;
-	cout << backPath.back() % size << ", " <<backPath.back() / size << endl;
-	cout << "next: " << next.x << ", " << next.y << endl;
-	if(next.x <= 1 && next.x >= -1 && next.y <= 1 && next.y >= -1)
-		return next;
+		auto next = getPosition(backPath.back()) - position;
+		cout << "next: " << next.x << ", " << next.y << endl;
+		if(next.x <= 1 && next.x >= -1 && next.y <= 1 && next.y >= -1)
+			return next;
 	}
+
+		sf::Vector2i next(0, 0);
+		int number = rand() % 9;
+
+		switch (number)
+		{
+			case 0: next = sf::Vector2i( 0, 0); break; // NPC is not moving
+			case 1: next = sf::Vector2i(-1, 0); break; // NPC is moving left
+			case 2: next = sf::Vector2i( 1, 0); break; // NPC is moving right
+			case 3: next = sf::Vector2i(0, -1); break; // NPC is moving up
+			case 4: next = sf::Vector2i( 0, 1); break; // NPC is moving down
+			case 5: next = sf::Vector2i(-1,-1); break; // NPC is moving left up
+			case 6: next = sf::Vector2i(1, -1); break; // NPC is moving right up
+			case 7: next = sf::Vector2i(-1, 1); break; // NPC is moving left down
+			case 8: next = sf::Vector2i( 1, 1); break; // NPC is moving right down
+		}
+		cout << "next: " << next.x << ", " << next.y << endl;
+		return next;
 
 
 

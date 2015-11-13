@@ -17,7 +17,6 @@ Timer::Timer(sf::Vector2f position, int startTime) {
 
 	this->startTime = (float)startTime;
 	this->actualTime = this->startTime;
-	this->lastDisplayedTime = this->startTime;
 
 	// Subscribe to update method
 	evOnUpdate.subscribe(bind(&Timer::onUpdate, this, _1));
@@ -48,9 +47,8 @@ Timer::Timer(sf::Vector2f position, int startTime) {
 void Timer::onUpdate(float timePassed) {
 
 	actualTime -= timePassed;
-	if (actualTime >= 0 && lastDisplayedTime - actualTime > 1) {
+	if (actualTime >= 0) {
 		// Updates the timer text
-		lastDisplayedTime = actualTime;
 		string stringMinutes = to_string((int)trunc(this->actualTime / 60));
 		if (stringMinutes.size() == 1) {
 			stringMinutes = "0" + stringMinutes;
