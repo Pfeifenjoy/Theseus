@@ -16,6 +16,16 @@
 #include "../gameobjects/itemcounter.hpp"
 #include "../map/layer.hpp"
 #include "highscore.hpp"
+#include "../gameobjects/kruse.hpp"
+#include "../gameobjects/stroetmann.hpp"
+#include "../gameobjects/setlx_cup.hpp"
+#include "../gameobjects/apfeltasche.hpp"
+#include "../gameobjects/c_exam.hpp"
+#include "../gameobjects/hofmann.hpp"
+#include "../gameobjects/uml_diagramm.hpp"
+#include "../gameobjects/instrument_hofmann.hpp"
+#include "../gameobjects/huebl.hpp"
+#include "../gameobjects/math_solution.hpp"
 
 using namespace theseus::scenes;
 using namespace theseus::map;
@@ -167,17 +177,18 @@ bool ScenesManager::loadLevel1() {
 
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer->getActualTime()) {
+	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime()) {
 		this->playedTime = 0;
 		return false;
 	}
 	else {
 		this->lifePoints = man_ptr->getLifePoints();
-		this->playedTime += timer->getActualTime();
+		this->playedTime += timer_ptr->getActualTime();
 		return true;
 	}
 }
@@ -209,22 +220,234 @@ bool ScenesManager::loadLevel2() {
 	auto glaser = unique_ptr<Glaser>(new Glaser);
 	level->addFreeGameObject(move(glaser));
 
+	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
+	auto man_ptr = man.get();
+	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
+	man->setPosition(sf::Vector2f(500, 500));
+	level->setPlayer(move(man));
+
 	auto scene = Layer(move(level)).toScene();
-	this->game.run(*(scene));
-	return false;
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	auto timer_ptr = timer.get();
+	this->setHud(*scene, move(timer));
+	scene->setCamera(man_ptr);
+
+	auto status = this->game.run(*(scene));
+	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime()) {
+		this->playedTime = 0;
+		return false;
+	}
+	else {
+		this->lifePoints = man_ptr->getLifePoints();
+		this->playedTime += timer_ptr->getActualTime();
+		return true;
+	}
 }
 bool ScenesManager::loadLevel3() {
-	return false;
+	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 50)));
+	//set level specific object
+	for (int i = 0; i < 5; i++) {
+		level->addFreeGameObject(unique_ptr<MathSolution>(new MathSolution()));
+	}
+	level->setMaxAmountOfStandardRooms(5);
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
+
+	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
+
+	//set amount of coffee
+	for (int i = 0; i < 15; i++) {
+		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
+	}
+
+	//set amount of students
+	int x = 0;
+	for (x = 0; x < 40; x++) {
+		auto npc = unique_ptr<NPC>(new NPC);
+		level->addFreeGameObject(move(npc));
+	}
+
+	//set professor Huebl
+	auto huebl = unique_ptr<Huebl>(new Huebl);
+	level->addFreeGameObject(move(huebl));
+
+	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
+	auto man_ptr = man.get();
+	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
+	man->setPosition(sf::Vector2f(500, 500));
+	level->setPlayer(move(man));
+
+	auto scene = Layer(move(level)).toScene();
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	auto timer_ptr = timer.get();
+	this->setHud(*scene, move(timer));
+	scene->setCamera(man_ptr);
+
+	auto status = this->game.run(*(scene));
+	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime()) {
+		this->playedTime = 0;
+		return false;
+	}
+	else {
+		this->lifePoints = man_ptr->getLifePoints();
+		this->playedTime += timer_ptr->getActualTime();
+		return true;
+	}
 }
 bool ScenesManager::loadLevel4() {
-	return false;
+	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
+	//set level specific object
+	level->addFreeGameObject(unique_ptr<Instrument>(new Instrument()));
+
+	for (int i = 0; i < 5; i++) {
+		level->addFreeGameObject(unique_ptr<UMLDiagramm>(new UMLDiagramm()));
+	}
+
+	level->setMaxAmountOfStandardRooms(6);
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
+	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
+
+	//set amount of coffee
+	for (int i = 0; i < 15; i++) {
+		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
+	}
+
+	//set amount of students
+	int x = 0;
+	for (x = 0; x < 40; x++) {
+		auto npc = unique_ptr<NPC>(new NPC);
+		level->addFreeGameObject(move(npc));
+	}
+
+	//set professor Hofmann
+	auto hofmann = unique_ptr<Hofmann>(new Hofmann);
+	level->addFreeGameObject(move(hofmann));
+
+	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
+	auto man_ptr = man.get();
+	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
+	man->setPosition(sf::Vector2f(500, 500));
+	level->setPlayer(move(man));
+
+	auto scene = Layer(move(level)).toScene();
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	auto timer_ptr = timer.get();
+	this->setHud(*scene, move(timer));
+	scene->setCamera(man_ptr);
+
+	auto status = this->game.run(*(scene));
+	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime()) {
+		this->playedTime = 0;
+		return false;
+	}
+	else {
+		this->lifePoints = man_ptr->getLifePoints();
+		this->playedTime += timer_ptr->getActualTime();
+		return true;
+	}
 }
 bool ScenesManager::loadLevel5() {
-	return false;
+	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
+	//set level specific object
+	level->addFreeGameObject(unique_ptr<CExam>(new CExam()));
+
+	for (int i = 0; i < 5; i++) {
+		level->addFreeGameObject(unique_ptr<Apfeltasche>(new Apfeltasche()));
+	}
+
+	level->setMaxAmountOfStandardRooms(6);
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
+
+	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
+
+	//set amount of coffee
+	for (int i = 0; i < 10; i++) {
+		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
+	}
+
+	//set amount of students
+	int x = 0;
+	for (x = 0; x < 50; x++) {
+		auto npc = unique_ptr<NPC>(new NPC);
+		level->addFreeGameObject(move(npc));
+	}
+
+	//set professor Kruse
+	auto kruse = unique_ptr<Kruse>(new Kruse);
+	level->addFreeGameObject(move(kruse));
+
+	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
+	auto man_ptr = man.get();
+	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
+	man->setPosition(sf::Vector2f(500, 500));
+	level->setPlayer(move(man));
+
+	auto scene = Layer(move(level)).toScene();
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	auto timer_ptr = timer.get();
+	this->setHud(*scene, move(timer));
+	scene->setCamera(man_ptr);
+
+	auto status = this->game.run(*(scene));
+	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime()) {
+		this->playedTime = 0;
+		return false;
+	}
+	else {
+		this->lifePoints = man_ptr->getLifePoints();
+		this->playedTime += timer_ptr->getActualTime();
+		return true;
+	}
 
 }
 bool ScenesManager::loadLevel6() {
-	return false;
+	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
+	//set level specific object
+	level->addFreeGameObject(unique_ptr<SetlxCup>(new SetlxCup()));
+
+	level->setMaxAmountOfStandardRooms(6);
+	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
+
+	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
+
+
+	//set amount of coffee
+	for (int i = 0; i < 15; i++) {
+		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
+	}
+
+	//set amount of students
+	int x = 0;
+	for (x = 0; x < 100; x++) {
+		auto npc = unique_ptr<NPC>(new NPC);
+		level->addFreeGameObject(move(npc));
+	}
+
+	//set professor Stroetmann
+	auto stroetmann = unique_ptr<Stroetmann>(new Stroetmann);
+	level->addFreeGameObject(move(stroetmann));
+
+	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
+	auto man_ptr = man.get();
+	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
+	man->setPosition(sf::Vector2f(500, 500));
+	level->setPlayer(move(man));
+
+	auto scene = Layer(move(level)).toScene();
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	auto timer_ptr = timer.get();
+	this->setHud(*scene, move(timer));
+	scene->setCamera(man_ptr);
+
+	auto status = this->game.run(*(scene));
+	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime()) {
+		this->playedTime = 0;
+		return false;
+	}
+	else {
+		this->lifePoints = man_ptr->getLifePoints();
+		this->playedTime += timer_ptr->getActualTime();
+		return true;
+	}
 
 }
 

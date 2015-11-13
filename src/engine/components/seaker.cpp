@@ -13,7 +13,7 @@ void Seaker::setMap(Map *map) {
 }
 
 sf::Vector2<int> Seaker::nextDirection() {
-
+//--------------------------------------------------
 	auto positiont = Position::getPosition() + getCollisionAreaTopLeft();
 	sf::Vector2<int> position(round(positiont.x / theseus::gameobjects::Brick::WIDTH), round(positiont.y / theseus::gameobjects::Brick::HEIGHT));
 	auto goal = this->map->getGoal();
@@ -33,7 +33,7 @@ sf::Vector2<int> Seaker::nextDirection() {
 	std::set<int> nodes;
 
 	for(int i = 0; i < size; i++) {
-		for(int j = 0; j < size; j++) {
+		for(int j = 0; j < (int) this->map->map.size(); j++) {
 			if(this->map->map[i][j])
 				nodes.insert(i + j*size);
 		}
@@ -112,7 +112,7 @@ sf::Vector2<int> Seaker::nextDirection() {
 	}
 
 	return next;
-
+//----------------------------------------------------------------------------------------------------
 
 //	for(auto x: backPath)
 //		cout << x << endl;
