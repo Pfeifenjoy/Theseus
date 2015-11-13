@@ -33,7 +33,7 @@ sf::Vector2<int> Seaker::nextDirection() {
 	std::set<int> nodes;
 
 	for(int i = 0; i < size; i++) {
-		for(int j = 0; j < (int) this->map->map.size(); j++) {
+		for(int j = 0; j < (int) this->map->map[0].size(); j++) {
 			if(this->map->map[i][j])
 				nodes.insert(i + j*size);
 		}
