@@ -7,7 +7,7 @@ using namespace theseus::map;
 using namespace std;
 
 Map::Map(vector<vector<FieldStatus> >& layer) {
-	this->map = vector<vector<bool> > (layer.size(), vector<bool> (layer[0].size()));
+	this->map = vector<vector<int> > (layer.size(), vector<int> (layer[0].size()));
 	int i, j;
 	for(i = 0; i < (int) layer.size(); i++) {
 		for(j = 0; j < (int) layer[i].size(); j++) {

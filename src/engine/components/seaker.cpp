@@ -16,9 +16,6 @@ sf::Vector2<int> Seaker::nextDirection() {
 
 	auto positiont = Position::getPosition() + getCollisionAreaTopLeft();
 	sf::Vector2<int> position(round(positiont.x / theseus::gameobjects::Brick::WIDTH), round(positiont.y / theseus::gameobjects::Brick::HEIGHT));
-//	if(this->map->map[position.x][position.y] == false) {
-//		position = sf::Vector2<int> (floor(positiont.x / theseus::gameobjects::Brick::WIDTH), floor(positiont.y / theseus::gameobjects::Brick::HEIGHT));
-//	}
 	auto goal = this->map->getGoal();
 	int size = this->map->map.size();
 	int source = position.x + position.y * size;
