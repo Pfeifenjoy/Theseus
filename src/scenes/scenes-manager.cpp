@@ -15,6 +15,7 @@
 #include "../gameobjects/timer.hpp"
 #include "../gameobjects/itemcounter.hpp"
 #include "../map/layer.hpp"
+#include "highscore.hpp"
 
 using namespace theseus::scenes;
 using namespace theseus::map;
@@ -106,6 +107,7 @@ void ScenesManager::run()
 	if(this->loadLevel5())
 	if(this->loadLevel6()) {}
 
+	this->loadHighScore();
 
 }
 
@@ -157,7 +159,7 @@ bool ScenesManager::loadLevel1() {
 
 	level->addRoom(move(mensa));
 
-	auto man = unique_ptr<Player>(new Player(1000, 1000, 3, 1));
+	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -168,10 +170,14 @@ bool ScenesManager::loadLevel1() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	if(this->game.run(*(scene)) || man->getLifePoints() == 0 || timer->getActualTime()) {
+	auto status = this->game.run(*(scene));
+	if(status || man_ptr->getLifePoints() == 0 || timer->getActualTime()) {
+		this->playedTime = 0;
 		return false;
 	}
 	else {
+		this->lifePoints = man_ptr->getLifePoints();
+		this->playedTime += timer->getActualTime();
 		return true;
 	}
 }
@@ -233,4 +239,9 @@ void ScenesManager::setHud(theseus::engine::Scene& scene, std::unique_ptr<theseu
 
 	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40)));
 	scene.addGameObject(move(itemCounter));
+}
+
+void ScenesManager::loadHighScore() {
+	theseus::scenes::Highscore highscore(game.getScreenResolution().x, game.getScreenResolution().y, playedTime);
+	game.run(highscore);
 }

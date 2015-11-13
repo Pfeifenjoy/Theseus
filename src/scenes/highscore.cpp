@@ -9,6 +9,7 @@
 
 using namespace std;
 using namespace theseus::engine;
+using namespace theseus::scenes;
 using namespace theseus::gameobjects;
 using namespace theseus::engine::components;
 
