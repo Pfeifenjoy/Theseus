@@ -4,6 +4,8 @@
 #include <SFML/Window.hpp>
 #include <functional>
 #include <cmath>
+#include <cstdlib>
+#include <algorithm>
 
 using namespace std;
 using namespace std::placeholders;
@@ -29,10 +31,19 @@ Character::Character()
 	// speed settings
 	this->speedMultiplier = 1;
 
-	//this->setPosition(sf::Vector2f(-2, 40));
+	// Settings for autoplacement during levelgeneration
 	this->setSize(sf::Vector2f(22, 50));
+
+	// Collision detection
 	this->setCollisionAreaTopLeft(sf::Vector2f(0, 40));
 	this->setCollisionAreaBottomRight(this->getSize());
+
+	// Speech bubble
+	sprite(3).setPosition(20, -30);
+	text(3).setColor(sf::Color::Black);
+	text(3).setCharacterSize(16);
+	text(3).setPosition(25, -18);
+	evOnUpdate.subscribe(bind(&Character::onUpdate, this, _1));
 }
 
 
@@ -80,6 +91,56 @@ void Character::setDirection(sf::Vector2i d, bool force_update)
 
 void Character::setSpeedMultiplier(float value) {
 	this->speedMultiplier = value;
+}
+
+void Character::say(std::string text, float duration)
+{
+	setTexture(3, TextureManager::instance().getTexture("speech_bubble.png"));	
+	setText(3, text);
+	remainingSpeechBubbleTime = duration;
+}
+		
+void Character::startAutoSpeech(const std::vector<std::string>& sentences, float duration, float minPause, float maxPause, bool loop, bool shuffle)
+{
+	as_sentences = sentences;
+	as_duration = duration;
+	as_minPause = minPause;
+	as_pauseRandomLength = maxPause - minPause;
+	as_loop = loop;
+	as_shuffle = shuffle;
+	as_position = as_sentences.begin();
+	as_active = true;
+	as_currentPause = as_minPause + (float)(rand() % (int)(as_pauseRandomLength * 100)) / 100;
+}
+
+void Character::onUpdate(float timePassed)
+{
+	// update speech bubble visibility
+	if (remainingSpeechBubbleTime < timePassed & 0 <= remainingSpeechBubbleTime)
+	{
+		unsetText(3);
+		unsetTexture(3);
+	}
+	remainingSpeechBubbleTime -= timePassed;
+
+	// update autospeech
+	if (as_active && remainingSpeechBubbleTime < -as_currentPause)
+	{
+		// show next speech bubble
+		if (as_shuffle && as_position == as_sentences.begin())
+		{
+			std::random_shuffle(as_sentences.begin(), as_sentences.end());	
+		}
+		say(*as_position, as_duration);
+		as_currentPause = as_minPause + (float)(rand() % (int)(as_pauseRandomLength * 100)) / 100;
+		++as_position;
+		if (as_position == as_sentences.end())
+		{
+			as_position = as_sentences.begin();
+			as_active = as_loop;
+		}
+	}
+	
 }
 
 Character::~Character()

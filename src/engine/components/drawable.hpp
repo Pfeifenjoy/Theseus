@@ -6,6 +6,7 @@
 #include "../publisher.hpp"
 #include <SFML/Graphics.hpp>
 #include <array>
+#include <vector>
 
 namespace theseus
 {
@@ -24,7 +25,9 @@ namespace components
 		/**
 		 * The pointers to the actual drawable object for each layer
 		 */
-		std::array<const sf::Drawable*, 5> layers = {{nullptr, nullptr, nullptr, nullptr, nullptr}};
+		//std::array<const sf::Drawable*, 5> layers = {{nullptr, nullptr, nullptr, nullptr, nullptr}};
+		std::array<std::vector<const sf::Drawable*>, 5> layers;
+		std::array<bool, 5> registeredLayers;
 
 		/**
 		 * Registers the component at the given scene.
@@ -67,7 +70,9 @@ namespace components
 		 * Switching drawables by calling this method repeatedly,
 		 * is perfectly supported at every time.
 		 */
-		void activateLayer(int layer, const sf::Drawable* drawable);
+		//void activateLayer(int layer, const sf::Drawable* drawable);
+		void addDrawable(int layer, const sf::Drawable* drawable);
+		void removeDrawable(int layer, const sf::Drawable* drawable);
 
 	public:
 

@@ -98,9 +98,7 @@ int main()
 	TextureManager::instance().loadTexture("item_level_1_bizagi_cd.png");
 	TextureManager::instance().loadTexture("item_level_6_cup2.png");
 	TextureManager::instance().loadTexture("heart.png");
-
-
-
+	TextureManager::instance().loadTexture("speech_bubble.png");
 
 	theseus::scenes::ScenesManager game;
 	game.run();

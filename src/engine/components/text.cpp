@@ -22,9 +22,15 @@ sf::Font& Text::font()
 
 void Text::setText(int layer, std::string text)
 {
+	unsetText(layer);
 	texts[layer].setFont(font());
 	texts[layer].setString(text);
-	activateLayer(layer, &texts[layer]);
+	addDrawable(layer, &texts[layer]);
+}
+
+void Text::unsetText(int layer)
+{
+	removeDrawable(layer, &texts[layer]);
 }
 
 void Text::setColor(int layer, sf::Color color)

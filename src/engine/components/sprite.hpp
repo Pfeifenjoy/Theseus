@@ -33,6 +33,12 @@ namespace components
 		void setTexture(int layer, const sf::Texture&);
 
 		/**
+		 * Unsets the texture on the given layer.
+		 * It will not be rendered any more after a call to this method.
+		 */
+		void unsetTexture(int layer);
+
+		/**
 		 * Returns a reference(!) to the sprite.
 		 */
 		sf::Sprite& sprite(int layer);

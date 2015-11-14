@@ -30,6 +30,9 @@ namespace theseus
 				// Sets the texts to show
 				void setText(int layer, std::string);
 
+				// Hides the text on the given layer.
+				void unsetText(int layer);
+
 				// Sets the text color
 				void setColor(int layer, sf::Color);
 
