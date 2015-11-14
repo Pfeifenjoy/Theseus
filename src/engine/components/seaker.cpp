@@ -113,26 +113,27 @@ sf::Vector2<int> Seaker::nextDirection() {
 		}
 	}
 
-//	sf::Vector2i next(0, 0);
-//	while (this->map->map[position.x + next.x][position.y + next.y] == false) {
-//		cout << "next: " << next.x << ", " << next.y << endl;
-//		int number = rand() % 9;
-//
-//		switch (number)
-//		{
-//			case 0: next = sf::Vector2i( 0, 0); break; // NPC is not moving
-//			case 1: next = sf::Vector2i(-1, 0); break; // NPC is moving left
-//			case 2: next = sf::Vector2i( 1, 0); break; // NPC is moving right
-//			case 3: next = sf::Vector2i(0, -1); break; // NPC is moving up
-//			case 4: next = sf::Vector2i( 0, 1); break; // NPC is moving down
-//			case 5: next = sf::Vector2i(-1,-1); break; // NPC is moving left up
-//			case 6: next = sf::Vector2i(1, -1); break; // NPC is moving right up
-//			case 7: next = sf::Vector2i(-1, 1); break; // NPC is moving left down
-//			case 8: next = sf::Vector2i( 1, 1); break; // NPC is moving right down
-//		}
-//	}
+	sf::Vector2i next(0, 0);
+	do {
+		cout << "next: " << next.x << ", " << next.y << endl;
+		int number = rand() % 9;
 
-	//return next;
+		switch (number)
+		{
+			case 0: next = sf::Vector2i( 0, 0); break; // NPC is not moving
+			case 1: next = sf::Vector2i(-1, 0); break; // NPC is moving left
+			case 2: next = sf::Vector2i( 1, 0); break; // NPC is moving right
+			case 3: next = sf::Vector2i(0, -1); break; // NPC is moving up
+			case 4: next = sf::Vector2i( 0, 1); break; // NPC is moving down
+			case 5: next = sf::Vector2i(-1,-1); break; // NPC is moving left up
+			case 6: next = sf::Vector2i(1, -1); break; // NPC is moving right up
+			case 7: next = sf::Vector2i(-1, 1); break; // NPC is moving left down
+			case 8: next = sf::Vector2i( 1, 1); break; // NPC is moving right down
+		}
+		cout << "ja" << next.x << next.y<< endl;
+	} while (this->map->map[position.x + next.x][position.y + next.y] == false);
+
+	return next;
 //----------------------------------------------------------------------------------------------------
 
 //	for(auto x: backPath)
@@ -373,5 +374,10 @@ sf::Vector2<int> Seaker::getPosition(sf::Vector2<int> position) {
 	if(this->map->map[position.x][position.y] == false) {
 		position.y--;
 	}
+//	if(this->map->map[position.x][position.y] == false) {
+//		auto positiont = Position::getPosition() + getCollisionAreaTopLeft();
+//		positiont.x += theseus::gameobjects::Brick::OFFSET;
+//		position = sf::Vector2<int>(floor(positiont.x / theseus::gameobjects::Brick::WIDTH), floor(positiont.y / theseus::gameobjects::Brick::HEIGHT));
+//	}
 	return position;
 }
