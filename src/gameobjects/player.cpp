@@ -106,7 +106,7 @@ void Player::onUpdate(float timePassed)
 }
 
 void Player::exmatriculationDone() {
-	if (this->inventoryItem <= this->maxInventoryItems) {
+	if (this->inventoryItem < this->maxInventoryItems) {
 
 		if (this->lifePoints <= 1) {
 			this->lifePoints = 0;
@@ -119,7 +119,7 @@ void Player::exmatriculationDone() {
 			updateLifePoints();
 		}
 	}
-	else if(this->professorSendedExmatriculationMessage && this->inventoryItem == this->maxInventoryItems) {
+	else if(this->professorSendedExmatriculationMessage && this->inventoryItem >= this->maxInventoryItems) {
 		// You won the level - register for scene access
 		evUpdateComponentRegistrations.subscribe(std::bind(&Player::endScene, this, _1));
 	}
