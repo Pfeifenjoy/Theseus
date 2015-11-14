@@ -1,7 +1,6 @@
 #include "scenes-manager.hpp"
 #include "storytext.hpp"
 #include "menu.hpp"
-#include "characterselection.hpp"
 #include <string>
 #include <iostream>
 #include "../map/level-description.hpp"
