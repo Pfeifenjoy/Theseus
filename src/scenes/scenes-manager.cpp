@@ -181,7 +181,6 @@ bool ScenesManager::loadStart() {
 	return false;
 }
 void ScenesManager::loadPause(theseus::map::Level& level) {
-
 	while(level.getLastKey() == sf::Keyboard::Escape) {
 		vector<string> buttons;
 
@@ -189,11 +188,12 @@ void ScenesManager::loadPause(theseus::map::Level& level) {
 		buttons.push_back("Quit");
 		Menu menu(buttons, &(this->game));
 		this->game.run(menu);
-
-		switch (menu.getSelectedItemIndex()) {
-			case 0: this->game.run(level);
-			case 1: throw theseus::engine::EndOfTime();
+		if(menu.getSelectedItemIndex() == 0) {
+			level.setUnfinished();
+			this->game.run(level);
 		}
+		else throw theseus::engine::EndOfTime();
+
 	}
 }
 
@@ -328,6 +328,7 @@ bool ScenesManager::loadLevel2() {
 	scene->setCamera(man_ptr);
 
 	this->game.run(*(scene));
+	this->loadPause(*(scene));
 	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
@@ -388,6 +389,7 @@ bool ScenesManager::loadLevel3() {
 	scene->setCamera(man_ptr);
 
 	this->game.run(*(scene));
+	this->loadPause(*(scene));
 	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
@@ -449,6 +451,7 @@ bool ScenesManager::loadLevel4() {
 	scene->setCamera(man_ptr);
 
 	this->game.run(*(scene));
+	this->loadPause(*(scene));
 	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
@@ -512,6 +515,7 @@ bool ScenesManager::loadLevel5() {
 	scene->setCamera(man_ptr);
 
 	this->game.run(*(scene));
+	this->loadPause(*(scene));
 	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
@@ -574,6 +578,7 @@ bool ScenesManager::loadLevel6() {
 	scene->setCamera(man_ptr);
 
 	this->game.run(*(scene));
+	this->loadPause(*(scene));
 	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;

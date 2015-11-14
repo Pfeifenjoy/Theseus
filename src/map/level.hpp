@@ -11,6 +11,7 @@ namespace map {
 		public:
 			sf::Keyboard::Key getLastKey();
 			void handleKeyDownEvent(sf::Keyboard::Key);
+			void setUnfinished();
 	};
 }
 }
