@@ -114,7 +114,7 @@ void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
 	// start exmatriculation process
 	exmatricualtionProcessActive = true;
 
-	if (this->inventoryItem != this->maxInventoryItems && exmatriculationTime >= EXMATRICULATION_TIME) {
+	if (this->inventoryItem >= this->maxInventoryItems && exmatriculationTime >= EXMATRICULATION_TIME) {
 
 		// reset timers
 		exmatriculationTime = 0;
