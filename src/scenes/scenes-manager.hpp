@@ -19,7 +19,6 @@ namespace scenes {
 			float playedTime;
 			int lifePoints = 3;
 			bool male;
-			bool closed = false;
 
 		public:
 			//ScenesManager();

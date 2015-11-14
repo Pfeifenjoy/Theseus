@@ -1,6 +1,7 @@
 #include "game.hpp"
 #include "scene.hpp"
 #include "../scenes/menu.hpp"
+#include "end-of-Time.hpp"
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
 #include <iostream>
@@ -47,7 +48,7 @@ bool Game::run(Scene& scene)
 		{
 			// window closed?
 			if (event.type == sf::Event::Closed) {
-				exit = true;
+				throw theseus::engine::EndOfTime();
 			}
 
 			// handle event
