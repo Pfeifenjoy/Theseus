@@ -130,24 +130,24 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 	}
 
 	sf::Vector2i next(0, 0);
-	do {
-		//cout << "next: " << next.x << ", " << next.y << endl;
-		int number = rand() % 9;
-
-		switch (number)
-		{
-			case 0: next = sf::Vector2i( 0, 0); break; // NPC is not moving
-			case 1: next = sf::Vector2i(-1, 0); break; // NPC is moving left
-			case 2: next = sf::Vector2i( 1, 0); break; // NPC is moving right
-			case 3: next = sf::Vector2i(0, -1); break; // NPC is moving up
-			case 4: next = sf::Vector2i( 0, 1); break; // NPC is moving down
-			case 5: next = sf::Vector2i(-1,-1); break; // NPC is moving left up
-			case 6: next = sf::Vector2i(1, -1); break; // NPC is moving right up
-			case 7: next = sf::Vector2i(-1, 1); break; // NPC is moving left down
-			case 8: next = sf::Vector2i( 1, 1); break; // NPC is moving right down
-		}
-		//cout << "ja" << next.x << next.y<< endl;
-	} while (this->map->map[position.x + next.x][position.y + next.y] == false);
+//	do {
+//		//cout << "next: " << next.x << ", " << next.y << endl;
+//		int number = rand() % 9;
+//
+//		switch (number)
+//		{
+//			case 0: next = sf::Vector2i( 0, 0); break; // NPC is not moving
+//			case 1: next = sf::Vector2i(-1, 0); break; // NPC is moving left
+//			case 2: next = sf::Vector2i( 1, 0); break; // NPC is moving right
+//			case 3: next = sf::Vector2i(0, -1); break; // NPC is moving up
+//			case 4: next = sf::Vector2i( 0, 1); break; // NPC is moving down
+//			case 5: next = sf::Vector2i(-1,-1); break; // NPC is moving left up
+//			case 6: next = sf::Vector2i(1, -1); break; // NPC is moving right up
+//			case 7: next = sf::Vector2i(-1, 1); break; // NPC is moving left down
+//			case 8: next = sf::Vector2i( 1, 1); break; // NPC is moving right down
+//		}
+//		//cout << "ja" << next.x << next.y<< endl;
+//	} while (this->map->map[position.x + next.x][position.y + next.y] == false);
 
 	return next;
 //----------------------------------------------------------------------------------------------------
@@ -316,6 +316,7 @@ std::set<pair<int, float> > Seaker::getEdges(int node) {
 	for(int i = 0; i < 8; i++) {
 		if(x + d.x >= 0 && x + d.x < size && y + d.y >= 0 && y + d.y < size && this->map->map[x + d.x][y+d.y]){
 			float length = abs(d.x) + abs(d.y) > 1 ? 1.4 : 1;
+			//float length = sqrt((d.x * Brick::WIDTH)*(d.x * Brick::WIDTH) + (d.y * Brick::HEIGHT)*(d.y * Brick::HEIGHT));
 			edges.insert(pair<int,int>(x+d.x + (y+d.y)*size, length));
 		}
 		d = next(d);
