@@ -12,7 +12,6 @@ namespace engine
 	class GameObject : public virtual components::Base
 	{
 	public:
-		//---- Constructors / Destructor --------------------------------------------------------------------------
 		virtual ~GameObject();
 	};
 }

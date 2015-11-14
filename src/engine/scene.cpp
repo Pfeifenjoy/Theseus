@@ -228,6 +228,10 @@ void Scene::handleUpdateEvent(float timePassed)
 		auto element = *position;
 		needsRegistrationUpdate_previous.erase(position);
 		element->refreshComponentRegistrations(*this);
+		if (element->needsDestruction())
+		{
+			removeGameObject(dynamic_cast<GameObject*>(element));
+		}
 	}
 }
 
