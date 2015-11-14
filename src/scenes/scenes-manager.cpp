@@ -472,6 +472,7 @@ bool ScenesManager::loadLevel5() {
 	int x = 0;
 	for (x = 0; x < 50; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
+		npc->setExmatriculate();
 		level->addFreeGameObject(move(npc));
 	}
 
@@ -533,6 +534,7 @@ bool ScenesManager::loadLevel6() {
 	int x = 0;
 	for (x = 0; x < 100; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
+		npc->setExmatriculate();
 		level->addFreeGameObject(move(npc));
 	}
 

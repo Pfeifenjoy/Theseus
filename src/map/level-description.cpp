@@ -72,3 +72,4 @@ void LevelDescription::setProf(unique_ptr<theseus::engine::components::Seaker> p
 unique_ptr<theseus::engine::components::Seaker> LevelDescription::getProf() {
 	return move(this->prof);
 }
+
