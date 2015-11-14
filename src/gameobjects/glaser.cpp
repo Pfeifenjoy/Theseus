@@ -19,8 +19,8 @@ using namespace theseus::engine;
 
 Glaser::Glaser()
 {
-	evOnUpdate.subscribe(bind(&Glaser::onUpdate, this, _1));
-	evCollisionDetected.subscribe(bind(&Glaser::onCollision, this, _1));
+//	evOnUpdate.subscribe(bind(&Glaser::onUpdate, this, _1));
+//	evCollisionDetected.subscribe(bind(&Glaser::onCollision, this, _1));
 
 	// texture
 	setTexture(2, TextureManager::instance().getTexture("charset_level_2.png"));
@@ -28,31 +28,31 @@ Glaser::Glaser()
 	// autotalk
 	this->startAutoSpeech({ { "0110100001101001", "Schon wieder keine Kreide.", "AND oder NAND?", "XOR, NOR oder OR?" } }, 3, 10, 40, true, true);
 }
-
+/*
 void Glaser::onCollision(const components::Solide&)
 {
-	changeDirection();
+	//changeDirection();
 }
-
-void Glaser::changeDirection()
-{
-	auto direction = nextDirection();
-	setDirection(direction);
-}
-
+*/
+//void Glaser::changeDirection()
+//{
+	//auto direction = nextDirection();
+	//setDirection(direction);
+//}
+/*<NOP> 
 void Glaser::onUpdate(float time)
 {
-	time_passed += time;
+	//time_passed += time;
 
-	if (time_passed > 0.2)
-	{
-		time_passed = 0;
-		changeDirection();
-	}
+	//if (time_passed > 0.2)
+	//{
+	//	time_passed = 0;
+	//	changeDirection();
+	//}
 
 
 }
-
+*/
 
 
 Glaser::~Glaser()

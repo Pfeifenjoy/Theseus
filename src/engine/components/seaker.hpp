@@ -28,8 +28,9 @@ namespace components {
 			sf::Vector2<int> getPosition(int position);
 			sf::Vector2<int> getPosition(sf::Vector2<int>);
 			sf::Vector2<int> next(sf::Vector2<int>);
+			sf::Vector2<int> goal;
 		protected:
-			sf::Vector2<int> nextDirection();
+			sf::Vector2<int> nextDirection(sf::Vector2f goal, int radius);
 		public:
 			void setMap(theseus::map::Map *map);
 	};

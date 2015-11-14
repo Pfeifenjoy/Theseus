@@ -14,6 +14,7 @@
 #include "../messages/interact.hpp"
 #include "../messages/updatecaffeinelevel.hpp"
 #include "../messages/updateitemcounter.hpp"
+#include "../messages/attrack.hpp"
 #include "../map/map.hpp"
 #include "../gameobjects/student.hpp"
 #include <SFML/System.hpp>
@@ -31,7 +32,7 @@ namespace theseus
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateCaffeineLevel>
 			, public virtual engine::components::MessageSender<theseus::messages::Interact>
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateItemCounter>
-
+			, public virtual engine::components::MessageSender<theseus::messages::Attrack>
 		{
 		private:
 			// events

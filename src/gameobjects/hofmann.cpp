@@ -36,8 +36,8 @@ void Hofmann::onCollision(const components::Solide&)
 
 void Hofmann::changeDirection()
 {
-	auto direction = nextDirection();
-	setDirection(direction);
+//	auto direction = nextDirection();
+//	setDirection(direction);
 }
 
 void Hofmann::onUpdate(float time)

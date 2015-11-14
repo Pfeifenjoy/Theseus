@@ -19,8 +19,8 @@ using namespace theseus::messages;
 
 Runge::Runge()
 {
-	evOnUpdate.subscribe(bind(&Runge::onUpdate, this, _1));
-	evCollisionDetected.subscribe(bind(&Runge::onCollision, this, _1));
+	//evOnUpdate.subscribe(bind(&Runge::onUpdate, this, _1));
+	//evCollisionDetected.subscribe(bind(&Runge::onCollision, this, _1));
 
 	// texture
 	setTexture(2, TextureManager::instance().getTexture("charset_level_1.png"));
@@ -29,34 +29,34 @@ Runge::Runge()
 	this->startAutoSpeech({ { "Wo ist meine CD?", "Komm her, ich tu dir nichts!", "Komm her, ich schmeiss dich raus!", "Hm?" } }, 3, 10, 40, true, true);
 }
 
-void Runge::onCollision(const components::Solide&)
-{
-	changeDirection();
-}
-
-
-void Runge::changeDirection()
-{
-	auto direction = nextDirection();
-	setDirection(direction);
-}
-
-void Runge::onUpdate(float time)
-{
-	time_passed += time;
-
-	if (time_passed > 0.2)
-	{
-		time_passed = 0;
-		changeDirection();
-	}
-
-	// send exmatriculation message
-	Exmatriculation exmatriculation;
-	exmatriculation.setProfessorSended();
-	MessageSender<Exmatriculation>::sendMessage(exmatriculation, 85, 85);
-
-}
+//void Runge::onCollision(const components::Solide&)
+//{
+//	changeDirection();
+//}
+//
+//
+//void Runge::changeDirection()
+//{
+//	//auto direction = nextDirection();
+//	//setDirection(direction);
+//}
+//
+//void Runge::onUpdate(float time)
+//{
+//	time_passed += time;
+//
+//	if (time_passed > 0.2)
+//	{
+//		time_passed = 0;
+//		changeDirection();
+//	}
+//
+//	// send exmatriculation message
+//	Exmatriculation exmatriculation;
+//	exmatriculation.setProfessorSended();
+//	MessageSender<Exmatriculation>::sendMessage(exmatriculation, 85, 85);
+//
+//}
 
 
 Runge::~Runge()

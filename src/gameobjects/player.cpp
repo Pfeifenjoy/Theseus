@@ -98,8 +98,11 @@ void Player::onUpdate(float timePassed)
 		direction.y += 1;
 	setDirection(direction);
 
-	if(this->map != nullptr)
-		this->map->updatePlayerPosition(this->getPosition() + getCollisionAreaTopLeft() + getCollisionAreaBottomRight() / (float)2.);
+	// Attrack professors
+	Attrack attraction;
+	attraction.position = getPosition();
+	attraction.priority = 3;
+	MessageSender<Attrack>::sendMessage(attraction, 300, 300);
 }
 
 void Player::exmatriculationDone() {

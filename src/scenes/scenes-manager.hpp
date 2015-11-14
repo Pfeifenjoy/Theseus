@@ -10,6 +10,7 @@
 #include "../gameobjects/player.hpp"
 #include "../gameobjects/timer.hpp"
 #include "../gameobjects/timer.hpp"
+#include "../map/level.hpp"
 
 namespace theseus {
 namespace scenes {
@@ -38,6 +39,7 @@ namespace scenes {
 			bool loadLevel5();
 			bool loadLevel6();
 			bool startLevel();
+			void loadPause(theseus::map::Level&);
 			bool evaluateLevel(theseus::gameobjects::Player&, theseus::gameobjects::Timer&);
 			void setHud(theseus::engine::Scene&, std::unique_ptr<theseus::gameobjects::Timer>, std::string itemPictureName);
 	};
