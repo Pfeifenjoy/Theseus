@@ -282,23 +282,45 @@ std::set<pair<int, float> > Seaker::getEdges(int node) {
 	int size = this->map->map.size();
 	int x = node % size;
 	int y = node / size;
+	auto goal = getPosition(this->map->getGoal());
 
-	if(y-1 > 0 && x - 1 > 0 && this->map->map[x-1][y-1])
-		edges.insert(pair<int, int> (x-1 + (y-1) * this->map->map.size(), 1.4));
-	if(y-1 > 0 && this->map->map[x][y-1])
-		edges.insert(pair<int, int> (x + (y-1) * this->map->map.size(), 1));
-	if(y-1 > 0 && x + 1 < size && this->map->map[x+1][y-1])
-		edges.insert(pair<int, int> (x+1 + (y-1) * this->map->map.size(), 1.4));
-	if(x - 1 > 0 && this->map->map[x-1][y])
-		edges.insert(pair<int, int> (x-1 + (y) * this->map->map.size(), 1));
-	if(x + 1 < size && this->map->map[x+1][y])
-		edges.insert(pair<int, int> (x+1 + (y) * this->map->map.size(), 1));
-	if(y + 1 < size && x - 1 > 0 && this->map->map[x-1][y+1])
-		edges.insert(pair<int, int> (x-1 + (y+1) * this->map->map.size(), 1.4));
-	if(y + 1 < size && this->map->map[x][y+1])
-		edges.insert(pair<int, int> (x + (y+1) * this->map->map.size(), 1.4));
-	if(y + 1 < size && x + 1 < size && this->map->map[x+1][y+1])
-		edges.insert(pair<int, int> (x+1 + (y+1) * this->map->map.size(), 1.4));
+	sf::Vector2<int> d;
+	if(goal.x - x > 0)
+	   d.x = 1;
+	else if (goal.x - x < 0)
+		d.x = -1;
+	else d.x = 0;
+
+	if(goal.y - y > 0)
+		d.y = 1;
+	else if(goal.y - y < 0)
+		d.y = -1;
+	else d.y = 0;
+
+	for(int i = 0; i < 8; i++) {
+		if(x + d.x >= 0 && x + d.x < size && y + d.y >= 0 && y + d.y < size && this->map->map[x + d.x][y+d.y])
+			edges.insert(pair<int,int>(x+d.x + (y+d.y)*size, 1));
+		d = next(d);
+	}
+
+
+
+//	if(y-1 > 0 && x - 1 > 0 && this->map->map[x-1][y-1])
+//		edges.insert(pair<int, int> (x-1 + (y-1) * this->map->map.size(), 1.4));
+//	if(y-1 > 0 && this->map->map[x][y-1])
+//		edges.insert(pair<int, int> (x + (y-1) * this->map->map.size(), 1));
+//	if(y-1 > 0 && x + 1 < size && this->map->map[x+1][y-1])
+//		edges.insert(pair<int, int> (x+1 + (y-1) * this->map->map.size(), 1.4));
+//	if(x - 1 > 0 && this->map->map[x-1][y])
+//		edges.insert(pair<int, int> (x-1 + (y) * this->map->map.size(), 1));
+//	if(x + 1 < size && this->map->map[x+1][y])
+//		edges.insert(pair<int, int> (x+1 + (y) * this->map->map.size(), 1));
+//	if(y + 1 < size && x - 1 > 0 && this->map->map[x-1][y+1])
+//		edges.insert(pair<int, int> (x-1 + (y+1) * this->map->map.size(), 1.4));
+//	if(y + 1 < size && this->map->map[x][y+1])
+//		edges.insert(pair<int, int> (x + (y+1) * this->map->map.size(), 1.4));
+//	if(y + 1 < size && x + 1 < size && this->map->map[x+1][y+1])
+//		edges.insert(pair<int, int> (x+1 + (y+1) * this->map->map.size(), 1.4));
 	return edges;
 }
 
@@ -316,6 +338,35 @@ std::vector<int> Seaker::constructPath(int source, int goal, std::map<int, int> 
 
 sf::Vector2<int> Seaker::getPosition(int position) {
 	return sf::Vector2<int> (position % this->map->map.size(), position / this->map->map.size());
+}
+
+sf::Vector2<int> Seaker::next(sf::Vector2<int> c) {
+//	if(c.x == 0 && c.y == -1)
+//		return sf::Vector2<int> (1, 0);
+//	if(c.x == 1 && c.y == 0)
+//		return sf::Vector2<int> (0, 1);
+//	if(c.x == 0 && c.y == 1)
+//		return sf::Vector2<int> (-1, 0);
+//	if(c.x == -1 && c.y == 0)
+//		return sf::Vector2<int> (0, -1);
+
+	if(c.x == -1 && c.y == -1)
+		return sf::Vector2<int> (0, -1);
+	if(c.x == 0 && c.y == -1)
+		return sf::Vector2<int> (1, -1);
+	if(c.x == 1 && c.y == -1)
+		return sf::Vector2<int> (1, 0);
+	if(c.x == 1 && c.y == 0)
+		return sf::Vector2<int> (1,1);
+	if(c.x == 1 && c.y == 1)
+		return sf::Vector2<int> (0, 1);
+	if(c.x == 0 && c.y == 1)
+		return sf::Vector2<int> (-1, 1);
+	if(c.x == -1 && c.y == 1)
+		return sf::Vector2<int> (-1, 0);
+	if(c.x == -1 && c.y == 0)
+		return sf::Vector2<int> (-1,-1);
+	return sf::Vector2<int>(0,0); //This will never happen
 }
 
 sf::Vector2<int> Seaker::getPosition(sf::Vector2<int> position) {
