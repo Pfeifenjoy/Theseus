@@ -134,18 +134,14 @@ bool ScenesManager::loadStart() {
 	if (menu.getLastKeyEvent() != sf::Keyboard::Return)
 		return false;
 	switch (menu.getSelectedItemIndex()) {
-	//case 0: this->selectCharacter(); break;
-	//case 1: break;
-	//case 2: break;
-		case 0: return true;
-		case 1: return false;
+	case 0: this->selectCharacter(); return true;
+	case 1: return false;
 	}
 	return false;
 }
-/*
-void ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
-{
 
+bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
+{
 	vector<string> buttonsCharacter;
 
 	buttonsCharacter.push_back("Male");
@@ -154,13 +150,12 @@ void ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 	this->game.run(selectPlayer);
 
 	if (selectPlayer.getLastKeyEvent() != sf::Keyboard::Return)
-		return;
+		return false;
 	switch (selectPlayer.getSelectedItemIndex()) {
-	case 0: this->loadLevel1(); break;
-	case 1: this->loadLevel1(); break;
-	case 2: break;
+	case 0: return true;
+	case 1: return true;
 	}
-}*/
+}
 
 
 bool ScenesManager::loadLevel1() {

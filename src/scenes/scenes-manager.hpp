@@ -21,14 +21,15 @@ namespace scenes {
 		public:
 			//ScenesManager();
 
+			int *chosenPlayerTexture;
 			bool loadStart();
 			void loadHighScore();
 
 			void run();
 
-			//void selectCharacter(); // added by Leon Mutschke on 13.11.15
+			bool selectCharacter(); // added by Leon Mutschke on 13.11.15
 
-
+			
 			bool loadLevel1();
 			bool loadLevel2();
 			bool loadLevel3();
