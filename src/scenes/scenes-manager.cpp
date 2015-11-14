@@ -556,5 +556,7 @@ void ScenesManager::setHud(theseus::engine::Scene& scene, std::unique_ptr<theseu
 
 void ScenesManager::loadHighScore() {
 	theseus::scenes::Highscore highscore(game.getScreenResolution().x, game.getScreenResolution().y, playedTime);
-	game.run(highscore);
+	if(game.run(highscore)) {
+		this->closed = true;
+	}
 }

@@ -55,7 +55,7 @@ Highscore::Highscore(int screenWidth, int screenHeigth, float time)
 void Highscore::handleKeyDownEvent(sf::Keyboard::Key key)
 {
 	if (key == sf::Keyboard::Space) {
-		cout << "Ich soll mich beenden..." << endl;
+		this->finished = true;
 	}
 
 }
