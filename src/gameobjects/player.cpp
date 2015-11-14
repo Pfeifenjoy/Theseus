@@ -34,6 +34,9 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	evOnUpdate.subscribe(bind(&Player::onUpdate, this, _1));
 	evKeyDown.subscribe(bind(&Player::keyPressed, this, _1));
 
+	// Subscribe for Exmatriculation message
+	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Player::exmatriculation, this, _1));
+
 	// Update the HUD
 	updateCaffeineLevel();
 	updateItemCounter();
@@ -98,13 +101,14 @@ void Player::onUpdate(float timePassed)
 	// Attrack professors
 	Attrack attraction;
 	attraction.position = getPosition();
+	attraction.position.x += 0.5 * this->getCollisionAreaTopLeft().x + 0.5 * this->getCollisionAreaBottomRight().x;
+	attraction.position.y += 0.5 * this->getCollisionAreaTopLeft().y + 0.5 * this->getCollisionAreaBottomRight().y;
 	attraction.priority = 3;
 	MessageSender<Attrack>::sendMessage(attraction, 300, 300);
 }
 
 void Player::exmatriculationDone() {
-	cout << "exmatriculated" << endl;
-	if (this->inventoryItem >= this->maxInventoryItems) {
+	if (this->inventoryItem < this->maxInventoryItems) {
 
 		if (this->lifePoints <= 1) {
 			this->lifePoints = 0;
@@ -117,7 +121,7 @@ void Player::exmatriculationDone() {
 			updateLifePoints();
 		}
 	}
-	else if(this->professorSendedExmatriculationMessage && this->inventoryItem == this->maxInventoryItems) {
+	else if(this->professorSendedExmatriculationMessage && this->inventoryItem >= this->maxInventoryItems) {
 		// You won the level - register for scene access
 		evUpdateComponentRegistrations.subscribe(std::bind(&Player::endScene, this, _1));
 	}

@@ -2,17 +2,11 @@
 *  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser
 */
 
-
 #ifndef _THESEUS_GAME_OBJECTS_NPC_H
 #define _THESEUS_GAME_OBJECTS_NPC_H
 
-#include "../engine/gameobject.hpp"
-#include "../engine/components/update.hpp"
-#include "../engine/components/animation.hpp"
-#include "../engine/components/speed.hpp"
-#include "../engine/components/messagereceiver.hpp"
 #include "../engine/components/messagesender.hpp"
-#include "../messages/exmatriculation.hpp"
+#include "../gameobjects/student.hpp"
 #include <SFML/System.hpp>
 #include "character.hpp"
 
@@ -21,11 +15,10 @@ namespace theseus
 	namespace gameobjects
 	{
 		class NPC
-			: public Character
+			: public Student
 			, public virtual engine::components::Update
 			, public virtual engine::components::Animation
 			, public virtual engine::components::Speed
-			, public virtual engine::components::MessageReceiver<theseus::messages::Exmatriculation>
 			, public virtual engine::components::MessageSender<theseus::messages::Exmatriculation>
 		{
 		private:
@@ -38,6 +31,8 @@ namespace theseus
 			bool exmatriculatedBool;
 			bool exmatriculate;
 
+			void exmatriculationDone();
+
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
@@ -47,7 +42,6 @@ namespace theseus
 
 			virtual ~NPC();
 
-			void exmatriculated();
 
 			void setExmatriculate();
 		};

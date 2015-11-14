@@ -22,6 +22,7 @@ int main()
 	TextureManager::instance().loadTexture("player_fem.png");
 	TextureManager::instance().loadTexture("player2.png");
 	TextureManager::instance().loadTexture("player2_infected.png");
+	TextureManager::instance().loadTexture("bar.png");
 	//texture professor ------------------------------------------------------------
 	TextureManager::instance().loadTexture("charset_level_1.png");
 	TextureManager::instance().loadTexture("charset_level_2.png");

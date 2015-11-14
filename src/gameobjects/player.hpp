@@ -55,7 +55,6 @@ namespace theseus
 			
 			bool genderMale = true;
 
-		protected:
 			void exmatriculationDone();
 
 		public:
@@ -66,7 +65,7 @@ namespace theseus
 			//---- Destructor ---------------------------------------------------------------------------------------
 
 			virtual ~Player();
-
+			
 
 			// Methods
 			void decrementLifePoints();

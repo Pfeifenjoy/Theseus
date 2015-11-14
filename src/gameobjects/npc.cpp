@@ -28,7 +28,8 @@ NPC::NPC()
 	// texture
 	setTexture(2, TextureManager::instance().getTexture("player2.png"));
 
-	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&NPC::exmatriculated, this));
+	// Subscribe for Exmatriculation message
+	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&NPC::exmatriculation, this, _1));
 	
 	// autotalk
 	this->startAutoSpeech( {{ "Hallo!", "Wie geht's?", "Exmatrikulier mich nicht!", "Was ist mit den Professoren los?" }}, 3, 10, 40, true, true);
@@ -39,7 +40,8 @@ void NPC::onCollision(const components::Solide&)
 	changeDirection();
 }
 
-void NPC::exmatriculated() {
+void NPC::exmatriculationDone() {
+	setExmatriculationable(false);
 	exmatriculatedBool = true;
 	setTexture(2, TextureManager::instance().getTexture("player2_infected.png"));
 }
