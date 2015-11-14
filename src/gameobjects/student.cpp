@@ -12,6 +12,7 @@ using namespace theseus::engine;
 using namespace theseus::messages;
 
 const float EXMATRICULATION_VALUE = 100;
+const float EXMATRICULATION_TIME = 2;
 
 Student::Student() {
 
@@ -28,8 +29,8 @@ Student::~Student() {
 }
 
 void Student::exmatriculation(const theseus::messages::Exmatriculation& message) {
-	exmatricualtionProcessActive = true;
-	//exmatriculationProcess -= 
+	exmatricualtionProcessActive = EXMATRICULATION_TIME;
+	// exmatriculationProcess -= 
 	// Show Processbar
 
 	if (exmatriculationProcess <= 0) {

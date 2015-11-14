@@ -29,7 +29,7 @@ namespace theseus
 		{
 		private:
 			float exmatriculationProcess;
-			bool exmatricualtionProcessActive;			
+			float exmatricualtionProcessActive;			
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
