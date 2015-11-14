@@ -28,10 +28,13 @@ void Professor::onAttrack(const Attrack& attraction)
 
 void Professor::onUpdate(float timePassed)
 {
+	stopIdle();
+
 	if (mode == Mode::rage)
 	{
 		// test if the rage mode has timed out
 		timeToCalmDown -= timePassed;
+		changeDirectionTimeout -= timePassed;
 		if (timeToCalmDown < 0)
 		{
 			mode = Mode::idle;
@@ -45,15 +48,18 @@ void Professor::onUpdate(float timePassed)
 		sendMessage(exmatriculation, exmatriculation_radius, exmatriculation_radius);
 
 		// retarget the movement
-		auto direction = nextDirection(destination, 15);	
-		setDirection(direction);
-		setSpeedMultiplier(rageSpeedFactor);
+		if (changeDirectionTimeout < 0)
+		{
+			changeDirectionTimeout = 0.1;
+			auto direction = nextDirection(destination, 15);	
+			setDirection(direction);
+			setSpeedMultiplier(rageSpeedFactor);
+		}
 	}
 	else if (mode == Mode::idle)
 	{
-		// TODO: idle around
 		setSpeedMultiplier(1);
-		setDirection(sf::Vector2i(0, 0));
+		startIdle();
 	}
 }
 

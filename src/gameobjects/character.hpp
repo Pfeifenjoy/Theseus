@@ -48,6 +48,12 @@ namespace gameobjects
 		std::vector<std::string>::iterator as_position;
 		float as_currentPause;
 
+		//idle around
+		bool idleActive = false;
+		float directionTimeout = 2;
+		void changeDirection();
+		void onCollision(const engine::components::Solide&);
+
 		// called on the update event.
 		void onUpdate(float passedTime);
 
@@ -81,6 +87,9 @@ namespace gameobjects
 		// shuffle: whether to randomize the order of the sentences
 		void startAutoSpeech(const std::vector<std::string>& sentences, float duration, float minPause, float maxPause, bool loop, bool shuffle);
 
+		// Start and stop IDLEing
+		void startIdle();
+		void stopIdle();
 	};
 }
 }

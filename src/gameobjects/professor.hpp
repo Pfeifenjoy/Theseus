@@ -38,6 +38,7 @@ namespace gameobjects
 			int destination_priority = 0; 	// the priority of the current destination (the player usually has a higher priority than other students)
 			float rageSpeedFactor = 1.5; 	// the factor that the professor is fater, when he has a good target (is in rage mode).
 			float timeToCalmDown; 		// time that is left until the prof falls back to IDLE mode.
+			float changeDirectionTimeout = 0;
 
 			// exmatriculation		
 			float exmatriculation_radius = 100; 	// where the exmatriculation message is sent to
