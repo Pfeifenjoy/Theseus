@@ -44,17 +44,30 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	updateItemCounter();
 	updateLifePoints();
 
-	// texture
-	int i = 0;
-	switch (i) {
-	case 0: setTexture(2, TextureManager::instance().getTexture("player.png")); break;
-	case 1: setTexture(2, TextureManager::instance().getTexture("player_fem.png")); break;
-	}
+	// texturea
+		//int i = 0;
+		/*switch (i) {
+		case 0: setTexture(2, TextureManager::instance().getTexture("player.png")); break;
+		case 1: setTexture(2, TextureManager::instance().getTexture("player_fem.png")); break;
+		}*/
+	setMale(genderMale);
+
+	//setTexture(2, TextureManager::instance().getTexture("player.png"));
+
 	
 	
 
 	// camera
 	view().setCenter(0, 0);
+
+}
+
+void Player::setMale(bool male) {
+	setTexture(2, TextureManager::instance().getTexture("player.png"));
+	if (male == false)
+	{
+		setTexture(2, TextureManager::instance().getTexture("player_fem.png"));
+	}
 
 }
 
@@ -186,6 +199,8 @@ void Player::updateLifePoints() {
 void Player::setMap(theseus::map::Map *map) {
 	this->map = map;
 }
+
+
 
 Player::~Player()
 {}

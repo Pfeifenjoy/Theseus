@@ -18,10 +18,10 @@ namespace scenes {
 			theseus::engine::Game game;
 			float playedTime;
 			int lifePoints = 3;
+			bool male;
 		public:
 			//ScenesManager();
 
-			int *chosenPlayerTexture;
 			bool loadStart();
 			void loadHighScore();
 

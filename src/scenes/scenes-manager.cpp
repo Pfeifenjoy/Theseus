@@ -146,14 +146,14 @@ bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 
 	buttonsCharacter.push_back("Male");
 	buttonsCharacter.push_back("Female");
-	CharacterSelection selectPlayer(buttonsCharacter, &(this->game));
-	this->game.run(selectPlayer);
+	Menu menu(buttonsCharacter, &(this->game));
+	this->game.run(menu);
 
-	if (selectPlayer.getLastKeyEvent() != sf::Keyboard::Return)
+	if (menu.getLastKeyEvent() != sf::Keyboard::Return)
 		return false;
-	switch (selectPlayer.getSelectedItemIndex()) {
-	case 0: return true;
-	case 1: return true;
+	switch (menu.getSelectedItemIndex()) {
+	case 0: return male=true;
+	case 1: return male=false;
 	}
 }
 
@@ -193,6 +193,7 @@ bool ScenesManager::loadLevel1() {
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
 	level->setPlayer(move(man));
+	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
@@ -244,6 +245,7 @@ bool ScenesManager::loadLevel2() {
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
 	level->setPlayer(move(man));
+	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
@@ -294,6 +296,7 @@ bool ScenesManager::loadLevel3() {
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
 	level->setPlayer(move(man));
+	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
@@ -346,6 +349,7 @@ bool ScenesManager::loadLevel4() {
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
 	level->setPlayer(move(man));
+	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
@@ -399,6 +403,7 @@ bool ScenesManager::loadLevel5() {
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
 	level->setPlayer(move(man));
+	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
@@ -450,6 +455,7 @@ bool ScenesManager::loadLevel6() {
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
 	level->setPlayer(move(man));
+	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));

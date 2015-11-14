@@ -57,7 +57,8 @@ namespace theseus
 			void updateCaffeineLevel();
 			void updateLifePoints();
 			theseus::map::Map* map;
-
+			
+			bool genderMale = true;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
@@ -85,6 +86,8 @@ namespace theseus
 			void exmatriculated(const theseus::messages::Exmatriculation& message);
 
 			void endScene(theseus::engine::Scene& scene);
+
+			void setMale(bool male);
 
 		};
 	}
