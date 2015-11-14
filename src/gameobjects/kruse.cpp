@@ -37,8 +37,8 @@ void Kruse::onCollision(const components::Solide&)
 
 void Kruse::changeDirection()
 {
-	auto direction = nextDirection();
-	setDirection(direction);
+	//auto direction = nextDirection();
+	//setDirection(direction);
 }
 
 void Kruse::onUpdate(float time)

@@ -37,8 +37,8 @@ void Huebl::onCollision(const components::Solide&)
 
 void Huebl::changeDirection()
 {
-	auto direction = nextDirection();
-	setDirection(direction);
+	//auto direction = nextDirection();
+	//setDirection(direction);
 }
 
 void Huebl::onUpdate(float time)

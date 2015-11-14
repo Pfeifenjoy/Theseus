@@ -105,6 +105,12 @@ void Player::onUpdate(float timePassed)
 	if (exmatricualtionProcessActive)
 		exmatriculationTime += timePassed;
 
+	// Attrack professors
+	Attrack attraction;
+	attraction.position = getPosition();
+	attraction.priority = 3;
+	MessageSender<Attrack>::sendMessage(attraction, 300, 300);
+
 }
 
 void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
