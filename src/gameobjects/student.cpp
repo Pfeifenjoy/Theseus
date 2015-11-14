@@ -3,7 +3,9 @@
 */
 
 #include <SFML/Graphics.hpp>
+#include "../engine/texturemanager.hpp"
 #include "../gameobjects/student.hpp"
+#include <cmath>
 
 using namespace std;
 using namespace std::placeholders;
@@ -17,13 +19,9 @@ const float EXMATRICULATION_TIME = 2;
 Student::Student() {
 
 	this->exmatriculationProgress = EXMATRICULATION_VALUE;
-	this->exmatricualtionProcessActive = EXMATRICULATION_TIME;
-	
-	exmatriculationDone();
+	this->exmatriculationProcessActive = EXMATRICULATION_TIME;
+	this->exmatriculationable = true;
 
-	// Subscribe for Exmatriculation message
-	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Student::exmatriculation, this, _1));
-	
 	// subscribe for update
 	evOnUpdate.subscribe(bind(&Student::onUpdate, this, _1));
 }
@@ -33,28 +31,41 @@ Student::~Student() {
 }
 
 void Student::onUpdate(float timePassed) {
-	if (exmatricualtionProcessActive - timePassed > 0) {
-		exmatricualtionProcessActive -= timePassed;
+	if (exmatriculationProcessActive - timePassed > 0) {
+		exmatriculationProcessActive -= timePassed;
 	}
 	else {
 		// Reset timers
 		exmatriculationProgress = EXMATRICULATION_VALUE;
-		exmatricualtionProcessActive = EXMATRICULATION_TIME;
+		exmatriculationProcessActive = EXMATRICULATION_TIME;
 
 		// Disable Progressbar
+		sprite(3).setTextureRect(sf::IntRect(0, 0, 0, 0));
 	}
 }
 
 void Student::exmatriculation(const theseus::messages::Exmatriculation& message) {
-	exmatricualtionProcessActive = EXMATRICULATION_TIME;
-	exmatriculationProgress -= message.getExmatriculationAmount();
-	professorSendedExmatriculationMessage = message.getProfessorSended();
-	// Show Progressbar
+	if (exmatriculationable) {
+		exmatriculationProcessActive = EXMATRICULATION_TIME;
+		//exmatriculationProgress -= message.setExmatriculationAmount;
+		exmatriculationProgress -= 1.5;
 
-	if (exmatriculationProgress <= 0) {
-		exmatriculationProgress = EXMATRICULATION_VALUE;
-		exmatriculationDone();		
+		professorSendedExmatriculationMessage = message.getProfessorSended();
+
+		// Show Progressbar
+		setTexture(3, TextureManager::instance().getTexture("bar.png"));
+		sprite(3).setTextureRect(sf::IntRect(0, 0, (int)round(exmatriculationProgress / (EXMATRICULATION_VALUE / 100)) / 2, 10));
+		sprite(3).setPosition(sf::Vector2f(-9, -10));
+
+		if (exmatriculationProgress <= 0) {
+			exmatriculationProgress = EXMATRICULATION_VALUE;
+			this->exmatriculationDone();
+		}
 	}
 }
 
-void Student::exmatriculationDone(){}
+void Student::setExmatriculationable(bool value) {
+	exmatriculationable = value;
+}
+
+void Student::exmatriculationDone() {}

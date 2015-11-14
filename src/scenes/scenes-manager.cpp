@@ -242,6 +242,7 @@ bool ScenesManager::loadLevel1() {
 	level->setPlayer(move(man));
 	man_ptr->setMale(male);
 
+
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
 	auto timer_ptr = timer.get();

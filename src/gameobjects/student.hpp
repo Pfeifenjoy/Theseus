@@ -27,18 +27,22 @@ namespace theseus
 			, public virtual engine::components::MessageReceiver<theseus::messages::Exmatriculation>
 
 		{
+		private:
+			void onUpdate(float timePassed);
+			
+			float exmatriculationProcessActive;
+			float exmatriculationProgress;
+
+			bool exmatriculationable;
+			
 		protected:
 			bool professorSendedExmatriculationMessage = false;
-			float exmatriculationProgress;
-			float exmatricualtionProcessActive;		
 
 			void exmatriculation(const theseus::messages::Exmatriculation& message);
 
-			virtual void onUpdate(float timePassed);
-
 			// Method will be called if student gets exmatriculated
 			virtual void exmatriculationDone();
-
+			
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
@@ -47,6 +51,8 @@ namespace theseus
 			//---- Destructor ---------------------------------------------------------------------------------------
 
 			virtual ~Student();
+
+			void setExmatriculationable(bool value);
 
 		};
 	}
