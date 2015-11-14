@@ -12,6 +12,7 @@
 #include "../engine/components/speed.hpp"
 #include <SFML/System.hpp>
 #include "character.hpp"
+#include "../engine/components/seaker.hpp"
 
 namespace theseus
 {
@@ -22,6 +23,7 @@ namespace theseus
 			, public virtual engine::components::Update
 			, public virtual engine::components::Animation
 			, public virtual engine::components::Speed
+			, public virtual engine::components::Seaker
 		{
 		private:
 			// events

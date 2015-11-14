@@ -218,7 +218,7 @@ bool ScenesManager::loadLevel2() {
 
 	//set professor Glaser
 	auto glaser = unique_ptr<Glaser>(new Glaser);
-	level->addFreeGameObject(move(glaser));
+	level->setProf(move(glaser));
 
 	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
 	auto man_ptr = man.get();
@@ -268,7 +268,7 @@ bool ScenesManager::loadLevel3() {
 
 	//set professor Huebl
 	auto huebl = unique_ptr<Huebl>(new Huebl);
-	level->addFreeGameObject(move(huebl));
+	level->setProf(move(huebl));
 
 	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
 	auto man_ptr = man.get();
@@ -320,7 +320,7 @@ bool ScenesManager::loadLevel4() {
 
 	//set professor Hofmann
 	auto hofmann = unique_ptr<Hofmann>(new Hofmann);
-	level->addFreeGameObject(move(hofmann));
+	level->setProf(move(hofmann));
 
 	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
 	auto man_ptr = man.get();
@@ -373,7 +373,7 @@ bool ScenesManager::loadLevel5() {
 
 	//set professor Kruse
 	auto kruse = unique_ptr<Kruse>(new Kruse);
-	level->addFreeGameObject(move(kruse));
+	level->setProf(move(kruse));
 
 	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
 	auto man_ptr = man.get();
@@ -424,7 +424,7 @@ bool ScenesManager::loadLevel6() {
 
 	//set professor Stroetmann
 	auto stroetmann = unique_ptr<Stroetmann>(new Stroetmann);
-	level->addFreeGameObject(move(stroetmann));
+	level->setProf(move(stroetmann));
 
 	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
 	auto man_ptr = man.get();

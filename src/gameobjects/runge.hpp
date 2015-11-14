@@ -23,7 +23,7 @@ namespace theseus
 			, public virtual engine::components::Update
 			, public virtual engine::components::Animation
 			, public virtual engine::components::Speed
-			, public engine::components::Seaker
+			, public virtual engine::components::Seaker
 			, public virtual engine::components::MessageSender<theseus::messages::Exmatriculation>
 		{
 		private:
