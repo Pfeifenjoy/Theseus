@@ -30,13 +30,8 @@ Chalk::Chalk() {
 
 void Chalk::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
-	evUpdateComponentRegistrations.subscribe(std::bind(&Chalk::removeMySelf, this, _1));
+	selfDestruct();
 }
-
-void Chalk::removeMySelf(Scene& scene) {
-	scene.removeGameObject(this);
-}
-
 
 Chalk::~Chalk() {
 }

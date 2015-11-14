@@ -30,11 +30,7 @@ UMLDiagramm::UMLDiagramm() {
 
 void UMLDiagramm::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
-	evUpdateComponentRegistrations.subscribe(std::bind(&UMLDiagramm::removeMySelf, this, _1));
-}
-
-void UMLDiagramm::removeMySelf(Scene& scene) {
-	scene.removeGameObject(this);
+	selfDestruct();
 }
 
 UMLDiagramm::~UMLDiagramm() {

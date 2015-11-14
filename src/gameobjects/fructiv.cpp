@@ -29,11 +29,7 @@ Fructiv::Fructiv() {
 
 void Fructiv::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
-	evUpdateComponentRegistrations.subscribe(std::bind(&Fructiv::removeMySelf, this, _1));
-}
-
-void Fructiv::removeMySelf(Scene& scene) {
-	scene.removeGameObject(this);
+	selfDestruct();
 }
 
 Fructiv::~Fructiv() {

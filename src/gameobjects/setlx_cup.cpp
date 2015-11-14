@@ -29,11 +29,7 @@ SetlxCup::SetlxCup() {
 
 void SetlxCup::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
-	evUpdateComponentRegistrations.subscribe(std::bind(&SetlxCup::removeMySelf, this, _1));
-}
-
-void SetlxCup::removeMySelf(Scene& scene) {
-	scene.removeGameObject(this);
+	selfDestruct();
 }
 
 SetlxCup::~SetlxCup() {

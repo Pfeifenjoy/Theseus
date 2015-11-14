@@ -28,13 +28,8 @@ CExam::CExam() {
 
 void CExam::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
-	evUpdateComponentRegistrations.subscribe(std::bind(&CExam::removeMySelf, this, _1));
+	selfDestruct();
 }
-
-void CExam::removeMySelf(Scene& scene) {
-	scene.removeGameObject(this);
-}
-
 
 CExam::~CExam() {
 }

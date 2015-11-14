@@ -29,11 +29,8 @@ ThrowingCup::ThrowingCup() {
 
 void ThrowingCup::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
-	evUpdateComponentRegistrations.subscribe(std::bind(&ThrowingCup::removeMySelf, this, _1));
+	selfDestruct();
 }
 
-void ThrowingCup::removeMySelf(Scene& scene) {
-	scene.removeGameObject(this);
-}
 ThrowingCup::~ThrowingCup() {
 }

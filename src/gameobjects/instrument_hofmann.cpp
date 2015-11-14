@@ -28,11 +28,7 @@ Instrument::Instrument() {
 
 void Instrument::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
-	evUpdateComponentRegistrations.subscribe(std::bind(&Instrument::removeMySelf, this, _1));
-}
-
-void Instrument::removeMySelf(Scene& scene) {
-	scene.removeGameObject(this);
+	selfDestruct();
 }
 
 Instrument::~Instrument() {
