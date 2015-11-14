@@ -202,7 +202,7 @@ bool ScenesManager::loadLevel1() {
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime()) {
+	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -254,7 +254,7 @@ bool ScenesManager::loadLevel2() {
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime()) {
+	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -305,7 +305,7 @@ bool ScenesManager::loadLevel3() {
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime()) {
+	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -358,7 +358,7 @@ bool ScenesManager::loadLevel4() {
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime()) {
+	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -412,7 +412,7 @@ bool ScenesManager::loadLevel5() {
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime()) {
+	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -464,7 +464,7 @@ bool ScenesManager::loadLevel6() {
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime()) {
+	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
