@@ -29,6 +29,8 @@ namespace components {
 			sf::Vector2<int> getPosition(sf::Vector2<int>);
 			sf::Vector2<int> next(sf::Vector2<int>);
 			sf::Vector2<int> goal;
+			bool inBrick = false;
+			sf::Vector2<int> lastField;
 		protected:
 			sf::Vector2<int> nextDirection(sf::Vector2f goal, int radius);
 		public:

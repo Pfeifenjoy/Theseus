@@ -34,7 +34,7 @@ namespace theseus
 			float time_passed = 0;
 			void onCollision(const theseus::engine::components::Solide&);
 			void changeDirection();
-			
+
 			bool exmatriculatedBool;
 			bool exmatriculate;
 
