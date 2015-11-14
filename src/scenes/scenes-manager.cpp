@@ -142,7 +142,7 @@ bool ScenesManager::loadStart() {
 	}
 	return false;
 }
-
+/*
 void ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 {
 
@@ -160,7 +160,7 @@ void ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 	case 1: this->loadLevel1(); break;
 	case 2: break;
 	}
-}
+}*/
 
 
 bool ScenesManager::loadLevel1() {
