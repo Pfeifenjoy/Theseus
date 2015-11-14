@@ -314,8 +314,10 @@ std::set<pair<int, float> > Seaker::getEdges(int node) {
 	else d.y = 0;
 
 	for(int i = 0; i < 8; i++) {
-		if(x + d.x >= 0 && x + d.x < size && y + d.y >= 0 && y + d.y < size && this->map->map[x + d.x][y+d.y])
-			edges.insert(pair<int,int>(x+d.x + (y+d.y)*size, 1));
+		if(x + d.x >= 0 && x + d.x < size && y + d.y >= 0 && y + d.y < size && this->map->map[x + d.x][y+d.y]){
+			float length = abs(d.x) + abs(d.y) > 1 ? 1.4 : 1;
+			edges.insert(pair<int,int>(x+d.x + (y+d.y)*size, length));
+		}
 		d = next(d);
 	}
 
