@@ -16,30 +16,45 @@ const float EXMATRICULATION_TIME = 2;
 
 Student::Student() {
 
-	this->exmatriculationProcess = EXMATRICULATION_VALUE;
-	this->exmatricualtionProcessActive = false;
+	this->exmatriculationProgress = EXMATRICULATION_VALUE;
+	this->exmatricualtionProcessActive = EXMATRICULATION_TIME;
+	
+	exmatriculationDone();
 
 	// Subscribe for Exmatriculation message
 	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Student::exmatriculation, this, _1));
-
+	
+	// subscribe for update
+	evOnUpdate.subscribe(bind(&Student::onUpdate, this, _1));
 }
 
 Student::~Student() {
 
 }
 
-void Student::exmatriculation(const theseus::messages::Exmatriculation& message) {
-	exmatricualtionProcessActive = EXMATRICULATION_TIME;
-	// exmatriculationProcess -= 
-	// Show Processbar
+void Student::onUpdate(float timePassed) {
+	if (exmatricualtionProcessActive - timePassed > 0) {
+		exmatricualtionProcessActive -= timePassed;
+	}
+	else {
+		// Reset timers
+		exmatriculationProgress = EXMATRICULATION_VALUE;
+		exmatricualtionProcessActive = EXMATRICULATION_TIME;
 
-	if (exmatriculationProcess <= 0) {
-		exmatriculationProcess = EXMATRICULATION_VALUE;
-		exmatriculationDone();
+		// Disable Progressbar
 	}
 }
 
-void Student::exmatriculationDone() {
+void Student::exmatriculation(const theseus::messages::Exmatriculation& message) {
+	exmatricualtionProcessActive = EXMATRICULATION_TIME;
+	exmatriculationProgress -= message.getExmatriculationAmount();
+	professorSendedExmatriculationMessage = message.getProfessorSended();
+	// Show Progressbar
 
+	if (exmatriculationProgress <= 0) {
+		exmatriculationProgress = EXMATRICULATION_VALUE;
+		exmatriculationDone();		
+	}
 }
 
+void Student::exmatriculationDone(){}
