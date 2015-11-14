@@ -111,7 +111,7 @@ void ScenesManager::run()
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, CONTROL);
 		if (this->game.run(Storytext)) return;
 	}
-	while(!this->closed) {
+	while(true) {
 		if(this->loadStart())
 		if(this->selectCharacter())
 		if(this->loadLevel1())
@@ -120,8 +120,6 @@ void ScenesManager::run()
 		if(this->loadLevel4())
 		if(this->loadLevel5())
 		if(this->loadLevel6()) {}
-
-		if(this->closed) break;
 
 		this->loadHighScore();
 	}
@@ -135,11 +133,7 @@ bool ScenesManager::loadStart() {
 	buttons.push_back("Start");
 	buttons.push_back("Quit");
 	Menu menu(buttons, &(this->game));
-	if(this->game.run(menu)) {
-		this->closed = true;
-		return false;
-	}
-
+	this->game.run(menu);
 
 	switch (menu.getSelectedItemIndex()) {
 	case 0: return true;
@@ -155,11 +149,7 @@ bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 	buttonsCharacter.push_back("Male");
 	buttonsCharacter.push_back("Female");
 	Menu menu(buttonsCharacter, &(this->game));
-	if(this->game.run(menu)) {
-		this->closed = true;
-		return false;
-	}
-
+	this->game.run(menu);
 
 	switch (menu.getSelectedItemIndex()) {
 		case 0: return male=true;
@@ -173,10 +163,7 @@ bool ScenesManager::loadLevel1() {
 
 	{
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL1);
-		if(this->game.run(Storytext)) {
-			this->closed = true;
-			return false;
-		}
+		this->game.run(Storytext);
 	}
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 80, Brick::HEIGHT * 40)));
@@ -221,8 +208,8 @@ bool ScenesManager::loadLevel1() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	this->closed = this->game.run(*(scene));
-	if(this->closed || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	this->game.run(*(scene));
+	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -237,10 +224,7 @@ bool ScenesManager::loadLevel2() {
 
 	{
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL2);
-		if(this->game.run(Storytext)) {
-			this->closed = true;
-			return false;
-		}
+		this->game.run(Storytext);
 	}
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 40)));
@@ -281,8 +265,8 @@ bool ScenesManager::loadLevel2() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	this->closed = this->game.run(*(scene));
-	if(this->closed || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	this->game.run(*(scene));
+	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -296,10 +280,7 @@ bool ScenesManager::loadLevel3() {
 
 	{
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL3);
-		if(this->game.run(Storytext)) {
-			this->closed = true;
-			return false;
-		}
+		this->game.run(Storytext);
 	}
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 50)));
@@ -341,8 +322,8 @@ bool ScenesManager::loadLevel3() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	this->closed = this->game.run(*(scene));
-	if(this->closed || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	this->game.run(*(scene));
+	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -356,10 +337,7 @@ bool ScenesManager::loadLevel4() {
 
 	{
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL4);
-		if(this->game.run(Storytext)) {
-			this->closed = true;
-			return false;
-		}
+		this->game.run(Storytext);
 	}
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
@@ -403,8 +381,8 @@ bool ScenesManager::loadLevel4() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	this->closed = this->game.run(*(scene));
-	if(this->closed || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	this->game.run(*(scene));
+	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -418,10 +396,7 @@ bool ScenesManager::loadLevel5() {
 
 	{
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL5);
-		if(this->game.run(Storytext)) {
-			this->closed = true;
-			return false;
-		}
+		this->game.run(Storytext);
 	}
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
@@ -466,8 +441,8 @@ bool ScenesManager::loadLevel5() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	this->closed = this->game.run(*(scene));
-	if(this->closed || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	this->game.run(*(scene));
+	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -482,10 +457,7 @@ bool ScenesManager::loadLevel6() {
 
 	{
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL6);
-		if(this->game.run(Storytext)) {
-			this->closed = true;
-			return false;
-		}
+		this->game.run(Storytext);
 	}
 
 
@@ -528,8 +500,8 @@ bool ScenesManager::loadLevel6() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	this->closed = this->game.run(*(scene));
-	if(this->closed || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	this->game.run(*(scene));
+	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -556,7 +528,5 @@ void ScenesManager::setHud(theseus::engine::Scene& scene, std::unique_ptr<theseu
 
 void ScenesManager::loadHighScore() {
 	theseus::scenes::Highscore highscore(game.getScreenResolution().x, game.getScreenResolution().y, playedTime);
-	if(game.run(highscore)) {
-		this->closed = true;
-	}
+	game.run(highscore);
 }
