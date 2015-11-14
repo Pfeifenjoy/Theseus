@@ -18,7 +18,7 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 	positiont.x += theseus::gameobjects::Brick::OFFSET;
 
 	sf::Vector2<int> position(floor(positiont.x / theseus::gameobjects::Brick::WIDTH), floor(positiont.y / theseus::gameobjects::Brick::HEIGHT));
-	auto goal = getPosition(sf::Vector2<int> (floor(target.x / theseus::gameobjects::Brick::WIDTH), floor(target.y / theseus::gameobjects::Brick::HEIGHT)));
+	goal = getPosition(sf::Vector2<int> (floor(target.x / theseus::gameobjects::Brick::WIDTH), floor(target.y / theseus::gameobjects::Brick::HEIGHT)));
 	position = getPosition(position);
 	int size = this->map->map.size();
 	int source = position.x + position.y * size;
@@ -283,7 +283,6 @@ std::set<pair<int, float> > Seaker::getEdges(int node) {
 	int size = this->map->map.size();
 	int x = node % size;
 	int y = node / size;
-	auto goal = getPosition(this->map->getGoal());
 
 	sf::Vector2<int> d;
 	if(goal.x - x > 0)
