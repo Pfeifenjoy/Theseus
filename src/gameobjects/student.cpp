@@ -13,7 +13,7 @@ using namespace theseus::gameobjects;
 using namespace theseus::engine;
 using namespace theseus::messages;
 
-const float EXMATRICULATION_VALUE = 100;
+const float EXMATRICULATION_VALUE = 1;
 const float EXMATRICULATION_TIME = 2;
 
 Student::Student() {
@@ -52,8 +52,7 @@ void Student::onUpdate(float timePassed) {
 void Student::exmatriculation(const theseus::messages::Exmatriculation& message) {
 	if (exmatriculationable) {
 		exmatriculationProcessActive = EXMATRICULATION_TIME;
-		//exmatriculationProgress -= message.setExmatriculationAmount;
-		exmatriculationProgress -= 1.5;
+		exmatriculationProgress -= message.getExmatriculationAmount();
 
 		professorSendedExmatriculationMessage = message.getProfessorSended();
 
