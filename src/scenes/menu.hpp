@@ -26,7 +26,6 @@ namespace theseus
 			std::vector<theseus::gameobjects::Textfield *> buttons;
 			int screenWidth;
 			int screenHeigth;
-			sf::Keyboard::Key lastKeyEvent;
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
@@ -48,7 +47,6 @@ namespace theseus
 			void updateSelection();
 			void setSelectedItemIndex(short);
 			short getSelectedItemIndex();
-			sf::Keyboard::Key getLastKeyEvent();
 
 
 		};

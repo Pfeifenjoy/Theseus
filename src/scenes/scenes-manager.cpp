@@ -110,15 +110,20 @@ void ScenesManager::run()
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL6);
 		if (this->game.run(Storytext)) return;
 	}
-	if(this->loadStart())
-	if(this->loadLevel1())
-	if(this->loadLevel2())
-	if(this->loadLevel3())
-	if(this->loadLevel4())
-	if(this->loadLevel5())
-	if(this->loadLevel6()) {}
+	while(!this->closed) {
+		if(this->loadStart())
+		if(this->selectCharacter())
+		if(this->loadLevel1())
+		if(this->loadLevel2())
+		if(this->loadLevel3())
+		if(this->loadLevel4())
+		if(this->loadLevel5())
+		if(this->loadLevel6()) {}
 
-	this->loadHighScore();
+		if(this->closed) break;
+
+		this->loadHighScore();
+	}
 
 }
 
@@ -129,12 +134,14 @@ bool ScenesManager::loadStart() {
 	buttons.push_back("Start");
 	buttons.push_back("Quit");
 	Menu menu(buttons, &(this->game));
-	this->game.run(menu);
-
-	if (menu.getLastKeyEvent() != sf::Keyboard::Return)
+	if(this->game.run(menu)) {
+		this->closed = true;
 		return false;
+	}
+
+
 	switch (menu.getSelectedItemIndex()) {
-	case 0: this->selectCharacter(); return true;
+	case 0: return true;
 	case 1: return false;
 	}
 	return false;
@@ -147,14 +154,17 @@ bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 	buttonsCharacter.push_back("Male");
 	buttonsCharacter.push_back("Female");
 	Menu menu(buttonsCharacter, &(this->game));
-	this->game.run(menu);
-
-	if (menu.getLastKeyEvent() != sf::Keyboard::Return)
+	if(this->game.run(menu)) {
+		this->closed = true;
 		return false;
-	switch (menu.getSelectedItemIndex()) {
-	case 0: return male=true;
-	case 1: return male=false;
 	}
+
+
+	switch (menu.getSelectedItemIndex()) {
+		case 0: return male=true;
+		case 1: return male=false;
+	}
+	return true;
 }
 
 
@@ -201,8 +211,8 @@ bool ScenesManager::loadLevel1() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	this->closed = this->game.run(*(scene));
+	if(this->closed || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -253,8 +263,8 @@ bool ScenesManager::loadLevel2() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	this->closed = this->game.run(*(scene));
+	if(this->closed || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -304,8 +314,8 @@ bool ScenesManager::loadLevel3() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	this->closed = this->game.run(*(scene));
+	if(this->closed || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -357,8 +367,8 @@ bool ScenesManager::loadLevel4() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	this->closed = this->game.run(*(scene));
+	if(this->closed || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -411,8 +421,8 @@ bool ScenesManager::loadLevel5() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	this->closed = this->game.run(*(scene));
+	if(this->closed || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -463,8 +473,8 @@ bool ScenesManager::loadLevel6() {
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
 
-	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	this->closed = this->game.run(*(scene));
+	if(this->closed || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
