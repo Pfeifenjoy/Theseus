@@ -1,7 +1,6 @@
 #include "scenes-manager.hpp"
 #include "storytext.hpp"
 #include "menu.hpp"
-#include "characterselection.hpp"
 #include <string>
 #include <iostream>
 #include "../map/level-description.hpp"
@@ -27,6 +26,8 @@
 #include "../gameobjects/instrument_hofmann.hpp"
 #include "../gameobjects/huebl.hpp"
 #include "../gameobjects/math_solution.hpp"
+#include "../gameobjects/chalk.hpp"
+
 
 using namespace theseus::scenes;
 using namespace theseus::map;
@@ -107,7 +108,7 @@ string const LEVEL6 = "Herr Stroetmann wurde am schlimmsten von dem Virus befall
 void ScenesManager::run()
 {
 	{
-		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL6);
+		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, CONTROL);
 		if (this->game.run(Storytext)) return;
 	}
 	while(!this->closed) {
@@ -169,6 +170,15 @@ bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 
 
 bool ScenesManager::loadLevel1() {
+
+	{
+		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL1);
+		if(this->game.run(Storytext)) {
+			this->closed = true;
+			return false;
+		}
+	}
+
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 80, Brick::HEIGHT * 40)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<BizagiCD>(new BizagiCD()));
@@ -206,7 +216,7 @@ bool ScenesManager::loadLevel1() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
@@ -225,9 +235,17 @@ bool ScenesManager::loadLevel1() {
 
 bool ScenesManager::loadLevel2() {
 
+	{
+		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL2);
+		if(this->game.run(Storytext)) {
+			this->closed = true;
+			return false;
+		}
+	}
+
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 40)));
 	//set level specific object
-	level->addFreeGameObject(unique_ptr<BizagiCD>(new BizagiCD()));
+	level->addFreeGameObject(unique_ptr<Chalk>(new Chalk()));
 
 	level->setMaxAmountOfStandardRooms(5);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
@@ -250,7 +268,7 @@ bool ScenesManager::loadLevel2() {
 	auto glaser = unique_ptr<Glaser>(new Glaser);
 	level->setProf(move(glaser));
 
-	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -258,7 +276,7 @@ bool ScenesManager::loadLevel2() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
@@ -275,6 +293,15 @@ bool ScenesManager::loadLevel2() {
 	}
 }
 bool ScenesManager::loadLevel3() {
+
+	{
+		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL3);
+		if(this->game.run(Storytext)) {
+			this->closed = true;
+			return false;
+		}
+	}
+
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 50)));
 	//set level specific object
 	for (int i = 0; i < 5; i++) {
@@ -301,7 +328,7 @@ bool ScenesManager::loadLevel3() {
 	auto huebl = unique_ptr<Huebl>(new Huebl);
 	level->setProf(move(huebl));
 
-	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -309,7 +336,7 @@ bool ScenesManager::loadLevel3() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
@@ -326,6 +353,15 @@ bool ScenesManager::loadLevel3() {
 	}
 }
 bool ScenesManager::loadLevel4() {
+
+	{
+		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL4);
+		if(this->game.run(Storytext)) {
+			this->closed = true;
+			return false;
+		}
+	}
+
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<Instrument>(new Instrument()));
@@ -362,7 +398,7 @@ bool ScenesManager::loadLevel4() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
@@ -379,6 +415,15 @@ bool ScenesManager::loadLevel4() {
 	}
 }
 bool ScenesManager::loadLevel5() {
+
+	{
+		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL5);
+		if(this->game.run(Storytext)) {
+			this->closed = true;
+			return false;
+		}
+	}
+
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<CExam>(new CExam()));
@@ -416,7 +461,7 @@ bool ScenesManager::loadLevel5() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
@@ -434,6 +479,16 @@ bool ScenesManager::loadLevel5() {
 
 }
 bool ScenesManager::loadLevel6() {
+
+	{
+		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL6);
+		if(this->game.run(Storytext)) {
+			this->closed = true;
+			return false;
+		}
+	}
+
+
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<SetlxCup>(new SetlxCup()));
@@ -468,7 +523,7 @@ bool ScenesManager::loadLevel6() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 100, 15), 110));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer));
 	scene->setCamera(man_ptr);
