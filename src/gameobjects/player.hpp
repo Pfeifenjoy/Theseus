@@ -37,6 +37,7 @@ namespace theseus
 			, public virtual engine::components::MessageSender<theseus::messages::Interact>
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateItemCounter>
 			, public virtual engine::components::MessageReceiver<theseus::messages::Exmatriculation>
+
 		{
 		private:
 			// events
