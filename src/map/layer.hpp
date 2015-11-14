@@ -14,6 +14,7 @@
 #include "../engine/components/position.hpp"
 #include "map.hpp"
 #include "field-status.hpp"
+#include "level.hpp"
 
 namespace theseus {
 namespace map {
@@ -187,7 +188,7 @@ namespace map {
 			/**
 			 * Transform the layer into a Scene.
 			 */
-			std::unique_ptr<theseus::engine::Scene> toScene();
+			std::unique_ptr<theseus::map::Level> toScene();
 			/**
 			 * Print the Layer in ASCII art. Only works in Unicode Command Lines.
 			 */

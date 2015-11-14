@@ -5,6 +5,7 @@
 #include "../gameobjects/floor.hpp"
 #include <math.h>
 #include "parking-area.hpp"
+#include "level.hpp"
 
 using namespace theseus::map;
 using namespace theseus::gameobjects;
@@ -360,8 +361,8 @@ vector<unique_ptr<theseus::engine::GameObject> > Layer::getGameObjects() {
 	return move(this->gameobjects);
 }
 
-unique_ptr<theseus::engine::Scene> Layer::toScene() {
-	unique_ptr<theseus::engine::Scene> scene(new theseus::engine::Scene());
+unique_ptr<theseus::map::Level> Layer::toScene() {
+	unique_ptr<theseus::map::Level> scene(new theseus::map::Level());
 	auto objects = this->getGameObjects();
 	for(auto& object: objects) {
 		scene->addGameObject(move(object));
