@@ -349,7 +349,7 @@ bool ScenesManager::loadLevel3() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 50)));
 	//set level specific object
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 8; i++) {
 		level->addFreeGameObject(unique_ptr<MathSolution>(new MathSolution()));
 	}
 
