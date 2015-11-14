@@ -183,6 +183,7 @@ int main()
 	TextureManager::instance().loadTexture("parking_area.png");
 	TextureManager::instance().loadTexture("parking_area_double.png");
 	TextureManager::instance().loadTexture("player.png");
+	TextureManager::instance().loadTexture("player_fem.png");
 	TextureManager::instance().loadTexture("player2.png");
 	//texture professor ------------------------------------------------------------
 	TextureManager::instance().loadTexture("charset_level_1.png");

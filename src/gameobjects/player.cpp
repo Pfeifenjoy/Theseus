@@ -41,7 +41,8 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	updateLifePoints();
 
 	// texture
-	setTexture(2, TextureManager::instance().getTexture("player.png"));
+	//setTexture(2, TextureManager::instance().getTexture("player.png"));
+	setTexture(2, TextureManager::instance().getTexture("player_fem.png"));
 
 	// camera
 	view().setCenter(0, 0);

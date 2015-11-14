@@ -21,6 +21,8 @@ namespace scenes {
 
 			void run();
 
+			void selectCharacter(); // added by Leon Mutschke on 13.11.15
+
 			void loadLevel1();
 			void loadLevel2();
 			void loadLevel3();

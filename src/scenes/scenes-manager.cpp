@@ -1,6 +1,7 @@
 #include "scenes-manager.hpp"
 #include "storytext.hpp"
 #include "menu.hpp"
+#include "characterselection.hpp"
 #include <string>
 #include <iostream>
 #include "../map/level-description.hpp"
@@ -113,8 +114,27 @@ void ScenesManager::loadStart() {
 	if (menu.getLastKeyEvent() != sf::Keyboard::Return)
 		return;
 	switch (menu.getSelectedItemIndex()) {
-	case 0: this->loadLevel1(); break;
+	case 0: this->selectCharacter(); break;
 	case 1: break;
+	case 2: break;
+	}
+}
+
+void ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
+{
+
+	vector<string> buttonsCharacter;
+
+	buttonsCharacter.push_back("Male");
+	buttonsCharacter.push_back("Female");
+	CharacterSelection selectPlayer(buttonsCharacter, &(this->game));
+	this->game.run(selectPlayer);
+
+	if (selectPlayer.getLastKeyEvent() != sf::Keyboard::Return)
+		return;
+	switch (selectPlayer.getSelectedItemIndex()) {
+	case 0: this->loadLevel1(); break;
+	case 1: this->loadLevel1(); break;
 	case 2: break;
 	}
 }
