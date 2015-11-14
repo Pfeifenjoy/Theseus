@@ -25,6 +25,9 @@ Kruse::Kruse()
 	// texture
 	setTexture(2, TextureManager::instance().getTexture("charset_level_5.png"));
 
+	// autotalk
+	this->startAutoSpeech({ { "while(1){ printf(\"C is great!\");}", "Apfeltasche? Lecker...", "Daumengeste?", "Mein Gluecksrad ist toll!" } }, 3, 10, 40, true, true);
+
 }
 
 void Kruse::onCollision(const components::Solide&)

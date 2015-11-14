@@ -190,8 +190,8 @@ bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 	this->game.run(menu);
 
 	switch (menu.getSelectedItemIndex()) {
-		case 0: return male=true;
-		case 1: return male=false;
+		case 0: male=true;
+		case 1: male=false;
 	}
 	return true;
 }
