@@ -26,7 +26,7 @@ Runge::Runge()
 	setTexture(2, TextureManager::instance().getTexture("charset_level_1.png"));
 
 	// autotalk
-	this->startAutoSpeech({ { "Wo ist meine CD?", "Komm her, ich tu dir nix!", "Komm her, ich schmeiß dich raus!", "Hm?" } }, 3, 10, 40, true, true);
+	this->startAutoSpeech({ { "Wo ist meine CD?", "Komm her, ich tu dir nichts!", "Komm her, ich schmeiss dich raus!", "Hm?" } }, 3, 10, 40, true, true);
 }
 
 void Runge::onCollision(const components::Solide&)
