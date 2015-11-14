@@ -13,6 +13,17 @@ void Exmatriculation::setProfessorSended() {
 bool Exmatriculation::getProfessorSended() const {
 	return this->professorSended;
 }
+
+void Exmatriculation::setExmatriculationAmount(float value)
+{
+	exmatriculationAmount = value;
+}
+
+float Exmatriculation::getExmatriculationAmount() const
+{
+	return exmatriculationAmount;
+}
+
 Exmatriculation::~Exmatriculation() {}
 
 
