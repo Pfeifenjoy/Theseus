@@ -7,9 +7,6 @@
 #define _THESEUS_GAME_OBJECTS_PLAYER_H
 
 #include "../engine/gameobject.hpp"
-#include "../engine/components/update.hpp"
-#include "../engine/components/animation.hpp"
-#include "../engine/components/speed.hpp"
 #include "../engine/components/camera.hpp"
 #include "../engine/components/messagesender.hpp"
 #include "../engine/components/keyboardinput.hpp"
@@ -19,8 +16,7 @@
 #include "../messages/updateitemcounter.hpp"
 #include "../messages/attrack.hpp"
 #include "../map/map.hpp"
-#include "../engine/components/messagereceiver.hpp"
-#include "../messages/exmatriculation.hpp"
+#include "../gameobjects/student.hpp"
 #include <SFML/System.hpp>
 #include "character.hpp"
 
@@ -29,10 +25,7 @@ namespace theseus
 	namespace gameobjects
 	{
 		class Player
-			: public Character
-			, public virtual engine::components::Update
-			, public virtual engine::components::Animation
-			, public virtual engine::components::Speed
+			: public Student
 			, public virtual engine::components::Camera
 			, public virtual engine::components::KeyboardInput
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateLifePoints>
@@ -40,30 +33,30 @@ namespace theseus
 			, public virtual engine::components::MessageSender<theseus::messages::Interact>
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateItemCounter>
 			, public virtual engine::components::MessageSender<theseus::messages::Attrack>
-			, public virtual engine::components::MessageReceiver<theseus::messages::Exmatriculation>
-
 		{
 		private:
 			// events
 			void onUpdate(float passedTime);
 
-			// player attributs
+			// Player attributs
 			int lifePoints;
 			float caffeineLevel;
 			float maxCaffeineLevel;
 			int inventoryItem;
 			int maxInventoryItems;
 
-			float exmatriculationTime;
-			bool exmatricualtionProcessActive;
-
 			void updateItemCounter();
 			void updateCaffeineLevel();
 			void updateLifePoints();
+			
+			void endScene(theseus::engine::Scene& scene);
 			void keyPressed(sf::Keyboard::Key key);
 			theseus::map::Map* map;
 			
 			bool genderMale = true;
+
+		protected:
+			void exmatriculationDone();
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
@@ -87,10 +80,6 @@ namespace theseus
 			void incrementInventoryItemValue();
 
 			void setMap(theseus::map::Map*);
-
-			void exmatriculated(const theseus::messages::Exmatriculation& message);
-
-			void endScene(theseus::engine::Scene& scene);
 
 			void setMale(bool male);
 

@@ -30,15 +30,9 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	this->maxInventoryItems = itemsToCollect;
 	this->inventoryItem = 0;
 
-	this->exmatriculationTime = 0;
-	this->exmatricualtionProcessActive = false;
-
 	// subscribe for update
 	evOnUpdate.subscribe(bind(&Player::onUpdate, this, _1));
 	evKeyDown.subscribe(bind(&Player::keyPressed, this, _1));
-
-	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Player::exmatriculated, this, _1));
-
 
 	// Update the HUD
 	updateCaffeineLevel();
@@ -101,28 +95,16 @@ void Player::onUpdate(float timePassed)
 		direction.y += 1;
 	setDirection(direction);
 
-	// count exmatriculation time
-	if (exmatricualtionProcessActive)
-		exmatriculationTime += timePassed;
-
 	// Attrack professors
 	Attrack attraction;
 	attraction.position = getPosition();
 	attraction.priority = 3;
 	MessageSender<Attrack>::sendMessage(attraction, 300, 300);
-
 }
 
-void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
-
-	// start exmatriculation process
-	exmatricualtionProcessActive = true;
-
-	if (this->inventoryItem != this->maxInventoryItems && exmatriculationTime >= EXMATRICULATION_TIME) {
-
-		// reset timers
-		exmatriculationTime = 0;
-		exmatricualtionProcessActive = false;
+void Player::exmatriculationDone() {
+	cout << "exmatriculated" << endl;
+	if (this->inventoryItem >= this->maxInventoryItems) {
 
 		if (this->lifePoints <= 1) {
 			this->lifePoints = 0;
@@ -135,7 +117,7 @@ void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
 			updateLifePoints();
 		}
 	}
-	else if(message.getProfessorSended() && this->inventoryItem == this->maxInventoryItems) {
+	else if(this->professorSendedExmatriculationMessage && this->inventoryItem == this->maxInventoryItems) {
 		// You won the level - register for scene access
 		evUpdateComponentRegistrations.subscribe(std::bind(&Player::endScene, this, _1));
 	}
