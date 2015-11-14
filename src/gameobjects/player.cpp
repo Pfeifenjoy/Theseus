@@ -98,6 +98,8 @@ void Player::onUpdate(float timePassed)
 	// Attrack professors
 	Attrack attraction;
 	attraction.position = getPosition();
+	attraction.position.x += 0.5 * this->getCollisionAreaTopLeft().x + 0.5 * this->getCollisionAreaBottomRight().x;
+	attraction.position.y += 0.5 * this->getCollisionAreaTopLeft().y + 0.5 * this->getCollisionAreaBottomRight().y;
 	attraction.priority = 3;
 	MessageSender<Attrack>::sendMessage(attraction, 300, 300);
 }
