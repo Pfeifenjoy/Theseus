@@ -1,40 +1,5 @@
-#include "engine/game.hpp"
-#include "engine/scene.hpp"
+#include "engine/end-of-Time.hpp"
 #include "engine/texturemanager.hpp"
-#include "gameobjects/character.hpp"
-#include "map/layer.hpp"
-#include "gameobjects/coffee.hpp"
-#include "gameobjects/chalk.hpp"
-#include "gameobjects/math_solution.hpp"
-#include "gameobjects/instrument_hofmann.hpp"
-#include "gameobjects/uml_diagramm.hpp"
-#include "gameobjects/apfeltasche.hpp"
-#include "gameobjects/c_exam.hpp"
-#include "gameobjects/setlx_cup.hpp"
-#include "gameobjects/fructiv.hpp"
-#include "gameobjects/table.hpp"
-#include "gameobjects/floor.hpp"
-#include "gameobjects/player.hpp"
-#include "gameobjects/npc.hpp"
-#include "gameobjects/textfield.hpp"
-#include "scenes/menu.hpp"
-#include "scenes/storytext.hpp"
-#include "scenes/highscore.hpp"
-#include "gameobjects/bizagi_cd.hpp"
-#include "gameobjects/throwing_cup.hpp"
-#include "gameobjects/healthbar.hpp"
-#include "gameobjects/timer.hpp"
-#include "gameobjects/itemcounter.hpp"
-#include "gameobjects/caffeinelevel.hpp"
-#include "map/level-description.hpp"
-// include professor
-#include "gameobjects/runge.hpp"
-#include "gameobjects/glaser.hpp"
-#include "gameobjects/huebl.hpp"
-#include "gameobjects/hofmann.hpp"
-#include "gameobjects/kruse.hpp"
-#include "gameobjects/stroetmann.hpp"
-
 #include "scenes/scenes-manager.hpp"
 
 #include <iostream>
@@ -101,7 +66,10 @@ int main()
 	TextureManager::instance().loadTexture("speech_bubble.png");
 
 	theseus::scenes::ScenesManager game;
-	game.run();
+	try {
+		game.run();
+	} catch (const theseus::engine::EndOfTime &e) {
+	}
 	TextureManager::reset();
 	return 0;
 }
