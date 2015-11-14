@@ -29,9 +29,9 @@ Character::Character()
 	// speed settings
 	this->speedMultiplier = 1;
 
-	this->setPosition(sf::Vector2f(-2, 40));
+	//this->setPosition(sf::Vector2f(-2, 40));
 	this->setSize(sf::Vector2f(22, 50));
-	this->setCollisionAreaTopLeft(this->getPosition());
+	this->setCollisionAreaTopLeft(sf::Vector2f(0, 40));
 	this->setCollisionAreaBottomRight(this->getSize());
 }
 

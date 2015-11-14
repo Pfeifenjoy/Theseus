@@ -15,8 +15,11 @@ void Seaker::setMap(Map *map) {
 sf::Vector2<int> Seaker::nextDirection() {
 //--------------------------------------------------
 	auto positiont = Position::getPosition() + getCollisionAreaTopLeft();
-	sf::Vector2<int> position(round(positiont.x / theseus::gameobjects::Brick::WIDTH), round(positiont.y / theseus::gameobjects::Brick::HEIGHT));
-	auto goal = this->map->getGoal();
+	positiont.x += theseus::gameobjects::Brick::OFFSET;
+
+	sf::Vector2<int> position(floor(positiont.x / theseus::gameobjects::Brick::WIDTH), floor(positiont.y / theseus::gameobjects::Brick::HEIGHT));
+	auto goal = getPosition(this->map->getGoal());
+	position = getPosition(position);
 	int size = this->map->map.size();
 	int source = position.x + position.y * size;
 	int aim = goal.x + goal.y * size;
@@ -25,7 +28,7 @@ sf::Vector2<int> Seaker::nextDirection() {
 	std::vector<int> path;
 
 
-	std::map<int, int> dist;
+	std::map<int, float> dist;
 	dist[source] = 0;
 
 	std::map<int, int> backlink;
@@ -38,6 +41,23 @@ sf::Vector2<int> Seaker::nextDirection() {
 				nodes.insert(i + j*size);
 		}
 	}
+	int i = 0, j = 0;
+
+	for(i = 0; i < (int) this->map->map[0].size(); i++) {
+		for(j = 0; j < (int) this->map->map.size(); j++) {
+			if(j == position.x && i == position.y)
+				cout << "\x1b[31m";
+			else if(j == goal.x && i == goal.y)
+				cout << "\x1b[32m";
+			else if(this->map->map[j][i]) {
+				cout << "\x1B[34m";//Blue
+			} else
+				cout <<"\x1B[33m"; //Yellow
+			cout << "\u2588";
+		}
+		cout << endl;
+	}
+	cout << "\x1B[0m";
 
 	while(!nodes.empty()) {
 		std::map<int, int> intersection;
@@ -57,16 +77,17 @@ sf::Vector2<int> Seaker::nextDirection() {
 //		if(distance.x <= 1 && distance.x >= -1 && distance.y <= 1 && distance.y >= -1)
 //			break;
 
-		if(smallest.second == INT_MAX || dist[smallest.first] == 10) {
+		if(smallest.second == INT_MAX || dist[smallest.first] > 10) {
 			break;
 		}
 
 		auto edges = getEdges(smallest.first);
 		for(auto e : edges) {
-			if(dist.find(e.second) == dist.end() || smallest.second + 1 < dist[e.second]) {
-				dist[e.second] = smallest.second + 1;
-				//cout << "ja: " << e.second % size << ", " << e.second / size << endl;
-				backlink[e.second] = smallest.first;
+			if(dist.find(e.first) == dist.end() || smallest.second + 1 < dist[e.first]) {
+				//dist[e.first] = smallest.second + 1;
+				dist[e.first] = smallest.second + e.second;
+				//cout << "ja: " << e.first % size << ", " << e.first / size << endl;
+				backlink[e.first] = smallest.first;
 			}
 
 		}
@@ -92,26 +113,26 @@ sf::Vector2<int> Seaker::nextDirection() {
 		}
 	}
 
-	sf::Vector2i next(0, 0);
-	while (this->map->map[position.x + next.x][position.y + next.y] == false) {
-		cout << "next: " << next.x << ", " << next.y << endl;
-		int number = rand() % 9;
+//	sf::Vector2i next(0, 0);
+//	while (this->map->map[position.x + next.x][position.y + next.y] == false) {
+//		cout << "next: " << next.x << ", " << next.y << endl;
+//		int number = rand() % 9;
+//
+//		switch (number)
+//		{
+//			case 0: next = sf::Vector2i( 0, 0); break; // NPC is not moving
+//			case 1: next = sf::Vector2i(-1, 0); break; // NPC is moving left
+//			case 2: next = sf::Vector2i( 1, 0); break; // NPC is moving right
+//			case 3: next = sf::Vector2i(0, -1); break; // NPC is moving up
+//			case 4: next = sf::Vector2i( 0, 1); break; // NPC is moving down
+//			case 5: next = sf::Vector2i(-1,-1); break; // NPC is moving left up
+//			case 6: next = sf::Vector2i(1, -1); break; // NPC is moving right up
+//			case 7: next = sf::Vector2i(-1, 1); break; // NPC is moving left down
+//			case 8: next = sf::Vector2i( 1, 1); break; // NPC is moving right down
+//		}
+//	}
 
-		switch (number)
-		{
-			case 0: next = sf::Vector2i( 0, 0); break; // NPC is not moving
-			case 1: next = sf::Vector2i(-1, 0); break; // NPC is moving left
-			case 2: next = sf::Vector2i( 1, 0); break; // NPC is moving right
-			case 3: next = sf::Vector2i(0, -1); break; // NPC is moving up
-			case 4: next = sf::Vector2i( 0, 1); break; // NPC is moving down
-			case 5: next = sf::Vector2i(-1,-1); break; // NPC is moving left up
-			case 6: next = sf::Vector2i(1, -1); break; // NPC is moving right up
-			case 7: next = sf::Vector2i(-1, 1); break; // NPC is moving left down
-			case 8: next = sf::Vector2i( 1, 1); break; // NPC is moving right down
-		}
-	}
-
-	return next;
+	//return next;
 //----------------------------------------------------------------------------------------------------
 
 //	for(auto x: backPath)
@@ -256,28 +277,28 @@ sf::Vector2<int> Seaker::nextDirection() {
 	return sf::Vector2<int> (0, 0);
 }
 
-std::set<pair<int, int> > Seaker::getEdges(int node) {
-	std::set<pair<int, int> > edges;
+std::set<pair<int, float> > Seaker::getEdges(int node) {
+	std::set<pair<int, float> > edges;
 	int size = this->map->map.size();
 	int x = node % size;
 	int y = node / size;
 
 	if(y-1 > 0 && x - 1 > 0 && this->map->map[x-1][y-1])
-		edges.insert(pair<int, int> (x + y * this->map->map.size(), x-1 + (y-1) * this->map->map.size()));
+		edges.insert(pair<int, int> (x-1 + (y-1) * this->map->map.size(), 1.4));
 	if(y-1 > 0 && this->map->map[x][y-1])
-		edges.insert(pair<int, int> (x + y * this->map->map.size(), x + (y-1) * this->map->map.size()));
+		edges.insert(pair<int, int> (x + (y-1) * this->map->map.size(), 1));
 	if(y-1 > 0 && x + 1 < size && this->map->map[x+1][y-1])
-		edges.insert(pair<int, int> (x + y * this->map->map.size(), x+1 + (y-1) * this->map->map.size()));
+		edges.insert(pair<int, int> (x+1 + (y-1) * this->map->map.size(), 1.4));
 	if(x - 1 > 0 && this->map->map[x-1][y])
-		edges.insert(pair<int, int> (x + y * this->map->map.size(), x-1 + (y) * this->map->map.size()));
+		edges.insert(pair<int, int> (x-1 + (y) * this->map->map.size(), 1));
 	if(x + 1 < size && this->map->map[x+1][y])
-		edges.insert(pair<int, int> (x + y * this->map->map.size(), x+1 + (y) * this->map->map.size()));
+		edges.insert(pair<int, int> (x+1 + (y) * this->map->map.size(), 1));
 	if(y + 1 < size && x - 1 > 0 && this->map->map[x-1][y+1])
-		edges.insert(pair<int, int> (x + y * this->map->map.size(), x-1 + (y+1) * this->map->map.size()));
+		edges.insert(pair<int, int> (x-1 + (y+1) * this->map->map.size(), 1.4));
 	if(y + 1 < size && this->map->map[x][y+1])
-		edges.insert(pair<int, int> (x + y * this->map->map.size(), x + (y+1) * this->map->map.size()));
+		edges.insert(pair<int, int> (x + (y+1) * this->map->map.size(), 1.4));
 	if(y + 1 < size && x + 1 < size && this->map->map[x+1][y+1])
-		edges.insert(pair<int, int> (x + y * this->map->map.size(), x+1 + (y+1) * this->map->map.size()));
+		edges.insert(pair<int, int> (x+1 + (y+1) * this->map->map.size(), 1.4));
 	return edges;
 }
 
@@ -295,4 +316,11 @@ std::vector<int> Seaker::constructPath(int source, int goal, std::map<int, int> 
 
 sf::Vector2<int> Seaker::getPosition(int position) {
 	return sf::Vector2<int> (position % this->map->map.size(), position / this->map->map.size());
+}
+
+sf::Vector2<int> Seaker::getPosition(sf::Vector2<int> position) {
+	if(this->map->map[position.x][position.y] == false) {
+		position.y--;
+	}
+	return position;
 }

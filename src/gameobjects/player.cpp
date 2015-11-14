@@ -29,7 +29,7 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	this->lifePoints = lifePoints;
 	this->maxInventoryItems = itemsToCollect;
 	this->inventoryItem = 0;
-	
+
 	this->exmatriculationTime = 0;
 	this->exmatricualtionProcessActive = false;
 
@@ -93,16 +93,16 @@ void Player::onUpdate(float timePassed)
 		exmatriculationTime += timePassed;
 
 	if(this->map != nullptr)
-		this->map->updatePlayerPosition(this->getPosition() + getCollisionAreaTopLeft());
+		this->map->updatePlayerPosition(this->getPosition() + getCollisionAreaTopLeft() + getCollisionAreaBottomRight() / (float)2.);
 }
 
 void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {
-	
+
 	// start exmatriculation process
 	exmatricualtionProcessActive = true;
 
 	if (this->inventoryItem != this->maxInventoryItems && exmatriculationTime >= EXMATRICULATION_TIME) {
-		
+
 		// reset timers
 		exmatriculationTime = 0;
 		exmatricualtionProcessActive = false;
@@ -146,7 +146,7 @@ void Player::incrementCaffeineLevel(int value) {
 	}
 	else {
 		this->caffeineLevel += value;
-	}	
+	}
 	updateCaffeineLevel();
 }
 
