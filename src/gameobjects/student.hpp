@@ -34,6 +34,7 @@ namespace theseus
 			float exmatriculationProgress;
 
 			bool exmatriculationable;
+			bool progressbarActive;
 			
 		protected:
 			bool professorSendedExmatriculationMessage = false;

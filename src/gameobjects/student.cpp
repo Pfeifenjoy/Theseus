@@ -21,6 +21,7 @@ Student::Student() {
 	this->exmatriculationProgress = EXMATRICULATION_VALUE;
 	this->exmatriculationProcessActive = EXMATRICULATION_TIME;
 	this->exmatriculationable = true;
+	this->progressbarActive = false;
 
 	// subscribe for update
 	evOnUpdate.subscribe(bind(&Student::onUpdate, this, _1));
@@ -40,7 +41,11 @@ void Student::onUpdate(float timePassed) {
 		exmatriculationProcessActive = EXMATRICULATION_TIME;
 
 		// Disable Progressbar
-		sprite(3).setTextureRect(sf::IntRect(0, 0, 0, 0));
+		if (progressbarActive) {
+			sprite(3).setTextureRect(sf::IntRect(0, 0, 0, 0));
+			progressbarActive = false;
+		}
+
 	}
 }
 
@@ -56,6 +61,7 @@ void Student::exmatriculation(const theseus::messages::Exmatriculation& message)
 		setTexture(3, TextureManager::instance().getTexture("bar.png"));
 		sprite(3).setTextureRect(sf::IntRect(0, 0, (int)round(exmatriculationProgress / (EXMATRICULATION_VALUE / 100)) / 2, 10));
 		sprite(3).setPosition(sf::Vector2f(-9, -10));
+		progressbarActive = true;
 
 		if (exmatriculationProgress <= 0) {
 			exmatriculationProgress = EXMATRICULATION_VALUE;
