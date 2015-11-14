@@ -27,6 +27,7 @@
 #include "../gameobjects/huebl.hpp"
 #include "../gameobjects/math_solution.hpp"
 #include "../gameobjects/chalk.hpp"
+#include "../engine/end-of-Time.hpp"
 
 
 using namespace theseus::scenes;
@@ -174,10 +175,26 @@ bool ScenesManager::loadStart() {
 	this->game.run(menu);
 
 	switch (menu.getSelectedItemIndex()) {
-	case 0: return true;
-	case 1: return false;
+		case 0: return true;
+		case 1: throw theseus::engine::EndOfTime();
 	}
 	return false;
+}
+void ScenesManager::loadPause(theseus::map::Level& level) {
+
+	while(level.getLastKey() == sf::Keyboard::Escape) {
+		vector<string> buttons;
+
+		buttons.push_back("Continue");
+		buttons.push_back("Quit");
+		Menu menu(buttons, &(this->game));
+		this->game.run(menu);
+
+		switch (menu.getSelectedItemIndex()) {
+			case 0: this->game.run(level);
+			case 1: throw theseus::engine::EndOfTime();
+		}
+	}
 }
 
 bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
@@ -249,6 +266,7 @@ bool ScenesManager::loadLevel1() {
 	scene->setCamera(man_ptr);
 
 	this->game.run(*(scene));
+	this->loadPause(*(scene));
 	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
