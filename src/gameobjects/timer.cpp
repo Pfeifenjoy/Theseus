@@ -39,6 +39,8 @@ Timer::Timer(sf::Vector2f position, int startTime) {
 	setText(4, stringTimer);
 	setColor(4, sf::Color::Yellow);
 	setStyle(4, sf::Text::Style::Bold);
+
+
 	
 	// Set the position
 	setPosition(position);

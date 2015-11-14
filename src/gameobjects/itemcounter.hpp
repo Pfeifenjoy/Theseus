@@ -29,8 +29,8 @@ namespace theseus
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
-			// Creates a new ItemCounter
-			ItemCounter(sf::Vector2f position);
+			// Creates a new ItemCounter(position, name of the picture (*.png))
+			ItemCounter(sf::Vector2f position, std::string itemPictureName);
 
 			//---- Destructor ---------------------------------------------------------------------------------------
 

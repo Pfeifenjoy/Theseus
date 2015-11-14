@@ -12,6 +12,7 @@
 #include "../engine/components/speed.hpp"
 #include "../engine/components/camera.hpp"
 #include "../engine/components/messagesender.hpp"
+#include "../engine/components/keyboardinput.hpp"
 #include "../messages/updatelifepoints.hpp"
 #include "../messages/interact.hpp"
 #include "../messages/updatecaffeinelevel.hpp"
@@ -32,6 +33,7 @@ namespace theseus
 			, public virtual engine::components::Animation
 			, public virtual engine::components::Speed
 			, public virtual engine::components::Camera
+			, public virtual engine::components::KeyboardInput
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateLifePoints>
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateCaffeineLevel>
 			, public virtual engine::components::MessageSender<theseus::messages::Interact>
@@ -56,6 +58,7 @@ namespace theseus
 			void updateItemCounter();
 			void updateCaffeineLevel();
 			void updateLifePoints();
+			void keyPressed(sf::Keyboard::Key key);
 			theseus::map::Map* map;
 			
 			bool genderMale = true;

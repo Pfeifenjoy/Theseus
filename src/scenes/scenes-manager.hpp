@@ -39,7 +39,7 @@ namespace scenes {
 			bool loadLevel6();
 			bool startLevel();
 			bool evaluateLevel(theseus::gameobjects::Player&, theseus::gameobjects::Timer&);
-			void setHud(theseus::engine::Scene&, std::unique_ptr<theseus::gameobjects::Timer>);
+			void setHud(theseus::engine::Scene&, std::unique_ptr<theseus::gameobjects::Timer>, std::string itemPictureName);
 	};
 }
 }
