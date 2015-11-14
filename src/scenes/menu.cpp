@@ -50,7 +50,6 @@ Menu::Menu(const std::vector<std::string>& scenes, theseus::engine::Game* game)
 
 void Menu::handleKeyDownEvent(sf::Keyboard::Key key)
 {
-	this->lastKeyEvent = key;
 	// Select Textfield below/above
 	if (key == sf::Keyboard::W) {
 		this->setSelectedItemIndex(selectedItemIndex - 1);
@@ -85,9 +84,6 @@ short Menu::getSelectedItemIndex() {
 	return this->selectedItemIndex;
 }
 
-sf::Keyboard::Key Menu::getLastKeyEvent() {
-	return this->lastKeyEvent;
-}
 
 
 
