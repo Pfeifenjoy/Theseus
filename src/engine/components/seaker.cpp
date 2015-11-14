@@ -12,13 +12,13 @@ void Seaker::setMap(Map *map) {
 	this->map = map;
 }
 
-sf::Vector2<int> Seaker::nextDirection() {
+sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 //--------------------------------------------------
 	auto positiont = Position::getPosition() + getCollisionAreaTopLeft();
 	positiont.x += theseus::gameobjects::Brick::OFFSET;
 
 	sf::Vector2<int> position(floor(positiont.x / theseus::gameobjects::Brick::WIDTH), floor(positiont.y / theseus::gameobjects::Brick::HEIGHT));
-	auto goal = getPosition(this->map->getGoal());
+	auto goal = getPosition(sf::Vector2<int> (floor(target.x / theseus::gameobjects::Brick::WIDTH), floor(target.y / theseus::gameobjects::Brick::HEIGHT)));
 	position = getPosition(position);
 	int size = this->map->map.size();
 	int source = position.x + position.y * size;
@@ -77,7 +77,7 @@ sf::Vector2<int> Seaker::nextDirection() {
 //		if(distance.x <= 1 && distance.x >= -1 && distance.y <= 1 && distance.y >= -1)
 //			break;
 
-		if(smallest.second == INT_MAX || dist[smallest.first] > 10) {
+		if(smallest.second == INT_MAX || dist[smallest.first] > radius) {
 			break;
 		}
 
