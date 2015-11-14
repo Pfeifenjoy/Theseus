@@ -105,8 +105,6 @@ void Player::onUpdate(float timePassed)
 	if (exmatricualtionProcessActive)
 		exmatriculationTime += timePassed;
 
-	if(this->map != nullptr)
-		this->map->updatePlayerPosition(this->getPosition() + getCollisionAreaTopLeft() + getCollisionAreaBottomRight() / (float)2.);
 }
 
 void Player::exmatriculated(const theseus::messages::Exmatriculation& message) {

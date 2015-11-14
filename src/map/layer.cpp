@@ -54,7 +54,6 @@ Layer::Layer(unique_ptr<LevelDescription> description) {
 
 	this->map = unique_ptr<Map>(new Map(this->layer));
 	auto player = description->getPlayer();
-	player->setMap(map.get());
 	this->populatePlayer(move(player));
 
 	auto prof = description->getProf();
