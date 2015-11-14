@@ -23,8 +23,8 @@ sf::Vector2<int> Seaker::nextDirection() {
 	int size = this->map->map.size();
 	int source = position.x + position.y * size;
 	int aim = goal.x + goal.y * size;
-	cout << "Player: " << goal.x << ", " << goal.y << endl;
-	cout << "Prof: " << position.x << ", " << position.y << endl;
+	//cout << "Player: " << goal.x << ", " << goal.y << endl;
+	//cout << "Prof: " << position.x << ", " << position.y << endl;
 	std::vector<int> path;
 
 
@@ -41,23 +41,23 @@ sf::Vector2<int> Seaker::nextDirection() {
 				nodes.insert(i + j*size);
 		}
 	}
-	int i = 0, j = 0;
-
-	for(i = 0; i < (int) this->map->map[0].size(); i++) {
-		for(j = 0; j < (int) this->map->map.size(); j++) {
-			if(j == position.x && i == position.y)
-				cout << "\x1b[31m";
-			else if(j == goal.x && i == goal.y)
-				cout << "\x1b[32m";
-			else if(this->map->map[j][i]) {
-				cout << "\x1B[34m";//Blue
-			} else
-				cout <<"\x1B[33m"; //Yellow
-			cout << "\u2588";
-		}
-		cout << endl;
-	}
-	cout << "\x1B[0m";
+//	int i = 0, j = 0;
+//
+//	for(i = 0; i < (int) this->map->map[0].size(); i++) {
+//		for(j = 0; j < (int) this->map->map.size(); j++) {
+//			if(j == position.x && i == position.y)
+//				cout << "\x1b[31m";
+//			else if(j == goal.x && i == goal.y)
+//				cout << "\x1b[32m";
+//			else if(this->map->map[j][i]) {
+//				cout << "\x1B[34m";//Blue
+//			} else
+//				cout <<"\x1B[33m"; //Yellow
+//			cout << "\u2588";
+//		}
+//		cout << endl;
+//	}
+//	cout << "\x1B[0m";
 
 	while(!nodes.empty()) {
 		std::map<int, int> intersection;
@@ -98,14 +98,14 @@ sf::Vector2<int> Seaker::nextDirection() {
 	while(pos != source) {
 		if(pos == 0) break;
 		backPath.push_back(pos);
-		cout << " -> (" << pos % size << ", " << pos / size  << ")";
+		//cout << " -> (" << pos % size << ", " << pos / size  << ")";
 		pos = backlink[pos];
 	}
-	cout << endl;
+	//cout << endl;
 
 	if(backPath.size() > 0) {
 		auto next = getPosition(backPath.back()) - position;
-		cout << "next: " << next.x << ", " << next.y << endl;
+		//cout << "next: " << next.x << ", " << next.y << endl;
 		if(next.x <= 1 && next.x >= -1 && next.y <= 1 && next.y >= -1) {
 			if(this->map->map[position.x + next.x][position.y + next.y]) {
 				return next;
@@ -115,7 +115,7 @@ sf::Vector2<int> Seaker::nextDirection() {
 
 	sf::Vector2i next(0, 0);
 	do {
-		cout << "next: " << next.x << ", " << next.y << endl;
+		//cout << "next: " << next.x << ", " << next.y << endl;
 		int number = rand() % 9;
 
 		switch (number)
@@ -130,7 +130,7 @@ sf::Vector2<int> Seaker::nextDirection() {
 			case 7: next = sf::Vector2i(-1, 1); break; // NPC is moving left down
 			case 8: next = sf::Vector2i( 1, 1); break; // NPC is moving right down
 		}
-		cout << "ja" << next.x << next.y<< endl;
+		//cout << "ja" << next.x << next.y<< endl;
 	} while (this->map->map[position.x + next.x][position.y + next.y] == false);
 
 	return next;
