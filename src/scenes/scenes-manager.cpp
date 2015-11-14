@@ -117,13 +117,13 @@ void ScenesManager::run()
 		if (this->game.run(Storytext)) return;
 	}
 
-	if(this->loadStart())
-	if(this->loadLevel1())
-	if(this->loadLevel2())
-	if(this->loadLevel3())
-	if(this->loadLevel4())
-	if(this->loadLevel5())
-	if(this->loadLevel6()) {}
+	if (this->loadStart())
+		if (this->loadLevel1())
+			if (this->loadLevel2())
+				if (this->loadLevel3())
+					if (this->loadLevel4())
+						if (this->loadLevel5())
+							if (this->loadLevel6()) {}
 
 	this->loadHighScore();
 
@@ -159,8 +159,8 @@ bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 	if (menu.getLastKeyEvent() != sf::Keyboard::Return)
 		return false;
 	switch (menu.getSelectedItemIndex()) {
-	case 0: return male=true;
-	case 1: return male=false;
+	case 0: return male = true;
+	case 1: return male = false;
 	}
 }
 
@@ -175,6 +175,8 @@ bool ScenesManager::loadLevel1() {
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 80, Brick::HEIGHT * 40)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<BizagiCD>(new BizagiCD()));
+
+	string bizagicd = "item_level_1_bizagi_cd.png";
 
 	level->setMaxAmountOfStandardRooms(5);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
@@ -211,11 +213,11 @@ bool ScenesManager::loadLevel1() {
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
 	auto timer_ptr = timer.get();
-	this->setHud(*scene, move(timer));
+	this->setHud(*scene, move(timer), bizagicd);
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	if (status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -235,7 +237,11 @@ bool ScenesManager::loadLevel2() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 40)));
 	//set level specific object
-	level->addFreeGameObject(unique_ptr<Chalk>(new Chalk()));
+	for (int i = 0; i < 10; ++i) {
+		level->addFreeGameObject(unique_ptr<Chalk>(new Chalk()));
+	}
+
+	string chalk = "item_level_2_chalk.png";
 
 	level->setMaxAmountOfStandardRooms(5);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
@@ -268,11 +274,11 @@ bool ScenesManager::loadLevel2() {
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
 	auto timer_ptr = timer.get();
-	this->setHud(*scene, move(timer));
+	this->setHud(*scene, move(timer), chalk);
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	if (status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -291,9 +297,12 @@ bool ScenesManager::loadLevel3() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 50)));
 	//set level specific object
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 3; i++) {
 		level->addFreeGameObject(unique_ptr<MathSolution>(new MathSolution()));
 	}
+
+	string mathsolution = "item_level_3_solutions.png";
+
 	level->setMaxAmountOfStandardRooms(5);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
 
@@ -325,11 +334,11 @@ bool ScenesManager::loadLevel3() {
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
 	auto timer_ptr = timer.get();
-	this->setHud(*scene, move(timer));
+	this->setHud(*scene, move(timer), mathsolution);
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	if (status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -349,6 +358,8 @@ bool ScenesManager::loadLevel4() {
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<Instrument>(new Instrument()));
+
+	string meter = "item_level_4_meter.png";
 
 	for (int i = 0; i < 5; i++) {
 		level->addFreeGameObject(unique_ptr<UMLDiagramm>(new UMLDiagramm()));
@@ -384,11 +395,11 @@ bool ScenesManager::loadLevel4() {
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
 	auto timer_ptr = timer.get();
-	this->setHud(*scene, move(timer));
+	this->setHud(*scene, move(timer), meter);
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	if (status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -408,6 +419,8 @@ bool ScenesManager::loadLevel5() {
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<CExam>(new CExam()));
+
+	string cexam = "item_level_5_exam.png";
 
 	for (int i = 0; i < 5; i++) {
 		level->addFreeGameObject(unique_ptr<Apfeltasche>(new Apfeltasche()));
@@ -444,11 +457,11 @@ bool ScenesManager::loadLevel5() {
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
 	auto timer_ptr = timer.get();
-	this->setHud(*scene, move(timer));
+	this->setHud(*scene, move(timer), cexam);
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	if (status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -470,6 +483,8 @@ bool ScenesManager::loadLevel6() {
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
 	level->addFreeGameObject(unique_ptr<SetlxCup>(new SetlxCup()));
+
+	string setlxcup = "item_level_6_cup.png";
 
 	level->setMaxAmountOfStandardRooms(6);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
@@ -503,11 +518,11 @@ bool ScenesManager::loadLevel6() {
 	auto scene = Layer(move(level)).toScene();
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
 	auto timer_ptr = timer.get();
-	this->setHud(*scene, move(timer));
+	this->setHud(*scene, move(timer), setlxcup);
 	scene->setCamera(man_ptr);
 
 	auto status = this->game.run(*(scene));
-	if(status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	if (status || man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -519,7 +534,7 @@ bool ScenesManager::loadLevel6() {
 
 }
 
-void ScenesManager::setHud(theseus::engine::Scene& scene, std::unique_ptr<theseus::gameobjects::Timer> timer) {
+void ScenesManager::setHud(theseus::engine::Scene& scene, std::unique_ptr<theseus::gameobjects::Timer> timer, std::string itemPictureName) {
 	auto caffeineLevel = unique_ptr<CaffeineLevel>(new CaffeineLevel(sf::Vector2f((float)game.getScreenResolution().x, 15)));
 	scene.addGameObject(move(caffeineLevel));
 
@@ -528,7 +543,7 @@ void ScenesManager::setHud(theseus::engine::Scene& scene, std::unique_ptr<theseu
 
 	scene.addGameObject(move(timer));
 
-	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40)));
+	auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 35), itemPictureName));
 	scene.addGameObject(move(itemCounter));
 }
 
