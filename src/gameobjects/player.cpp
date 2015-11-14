@@ -35,6 +35,7 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 
 	// subscribe for update
 	evOnUpdate.subscribe(bind(&Player::onUpdate, this, _1));
+	evKeyDown.subscribe(bind(&Player::keyPressed, this, _1));
 
 	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Player::exmatriculated, this, _1));
 
@@ -45,16 +46,32 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	updateLifePoints();
 
 	// texture
-	int i = 0;
-	switch (i) {
-	case 0: setTexture(2, TextureManager::instance().getTexture("player.png")); break;
-	case 1: setTexture(2, TextureManager::instance().getTexture("player_fem.png")); break;
-	}
-	
-	
+	setMale(genderMale);
 
 	// camera
 	view().setCenter(0, 0);
+
+}
+
+void Player::keyPressed(sf::Keyboard::Key key) {
+	// Interact message on <E>
+	if (key == sf::Keyboard::Key::E) {
+		Interact interact;
+		interact.setPlayer(this);
+
+		// Vektor/Graphicx workaround
+		sf::Vector2f position = this->getPosition();
+		MessageSender<Interact>::sendMessage(
+			interact, sf::Vector2f(position.x - 25, position.y + 25), sf::Vector2f(position.x + 57, position.y + 75));
+	}
+}
+
+void Player::setMale(bool male) {
+	setTexture(2, TextureManager::instance().getTexture("player.png"));
+	if (male == false)
+	{
+		setTexture(2, TextureManager::instance().getTexture("player_fem.png"));
+	}
 
 }
 
@@ -71,16 +88,6 @@ void Player::onUpdate(float timePassed)
 	}
 	else setSpeedMultiplier(1); // normal speed
 
-	// Interact message on <E>
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
-		Interact interact;
-		interact.setPlayer(this);
-
-		// Vektor/Graphicx workaround
-		sf::Vector2f position = this->getPosition();
-		MessageSender<Interact>::sendMessage(
-			interact, sf::Vector2f(position.x - 25, position.y + 25), sf::Vector2f(position.x + 57, position.y + 75));
-	}
 
 	// <WASD> Movings
 	sf::Vector2i direction(0, 0);
@@ -186,6 +193,8 @@ void Player::updateLifePoints() {
 void Player::setMap(theseus::map::Map *map) {
 	this->map = map;
 }
+
+
 
 Player::~Player()
 {}
