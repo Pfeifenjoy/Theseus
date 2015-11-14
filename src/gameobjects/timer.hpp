@@ -37,6 +37,8 @@ namespace theseus
 
 			// Method which is called from the update component -> decrements the timer
 			void onUpdate(float timePassed);
+			
+			void endScene(theseus::engine::Scene& scene);
 
 		};
 	}

@@ -1,5 +1,5 @@
 /**
-*  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser
+*  @Author: Tobias Dorra, Leon Mutschke, Dominic Steinhauser, Philipp Pütz
 */
 
 
@@ -15,21 +15,34 @@ using namespace std;
 using namespace std::placeholders;
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
-
+using namespace theseus::messages;
 
 NPC::NPC()
 {
+	exmatriculatedBool = false;
+	exmatriculate = false;
+
 	evOnUpdate.subscribe(bind(&NPC::onUpdate, this, _1));
 	evCollisionDetected.subscribe(bind(&NPC::onCollision, this, _1));
 
 	// texture
 	setTexture(2, TextureManager::instance().getTexture("player2.png"));
 
+	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&NPC::exmatriculated, this));
 }
 
 void NPC::onCollision(const components::Solide&)
 {
 	changeDirection();
+}
+
+void NPC::exmatriculated() {
+	exmatriculatedBool = true;
+	setTexture(2, TextureManager::instance().getTexture("player2_infected.png"));
+}
+
+void NPC::setExmatriculate() {
+	this->exmatriculate = true;
 }
 
 void NPC::changeDirection()
@@ -60,6 +73,11 @@ void NPC::onUpdate(float time)
 	{
 		time_passed = 0;
 		changeDirection();
+	}
+
+	if (exmatriculatedBool && exmatriculate) {
+		Exmatriculation exmatriculation;
+		MessageSender<Exmatriculation>::sendMessage(exmatriculation, 80, 80);
 	}
 
 

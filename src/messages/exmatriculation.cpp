@@ -6,6 +6,13 @@
 
 using namespace theseus::messages;
 
-Exmatriculation::Exmatriculation() {}
+void Exmatriculation::setProfessorSended() {
+	this->professorSended = true;
+}
 
+bool Exmatriculation::getProfessorSended() const {
+	return this->professorSended;
+}
 Exmatriculation::~Exmatriculation() {}
+
+

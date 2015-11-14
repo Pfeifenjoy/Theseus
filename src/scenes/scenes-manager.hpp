@@ -7,28 +7,37 @@
 #include <memory>
 #include "../engine/scene.hpp"
 #include "../engine/game.hpp"
+#include "../gameobjects/player.hpp"
+#include "../gameobjects/timer.hpp"
+#include "../gameobjects/timer.hpp"
 
 namespace theseus {
 namespace scenes {
 	class ScenesManager {
 		private:
 			theseus::engine::Game game;
+			float playedTime;
+			int lifePoints = 3;
 		public:
 			//ScenesManager();
 
-			void loadStart();
-			//void loadHighScore();
+			bool loadStart();
+			void loadHighScore();
 
 			void run();
 
 			void selectCharacter(); // added by Leon Mutschke on 13.11.15
 
-			void loadLevel1();
-			void loadLevel2();
-			void loadLevel3();
-			void loadLevel4();
-			void loadLevel5();
-			void loadLevel6();
+
+			bool loadLevel1();
+			bool loadLevel2();
+			bool loadLevel3();
+			bool loadLevel4();
+			bool loadLevel5();
+			bool loadLevel6();
+			bool startLevel();
+			bool evaluateLevel(theseus::gameobjects::Player&, theseus::gameobjects::Timer&);
+			void setHud(theseus::engine::Scene&, std::unique_ptr<theseus::gameobjects::Timer>);
 	};
 }
 }

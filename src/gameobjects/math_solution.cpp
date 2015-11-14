@@ -22,14 +22,21 @@ MathSolution::MathSolution() {
 	setSize(sf::Vector2f(15, 20));
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&MathSolution::updateItem, this, _1));
+	MessageReceiver<theseus::messages::Interact>::evOnMessageReceived.subscribe(std::bind(&MathSolution::updateItem, this, _1));
 
 
 }
+
 
 void MathSolution::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
+	evUpdateComponentRegistrations.subscribe(std::bind(&MathSolution::removeMySelf, this, _1));
 }
+
+void MathSolution::removeMySelf(Scene& scene) {
+	scene.removeGameObject(this);
+}
+
 
 MathSolution::~MathSolution() {
 }

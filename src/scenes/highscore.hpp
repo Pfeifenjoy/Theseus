@@ -12,7 +12,7 @@
 
 namespace theseus
 {
-	namespace engine
+	namespace scenes
 	{
 
 		class Highscore

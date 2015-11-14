@@ -24,12 +24,14 @@ Coffee::Coffee() {
 	setSize(sf::Vector2f(10, 10));
 
 	// register for interact event
-	evOnMessageReceived.subscribe(std::bind(&Coffee::incrementCaffeineLevel, this, _1));
+	MessageReceiver<theseus::messages::Interact>::evOnMessageReceived.subscribe(std::bind(&Coffee::incrementCaffeineLevel, this, _1));
 
 }
 
+
 void Coffee::incrementCaffeineLevel(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementCaffeineLevel(CAFFEINEVALUE);
+	selfDestruct();
 }
 
 Coffee::~Coffee() {

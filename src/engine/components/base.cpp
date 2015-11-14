@@ -20,3 +20,13 @@ void Base::unregisterComponents(Scene& scene)
 {
 	evUnregisterComponents(scene);
 }
+
+void Base::selfDestruct()
+{
+	theEndIsNear = true;
+}
+
+bool Base::needsDestruction() const
+{
+	return theEndIsNear;
+}

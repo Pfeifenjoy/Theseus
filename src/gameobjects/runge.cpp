@@ -17,7 +17,6 @@ using namespace theseus::gameobjects;
 using namespace theseus::engine;
 using namespace theseus::messages;
 
-
 Runge::Runge()
 {
 	evOnUpdate.subscribe(bind(&Runge::onUpdate, this, _1));
@@ -44,18 +43,18 @@ void Runge::onUpdate(float time)
 {
 	time_passed += time;
 
-	if (time_passed > 1)
+	if (time_passed > 0.2)
 	{
 		time_passed = 0;
 		changeDirection();
 	}
 
-	// send exmtariculation message
+	// send exmatriculation message
 	Exmatriculation exmatriculation;
-	MessageSender<Exmatriculation>::sendMessage(exmatriculation, 100, 100);
+	exmatriculation.setProfessorSended();
+	MessageSender<Exmatriculation>::sendMessage(exmatriculation, 85, 85);
 
 }
-
 
 
 Runge::~Runge()

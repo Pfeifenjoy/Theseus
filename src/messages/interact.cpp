@@ -6,10 +6,6 @@
 
 using namespace theseus::messages;
 
-Interact::Interact() {
-
-}
-
 void Interact::setPlayer(theseus::gameobjects::Player * player) {
 	this->player = player;
 }

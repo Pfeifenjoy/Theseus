@@ -45,135 +45,6 @@ using namespace theseus::engine;
 using namespace theseus::gameobjects;
 using namespace theseus::map;
 
-
-
-unique_ptr<LevelDescription> createLevel3() {
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 50)));
-	//set level specific object
-	for (int i = 0; i < 5; i++) {
-		level->addFreeGameObject(unique_ptr<MathSolution>(new MathSolution()));
-	}
-	level->setMaxAmountOfStandardRooms(5);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
-
-	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
-
-	//set amount of coffee
-	for (int i = 0; i < 15; i++) {
-		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
-	}
-
-	//set amount of students
-	int x = 0;
-	for (x = 0; x < 40; x++) {
-		auto npc = unique_ptr<NPC>(new NPC);
-		level->addFreeGameObject(move(npc));
-	}
-
-	//set professor Huebl
-	auto huebl = unique_ptr<Huebl>(new Huebl);
-	level->addFreeGameObject(move(huebl));
-
-	return level;
-}
-
-unique_ptr<LevelDescription> createLevel4() {
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
-	//set level specific object
-	level->addFreeGameObject(unique_ptr<Instrument>(new Instrument()));
-
-	for (int i = 0; i < 5; i++) {
-		level->addFreeGameObject(unique_ptr<UMLDiagramm>(new UMLDiagramm()));
-	}
-
-	level->setMaxAmountOfStandardRooms(6);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
-	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
-
-	//set amount of coffee
-	for (int i = 0; i < 15; i++) {
-		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
-	}
-
-	//set amount of students
-	int x = 0;
-	for (x = 0; x < 40; x++) {
-		auto npc = unique_ptr<NPC>(new NPC);
-		level->addFreeGameObject(move(npc));
-	}
-
-	//set professor Hofmann
-	auto hofmann = unique_ptr<Hofmann>(new Hofmann);
-	level->addFreeGameObject(move(hofmann));
-
-	return level;
-}
-
-unique_ptr<LevelDescription> createLevel5() {
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
-	//set level specific object
-	level->addFreeGameObject(unique_ptr<CExam>(new CExam()));
-
-	for (int i = 0; i < 5; i++) {
-		level->addFreeGameObject(unique_ptr<Apfeltasche>(new Apfeltasche()));
-	}
-
-	level->setMaxAmountOfStandardRooms(6);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
-
-	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
-
-	//set amount of coffee
-	for (int i = 0; i < 10; i++) {
-		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
-	}
-
-	//set amount of students
-	int x = 0;
-	for (x = 0; x < 50; x++) {
-		auto npc = unique_ptr<NPC>(new NPC);
-		level->addFreeGameObject(move(npc));
-	}
-
-	//set professor Kruse
-	auto kruse = unique_ptr<Kruse>(new Kruse);
-	level->addFreeGameObject(move(kruse));
-
-	return level;
-}
-
-unique_ptr<LevelDescription> createLevel6() {
-
-	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
-	//set level specific object
-	level->addFreeGameObject(unique_ptr<SetlxCup>(new SetlxCup()));
-
-	level->setMaxAmountOfStandardRooms(6);
-	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
-
-	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
-
-
-	//set amount of coffee
-	for (int i = 0; i < 15; i++) {
-		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
-	}
-
-	//set amount of students
-	int x = 0;
-	for (x = 0; x < 100; x++) {
-		auto npc = unique_ptr<NPC>(new NPC);
-		level->addFreeGameObject(move(npc));
-	}
-
-	//set professor Stroetmann
-	auto stroetmann = unique_ptr<Stroetmann>(new Stroetmann);
-	level->addFreeGameObject(move(stroetmann));
-
-	return level;
-}
-
-
 int main()
 {
 	// init random number generator
@@ -185,6 +56,7 @@ int main()
 	TextureManager::instance().loadTexture("player.png");
 	TextureManager::instance().loadTexture("player_fem.png");
 	TextureManager::instance().loadTexture("player2.png");
+	TextureManager::instance().loadTexture("player2_infected.png");
 	//texture professor ------------------------------------------------------------
 	TextureManager::instance().loadTexture("charset_level_1.png");
 	TextureManager::instance().loadTexture("charset_level_2.png");
@@ -228,25 +100,10 @@ int main()
 	TextureManager::instance().loadTexture("heart.png");
 
 
-	// HUD
-
-//	auto healthbar = unique_ptr<HealthBar>(new HealthBar(sf::Vector2f(15, 15), 3));
-//	initScene->addGameObject(move(healthbar));
-//
-//	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float) game.getScreenResolution().x - 100, 15), 110));
-//	initScene->addGameObject(move(timer));
-//
-//  auto itemCounter = unique_ptr<ItemCounter>(new ItemCounter(sf::Vector2f((float)game.getScreenResolution().x - 100, (float)game.getScreenResolution().y - 40), 3));
-//  initScene->addGameObject(move(itemCounter));
-//
-//	auto caffeineLevel = unique_ptr<CaffeineLevel>(new CaffeineLevel(sf::Vector2f((float)game.getScreenResolution().x, 15), 24, 115));
-//	initScene->addGameObject(move(caffeineLevel));
-
-	//---------------------------------------------------------------------------------
 
 
-	theseus::scenes::ScenesManager spiel;
-	spiel.run();
+	theseus::scenes::ScenesManager game;
+	game.run();
 	TextureManager::reset();
 	return 0;
 }

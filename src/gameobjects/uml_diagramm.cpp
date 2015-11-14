@@ -23,13 +23,18 @@ UMLDiagramm::UMLDiagramm() {
 	setSize(sf::Vector2f(15, 20));
 
 	// register for interact message
-	evOnMessageReceived.subscribe(std::bind(&UMLDiagramm::updateItem, this, _1));
+	MessageReceiver<theseus::messages::Interact>::evOnMessageReceived.subscribe(std::bind(&UMLDiagramm::updateItem, this, _1));
 
 
 }
 
 void UMLDiagramm::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
+	evUpdateComponentRegistrations.subscribe(std::bind(&UMLDiagramm::removeMySelf, this, _1));
+}
+
+void UMLDiagramm::removeMySelf(Scene& scene) {
+	scene.removeGameObject(this);
 }
 
 UMLDiagramm::~UMLDiagramm() {

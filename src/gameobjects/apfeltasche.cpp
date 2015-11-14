@@ -28,6 +28,11 @@ Apfeltasche::Apfeltasche() {
 
 void Apfeltasche::updateItem(const theseus::messages::Interact& message) {
 	message.getPlayer()->incrementInventoryItemValue();
+	evUpdateComponentRegistrations.subscribe(std::bind(&Apfeltasche::removeMySelf, this, _1));
+}
+
+void Apfeltasche::removeMySelf(Scene& scene) {
+	scene.removeGameObject(this);
 }
 
 Apfeltasche::~Apfeltasche() {

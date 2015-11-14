@@ -28,7 +28,7 @@ unique_ptr<GameObject> Scene::removeGameObject(GameObject* gameObject)
 	// find the game object in the list of all game objects.
 	auto found = gameObjects.end();
 	for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
-	{
+	{	
 		if (it->get() == gameObject)
 		{
 			found = it;
@@ -228,6 +228,10 @@ void Scene::handleUpdateEvent(float timePassed)
 		auto element = *position;
 		needsRegistrationUpdate_previous.erase(position);
 		element->refreshComponentRegistrations(*this);
+		if (element->needsDestruction())
+		{
+			removeGameObject(dynamic_cast<GameObject*>(element));
+		}
 	}
 }
 
@@ -244,6 +248,10 @@ void Scene::handleKeyDownEvent(sf::Keyboard::Key key)
 void Scene::handleSceneStartedEvent()
 {
 	//solide.shuffle();
+}
+
+void Scene::setFinished() {
+	this->finished = true;
 }
 
 bool Scene::checkFinished() {

@@ -20,9 +20,6 @@ namespace theseus
 			, public virtual engine::components::Sprite
 			, public theseus::engine::components::MessageReceiver<theseus::messages::Interact>
 		{
-		private:
-
-
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 
