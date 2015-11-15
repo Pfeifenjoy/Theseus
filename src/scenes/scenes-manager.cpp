@@ -114,15 +114,14 @@ string const LEVEL4 = "[Level 3] erfolgreich abgeschlossen!\n\n"
 
 string const LEVEL5 = "[Level 4] erfolgreich abgeschlossen!\n\n"
 "[Level 5]\n\n\n"
-"Wo ist die denn die C-Klausur??? Ohne C-Klausur ist fuer Herrn Kruse die Welt\n"
-"nur halb so schoen...\n"
+"Wo ist die denn meine Apfeltasche hingekommen??? Ohne Apfeltasche ist fuer Herrn Kruse die Welt\n"
+"nur halb so schoen, denn er ist hungrig...\n"
 "Suche diese und bringe sie Herrn Kruse zurueck! Meide den Kontakt zu deinen Kommilitonen!\n"
 "Diese koennen ebenfalls vom Virus infiziert sein. Falls du mit einem Infizierten\n"
 "in Kontakt kommst, wird du langsamer...\n\n"
-"Hinweis: Finde eine Apfeltasche und uebergebe diesen Herrn Kruse. Dadurch ist er fuer\n"
-"30 Sekunden abgelenkt und exmatrikuliert keinen Studenten.\n\n"
+
 "Aufgabe:\n"
-"1. Bring Herrn Kruse die C-Klausur"
+"1. Bring Herrn Kruse 3 Apfeltaschen"
 "\n\n\n"
 "\n\n\nWeiter mit <Leertaste>";
 
@@ -203,8 +202,8 @@ bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 {
 	vector<string> buttonsCharacter;
 
-	buttonsCharacter.push_back("Male");
-	buttonsCharacter.push_back("Female");
+	buttonsCharacter.push_back("Männlich");
+	buttonsCharacter.push_back("Weiblich");
 	Menu menu(buttonsCharacter, &(this->game));
 	this->game.run(menu);
 
@@ -418,9 +417,9 @@ bool ScenesManager::loadLevel4() {
 
 	string meter = "item_level_4_meter.png";
 
-	for (int i = 0; i < 5; i++) {
-		level->addFreeGameObject(unique_ptr<UMLDiagramm>(new UMLDiagramm()));
-	}
+	//for (int i = 0; i < 5; i++) {
+	//	level->addFreeGameObject(unique_ptr<UMLDiagramm>(new UMLDiagramm()));
+	//}
 
 	level->setMaxAmountOfStandardRooms(6);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
