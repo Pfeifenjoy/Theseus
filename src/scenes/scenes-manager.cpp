@@ -54,7 +54,8 @@ string const CONTROL = "[Steuerung]\n\n\n"
 "Kaffee-Boost:  " "<Leertaste>\n\n"
 "Pause:  " "<ESC>\n\n"
 "Interagieren:  " "<E>\n\n"
-"Bestaetigen:  ""<Leertaste>\n\n\n"
+"Bestaetigen:  ""<Leertaste>\n\n"
+"Hinweis: Ist die Zeit abgelaufen, so endet das Spiel!\n"
 "\n\n\nWeiter mit <Leertaste>";
 
 string const LEVEL1 = "[Level 1]\n\n\n"
@@ -154,11 +155,11 @@ void ScenesManager::run()
 	while(true) {
 		if(this->loadStart())
 		if(this->selectCharacter())
-		if(this->loadLevel1())
+		if(this->loadLevel5())
 		if(this->loadLevel2())
 		if(this->loadLevel3())
 		if(this->loadLevel4())
-		if(this->loadLevel5())
+		if(this->loadLevel1())
 		if(this->loadLevel6()) {}
 
 		this->loadHighScore();
