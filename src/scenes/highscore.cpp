@@ -14,7 +14,7 @@ using namespace theseus::engine::components;
 
 
 string HEADING = "Highscore";
-string CONCRAT = "Herzlichen Glückwunsch";
+string CONCRAT = "Herzlichen Glueckwunsch";
 string FAIL = "Das Studium wurde leider nicht bestanden...";
 
 
