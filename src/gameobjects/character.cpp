@@ -174,7 +174,7 @@ void Character::changeDirection()
 	setDirection(direction);
 }
 
-void Character::onCollision(const engine::components::Solide&)
+void Character::onCollision(const theseus::engine::components::Solide&)
 {
 	if (idleActive)
 		changeDirection();
