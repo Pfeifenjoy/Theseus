@@ -37,6 +37,7 @@ Character::Character()
 	// Collision detection
 	this->setCollisionAreaTopLeft(sf::Vector2f(0, 40));
 	this->setCollisionAreaBottomRight(this->getSize());
+	this->evCollisionDetected.subscribe(bind(&Character::onCollision, this, _1));
 
 	// Speech bubble
 	sprite(3).setPosition(20, -30);
@@ -171,6 +172,12 @@ void Character::changeDirection()
 		case 8: direction = sf::Vector2i( 1, 1); break; // NPC is moving right down
 	}
 	setDirection(direction);
+}
+
+void Character::onCollision(const engine::components::Solide&)
+{
+	if (idleActive)
+		changeDirection();
 }
 
 void Character::startIdle()

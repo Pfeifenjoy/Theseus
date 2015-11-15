@@ -23,6 +23,7 @@ void Professor::onAttrack(const Attrack& attraction)
 		destination = attraction.position;
 		timeToCalmDown = 2.;
 		mode = Mode::rage;
+		changeDirectionTimeout = 0;
 	}
 }
 
@@ -45,14 +46,23 @@ void Professor::onUpdate(float timePassed)
 		Exmatriculation exmatriculation;
 		exmatriculation.setProfessorSended();
 		exmatriculation.setExmatriculationAmount(timePassed * exmatriculation_speed);
+		exmatriculation.setOrigin(this->getPosition());
 		sendMessage(exmatriculation, exmatriculation_radius, exmatriculation_radius);
 
 		// retarget the movement
-		if (changeDirectionTimeout < 0)
+		if (changeDirectionTimeout <= 0)
 		{
 			changeDirectionTimeout = 0.1;
 			auto direction = nextDirection(destination, 15);	
-			setDirection(direction);
+			if (direction != sf::Vector2i(0, 0))
+			{
+				setDirection(direction);
+			}
+			else
+			{
+				mode = Mode::idle;
+				startIdle();
+			}
 			setSpeedMultiplier(rageSpeedFactor);
 		}
 	}

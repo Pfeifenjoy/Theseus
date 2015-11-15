@@ -35,7 +35,8 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	evKeyDown.subscribe(bind(&Player::keyPressed, this, _1));
 
 	// Subscribe for Exmatriculation message
-	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Player::exmatriculation, this, _1));
+	// MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Player::exmatriculation, this, _1));
+	stopIdle();
 
 	// Update the HUD
 	updateCaffeineLevel();
@@ -102,27 +103,32 @@ void Player::onUpdate(float timePassed)
 	Attrack attraction;
 	attraction.position = getPosition() + 0.5f * this->getCollisionAreaTopLeft() + 0.5f * this->getCollisionAreaBottomRight();
 	attraction.priority = 3;
-	MessageSender<Attrack>::sendMessage(attraction, 300, 300);
+	MessageSender<Attrack>::sendMessage(attraction, 500, 500);
 }
 
 void Player::exmatriculationDone() {
-	if (this->inventoryItem < this->maxInventoryItems) {
-
-		if (this->lifePoints <= 1) {
-			this->lifePoints = 0;
-			updateLifePoints();
-			//Abort Game - register for scene access
-			evUpdateComponentRegistrations.subscribe(std::bind(&Player::endScene, this, _1));
-		}
-		else {
-			this->lifePoints--;
-			updateLifePoints();
-		}
-	}
-	else if(this->professorSendedExmatriculationMessage && this->inventoryItem >= this->maxInventoryItems) {
-		// You won the level - register for scene access
+	if (this->lifePoints <= 1) {
+		this->lifePoints = 0;
+		updateLifePoints();
+		//Abort Game - register for scene access
 		evUpdateComponentRegistrations.subscribe(std::bind(&Player::endScene, this, _1));
 	}
+	else 
+	{
+		this->lifePoints--;
+		updateLifePoints();
+	}
+}
+
+bool Player::exmatriculationTick(const theseus::messages::Exmatriculation& msg)
+{
+	auto distance = msg.getOrigin() - getPosition();
+	if (distance.x * distance.x + distance.y * distance.y < 1024/* 32^2 */)
+	{
+		if (professorSendedExmatriculationMessage && inventoryItem >= maxInventoryItems)
+			evUpdateComponentRegistrations.subscribe(std::bind(&Player::endScene, this, _1));
+	}
+	return !professorSendedExmatriculationMessage || this->inventoryItem < this->maxInventoryItems;
 }
 
 void Player::endScene(Scene& scene) {
@@ -153,10 +159,14 @@ void Player::incrementCaffeineLevel(int value) {
 
 
 void Player::incrementInventoryItemValue() {
-	if (!(this->inventoryItem >= this->maxInventoryItems)) {
+	if (this->inventoryItem < this->maxInventoryItems) {
 		this->inventoryItem++;
+		updateItemCounter();
 	}
-	updateItemCounter();
+	else
+	{
+		setExmatriculationable(false);
+	}
 }
 
 void Player::updateItemCounter() {
@@ -181,8 +191,6 @@ void Player::updateLifePoints() {
 void Player::setMap(theseus::map::Map *map) {
 	this->map = map;
 }
-
-
 
 Player::~Player()
 {}

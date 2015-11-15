@@ -56,6 +56,7 @@ namespace theseus
 			bool genderMale = true;
 
 			void exmatriculationDone();
+			bool exmatriculationTick(const theseus::messages::Exmatriculation&);
 
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------

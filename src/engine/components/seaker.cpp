@@ -18,8 +18,8 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 	auto positiont = Position::getPosition() + getCollisionAreaTopLeft() + (getCollisionAreaBottomRight() - getCollisionAreaTopLeft()) / (float)2;
 
 	sf::Vector2<int> position(floor(positiont.x / theseus::gameobjects::Brick::WIDTH), floor(positiont.y / theseus::gameobjects::Brick::HEIGHT));
-	goal = getPosition(sf::Vector2<int> (floor(target.x / theseus::gameobjects::Brick::WIDTH), floor(target.y / theseus::gameobjects::Brick::HEIGHT)));
-	position = getPosition(position);
+	goal = getPosition_(sf::Vector2<int> (floor(target.x / theseus::gameobjects::Brick::WIDTH), floor(target.y / theseus::gameobjects::Brick::HEIGHT)));
+	position = getPosition_(position);
 
 
 	if(this->map->map[position.x][position.y]) {
@@ -120,7 +120,7 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 	//cout << endl;
 
 	if(backPath.size() > 0) {
-		auto next = getPosition(backPath.back()) - position;
+		auto next = getPosition_(backPath.back()) - position;
 		//cout << "next: " << next.x << ", " << next.y << endl;
 		if(next.x <= 1 && next.x >= -1 && next.y <= 1 && next.y >= -1) {
 			if(this->map->map[position.x + next.x][position.y + next.y]) {
@@ -355,7 +355,7 @@ std::vector<int> Seaker::constructPath(int source, int goal, std::map<int, int> 
 	return result;
 }
 
-sf::Vector2<int> Seaker::getPosition(int position) {
+sf::Vector2<int> Seaker::getPosition_(int position) {
 	return sf::Vector2<int> (position % this->map->map.size(), position / this->map->map.size());
 }
 
@@ -388,7 +388,7 @@ sf::Vector2<int> Seaker::next(sf::Vector2<int> c) {
 	return sf::Vector2<int>(0,0); //This will never happen
 }
 
-sf::Vector2<int> Seaker::getPosition(sf::Vector2<int> position) {
+sf::Vector2<int> Seaker::getPosition_(sf::Vector2<int> position) {
 	if(this->map->map[position.x][position.y] == false) {
 		position.y--;
 	}
