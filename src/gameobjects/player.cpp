@@ -8,7 +8,6 @@
 #include <SFML/Window.hpp>
 #include <functional>
 #include <cmath>
-#include <iostream>
 
 using namespace std;
 using namespace std::placeholders;
@@ -157,15 +156,10 @@ void Player::incrementCaffeineLevel(int value) {
 	updateCaffeineLevel();
 }
 
-
 void Player::incrementInventoryItemValue() {
 	if (this->inventoryItem < this->maxInventoryItems) {
 		this->inventoryItem++;
 		updateItemCounter();
-	}
-	else
-	{
-		setExmatriculationable(false);
 	}
 }
 

@@ -4,7 +4,6 @@
 #include "end-of-Time.hpp"
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
-#include <iostream>
 
 using namespace theseus::engine;
 using namespace std;
@@ -27,21 +26,9 @@ bool Game::run(Scene& scene)
 {
 	// Main loop
 	sf::Clock timing;
-	sf::Clock fpsClock;
-	int fpsCounter = 0;
 	int exit = false;
 	while (!exit)
 	{
-		// measure fps
-		++fpsCounter;
-		if (fpsClock.getElapsedTime().asSeconds() >= 1)
-		{
-			cout << "FPS: " << fpsCounter << endl;
-			fpsCounter = 0;
-			fpsClock.restart();
-		}
-
-
 		// process events
 		sf::Event event;
 		while (window.pollEvent(event))

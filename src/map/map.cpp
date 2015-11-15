@@ -1,7 +1,6 @@
 #include "map.hpp"
 #include <math.h>
 #include "../gameobjects/brick.hpp"
-#include <iostream>
 
 using namespace theseus::map;
 using namespace std;

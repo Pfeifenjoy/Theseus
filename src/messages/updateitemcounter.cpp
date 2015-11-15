@@ -3,7 +3,6 @@
 */
 
 #include "updateitemcounter.hpp"
-#include <iostream>
 using namespace theseus::messages;
 
 void UpdateItemCounter::setInventoryValue(int value) {
