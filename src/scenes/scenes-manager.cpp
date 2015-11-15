@@ -172,7 +172,7 @@ bool ScenesManager::loadStart() {
 	vector<string> buttons;
 
 	buttons.push_back("Start");
-	buttons.push_back("Quit");
+	buttons.push_back("Beenden");
 	Menu menu(buttons, &(this->game));
 	this->game.run(menu);
 
@@ -186,8 +186,8 @@ void ScenesManager::loadPause(theseus::map::Level& level) {
 	while(level.getLastKey() == sf::Keyboard::Escape) {
 		vector<string> buttons;
 
-		buttons.push_back("Continue");
-		buttons.push_back("Quit");
+		buttons.push_back("Fortsetzen");
+		buttons.push_back("Beenden");
 		Menu menu(buttons, &(this->game));
 		this->game.run(menu);
 		if(menu.getSelectedItemIndex() == 0) {
