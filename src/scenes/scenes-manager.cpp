@@ -62,7 +62,7 @@ string const LEVEL1 = "[Level 1]\n\n\n"
 "Er war immer sehr nett und engagiert. \n"
 "Zurzeit findet er gerade die Installations-CD fuer sein Lieblingsprogramms 'Bizagi' nicht.\n"
 "Komme ihm nicht zu nahe! Das Virus und seine schlechte Laune fuehren dazu,\n"
-"dass er keine Studenten sehen moechte. Falls er doch einen Studenten sieht, \n "
+"dass er keine Studenten sehen moechte. Falls er doch einen Studenten sieht,\n "
 "versucht er diesen zu exmatrikulieren.\n"
 "Suche in der DHBW nach der verschwundenen 'Bizagi'-Installations- CD und bringe\n"
 "sie innerhalb der vorgegeben Zeit zu Herrn Runge,\n"
@@ -105,7 +105,7 @@ string const LEVEL4 = "[Level 3] erfolgreich abgeschlossen!\n\n"
 "Ist Herr Hofmann ueberhaupt auf der Suche danach?\n"
 "Auch er ist vom Virus infiziert. Komm ihm nicht zu nahe!\n"
 "Finde das Messgeraet und heile Herrn Hofmann!\n"
-"Pass auf, denn exmatrikulierte Studenten koennen Dich jetzt auch attackieren und\n"
+"Pass auf, denn exmatrikulierte Studenten koennen dich jetzt auch attackieren und\n"
 "dir wertvolle Zeit zum vollenden des Levels stehlen!\n\n"
 "Aufgabe:\n"
 "1. Bring Herrn Hofmann sein Messgeraet"
@@ -118,7 +118,7 @@ string const LEVEL5 = "[Level 4] erfolgreich abgeschlossen!\n\n"
 "nur halb so schoen, denn er ist hungrig...\n"
 "Suche diese und bringe sie Herrn Kruse zurueck! Meide den Kontakt zu deinen Kommilitonen!\n"
 "Diese koennen ebenfalls vom Virus infiziert sein. Falls du mit einem Infizierten\n"
-"in Kontakt kommst, wird du langsamer...\n\n"
+"in Kontakt kommst, wird du auch exmatrikuliert...\n\n"
 
 "Aufgabe:\n"
 "1. Bring Herrn Kruse 3 Apfeltaschen"
@@ -254,7 +254,7 @@ bool ScenesManager::loadLevel1() {
 
 	level->addRoom(move(mensa));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -317,7 +317,7 @@ bool ScenesManager::loadLevel2() {
 	auto glaser = unique_ptr<Glaser>(new Glaser);
 	level->setProf(move(glaser));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 3));
+	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -378,7 +378,7 @@ bool ScenesManager::loadLevel3() {
 	auto huebl = unique_ptr<Huebl>(new Huebl);
 	level->setProf(move(huebl));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 3));
+	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -441,7 +441,7 @@ bool ScenesManager::loadLevel4() {
 	auto hofmann = unique_ptr<Hofmann>(new Hofmann);
 	level->setProf(move(hofmann));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -449,7 +449,7 @@ bool ScenesManager::loadLevel4() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), meter);
 	scene->setCamera(man_ptr);
@@ -505,7 +505,7 @@ bool ScenesManager::loadLevel5() {
 	auto kruse = unique_ptr<Kruse>(new Kruse);
 	level->setProf(move(kruse));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 3));
+	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -568,7 +568,7 @@ bool ScenesManager::loadLevel6() {
 	auto stroetmann = unique_ptr<Stroetmann>(new Stroetmann);
 	level->setProf(move(stroetmann));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
