@@ -202,7 +202,7 @@ bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 {
 	vector<string> buttonsCharacter;
 
-	buttonsCharacter.push_back("Männlich");
+	buttonsCharacter.push_back("Maennlich");
 	buttonsCharacter.push_back("Weiblich");
 	Menu menu(buttonsCharacter, &(this->game));
 	this->game.run(menu);
@@ -396,7 +396,7 @@ bool ScenesManager::loadLevel3() {
 		this->playedTime = 0;
 		return false;
 	}
-	else 
+	else
 	{
 		this->lifePoints = man_ptr->getLifePoints();
 		this->playedTime += timer_ptr->getActualTime();
