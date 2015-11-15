@@ -45,12 +45,9 @@ int main()
 	TextureManager::instance().loadTexture("wall_cross.png");
 	TextureManager::instance().loadTexture("wall_T_cross.png");
 	TextureManager::instance().loadTexture("wall_T_upsidedown_cross.png");
-	TextureManager::instance().loadTexture("ball.png");
 	TextureManager::instance().loadTexture("floor_black.png");
 	TextureManager::instance().loadTexture("floor_red.png");
 	TextureManager::instance().loadTexture("gras.png");
-	TextureManager::instance().loadTexture("item_table.png");
-	TextureManager::instance().loadTexture("item_table2.png");
 	TextureManager::instance().loadTexture("item_level_3_solutions.png");
 	TextureManager::instance().loadTexture("item_level_4_meter.png");
 	TextureManager::instance().loadTexture("item_coffee.png");
@@ -59,7 +56,6 @@ int main()
 	TextureManager::instance().loadTexture("item_level_5_appleturnover.png");
 	TextureManager::instance().loadTexture("item_level_6_cup.png");
 	TextureManager::instance().loadTexture("item_level_1_bizagi_cd.png");
-	TextureManager::instance().loadTexture("item_level_6_cup2.png");
 	TextureManager::instance().loadTexture("heart.png");
 	TextureManager::instance().loadTexture("speech_bubble.png");
 
