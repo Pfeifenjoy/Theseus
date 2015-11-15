@@ -25,19 +25,19 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 
 
 
-//	if(this->map->map[position.x][position.y]) {
-//		auto fieldMiddle = sf::Vector2f(position.x * Brick::WIDTH + Brick::WIDTH / 2, position.y * Brick::HEIGHT + Brick::HEIGHT / 2);
-//		if(lastField != position) {
-//			if(abs(positiont.x - fieldMiddle.x) > 11 || abs(positiont.y - fieldMiddle.y) > 11) {
-//				cout << fieldMiddle.x - positiont.x << ", " << fieldMiddle.y - positiont.y << endl;
-//				int x = fieldMiddle.x - positiont.x > 0 ? 1 : -1;
-//				int y = fieldMiddle.y - positiont.y > 0 ? 1 : -1;
-//				return sf::Vector2<int>(x, y);
-//			} else {
-//				lastField = position;
-//			}
-//		}
-//	}
+	if(this->map->map[position.x][position.y]) {
+		auto fieldMiddle = sf::Vector2f(position.x * Brick::WIDTH + Brick::WIDTH / 2, position.y * Brick::HEIGHT + Brick::HEIGHT / 2);
+		if(lastField != position) {
+			if(abs(positiont.x - fieldMiddle.x) > 11 || abs(positiont.y - fieldMiddle.y) > 11) {
+				//cout << fieldMiddle.x - positiont.x << ", " << fieldMiddle.y - positiont.y << endl;
+				int x = fieldMiddle.x - positiont.x > 0 ? 1 : -1;
+				int y = fieldMiddle.y - positiont.y > 0 ? 1 : -1;
+				return sf::Vector2<int>(x, y);
+			} else {
+				lastField = position;
+			}
+		}
+	}
 
 	int size = this->map->map.size();
 	int source = position.x + position.y * size;
