@@ -59,7 +59,7 @@ void Student::exmatriculation(const theseus::messages::Exmatriculation& message)
 
 		// Show Progressbar
 		setTexture(3, TextureManager::instance().getTexture("bar.png"));
-		sprite(3).setTextureRect(sf::IntRect(0, 0, (int)round(exmatriculationProgress / (EXMATRICULATION_VALUE / 100)) / 2, 10));
+		sprite(3).setTextureRect(sf::IntRect(0, 0, (int)((exmatriculationProgress / (EXMATRICULATION_VALUE / 100)) / 2 ) , 10));
 		sprite(3).setPosition(sf::Vector2f(-9, -10));
 		progressbarActive = true;
 

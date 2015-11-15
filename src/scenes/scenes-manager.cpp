@@ -90,10 +90,10 @@ string const LEVEL3 = "[Level 2] erfolgreich abgeschlossen!\n\n"
 "Herrn Huebl ist es langweilig...\n\n"
 "Das Virus beeinflusst ihn so, dass er keine Studenten mehr sehen moechte\n"
 "und deshalb diese exmatrikuliert.\n"
-"Um ihn zu heilen, muessen ihm 5 Loesungen zu seinen Mathe-Aufgabenblaettern\n"
+"Um ihn zu heilen, muessen ihm 3 Loesungen zu seinen Mathe-Aufgabenblaettern\n"
 "uebergeben werden.\n\n"
 "Aufgabe:\n"
-"1. Uebergib Herrn Huebl 5 Loesungen"
+"1. Uebergib Herrn Huebl 3 Loesungen"
 "\n\n\n\n\n"
 "\n\n\nWeiter mit <Leertaste>";
 
@@ -105,8 +105,7 @@ string const LEVEL4 = "[Level 3] erfolgreich abgeschlossen!\n\n"
 "Ist Herr Hofmann ueberhaupt auf der Suche danach?\n"
 "Auch er ist vom Virus infiziert. Komm ihm nicht zu nahe!\n"
 "Finde das Messgeraet und heile Herrn Hofmann!\n"
-"Pass auf, denn exmatrikulierte Studenten koennen dich jetzt auch attackieren und\n"
-"dir wertvolle Zeit zum vollenden des Levels stehlen!\n\n"
+"\n\n\n\n\n"
 "Aufgabe:\n"
 "1. Bring Herrn Hofmann sein Messgeraet"
 "\n\n\n"
@@ -132,7 +131,7 @@ string const LEVEL6 = "[Level 5] erfolgreich abgeschlossen!\n\n"
 "geliebte 'I love SetlX'-Tasse. Und genau diese ist verschwunden.\n"
 "Aus diesem Grund ist Herr Stroetmann veraergert und exmatrikuliert Studenten!\n"
 "Finde und bringe ihm seine Tasse und Herr Stroetmann wird geheilt.\n\n"
-"Hinweis: Suche eine Flasche Frucktiv zu deiner eigenen Sicherheit!\n\n"
+"Achte auch hier wieder auf exmatrikulierte Studenten, die dich nun exmatrikulieren!\n\n"
 "Aufgabe:\n"
 "1. Bring Herrn Stroetmann seine 'I love SetlX'-Tasse"
 "\n"
@@ -152,13 +151,13 @@ void ScenesManager::run()
 		if (this->game.run(Storytext)) return;
 	}
 	while(true) {
-		if(this->loadStart())
-		if(this->selectCharacter())
-		if(this->loadLevel1())
-		if(this->loadLevel2())
-		if(this->loadLevel3())
-		if(this->loadLevel4())
-		if(this->loadLevel5())
+		//if(this->loadStart())
+		//if(this->selectCharacter())
+		//if(this->loadLevel1())
+		//if(this->loadLevel2())
+		//if(this->loadLevel3())
+		//if(this->loadLevel4())
+		//if(this->loadLevel5())
 		if(this->loadLevel6()) {}
 
 		this->loadHighScore();
@@ -413,7 +412,10 @@ bool ScenesManager::loadLevel4() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
-	level->addFreeGameObject(unique_ptr<Instrument>(new Instrument()));
+	for (int i = 0; i < 2; i++) {
+		level->addFreeGameObject(unique_ptr<Instrument>(new Instrument()));
+	}
+	
 
 	string meter = "item_level_4_meter.png";
 
@@ -426,7 +428,7 @@ bool ScenesManager::loadLevel4() {
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
 
 	//set amount of coffee
-	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 25; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
@@ -489,13 +491,13 @@ bool ScenesManager::loadLevel5() {
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
 
 	//set amount of coffee
-	for (int i = 0; i < 20; i++) {
+	for (int i = 0; i < 30; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
 	//set amount of students
 	int x = 0;
-	for (x = 0; x < 50; x++) {
+	for (x = 0; x < 30; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		npc->setExmatriculate();
 		level->addFreeGameObject(move(npc));
@@ -513,7 +515,7 @@ bool ScenesManager::loadLevel5() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 260));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), cexam);
 	scene->setCamera(man_ptr);
@@ -552,13 +554,13 @@ bool ScenesManager::loadLevel6() {
 
 
 	//set amount of coffee
-	for (int i = 0; i < 25; i++) {
+	for (int i = 0; i < 30; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
 	//set amount of students
 	int x = 0;
-	for (x = 0; x < 100; x++) {
+	for (x = 0; x < 70; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		npc->setExmatriculate();
 		level->addFreeGameObject(move(npc));
@@ -576,7 +578,7 @@ bool ScenesManager::loadLevel6() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 280));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), setlxcup);
 	scene->setCamera(man_ptr);

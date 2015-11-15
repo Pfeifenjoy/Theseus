@@ -28,6 +28,10 @@ namespace theseus
 			void onCollision(const theseus::engine::components::Solide&);
 			void changeDirection();
 
+			// exmatriculation		
+			float exmatriculation_radius = 70; 	// where the exmatriculation message is sent to
+			float exmatriculation_speed = 1; 	// how fast the npc exmatriculates other poor students
+
 			bool exmatriculatedBool;
 			bool exmatriculate;
 
