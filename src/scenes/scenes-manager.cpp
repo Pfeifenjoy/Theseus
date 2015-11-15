@@ -233,7 +233,7 @@ bool ScenesManager::loadLevel1() {
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
 
 	//set amount of coffee
-	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 12; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
@@ -289,7 +289,7 @@ bool ScenesManager::loadLevel2() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 40)));
 	//set level specific object
-	for (int i = 0; i < 8; ++i) {
+	for (int i = 0; i < 6; ++i) {
 		level->addFreeGameObject(unique_ptr<Chalk>(new Chalk()));
 	}
 
@@ -301,7 +301,7 @@ bool ScenesManager::loadLevel2() {
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
 
 	//set amount of coffee
-	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 12; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
@@ -324,7 +324,7 @@ bool ScenesManager::loadLevel2() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 220));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), chalk);
 	scene->setCamera(man_ptr);
@@ -350,7 +350,7 @@ bool ScenesManager::loadLevel3() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 50)));
 	//set level specific object
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 5; i++) {
 		level->addFreeGameObject(unique_ptr<MathSolution>(new MathSolution()));
 	}
 
@@ -412,7 +412,7 @@ bool ScenesManager::loadLevel4() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 1; i++) {
 		level->addFreeGameObject(unique_ptr<Instrument>(new Instrument()));
 	}
 	
@@ -497,7 +497,7 @@ bool ScenesManager::loadLevel5() {
 
 	//set amount of students
 	int x = 0;
-	for (x = 0; x < 30; x++) {
+	for (x = 0; x < 40; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		npc->setExmatriculate();
 		level->addFreeGameObject(move(npc));
@@ -515,7 +515,7 @@ bool ScenesManager::loadLevel5() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 260));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), cexam);
 	scene->setCamera(man_ptr);
@@ -560,7 +560,7 @@ bool ScenesManager::loadLevel6() {
 
 	//set amount of students
 	int x = 0;
-	for (x = 0; x < 70; x++) {
+	for (x = 0; x < 80; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		npc->setExmatriculate();
 		level->addFreeGameObject(move(npc));
@@ -578,7 +578,7 @@ bool ScenesManager::loadLevel6() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 280));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 260));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), setlxcup);
 	scene->setCamera(man_ptr);
