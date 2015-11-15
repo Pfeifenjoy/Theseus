@@ -385,7 +385,7 @@ bool ScenesManager::loadLevel3() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 220));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), mathsolution);
 	scene->setCamera(man_ptr);

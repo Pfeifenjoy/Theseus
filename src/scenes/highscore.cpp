@@ -63,31 +63,31 @@ string Highscore::getHighscore(float timeLeft)
 {
 	string mark;
 	// if at least 3 minutes after completing the last level are remaining, then you get an 1,0. otherwise the mark rises by 0.5 every 30 seconds
-	if (timeLeft >= 180) {
+	if (timeLeft >= 500) {
 		mark = "1.0";
 		return mark;
 	}
-	else if (timeLeft >= 150 && timeLeft < 180) {
+	else if (timeLeft >= 470 && timeLeft < 500) {
 		mark = "1.5";
 		return mark;
 	}
-	else if (timeLeft >= 120 && timeLeft < 150) {
+	else if (timeLeft >= 380 && timeLeft < 410) {
 		mark = "2,0";
 		return mark;
 	}
-	else if (timeLeft >= 90 && timeLeft < 120) {
+	else if (timeLeft >= 350 && timeLeft < 380) {
 		mark = "2.5";
 		return mark;
 	}
-	else if (timeLeft >= 60 && timeLeft < 90) {
+	else if (timeLeft >= 320 && timeLeft < 350) {
 		mark = "3.0";
 		return mark;
 	}
-	else if (timeLeft >= 30 && timeLeft < 60) {
+	else if (timeLeft >= 190 && timeLeft < 320) {
 		mark = "3.5";
 		return mark;
 	}
-	else if (timeLeft > 0 && timeLeft < 30) {
+	else if (timeLeft > 0 && timeLeft < 160) {
 		mark = "4.0";
 		return mark;
 	}
