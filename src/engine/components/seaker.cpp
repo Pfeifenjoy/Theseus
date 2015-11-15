@@ -16,25 +16,28 @@ void Seaker::setMap(Map *map) {
 sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 //--------------------------------------------------
 	auto positiont = Position::getPosition() + getCollisionAreaTopLeft() + (getCollisionAreaBottomRight() - getCollisionAreaTopLeft()) / (float)2;
+	positiont.x += Brick::OFFSET + 1;
 
+	target.x += Brick::OFFSET;
 	sf::Vector2<int> position(floor(positiont.x / theseus::gameobjects::Brick::WIDTH), floor(positiont.y / theseus::gameobjects::Brick::HEIGHT));
 	goal = getPosition(sf::Vector2<int> (floor(target.x / theseus::gameobjects::Brick::WIDTH), floor(target.y / theseus::gameobjects::Brick::HEIGHT)));
 	position = getPosition(position);
 
 
-	if(this->map->map[position.x][position.y]) {
-		auto fieldMiddle = sf::Vector2f(position.x * Brick::WIDTH + Brick::WIDTH / 2, position.y * Brick::HEIGHT + Brick::HEIGHT / 2);
-		if(lastField != position) {
-			if(abs(positiont.x - fieldMiddle.x) > 11 || abs(positiont.y - fieldMiddle.y) > 11) {
-				cout << fieldMiddle.x - positiont.x << ", " << fieldMiddle.y - positiont.y << endl;
-				int x = fieldMiddle.x - positiont.x > 0 ? 1 : -1;
-				int y = fieldMiddle.y - positiont.y > 0 ? 1 : -1;
-				return sf::Vector2<int>(x, y);
-			} else {
-				lastField = position;
-			}
-		}
-	}
+
+//	if(this->map->map[position.x][position.y]) {
+//		auto fieldMiddle = sf::Vector2f(position.x * Brick::WIDTH + Brick::WIDTH / 2, position.y * Brick::HEIGHT + Brick::HEIGHT / 2);
+//		if(lastField != position) {
+//			if(abs(positiont.x - fieldMiddle.x) > 11 || abs(positiont.y - fieldMiddle.y) > 11) {
+//				cout << fieldMiddle.x - positiont.x << ", " << fieldMiddle.y - positiont.y << endl;
+//				int x = fieldMiddle.x - positiont.x > 0 ? 1 : -1;
+//				int y = fieldMiddle.y - positiont.y > 0 ? 1 : -1;
+//				return sf::Vector2<int>(x, y);
+//			} else {
+//				lastField = position;
+//			}
+//		}
+//	}
 
 	int size = this->map->map.size();
 	int source = position.x + position.y * size;
@@ -57,23 +60,6 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 				nodes.insert(i + j*size);
 		}
 	}
-//	int i = 0, j = 0;
-//
-//	for(i = 0; i < (int) this->map->map[0].size(); i++) {
-//		for(j = 0; j < (int) this->map->map.size(); j++) {
-//			if(j == position.x && i == position.y)
-//				cout << "\x1b[31m";
-//			else if(j == goal.x && i == goal.y)
-//				cout << "\x1b[32m";
-//			else if(this->map->map[j][i]) {
-//				cout << "\x1B[34m";//Blue
-//			} else
-//				cout <<"\x1B[33m"; //Yellow
-//			cout << "\u2588";
-//		}
-//		cout << endl;
-//	}
-//	cout << "\x1B[0m";
 
 	while(!nodes.empty()) {
 		std::map<int, int> intersection;
@@ -85,7 +71,6 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 		for(auto x: intersection)
 			if(x.second < smallest.second)
 				smallest = x;
-
 		nodes.erase(smallest.first);
 
 //		auto distance = getPosition(smallest.first) - goal;
@@ -93,7 +78,7 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 //		if(distance.x <= 1 && distance.x >= -1 && distance.y <= 1 && distance.y >= -1)
 //			break;
 
-		if(smallest.second == INT_MAX || dist[smallest.first] > radius) {
+		if(smallest.second == INT_MAX || dist[smallest.first] > /*radius * Brick::HEIGHT*/radius || smallest.first == aim) {
 			break;
 		}
 
@@ -118,6 +103,44 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 		pos = backlink[pos];
 	}
 	//cout << endl;
+
+	//Print the map
+//	int i = 0, j = 0;
+//
+//	for(i = 0; i < (int) this->map->map[0].size(); i++) {
+//		for(j = 0; j < (int) this->map->map.size(); j++) {
+//			bool found =false;
+//			std::string symbol = "\u2588";
+//			for(auto x : backPath) {
+//				if(j == x % size && i == x / size) {
+//					cout << "\x1b[35m";
+//					found = true;
+//					break;
+//				}
+//			}
+//			if(!found) {
+//				if(j == position.x && i == position.y)
+//					cout << "\x1b[31m";
+//				else if(j == goal.x && i == goal.y)
+//					cout << "\x1b[32m";
+//				else if(this->map->map[j][i]) {
+//					cout << "\x1B[34m";//Blue
+//				} else
+//					cout <<"\x1B[33m"; //Yellow
+//			}
+//			for(auto x : dist) {
+//				if(j == x.first % size && i == x.first /size) {
+//					symbol = "";
+//					cout << x.second;
+//					found = true;
+//					break;
+//				}
+//			}
+//			cout << symbol;
+//		}
+//		cout << endl;
+//	}
+//	cout << "\x1B[0m";
 
 	if(backPath.size() > 0) {
 		auto next = getPosition(backPath.back()) - position;
