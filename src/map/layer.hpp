@@ -9,7 +9,6 @@
 #include "../gameobjects/floor.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include <iostream>
 #include "level-description.hpp"
 #include "../engine/components/position.hpp"
 #include "map.hpp"

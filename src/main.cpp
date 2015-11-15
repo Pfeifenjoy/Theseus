@@ -2,7 +2,6 @@
 #include "engine/texturemanager.hpp"
 #include "scenes/scenes-manager.hpp"
 
-#include <iostream>
 #include <memory>
 
 using namespace std;

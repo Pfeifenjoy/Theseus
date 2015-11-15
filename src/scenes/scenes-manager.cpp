@@ -2,7 +2,6 @@
 #include "storytext.hpp"
 #include "menu.hpp"
 #include <string>
-#include <iostream>
 #include "../map/level-description.hpp"
 #include "../gameobjects/brick.hpp"
 #include "../gameobjects/runge.hpp"
@@ -398,7 +397,8 @@ bool ScenesManager::loadLevel3() {
 		this->playedTime = 0;
 		return false;
 	}
-	else {
+	else 
+	{
 		this->lifePoints = man_ptr->getLifePoints();
 		this->playedTime += timer_ptr->getActualTime();
 		return true;

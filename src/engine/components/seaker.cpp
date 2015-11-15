@@ -1,7 +1,6 @@
 #include "seaker.hpp"
 #include "../../gameobjects/brick.hpp"
 #include <map>
-#include <iostream>
 #include <limits.h>
 
 using namespace theseus::engine::components;
@@ -29,7 +28,6 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 		auto fieldMiddle = sf::Vector2f(position.x * Brick::WIDTH + Brick::WIDTH / 2, position.y * Brick::HEIGHT + Brick::HEIGHT / 2);
 		if(lastField != position) {
 			if(abs(positiont.x - fieldMiddle.x) > 11 || abs(positiont.y - fieldMiddle.y) > 11) {
-				//cout << fieldMiddle.x - positiont.x << ", " << fieldMiddle.y - positiont.y << endl;
 				int x = fieldMiddle.x - positiont.x > 0 ? 1 : -1;
 				int y = fieldMiddle.y - positiont.y > 0 ? 1 : -1;
 				return sf::Vector2<int>(x, y);
@@ -42,8 +40,6 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 	int size = this->map->map.size();
 	int source = position.x + position.y * size;
 	int aim = goal.x + goal.y * size;
-	//cout << "Player: " << goal.x << ", " << goal.y << endl;
-	//cout << "Prof: " << position.x << ", " << position.y << endl;
 	std::vector<int> path;
 
 
@@ -74,7 +70,6 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 		nodes.erase(smallest.first);
 
 //		auto distance = getPosition(smallest.first) - goal;
-//		cout << distance.x << ", " << distance.y << endl;
 //		if(distance.x <= 1 && distance.x >= -1 && distance.y <= 1 && distance.y >= -1)
 //			break;
 
@@ -87,7 +82,6 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 			if(dist.find(e.first) == dist.end() || smallest.second + 1 < dist[e.first]) {
 				//dist[e.first] = smallest.second + 1;
 				dist[e.first] = smallest.second + e.second;
-				//cout << "ja: " << e.first % size << ", " << e.first / size << endl;
 				backlink[e.first] = smallest.first;
 			}
 
@@ -99,10 +93,8 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 	while(pos != source) {
 		if(pos == 0) break;
 		backPath.push_back(pos);
-		//cout << " -> (" << pos % size << ", " << pos / size  << ")";
 		pos = backlink[pos];
 	}
-	//cout << endl;
 
 	//Print the map
 //	int i = 0, j = 0;
@@ -113,38 +105,28 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 //			std::string symbol = "\u2588";
 //			for(auto x : backPath) {
 //				if(j == x % size && i == x / size) {
-//					cout << "\x1b[35m";
 //					found = true;
 //					break;
 //				}
 //			}
 //			if(!found) {
 //				if(j == position.x && i == position.y)
-//					cout << "\x1b[31m";
 //				else if(j == goal.x && i == goal.y)
-//					cout << "\x1b[32m";
 //				else if(this->map->map[j][i]) {
-//					cout << "\x1B[34m";//Blue
 //				} else
-//					cout <<"\x1B[33m"; //Yellow
 //			}
 //			for(auto x : dist) {
 //				if(j == x.first % size && i == x.first /size) {
 //					symbol = "";
-//					cout << x.second;
 //					found = true;
 //					break;
 //				}
 //			}
-//			cout << symbol;
 //		}
-//		cout << endl;
 //	}
-//	cout << "\x1B[0m";
 
 	if(backPath.size() > 0) {
 		auto next = getPosition_(backPath.back()) - position;
-		//cout << "next: " << next.x << ", " << next.y << endl;
 		if(next.x <= 1 && next.x >= -1 && next.y <= 1 && next.y >= -1) {
 			if(this->map->map[position.x + next.x][position.y + next.y]) {
 				return next;
@@ -154,7 +136,6 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 
 	sf::Vector2i next(0, 0);
 //	do {
-//		//cout << "next: " << next.x << ", " << next.y << endl;
 //		int number = rand() % 9;
 //
 //		switch (number)
@@ -169,14 +150,12 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 //			case 7: next = sf::Vector2i(-1, 1); break; // NPC is moving left down
 //			case 8: next = sf::Vector2i( 1, 1); break; // NPC is moving right down
 //		}
-//		//cout << "ja" << next.x << next.y<< endl;
 //	} while (this->map->map[position.x + next.x][position.y + next.y] == false);
 
 	return next;
 //----------------------------------------------------------------------------------------------------
 
 //	for(auto x: backPath)
-//		cout << x << endl;
 
 
 //	std::map<int, int> dist;
@@ -187,7 +166,6 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 //
 //	while (!fringe.empty()) {
 //
-//		cout << 2 << endl;
 //		std::map<int, int> results;
 //		for(auto x : fringe) {
 //			auto q = getEdges(x.first);
@@ -201,7 +179,6 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 //		auto distU = smallest->second;
 //		auto u = smallest->first;
 //
-//		cout << u << endl;
 //		if(smallest == results.end() || u == aim) {
 //			path = constructPath(source, aim, backEdge);
 //			break;
@@ -228,9 +205,7 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 //	}
 //
 //	for(auto x : path) {
-//		cout << " -> (" << x % size << ", " << x / size << ")";
 //	}
-//	cout << endl;
 
 //	std::map<int, int> d;
 //	std::map<int, int> prev;
@@ -258,7 +233,6 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 //		if(smallest == results.end() || u == aim) break;
 //		q.erase(u);
 //		auto neighbors = getEdges(u);
-//		//cout << "Found neighbors: " << neighbors.size() << endl;
 //		for(auto n : neighbors) {
 //			if(d.find(n.second) == d.end() || d[u] + 1 < d[n.second]) {
 //				d[n.second] = d[u] + 1;
@@ -268,12 +242,8 @@ sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 //	}
 
 //	for(auto x : d)
-//		cout << x.first << ", " << x.second <<  " - ";
-//	cout << endl;
 
 //	for(auto x : prev)
-//		cout << "(" << x.first % size << ", " << x.first / size << ") -> (" << x.second % size << ", " << x.second / size << ") | ";
-//	cout << endl;
 
 
 

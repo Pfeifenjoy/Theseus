@@ -5,7 +5,6 @@
 #include "../engine/scene.hpp"
 #include "../gameobjects/textfield.hpp"
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <string>
 
 using namespace std;

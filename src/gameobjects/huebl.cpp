@@ -15,7 +15,7 @@ Huebl::Huebl()
 	setTexture(2, TextureManager::instance().getTexture("charset_level_3.png"));
 
 	// autotalk
-	this->startAutoSpeech({ { "Uebungsblaetter...", "Griechische Buchstaben sind cool!", "Alpha, Beta, Gamma, ...?", "Mathematik, Mathematik" } }, 3, 10, 40, true, true);
+	this->startAutoSpeech({{ "Uebungsblaetter...", "Griechische Buchstaben sind cool!", "Alpha, Beta, Gamma, ...?", "Mathematik, Mathematik" }}, 3, 10, 40, true, true);
 
 }
 
