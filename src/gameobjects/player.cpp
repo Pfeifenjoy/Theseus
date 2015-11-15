@@ -61,6 +61,16 @@ void Player::keyPressed(sf::Keyboard::Key key) {
 		MessageSender<Interact>::sendMessage(
 			interact, sf::Vector2f(position.x - 25, position.y + 25), sf::Vector2f(position.x + 57, position.y + 75));
 	}
+
+	// Shout on Q
+	if (key == sf::Keyboard::Key::Q)
+	{
+		say("Hey, Professor, hier bin ich!", 2);
+		Attrack attraction;
+		attraction.position = getPosition() + 0.5f * this->getCollisionAreaTopLeft() + 0.5f * this->getCollisionAreaBottomRight();
+		attraction.priority = 3;
+		MessageSender<Attrack>::sendMessage(attraction, 1000, 1000);
+	}
 }
 
 void Player::setMale(bool male) {
@@ -75,6 +85,7 @@ void Player::setMale(bool male) {
 void Player::onUpdate(float timePassed)
 {
 	// <Space> for more speed
+	bool running = false;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && caffeineLevel > 0 &&
 		(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) ||
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))) {
@@ -82,6 +93,7 @@ void Player::onUpdate(float timePassed)
 		caffeineLevel -= 5 * timePassed;
 		updateCaffeineLevel();
 		setSpeedMultiplier(3);
+		running = true;
 	}
 	else setSpeedMultiplier(1); // normal speed
 
@@ -102,7 +114,10 @@ void Player::onUpdate(float timePassed)
 	Attrack attraction;
 	attraction.position = getPosition() + 0.5f * this->getCollisionAreaTopLeft() + 0.5f * this->getCollisionAreaBottomRight();
 	attraction.priority = 3;
-	MessageSender<Attrack>::sendMessage(attraction, 500, 500);
+	if (running)
+		MessageSender<Attrack>::sendMessage(attraction, 200, 200);
+	else
+		MessageSender<Attrack>::sendMessage(attraction, 100, 100);
 }
 
 void Player::exmatriculationDone() {

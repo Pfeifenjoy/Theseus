@@ -84,6 +84,12 @@ void NPC::onUpdate(float time)
 		Exmatriculation exmatriculation;
 		MessageSender<Exmatriculation>::sendMessage(exmatriculation, 80, 80);
 	}
+	
+	// attrack professors
+	Attrack attraction;
+	attraction.position = getPosition() + 0.5f * this->getCollisionAreaTopLeft() + 0.5f * this->getCollisionAreaBottomRight();
+	attraction.priority = 1;
+	MessageSender<Attrack>::sendMessage(attraction, 100, 100);
 
 
 }
