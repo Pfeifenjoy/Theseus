@@ -25,6 +25,7 @@ Student::Student() {
 
 	// subscribe for update
 	evOnUpdate.subscribe(bind(&Student::onUpdate, this, _1));
+	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Student::exmatriculation, this, _1));
 }
 
 Student::~Student() {
@@ -49,12 +50,12 @@ void Student::onUpdate(float timePassed) {
 	}
 }
 
-void Student::exmatriculation(const theseus::messages::Exmatriculation& message) {
-	if (exmatriculationable) {
+void Student::exmatriculation(const theseus::messages::Exmatriculation& message)
+{
+	professorSendedExmatriculationMessage = message.getProfessorSended();
+	if (exmatriculationable && exmatriculationTick(message)) {
 		exmatriculationProcessActive = EXMATRICULATION_TIME;
 		exmatriculationProgress -= message.getExmatriculationAmount();
-
-		professorSendedExmatriculationMessage = message.getProfessorSended();
 
 		// Show Progressbar
 		setTexture(3, TextureManager::instance().getTexture("bar.png"));
@@ -74,3 +75,4 @@ void Student::setExmatriculationable(bool value) {
 }
 
 void Student::exmatriculationDone() {}
+bool Student::exmatriculationTick(const Exmatriculation&) {return true;}

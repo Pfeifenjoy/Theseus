@@ -24,6 +24,16 @@ float Exmatriculation::getExmatriculationAmount() const
 	return exmatriculationAmount;
 }
 
+void Exmatriculation::setOrigin(sf::Vector2f value)
+{
+	origin = value;
+}
+
+sf::Vector2f Exmatriculation::getOrigin() const
+{
+	return origin;
+}
+				
 Exmatriculation::~Exmatriculation() {}
 
 

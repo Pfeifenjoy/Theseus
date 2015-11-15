@@ -25,7 +25,6 @@ namespace theseus
 			, public virtual engine::components::Animation
 			, public virtual engine::components::Speed
 			, public virtual engine::components::MessageReceiver<theseus::messages::Exmatriculation>
-
 		{
 		private:
 			void onUpdate(float timePassed);
@@ -42,6 +41,7 @@ namespace theseus
 			void exmatriculation(const theseus::messages::Exmatriculation& message);
 
 			// Method will be called if student gets exmatriculated
+			virtual bool exmatriculationTick(const theseus::messages::Exmatriculation& message);
 			virtual void exmatriculationDone();
 			
 		public:

@@ -25,8 +25,8 @@ namespace components {
 			std::vector<std::pair<sf::Vector2<int>, sf::Vector2<int> > > getEdges(sf::Vector2<int> position, int radius);
 			std::set<std::pair<int, float> > getEdges(int);
 			std::vector<int> constructPath(int source, int goal, std::map<int, int> backEdge);
-			sf::Vector2<int> getPosition(int position);
-			sf::Vector2<int> getPosition(sf::Vector2<int>);
+			sf::Vector2<int> getPosition_(int position);
+			sf::Vector2<int> getPosition_(sf::Vector2<int>);
 			sf::Vector2<int> next(sf::Vector2<int>);
 			sf::Vector2<int> goal;
 			bool inBrick = false;

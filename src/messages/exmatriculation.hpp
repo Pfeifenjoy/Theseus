@@ -5,6 +5,8 @@
 #ifndef _THESEUS_MESSAGES_EXMATRICULATION_H
 #define _THESEUS_MESSAGES_EXMATRICULATION_H
 
+#include <SFML/System.hpp>
+
 namespace theseus
 {
 	namespace messages {
@@ -13,6 +15,7 @@ namespace theseus
 		private:
 			bool professorSended = false;
 			float exmatriculationAmount;
+			sf::Vector2f origin;
 
 		public:
 			~Exmatriculation();
@@ -28,6 +31,12 @@ namespace theseus
 			 */
 			void setExmatriculationAmount(float value);
 			float getExmatriculationAmount() const;
+
+			/**
+			 * Where does the signal come from?
+			 */
+			void setOrigin(sf::Vector2f value);
+			sf::Vector2f getOrigin() const;
 		};
 	}
 }
