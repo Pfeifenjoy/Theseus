@@ -15,9 +15,9 @@ void Seaker::setMap(Map *map) {
 sf::Vector2<int> Seaker::nextDirection(sf::Vector2f target, int radius) {
 //--------------------------------------------------
 	auto positiont = Position::getPosition() + getCollisionAreaTopLeft() + (getCollisionAreaBottomRight() - getCollisionAreaTopLeft()) / (float)2;
-	positiont.x += Brick::OFFSET + 1;
+	//positiont.x += Brick::OFFSET + 1;
 
-	target.x += Brick::OFFSET;
+	//target.x += Brick::OFFSET;
 	sf::Vector2<int> position(floor(positiont.x / theseus::gameobjects::Brick::WIDTH), floor(positiont.y / theseus::gameobjects::Brick::HEIGHT));
 	goal = getPosition_(sf::Vector2<int> (floor(target.x / theseus::gameobjects::Brick::WIDTH), floor(target.y / theseus::gameobjects::Brick::HEIGHT)));
 	position = getPosition_(position);

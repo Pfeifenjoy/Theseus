@@ -54,7 +54,8 @@ string const CONTROL = "[Steuerung]\n\n\n"
 "Kaffee-Boost:  " "<Leertaste>\n\n"
 "Pause:  " "<ESC>\n\n"
 "Interagieren:  " "<E>\n\n"
-"Bestaetigen:  ""<Leertaste>\n\n\n"
+"Bestaetigen:  ""<Leertaste>\n\n"
+"Hinweis: Ist die Zeit abgelaufen, so endet das Spiel!\n"
 "\n\n\nWeiter mit <Leertaste>";
 
 string const LEVEL1 = "[Level 1]\n\n\n"
@@ -114,15 +115,14 @@ string const LEVEL4 = "[Level 3] erfolgreich abgeschlossen!\n\n"
 
 string const LEVEL5 = "[Level 4] erfolgreich abgeschlossen!\n\n"
 "[Level 5]\n\n\n"
-"Wo ist die denn die C-Klausur??? Ohne C-Klausur ist fuer Herrn Kruse die Welt\n"
-"nur halb so schoen...\n"
+"Wo ist die denn meine Apfeltasche hingekommen??? Ohne Apfeltasche ist fuer Herrn Kruse die Welt\n"
+"nur halb so schoen, denn er ist hungrig...\n"
 "Suche diese und bringe sie Herrn Kruse zurueck! Meide den Kontakt zu deinen Kommilitonen!\n"
 "Diese koennen ebenfalls vom Virus infiziert sein. Falls du mit einem Infizierten\n"
 "in Kontakt kommst, wird du langsamer...\n\n"
-"Hinweis: Finde eine Apfeltasche und uebergebe diesen Herrn Kruse. Dadurch ist er fuer\n"
-"30 Sekunden abgelenkt und exmatrikuliert keinen Studenten.\n\n"
+
 "Aufgabe:\n"
-"1. Bring Herrn Kruse die C-Klausur"
+"1. Bring Herrn Kruse 3 Apfeltaschen"
 "\n\n\n"
 "\n\n\nWeiter mit <Leertaste>";
 
@@ -155,11 +155,11 @@ void ScenesManager::run()
 	while(true) {
 		if(this->loadStart())
 		if(this->selectCharacter())
-		if(this->loadLevel1())
+		if(this->loadLevel5())
 		if(this->loadLevel2())
 		if(this->loadLevel3())
 		if(this->loadLevel4())
-		if(this->loadLevel5())
+		if(this->loadLevel1())
 		if(this->loadLevel6()) {}
 
 		this->loadHighScore();
@@ -172,7 +172,7 @@ bool ScenesManager::loadStart() {
 	vector<string> buttons;
 
 	buttons.push_back("Start");
-	buttons.push_back("Quit");
+	buttons.push_back("Beenden");
 	Menu menu(buttons, &(this->game));
 	this->game.run(menu);
 
@@ -186,8 +186,8 @@ void ScenesManager::loadPause(theseus::map::Level& level) {
 	while(level.getLastKey() == sf::Keyboard::Escape) {
 		vector<string> buttons;
 
-		buttons.push_back("Continue");
-		buttons.push_back("Quit");
+		buttons.push_back("Fortsetzen");
+		buttons.push_back("Beenden");
 		Menu menu(buttons, &(this->game));
 		this->game.run(menu);
 		if(menu.getSelectedItemIndex() == 0) {
@@ -203,8 +203,8 @@ bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 {
 	vector<string> buttonsCharacter;
 
-	buttonsCharacter.push_back("Male");
-	buttonsCharacter.push_back("Female");
+	buttonsCharacter.push_back("Männlich");
+	buttonsCharacter.push_back("Weiblich");
 	Menu menu(buttonsCharacter, &(this->game));
 	this->game.run(menu);
 
@@ -243,6 +243,7 @@ bool ScenesManager::loadLevel1() {
 	int x = 0;
 	for (x = 0; x < 30; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
+		npc->setExmatriculationable(false);
 		level->addFreeGameObject(move(npc));
 	}
 
@@ -254,7 +255,7 @@ bool ScenesManager::loadLevel1() {
 
 	level->addRoom(move(mensa));
 
-	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -290,7 +291,7 @@ bool ScenesManager::loadLevel2() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 40)));
 	//set level specific object
-	for (int i = 0; i < 10; ++i) {
+	for (int i = 0; i < 8; ++i) {
 		level->addFreeGameObject(unique_ptr<Chalk>(new Chalk()));
 	}
 
@@ -317,7 +318,7 @@ bool ScenesManager::loadLevel2() {
 	auto glaser = unique_ptr<Glaser>(new Glaser);
 	level->setProf(move(glaser));
 
-	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 3));
+	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -378,7 +379,7 @@ bool ScenesManager::loadLevel3() {
 	auto huebl = unique_ptr<Huebl>(new Huebl);
 	level->setProf(move(huebl));
 
-	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 3));
+	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -417,9 +418,9 @@ bool ScenesManager::loadLevel4() {
 
 	string meter = "item_level_4_meter.png";
 
-	for (int i = 0; i < 5; i++) {
-		level->addFreeGameObject(unique_ptr<UMLDiagramm>(new UMLDiagramm()));
-	}
+	//for (int i = 0; i < 5; i++) {
+	//	level->addFreeGameObject(unique_ptr<UMLDiagramm>(new UMLDiagramm()));
+	//}
 
 	level->setMaxAmountOfStandardRooms(6);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
@@ -441,7 +442,7 @@ bool ScenesManager::loadLevel4() {
 	auto hofmann = unique_ptr<Hofmann>(new Hofmann);
 	level->setProf(move(hofmann));
 
-	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -475,9 +476,9 @@ bool ScenesManager::loadLevel5() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
-	level->addFreeGameObject(unique_ptr<CExam>(new CExam()));
+	//level->addFreeGameObject(unique_ptr<CExam>(new CExam()));
 
-	string cexam = "item_level_5_exam.png";
+	string cexam = "item_level_5_appleturnover.png";
 
 	for (int i = 0; i < 5; i++) {
 		level->addFreeGameObject(unique_ptr<Apfeltasche>(new Apfeltasche()));
@@ -489,7 +490,7 @@ bool ScenesManager::loadLevel5() {
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
 
 	//set amount of coffee
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 20; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
@@ -505,7 +506,7 @@ bool ScenesManager::loadLevel5() {
 	auto kruse = unique_ptr<Kruse>(new Kruse);
 	level->setProf(move(kruse));
 
-	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -513,7 +514,7 @@ bool ScenesManager::loadLevel5() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), cexam);
 	scene->setCamera(man_ptr);
@@ -552,7 +553,7 @@ bool ScenesManager::loadLevel6() {
 
 
 	//set amount of coffee
-	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 25; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
@@ -568,7 +569,7 @@ bool ScenesManager::loadLevel6() {
 	auto stroetmann = unique_ptr<Stroetmann>(new Stroetmann);
 	level->setProf(move(stroetmann));
 
-	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -576,7 +577,7 @@ bool ScenesManager::loadLevel6() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), setlxcup);
 	scene->setCamera(man_ptr);

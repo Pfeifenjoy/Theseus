@@ -13,8 +13,8 @@ using namespace theseus::gameobjects;
 using namespace theseus::engine::components;
 
 
-string HEADING = "Highscore";
-string CONCRAT = "Herzlichen Glückwunsch";
+string HEADING = "Urkunde";
+string CONCRAT = "Herzlichen Glueckwunsch";
 string FAIL = "Das Studium wurde leider nicht bestanden...";
 
 
