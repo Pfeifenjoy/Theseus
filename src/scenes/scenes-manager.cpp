@@ -289,7 +289,7 @@ bool ScenesManager::loadLevel2() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 40)));
 	//set level specific object
-	for (int i = 0; i < 10; ++i) {
+	for (int i = 0; i < 8; ++i) {
 		level->addFreeGameObject(unique_ptr<Chalk>(new Chalk()));
 	}
 
@@ -474,9 +474,9 @@ bool ScenesManager::loadLevel5() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
-	level->addFreeGameObject(unique_ptr<CExam>(new CExam()));
+	//level->addFreeGameObject(unique_ptr<CExam>(new CExam()));
 
-	string cexam = "item_level_5_exam.png";
+	string cexam = "item_level_5_appleturnover.png";
 
 	for (int i = 0; i < 5; i++) {
 		level->addFreeGameObject(unique_ptr<Apfeltasche>(new Apfeltasche()));
@@ -504,7 +504,7 @@ bool ScenesManager::loadLevel5() {
 	auto kruse = unique_ptr<Kruse>(new Kruse);
 	level->setProf(move(kruse));
 
-	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(1000, 1000, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
