@@ -416,9 +416,9 @@ bool ScenesManager::loadLevel4() {
 
 	string meter = "item_level_4_meter.png";
 
-	for (int i = 0; i < 5; i++) {
-		level->addFreeGameObject(unique_ptr<UMLDiagramm>(new UMLDiagramm()));
-	}
+	//for (int i = 0; i < 5; i++) {
+	//	level->addFreeGameObject(unique_ptr<UMLDiagramm>(new UMLDiagramm()));
+	//}
 
 	level->setMaxAmountOfStandardRooms(6);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
