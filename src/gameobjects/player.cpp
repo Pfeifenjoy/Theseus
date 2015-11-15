@@ -81,9 +81,9 @@ void Player::onUpdate(float timePassed)
 		// reduce caffeinelevel
 		caffeineLevel -= 5 * timePassed;
 		updateCaffeineLevel();
-		setSpeedMultiplier(3);
+		setSpeedMultiplier(2);
 	}
-	else setSpeedMultiplier(1); // normal speed
+	else setSpeedMultiplier(1.3); // normal speed
 
 
 	// <WASD> Movings
