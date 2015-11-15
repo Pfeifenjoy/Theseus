@@ -151,13 +151,13 @@ void ScenesManager::run()
 		if (this->game.run(Storytext)) return;
 	}
 	while(true) {
-		//if(this->loadStart())
-		//if(this->selectCharacter())
-		//if(this->loadLevel1())
-		//if(this->loadLevel2())
-		//if(this->loadLevel3())
-		//if(this->loadLevel4())
-		//if(this->loadLevel5())
+		if(this->loadStart())
+		if(this->selectCharacter())
+		if(this->loadLevel1())
+	    if(this->loadLevel2())
+		if(this->loadLevel3())
+		if(this->loadLevel4())
+		if(this->loadLevel5())
 		if(this->loadLevel6()) {}
 
 		this->loadHighScore();
