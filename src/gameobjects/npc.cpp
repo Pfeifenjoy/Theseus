@@ -70,9 +70,9 @@ void NPC::changeDirection()
 	setDirection(direction);
 }
 
-void NPC::onUpdate(float time)
+void NPC::onUpdate(float timePassed)
 {
-	time_passed += time;
+	time_passed += timePassed;
 
 	if (time_passed > 1)
 	{
@@ -81,8 +81,12 @@ void NPC::onUpdate(float time)
 	}
 
 	if (exmatriculatedBool && exmatriculate) {
+		// send the exmatriculation message
 		Exmatriculation exmatriculation;
-		MessageSender<Exmatriculation>::sendMessage(exmatriculation, 80, 80);
+		exmatriculation.setExmatriculationAmount(timePassed * exmatriculation_speed);
+		exmatriculation.setOrigin(this->getPosition());
+		sendMessage(exmatriculation, exmatriculation_radius, exmatriculation_radius);
+
 	}
 
 

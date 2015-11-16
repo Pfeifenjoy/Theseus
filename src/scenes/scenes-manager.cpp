@@ -63,7 +63,7 @@ string const LEVEL1 = "[Level 1]\n\n\n"
 "Er war immer sehr nett und engagiert. \n"
 "Zurzeit findet er gerade die Installations-CD fuer sein Lieblingsprogramms 'Bizagi' nicht.\n"
 "Komme ihm nicht zu nahe! Das Virus und seine schlechte Laune fuehren dazu,\n"
-"dass er keine Studenten sehen moechte. Falls er doch einen Studenten sieht, \n "
+"dass er keine Studenten sehen moechte. Falls er doch einen Studenten sieht,\n "
 "versucht er diesen zu exmatrikulieren.\n"
 "Suche in der DHBW nach der verschwundenen 'Bizagi'-Installations- CD und bringe\n"
 "sie innerhalb der vorgegeben Zeit zu Herrn Runge,\n"
@@ -91,10 +91,10 @@ string const LEVEL3 = "[Level 2] erfolgreich abgeschlossen!\n\n"
 "Herrn Huebl ist es langweilig...\n\n"
 "Das Virus beeinflusst ihn so, dass er keine Studenten mehr sehen moechte\n"
 "und deshalb diese exmatrikuliert.\n"
-"Um ihn zu heilen, muessen ihm 5 Loesungen zu seinen Mathe-Aufgabenblaettern\n"
+"Um ihn zu heilen, muessen ihm 3 Loesungen zu seinen Mathe-Aufgabenblaettern\n"
 "uebergeben werden.\n\n"
 "Aufgabe:\n"
-"1. Uebergib Herrn Huebl 5 Loesungen"
+"1. Uebergib Herrn Huebl 3 Loesungen"
 "\n\n\n\n\n"
 "\n\n\nWeiter mit <Leertaste>";
 
@@ -106,8 +106,7 @@ string const LEVEL4 = "[Level 3] erfolgreich abgeschlossen!\n\n"
 "Ist Herr Hofmann ueberhaupt auf der Suche danach?\n"
 "Auch er ist vom Virus infiziert. Komm ihm nicht zu nahe!\n"
 "Finde das Messgeraet und heile Herrn Hofmann!\n"
-"Pass auf, denn exmatrikulierte Studenten koennen Dich jetzt auch attackieren und\n"
-"dir wertvolle Zeit zum vollenden des Levels stehlen!\n\n"
+"\n\n\n\n\n"
 "Aufgabe:\n"
 "1. Bring Herrn Hofmann sein Messgeraet"
 "\n\n\n"
@@ -119,7 +118,7 @@ string const LEVEL5 = "[Level 4] erfolgreich abgeschlossen!\n\n"
 "nur halb so schoen, denn er ist hungrig...\n"
 "Suche diese und bringe sie Herrn Kruse zurueck! Meide den Kontakt zu deinen Kommilitonen!\n"
 "Diese koennen ebenfalls vom Virus infiziert sein. Falls du mit einem Infizierten\n"
-"in Kontakt kommst, wird du langsamer...\n\n"
+"in Kontakt kommst, wird du auch exmatrikuliert...\n\n"
 
 "Aufgabe:\n"
 "1. Bring Herrn Kruse 3 Apfeltaschen"
@@ -133,7 +132,7 @@ string const LEVEL6 = "[Level 5] erfolgreich abgeschlossen!\n\n"
 "geliebte 'I love SetlX'-Tasse. Und genau diese ist verschwunden.\n"
 "Aus diesem Grund ist Herr Stroetmann veraergert und exmatrikuliert Studenten!\n"
 "Finde und bringe ihm seine Tasse und Herr Stroetmann wird geheilt.\n\n"
-"Hinweis: Suche eine Flasche Frucktiv zu deiner eigenen Sicherheit!\n\n"
+"Achte auch hier wieder auf exmatrikulierte Studenten, die dich nun exmatrikulieren!\n\n"
 "Aufgabe:\n"
 "1. Bring Herrn Stroetmann seine 'I love SetlX'-Tasse"
 "\n"
@@ -155,8 +154,8 @@ void ScenesManager::run()
 	while(true) {
 		if(this->loadStart())
 		if(this->selectCharacter())
-		if(this->loadLevel5())
-		if(this->loadLevel2())
+		if(this->loadLevel1())
+	    if(this->loadLevel2())
 		if(this->loadLevel3())
 		if(this->loadLevel4())
 		if(this->loadLevel1())
@@ -235,7 +234,7 @@ bool ScenesManager::loadLevel1() {
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
 
 	//set amount of coffee
-	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 12; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
@@ -255,7 +254,7 @@ bool ScenesManager::loadLevel1() {
 
 	level->addRoom(move(mensa));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -291,7 +290,7 @@ bool ScenesManager::loadLevel2() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 40)));
 	//set level specific object
-	for (int i = 0; i < 8; ++i) {
+	for (int i = 0; i < 5; ++i) {
 		level->addFreeGameObject(unique_ptr<Chalk>(new Chalk()));
 	}
 
@@ -318,7 +317,7 @@ bool ScenesManager::loadLevel2() {
 	auto glaser = unique_ptr<Glaser>(new Glaser);
 	level->setProf(move(glaser));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 3));
+	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -326,7 +325,7 @@ bool ScenesManager::loadLevel2() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 200));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), chalk);
 	scene->setCamera(man_ptr);
@@ -352,7 +351,7 @@ bool ScenesManager::loadLevel3() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 50)));
 	//set level specific object
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 5; i++) {
 		level->addFreeGameObject(unique_ptr<MathSolution>(new MathSolution()));
 	}
 
@@ -364,7 +363,7 @@ bool ScenesManager::loadLevel3() {
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
 
 	//set amount of coffee
-	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 12; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
@@ -379,7 +378,7 @@ bool ScenesManager::loadLevel3() {
 	auto huebl = unique_ptr<Huebl>(new Huebl);
 	level->setProf(move(huebl));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 3));
+	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -387,7 +386,7 @@ bool ScenesManager::loadLevel3() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 200));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), mathsolution);
 	scene->setCamera(man_ptr);
@@ -414,7 +413,10 @@ bool ScenesManager::loadLevel4() {
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
 	//set level specific object
-	level->addFreeGameObject(unique_ptr<Instrument>(new Instrument()));
+	for (int i = 0; i < 1; i++) {
+		level->addFreeGameObject(unique_ptr<Instrument>(new Instrument()));
+	}
+
 
 	string meter = "item_level_4_meter.png";
 
@@ -427,7 +429,7 @@ bool ScenesManager::loadLevel4() {
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
 
 	//set amount of coffee
-	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 25; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
@@ -442,7 +444,7 @@ bool ScenesManager::loadLevel4() {
 	auto hofmann = unique_ptr<Hofmann>(new Hofmann);
 	level->setProf(move(hofmann));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -450,7 +452,7 @@ bool ScenesManager::loadLevel4() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
-	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
+	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 260));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), meter);
 	scene->setCamera(man_ptr);
@@ -490,13 +492,13 @@ bool ScenesManager::loadLevel5() {
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
 
 	//set amount of coffee
-	for (int i = 0; i < 20; i++) {
+	for (int i = 0; i < 30; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
 	//set amount of students
 	int x = 0;
-	for (x = 0; x < 50; x++) {
+	for (x = 0; x < 45; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		npc->setExmatriculate();
 		level->addFreeGameObject(move(npc));
@@ -506,7 +508,7 @@ bool ScenesManager::loadLevel5() {
 	auto kruse = unique_ptr<Kruse>(new Kruse);
 	level->setProf(move(kruse));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 3));
+	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
@@ -553,13 +555,13 @@ bool ScenesManager::loadLevel6() {
 
 
 	//set amount of coffee
-	for (int i = 0; i < 25; i++) {
+	for (int i = 0; i < 30; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
 	//set amount of students
 	int x = 0;
-	for (x = 0; x < 100; x++) {
+	for (x = 0; x < 80; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		npc->setExmatriculate();
 		level->addFreeGameObject(move(npc));
@@ -569,7 +571,7 @@ bool ScenesManager::loadLevel6() {
 	auto stroetmann = unique_ptr<Stroetmann>(new Stroetmann);
 	level->setProf(move(stroetmann));
 
-	auto man = unique_ptr<Player>(new Player(100, 100, lifePoints, 1));
+	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
