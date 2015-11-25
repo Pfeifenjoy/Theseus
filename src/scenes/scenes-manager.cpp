@@ -21,7 +21,6 @@
 #include "../gameobjects/apfeltasche.hpp"
 #include "../gameobjects/c_exam.hpp"
 #include "../gameobjects/hofmann.hpp"
-#include "../gameobjects/uml_diagramm.hpp"
 #include "../gameobjects/instrument_hofmann.hpp"
 #include "../gameobjects/huebl.hpp"
 #include "../gameobjects/math_solution.hpp"
@@ -47,7 +46,7 @@ string const INTRO = "Herzlich Willkommen beim DHBW-Labyrinth-Spiel!\n\n\n"
 "Doch pass auf, dass die Dozenten und Professoren dich nicht\n"
 "exmatrikulieren! Absolviere alle 6 Level und befreie die Dozenten und Professoren\n"
 "von dem Virus... Also sei vorsichtig und rette die DHBW!"
-"\n\n\nWeiter mit <Leertaste>";
+"\n\n\nWeiter mit <Leertaste> oder <Return>";
 
 string const CONTROL = "[Steuerung]\n\n\n"
 "Laufen:  " "<W, A, S, D>\n\n"
@@ -56,7 +55,7 @@ string const CONTROL = "[Steuerung]\n\n\n"
 "Interagieren:  " "<E>\n\n"
 "Bestaetigen:  ""<Leertaste>\n\n"
 "Hinweis: Ist die Zeit abgelaufen, so endet das Spiel!\n"
-"\n\n\nWeiter mit <Leertaste>";
+"\n\n\nWeiter mit <Leertaste> oder <Return>";
 
 string const LEVEL1 = "[Level 1]\n\n\n"
 "Die erste Herausforderung ist es, Herrn Runge zu heilen.\n"
@@ -71,7 +70,7 @@ string const LEVEL1 = "[Level 1]\n\n\n"
 "Aufgabe:\n"
 "1. Suche die CD\n"
 "2. Gib die CD Herrn Runge"
-"\n\n\nWeiter mit <Leertaste>";
+"\n\n\nWeiter mit <Leertaste> oder <Return>";
 
 string const LEVEL2 = "[Level 1] erfolgreich abgeschlossen!\n\n"
 "[Level 2]\n\n\n"
@@ -84,7 +83,7 @@ string const LEVEL2 = "[Level 1] erfolgreich abgeschlossen!\n\n"
 "Aufgabe:\n"
 "1. Suche 3 Kreidestuecke\n"
 "2. Gib die Kreidestuecke Herrn Glaser"
-"\n\n\n\nWeiter mit <Leertaste>";
+"\n\n\n\nWeiter mit <Leertaste> oder <Return>";
 
 string const LEVEL3 = "[Level 2] erfolgreich abgeschlossen!\n\n"
 "[Level 3]\n\n\n"
@@ -96,7 +95,7 @@ string const LEVEL3 = "[Level 2] erfolgreich abgeschlossen!\n\n"
 "Aufgabe:\n"
 "1. Uebergib Herrn Huebl 3 Loesungen"
 "\n\n\n\n\n"
-"\n\n\nWeiter mit <Leertaste>";
+"\n\n\nWeiter mit <Leertaste> oder <Return>";
 
 string const LEVEL4 = "[Level 3] erfolgreich abgeschlossen!\n\n"
 "[Level 4]\n\n\n"
@@ -110,7 +109,7 @@ string const LEVEL4 = "[Level 3] erfolgreich abgeschlossen!\n\n"
 "Aufgabe:\n"
 "1. Bring Herrn Hofmann sein Messgeraet"
 "\n\n\n"
-"\n\n\nWeiter mit <Leertaste>";
+"\n\n\nWeiter mit <Leertaste> oder <Return>";
 
 string const LEVEL5 = "[Level 4] erfolgreich abgeschlossen!\n\n"
 "[Level 5]\n\n\n"
@@ -123,7 +122,7 @@ string const LEVEL5 = "[Level 4] erfolgreich abgeschlossen!\n\n"
 "Aufgabe:\n"
 "1. Bring Herrn Kruse 3 Apfeltaschen"
 "\n\n\n"
-"\n\n\nWeiter mit <Leertaste>";
+"\n\n\nWeiter mit <Leertaste> oder <Return>";
 
 string const LEVEL6 = "[Level 5] erfolgreich abgeschlossen!\n\n"
 "[Level 6]\n\n\n"
@@ -137,7 +136,7 @@ string const LEVEL6 = "[Level 5] erfolgreich abgeschlossen!\n\n"
 "1. Bring Herrn Stroetmann seine 'I love SetlX'-Tasse"
 "\n"
 "Die Rettung der DHBW ist Nahe...\n\n"
-"\n\n\nWeiter mit <Leertaste>";
+"\n\n\nWeiter mit <Leertaste> oder <Return>";
 
 
 
@@ -172,7 +171,7 @@ bool ScenesManager::loadStart() {
 
 	buttons.push_back("Start");
 	buttons.push_back("Beenden");
-	Menu menu(buttons, &(this->game));
+	Menu menu(buttons, game.getScreenResolution().x, game.getScreenResolution().y);
 	this->game.run(menu);
 
 	switch (menu.getSelectedItemIndex()) {
@@ -187,7 +186,7 @@ void ScenesManager::loadPause(theseus::map::Level& level) {
 
 		buttons.push_back("Fortsetzen");
 		buttons.push_back("Beenden");
-		Menu menu(buttons, &(this->game));
+		Menu menu(buttons, game.getScreenResolution().x, game.getScreenResolution().y);
 		this->game.run(menu);
 		if(menu.getSelectedItemIndex() == 0) {
 			level.setUnfinished();
@@ -204,7 +203,7 @@ bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 
 	buttonsCharacter.push_back("Maennlich");
 	buttonsCharacter.push_back("Weiblich");
-	Menu menu(buttonsCharacter, &(this->game));
+	Menu menu(buttonsCharacter, game.getScreenResolution().x, game.getScreenResolution().y);
 	this->game.run(menu);
 
 	switch (menu.getSelectedItemIndex()) {
@@ -419,10 +418,6 @@ bool ScenesManager::loadLevel4() {
 
 
 	string meter = "item_level_4_meter.png";
-
-	//for (int i = 0; i < 5; i++) {
-	//	level->addFreeGameObject(unique_ptr<UMLDiagramm>(new UMLDiagramm()));
-	//}
 
 	level->setMaxAmountOfStandardRooms(6);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));

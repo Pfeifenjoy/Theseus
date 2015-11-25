@@ -18,14 +18,16 @@ using namespace theseus::engine;
 using namespace theseus::messages;
 
 NPC::NPC()
-{
-	exmatriculatedBool = false;
-	exmatriculate = false;
+{	
+	// Sets basic behaviour value
+	exmatriculatedBool = false; // NPC starts immatriculated
+	exmatriculate = false;      // NPC havn't the option to exmatriculate (default)
 
+	// Subscribe for update and collision events
 	evOnUpdate.subscribe(bind(&NPC::onUpdate, this, _1));
 	evCollisionDetected.subscribe(bind(&NPC::onCollision, this, _1));
 
-	// texture
+	// Sets the texture
 	setTexture(2, TextureManager::instance().getTexture("player2.png"));
 
 	// Subscribe for Exmatriculation message
@@ -43,6 +45,8 @@ void NPC::onCollision(const components::Solide&)
 void NPC::exmatriculationDone() {
 	setExmatriculationable(false);
 	exmatriculatedBool = true;
+
+	// change texture if an npc gets exmatriculated
 	setTexture(2, TextureManager::instance().getTexture("player2_infected.png"));
 }
 
@@ -71,7 +75,8 @@ void NPC::changeDirection()
 }
 
 void NPC::onUpdate(float timePassed)
-{
+{	
+	// Change every sec the moving direction
 	time_passed += timePassed;
 
 	if (time_passed > 1)
@@ -80,19 +85,15 @@ void NPC::onUpdate(float timePassed)
 		changeDirection();
 	}
 
+	// If the NPC should exmatriculate and he's exmatriculated -> Send exmatriculation message to other npc's
 	if (exmatriculatedBool && exmatriculate) {
 		// send the exmatriculation message
 		Exmatriculation exmatriculation;
 		exmatriculation.setExmatriculationAmount(timePassed * exmatriculation_speed);
 		exmatriculation.setOrigin(this->getPosition());
 		sendMessage(exmatriculation, exmatriculation_radius, exmatriculation_radius);
-
-	}
-
-
+	}	
 }
-
-
 
 NPC::~NPC()
 {}

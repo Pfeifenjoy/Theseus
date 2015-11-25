@@ -17,9 +17,10 @@ using namespace theseus::engine;
 Floor::Floor(sf::Vector2f position, sf::Vector2f size, FloorType type) {
 
 
-	//position
+	// Sets the position
 	setPosition(position);
 
+	// Chooses the correct texture
 	sf::Texture *texture;
 	switch(type) {
 		case CORRIDOR: texture = &TextureManager::instance().getTexture("floor_black.png"); break;
@@ -28,6 +29,7 @@ Floor::Floor(sf::Vector2f position, sf::Vector2f size, FloorType type) {
 		default: texture = &TextureManager::instance().getTexture("gras.png"); break;
 	}
 
+	// Sets the texture
 	setTexture(0,*texture);
 
 	// Repeat texture if nessesary
@@ -36,8 +38,6 @@ Floor::Floor(sf::Vector2f position, sf::Vector2f size, FloorType type) {
 
 	//Set size of the wall IntRect(startposition x, startposition y, length x, height y)
 	this->sprite(0).setTextureRect(sf::IntRect(0, 0, size.x, size.y));
-
-
 }
 
 Floor::~Floor() {

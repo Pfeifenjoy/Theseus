@@ -6,7 +6,8 @@
 using namespace theseus::engine::components;
 
 sf::Font& Text::font()
-{
+{	
+	// Load font file, if it's not loaded
 	static bool loaded = false;
 	static sf::Font actual_font;
 	if (!loaded)
@@ -21,8 +22,11 @@ sf::Font& Text::font()
 }
 
 void Text::setText(int layer, std::string text)
-{
+{	
+	// Remove actual text
 	unsetText(layer);
+	 
+	// Set new text with actual font
 	texts[layer].setFont(font());
 	texts[layer].setString(text);
 	addDrawable(layer, &texts[layer]);
@@ -43,7 +47,6 @@ void Text::setStyle(int layer, sf::Text::Style style)
 	texts[layer].setStyle(style);
 }
 
-
 void Text::setCharSize(int layer, int textSize)
 {
 	texts[layer].setCharacterSize(textSize);
@@ -53,7 +56,6 @@ int  Text::getTextWidth(int layer)
 {
 	return texts[layer].getLocalBounds().width;
 }
-
 
 sf::Text& Text::text(int layer)
 {

@@ -15,10 +15,9 @@ using namespace theseus::gameobjects;
 using namespace theseus::engine;
 using namespace theseus::messages;
 
-const float EXMATRICULATION_TIME = 2;
-
 Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int itemsToCollect)
-{
+{	
+	// Sets the inventory and skill values
 	if (startCaffeineLevel > maxCaffeineLevel) {
 		this->caffeineLevel = (float)maxCaffeineLevel;
 	}
@@ -29,12 +28,10 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	this->maxInventoryItems = itemsToCollect;
 	this->inventoryItem = 0;
 
-	// subscribe for update
+	// Subscribe for update
 	evOnUpdate.subscribe(bind(&Player::onUpdate, this, _1));
 	evKeyDown.subscribe(bind(&Player::keyPressed, this, _1));
 
-	// Subscribe for Exmatriculation message
-	// MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&Player::exmatriculation, this, _1));
 	stopIdle();
 
 	// Update the HUD
@@ -42,10 +39,10 @@ Player::Player(int startCaffeineLevel, int maxCaffeineLevel, int lifePoints, int
 	updateItemCounter();
 	updateLifePoints();
 
-	// texture
+	// Sets the texture
 	setMale(genderMale);
 
-	// camera
+	// activates camera to the player
 	view().setCenter(0, 0);
 
 }
@@ -78,9 +75,12 @@ void Player::onUpdate(float timePassed)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && caffeineLevel > 0 &&
 		(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) ||
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))) {
+		
 		// reduce caffeinelevel
 		caffeineLevel -= 5 * timePassed;
 		updateCaffeineLevel();
+
+		// activate caffeine boost
 		setSpeedMultiplier(2);
 	}
 	else setSpeedMultiplier(1.3); // normal speed
@@ -114,6 +114,7 @@ void Player::exmatriculationDone() {
 	}
 	else 
 	{
+		// reduce and update lifepoints
 		this->lifePoints--;
 		updateLifePoints();
 	}
@@ -134,7 +135,13 @@ void Player::endScene(Scene& scene) {
 	scene.setFinished();
 }
 
+void Player::setMap(theseus::map::Map *map) {
+	this->map = map;
+}
 
+/*
+* Methods to manipulate player stats (lifepoints, caffeinelevel etc.)
+*/
 void Player::decrementLifePoints() {
 	if (this->lifePoints > 0) {
 		this->lifePoints--;
@@ -163,6 +170,9 @@ void Player::incrementInventoryItemValue() {
 	}
 }
 
+/*
+* Methods to update the HUD
+*/
 void Player::updateItemCounter() {
 	UpdateItemCounter updateItemCounter;
 	updateItemCounter.setInventoryValue(inventoryItem);
@@ -180,10 +190,6 @@ void Player::updateLifePoints() {
 	UpdateLifePoints updateLifePoints;
 	updateLifePoints.setLifePoints(this->lifePoints);
 	MessageSender<UpdateLifePoints>::sendMessage(updateLifePoints, 10000, 10000);
-}
-
-void Player::setMap(theseus::map::Map *map) {
-	this->map = map;
 }
 
 Player::~Player()

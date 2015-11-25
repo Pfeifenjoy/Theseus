@@ -20,6 +20,7 @@ StoryText::StoryText(int screenWidth, int screenHeigth, string storyText)
 	this->screenWidth = screenWidth;
 	this->screenHeigth = screenHeigth;
 
+	// Sets the text
 	unique_ptr<Textfield> textfield = unique_ptr<Textfield>(new Textfield(storyText, sf::Color::White));
 
 	textfield->setCharSize(20);
@@ -33,7 +34,7 @@ StoryText::StoryText(int screenWidth, int screenHeigth, string storyText)
 
 void StoryText::handleKeyDownEvent(sf::Keyboard::Key key)
 {
-	if (key == sf::Keyboard::Space) {
+	if (key == sf::Keyboard::Space || key == sf::Keyboard::Return) {
 		this->finished = true;
 	}
 }

@@ -21,6 +21,7 @@ namespace theseus
 			
 			~Interact();
 
+			// Who sended the interact message?
 			void setPlayer(theseus::gameobjects::Player * player);
 
 			theseus::gameobjects::Player * getPlayer() const;

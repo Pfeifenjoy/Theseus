@@ -44,7 +44,9 @@ namespace theseus
 			float maxCaffeineLevel;
 			int inventoryItem;
 			int maxInventoryItems;
+			bool genderMale = true;
 
+			// HUD update methods
 			void updateItemCounter();
 			void updateCaffeineLevel();
 			void updateLifePoints();
@@ -53,8 +55,7 @@ namespace theseus
 			void keyPressed(sf::Keyboard::Key key);
 			theseus::map::Map* map;
 			
-			bool genderMale = true;
-
+	
 			void exmatriculationDone();
 			bool exmatriculationTick(const theseus::messages::Exmatriculation&);
 
@@ -68,9 +69,10 @@ namespace theseus
 			virtual ~Player();
 			
 
-			// Methods
+			// Decrements the lifepoints by 1 point
 			void decrementLifePoints();
 
+			// Returns the actual amough of lifepoints
 			int getLifePoints();
 
 			// Increments the caffeinelevel by a certain value
@@ -81,6 +83,7 @@ namespace theseus
 
 			void setMap(theseus::map::Map*);
 
+			// Sets male / female texture
 			void setMale(bool male);
 
 		};

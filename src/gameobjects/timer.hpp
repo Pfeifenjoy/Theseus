@@ -23,6 +23,9 @@ namespace theseus
 			float startTime;
 			float actualTime;
 
+			// Method will be called if the timer reaced zero
+			void endScene(theseus::engine::Scene& scene);
+
 		public:
 			//---- Constructor --------------------------------------------------------------------------------------
 			// Creates a new timer; Timer(position, startTime in secs)
@@ -36,9 +39,7 @@ namespace theseus
 			float getActualTime();
 
 			// Method which is called from the update component -> decrements the timer
-			void onUpdate(float timePassed);
-			
-			void endScene(theseus::engine::Scene& scene);
+			void onUpdate(float timePassed);		
 
 		};
 	}

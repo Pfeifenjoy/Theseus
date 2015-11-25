@@ -12,22 +12,28 @@ using namespace std::placeholders;
 
 ItemCounter::ItemCounter(sf::Vector2f position, string itemPictureName) {
 	
+	// Storing the important value
 	this->numberOfItemsToCollect = 0;
 	this->numberOfItems = 0;
 	
+	// Initialises the counter
 	string stringItemCounter = to_string(this->numberOfItems) + " / " + to_string(this->numberOfItemsToCollect);
 	
 	//Set the text of the item counter ---- edited by Leon Mutschke on 09.11.2015
 	setCharSize(4, 24);
+
+	
 	setText(4, stringItemCounter);
 	setColor(4, sf::Color::Yellow);
 	setStyle(4, sf::Text::Style::Bold);
 
-	// set Texture
+	// Sets texture
 	setTexture(4, TextureManager::instance().getTexture(itemPictureName));
+	
+	// Sets a offset to the absolute position!
 	this->sprite(4).setPosition(sf::Vector2f(65, 7));
 
-	// Set the position
+	// Set the absolute position 
 	setPosition(position);
 
 	// register for interact message
@@ -35,6 +41,7 @@ ItemCounter::ItemCounter(sf::Vector2f position, string itemPictureName) {
 }
 
 void ItemCounter::updateMyText(const theseus::messages::UpdateItemCounter& message) {
+	// Updates the counter and saves the values
 	this->numberOfItemsToCollect = message.getMaxInventoryValue();
 	this->numberOfItems = message.getInventoryValue();
 	string stringItemCounter = to_string(this->numberOfItems) + " / " + to_string(this->numberOfItemsToCollect);

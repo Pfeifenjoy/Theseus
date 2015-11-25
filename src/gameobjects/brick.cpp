@@ -12,19 +12,28 @@ using namespace theseus::gameobjects;
 using namespace theseus::engine;
 
 Brick::Brick(BrickType brickType, int x, int y) {
+	// Generates a new brick object with a position
 	assert(brickType >= 0 && brickType <= 14);
 	this->setPosition(sf::Vector2f(x * Brick::WIDTH, y * Brick::HEIGHT));
+	// Choose the correct brick type
 	this->setType(brickType);
 }
 
 Brick::~Brick() {}
 
 void Brick::setType(BrickType brickType) {
+	// Saves the brick type
 	this->brickType = brickType;
+
+	// Saves some basic informations about every brick
 	sf::Vector2f size(Brick::WIDTH, Brick::HEIGHT);
 	sf::Vector2f topLeft(0, 0);
 	sf::Vector2f bottomRight(Brick::WIDTH, Brick::HEIGHT);
+
+	// Needed for calculating the correct size (different brick type have different sizes!)
 	const float figureOffset = 30;
+
+	// Chooses the correct type and sets the corresponding texture
 	switch (brickType)
 	{
 	case HORIZONAL:
@@ -116,8 +125,9 @@ void Brick::setType(BrickType brickType) {
 		break;
 	}
 
+	// Setting the collision area
 	this->setCollisionAreaTopLeft(topLeft);
 	this->setCollisionAreaBottomRight(bottomRight);
+	// Sets the texture area to show
 	this->sprite(Brick::LAYER).setTextureRect(sf::IntRect( 0, 0, size.x, size.y));
-	//this->sprite(2).getTexture()->isRepeated();
 }

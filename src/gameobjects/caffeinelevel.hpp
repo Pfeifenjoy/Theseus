@@ -28,6 +28,7 @@ namespace theseus
 
 			virtual ~CaffeineLevel();
 
+			// Sets the caffeine level and updates the HUD
 			void setCaffeineLevel(const theseus::messages::UpdateCaffeineLevel& message);
 		};
 	}

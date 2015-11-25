@@ -15,7 +15,8 @@ namespace engine
 	class Scene;
 }
 namespace gameobjects
-{
+{	
+	// Enum for all brick types
 	enum BrickType {
 		HORIZONAL,
 		VERTICAL,
@@ -51,6 +52,7 @@ namespace gameobjects
 
 		~Brick();
 
+		// Chooses the correct brick type for a given value
 		void setType(BrickType);
 
 		enum { WIDTH = 32, HEIGHT = 64, OFFSET=6, LAYER=2 };
