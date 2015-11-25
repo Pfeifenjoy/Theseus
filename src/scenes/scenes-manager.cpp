@@ -1,3 +1,7 @@
+/**
+* @author Arwed Mett, Philipp Pütz
+*/
+
 #include "scenes-manager.hpp"
 #include "storytext.hpp"
 #include "menu.hpp"
@@ -138,10 +142,11 @@ string const LEVEL6 = "[Level 5] erfolgreich abgeschlossen!\n\n"
 "Die Rettung der DHBW ist Nahe...\n\n"
 "\n\n\nWeiter mit <Leertaste> oder <Return>";
 
-
+const int LIFEPOINTS = 3;
 
 void ScenesManager::run()
 {
+
 	{
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, INTRO);
 		if (this->game.run(Storytext)) return;
@@ -150,15 +155,16 @@ void ScenesManager::run()
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, CONTROL);
 		if (this->game.run(Storytext)) return;
 	}
-	while(true) {
-		if(this->loadStart())
-		if(this->selectCharacter())
-		if(this->loadLevel1())
-	    if(this->loadLevel2())
-		if(this->loadLevel3())
-		if(this->loadLevel4())
-		if(this->loadLevel1())
-		if(this->loadLevel6()) {}
+	while (true) {
+		this->lifePoints = LIFEPOINTS;
+		if (this->loadStart())
+			if (this->selectCharacter())
+				if (this->loadLevel1())
+					if (this->loadLevel2())
+						if (this->loadLevel3())
+							if (this->loadLevel4())
+								if (this->loadLevel5())
+									if (this->loadLevel6()) {}
 
 		this->loadHighScore();
 	}
@@ -175,20 +181,20 @@ bool ScenesManager::loadStart() {
 	this->game.run(menu);
 
 	switch (menu.getSelectedItemIndex()) {
-		case 0: return true;
-		case 1: throw theseus::engine::EndOfTime();
+	case 0: return true;
+	case 1: throw theseus::engine::EndOfTime();
 	}
 	return false;
 }
 void ScenesManager::loadPause(theseus::map::Level& level) {
-	while(level.getLastKey() == sf::Keyboard::Escape) {
+	while (level.getLastKey() == sf::Keyboard::Escape) {
 		vector<string> buttons;
 
 		buttons.push_back("Fortsetzen");
 		buttons.push_back("Beenden");
 		Menu menu(buttons, game.getScreenResolution().x, game.getScreenResolution().y);
 		this->game.run(menu);
-		if(menu.getSelectedItemIndex() == 0) {
+		if (menu.getSelectedItemIndex() == 0) {
 			level.setUnfinished();
 			this->game.run(level);
 		}
@@ -207,8 +213,8 @@ bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 	this->game.run(menu);
 
 	switch (menu.getSelectedItemIndex()) {
-		case 0: male=true; break;
-		case 1: male=false;
+	case 0: male = true; break;
+	case 1: male = false;
 	}
 	return true;
 }
@@ -269,7 +275,7 @@ bool ScenesManager::loadLevel1() {
 
 	this->game.run(*(scene));
 	this->loadPause(*(scene));
-	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	if (man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -331,7 +337,7 @@ bool ScenesManager::loadLevel2() {
 
 	this->game.run(*(scene));
 	this->loadPause(*(scene));
-	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	if (man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -392,7 +398,7 @@ bool ScenesManager::loadLevel3() {
 
 	this->game.run(*(scene));
 	this->loadPause(*(scene));
-	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	if (man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -454,7 +460,7 @@ bool ScenesManager::loadLevel4() {
 
 	this->game.run(*(scene));
 	this->loadPause(*(scene));
-	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	if (man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -518,7 +524,7 @@ bool ScenesManager::loadLevel5() {
 
 	this->game.run(*(scene));
 	this->loadPause(*(scene));
-	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	if (man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}
@@ -581,7 +587,7 @@ bool ScenesManager::loadLevel6() {
 
 	this->game.run(*(scene));
 	this->loadPause(*(scene));
-	if(man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
+	if (man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
 	}

@@ -1,5 +1,5 @@
 /**
- * @author Arwed Mett
+ * @author Arwed Mett, Philipp Pütz
  */
 #ifndef THESEUS_SCENES_SCENES_MANAGER
 #define THESEUS_SCENES_SCENES_MANAGER
@@ -18,7 +18,7 @@ namespace scenes {
 		private:
 			theseus::engine::Game game;
 			float playedTime;
-			int lifePoints = 3;
+			int lifePoints;
 			bool male;
 
 		public:
@@ -38,9 +38,7 @@ namespace scenes {
 			bool loadLevel4();
 			bool loadLevel5();
 			bool loadLevel6();
-			bool startLevel();
 			void loadPause(theseus::map::Level&);
-			bool evaluateLevel(theseus::gameobjects::Player&, theseus::gameobjects::Timer&);
 			void setHud(theseus::engine::Scene&, std::unique_ptr<theseus::gameobjects::Timer>, std::string itemPictureName);
 	};
 }

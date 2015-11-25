@@ -109,6 +109,7 @@ void Player::exmatriculationDone() {
 	if (this->lifePoints <= 1) {
 		this->lifePoints = 0;
 		updateLifePoints();
+		this->setExmatriculationable(false);
 		//Abort Game - register for scene access
 		evUpdateComponentRegistrations.subscribe(std::bind(&Player::endScene, this, _1));
 	}
