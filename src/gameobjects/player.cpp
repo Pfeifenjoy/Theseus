@@ -53,10 +53,10 @@ void Player::keyPressed(sf::Keyboard::Key key) {
 		Interact interact;
 		interact.setPlayer(this);
 
-		// Vektor/Graphicx workaround
+		// Setting interact rect
 		sf::Vector2f position = this->getPosition();
 		MessageSender<Interact>::sendMessage(
-			interact, sf::Vector2f(position.x - 25, position.y + 25), sf::Vector2f(position.x + 57, position.y + 75));
+			interact, sf::Vector2f(position.x - 20, position.y), sf::Vector2f(position.x + 52, position.y + 70));
 	}
 }
 
