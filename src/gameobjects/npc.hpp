@@ -29,7 +29,7 @@ namespace theseus
 			void changeDirection();
 
 			// exmatriculation		
-			float exmatriculation_radius = 70; 	// where the exmatriculation message is sent to
+			float exmatriculation_radius = 80; 	// where the exmatriculation message is sent to
 			float exmatriculation_speed = 1; 	// how fast the npc exmatriculates other poor students
 
 			// npx behaivour values

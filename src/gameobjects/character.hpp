@@ -11,6 +11,8 @@
 #include "../engine/components/collisionresolver.hpp"
 #include "../engine/components/positionable.hpp"
 #include "../engine/components/text.hpp"
+#include "../engine/components/messagesender.hpp"
+#include "../messages/attrack.hpp"
 #include <SFML/System.hpp>
 #include <string>
 
@@ -26,6 +28,7 @@ namespace gameobjects
 		, public virtual engine::components::CollisionResolver
 		, public virtual engine::components::Text
 		, public virtual engine::components::Update
+		, public virtual engine::components::MessageSender<messages::Attrack>
 	{
 	private:
 		// state changes
@@ -74,6 +77,7 @@ namespace gameobjects
 		// Shows a speech bubble with some text.
 		// The bubble is shown for <duration> seconds. Then it automatically vanishes.
 		void say(std::string text, float duration = 3.);
+		void interruptSay(); 	// hides the current speech bubble
 
 		// Lets the character automatically talk some stuff
 		//

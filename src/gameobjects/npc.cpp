@@ -18,7 +18,7 @@ using namespace theseus::engine;
 using namespace theseus::messages;
 
 NPC::NPC()
-{	
+{
 	// Sets basic behaviour value
 	exmatriculatedBool = false; // NPC starts immatriculated
 	exmatriculate = false;      // NPC havn't the option to exmatriculate (default)
@@ -32,9 +32,9 @@ NPC::NPC()
 
 	// Subscribe for Exmatriculation message
 	MessageReceiver<Exmatriculation>::evOnMessageReceived.subscribe(std::bind(&NPC::exmatriculation, this, _1));
-	
+
 	// autotalk
-	this->startAutoSpeech( {{ "Hallo!", "Wie geht's?", "Exmatrikulier mich nicht!", "Was ist mit den Professoren los?" }}, 3, 10, 40, true, true);
+	this->startAutoSpeech({ { "Hallo!", "Wie geht's?", "Exmatrikulier mich nicht!", "Was ist mit den Professoren los?" } }, 3, 10, 40, true, true);
 }
 
 void NPC::onCollision(const components::Solide&)
@@ -61,21 +61,21 @@ void NPC::changeDirection()
 
 	switch (number)
 	{
-		case 0: direction = sf::Vector2i( 0, 0); break; // NPC is not moving
-		case 1: direction = sf::Vector2i(-1, 0); break; // NPC is moving left
-		case 2: direction = sf::Vector2i( 1, 0); break; // NPC is moving right
-		case 3: direction = sf::Vector2i(0, -1); break; // NPC is moving up
-		case 4: direction = sf::Vector2i( 0, 1); break; // NPC is moving down
-		case 5: direction = sf::Vector2i(-1,-1); break; // NPC is moving left up
-		case 6: direction = sf::Vector2i(1, -1); break; // NPC is moving right up
-		case 7: direction = sf::Vector2i(-1, 1); break; // NPC is moving left down
-		case 8: direction = sf::Vector2i( 1, 1); break; // NPC is moving right down
+	case 0: direction = sf::Vector2i(0, 0); break; // NPC is not moving
+	case 1: direction = sf::Vector2i(-1, 0); break; // NPC is moving left
+	case 2: direction = sf::Vector2i(1, 0); break; // NPC is moving right
+	case 3: direction = sf::Vector2i(0, -1); break; // NPC is moving up
+	case 4: direction = sf::Vector2i(0, 1); break; // NPC is moving down
+	case 5: direction = sf::Vector2i(-1, -1); break; // NPC is moving left up
+	case 6: direction = sf::Vector2i(1, -1); break; // NPC is moving right up
+	case 7: direction = sf::Vector2i(-1, 1); break; // NPC is moving left down
+	case 8: direction = sf::Vector2i(1, 1); break; // NPC is moving right down
 	}
 	setDirection(direction);
 }
 
 void NPC::onUpdate(float timePassed)
-{	
+{
 	// Change every sec the moving direction
 	time_passed += timePassed;
 
@@ -89,10 +89,23 @@ void NPC::onUpdate(float timePassed)
 	if (exmatriculatedBool && exmatriculate) {
 		// send the exmatriculation message
 		Exmatriculation exmatriculation;
-		exmatriculation.setExmatriculationAmount(timePassed * exmatriculation_speed);
-		exmatriculation.setOrigin(this->getPosition());
-		sendMessage(exmatriculation, exmatriculation_radius, exmatriculation_radius);
-	}	
+
+		// master branch
+		//exmatriculation.setExmatriculationAmount(timePassed * exmatriculation_speed);
+		//exmatriculation.setOrigin(this->getPosition());
+		//	sendMessage(exmatriculation, exmatriculation_radius, exmatriculation_radius);
+		//}	
+
+		// develop
+		MessageSender<Exmatriculation>::sendMessage(exmatriculation, exmatriculation_radius, exmatriculation_radius);
+	}
+
+	// attrack professors
+	Attrack attraction;
+	attraction.position = getPosition() + 0.5f * this->getCollisionAreaTopLeft() + 0.5f * this->getCollisionAreaBottomRight();
+	attraction.priority = 1;
+	MessageSender<Attrack>::sendMessage(attraction, 150, 150);
+
 }
 
 NPC::~NPC()

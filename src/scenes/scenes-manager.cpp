@@ -61,6 +61,7 @@ string const CONTROL = "[Steuerung]\n\n\n"
 "Kaffee-Boost:  " "<Leertaste>\n\n"
 "Pause:  " "<ESC>\n\n"
 "Interagieren:  " "<E>\n\n"
+"Rufen:  " "<Q>\n\n"
 "Bestaetigen:  ""<Leertaste>\n\n"
 "Hinweis: Ist die Zeit abgelaufen, so endet das Spiel!\n"
 "\n\n\nWeiter mit <Leertaste> oder <Return>";

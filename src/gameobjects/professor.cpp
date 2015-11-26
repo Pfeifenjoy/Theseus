@@ -47,7 +47,7 @@ void Professor::onUpdate(float timePassed)
 		exmatriculation.setProfessorSended();
 		exmatriculation.setExmatriculationAmount(timePassed * exmatriculation_speed);
 		exmatriculation.setOrigin(this->getPosition());
-		sendMessage(exmatriculation, exmatriculation_radius, exmatriculation_radius);
+		MessageSender<Exmatriculation>::sendMessage(exmatriculation, exmatriculation_radius, exmatriculation_radius);
 
 		// retarget the movement
 		if (changeDirectionTimeout <= 0)

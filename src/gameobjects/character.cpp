@@ -11,6 +11,7 @@ using namespace std;
 using namespace std::placeholders;
 using namespace theseus::gameobjects;
 using namespace theseus::engine;
+using namespace theseus::messages;
 
 const float SPEED = 100.;
 const float SPEED_DIAGONAL = 70.71; 	// SPEED / sqrt(2)
@@ -40,7 +41,6 @@ Character::Character()
 	this->evCollisionDetected.subscribe(bind(&Character::onCollision, this, _1));
 
 	// Speech bubble
-	sprite(3).setPosition(20, -30);
 	text(3).setColor(sf::Color::Black);
 	text(3).setCharacterSize(16);
 	text(3).setPosition(25, -18);
@@ -97,8 +97,16 @@ void Character::setSpeedMultiplier(float value) {
 void Character::say(std::string text, float duration)
 {
 	setTexture(3, TextureManager::instance().getTexture("speech_bubble.png"));	
+	sprite(3).setPosition(20, -30);
 	setText(3, text);
 	remainingSpeechBubbleTime = duration;
+}
+
+void Character::interruptSay()
+{
+	unsetText(3);
+	unsetTexture(3);
+	remainingSpeechBubbleTime = 0;
 }
 		
 void Character::startAutoSpeech(const std::vector<std::string>& sentences, float duration, float minPause, float maxPause, bool loop, bool shuffle)
@@ -152,6 +160,7 @@ void Character::onUpdate(float timePassed)
 			changeDirection();
 		}
 	}
+
 }
 
 void Character::changeDirection()

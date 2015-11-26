@@ -32,7 +32,6 @@ namespace theseus
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateCaffeineLevel>
 			, public virtual engine::components::MessageSender<theseus::messages::Interact>
 			, public virtual engine::components::MessageSender<theseus::messages::UpdateItemCounter>
-			, public virtual engine::components::MessageSender<theseus::messages::Attrack>
 		{
 		private:
 			// events
