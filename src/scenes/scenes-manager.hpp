@@ -17,13 +17,13 @@ namespace scenes {
 	class ScenesManager {
 		private:
 			theseus::engine::Game game;
+			
+			// Global stats
 			float playedTime;
 			int lifePoints;
 			bool male;
 
 		public:
-			//ScenesManager();
-
 			bool loadStart();
 			void loadHighScore();
 
@@ -31,13 +31,13 @@ namespace scenes {
 
 			bool selectCharacter(); // added by Leon Mutschke on 13.11.15
 
-
 			bool loadLevel1();
 			bool loadLevel2();
 			bool loadLevel3();
 			bool loadLevel4();
 			bool loadLevel5();
 			bool loadLevel6();
+			
 			void loadPause(theseus::map::Level&);
 			void setHud(theseus::engine::Scene&, std::unique_ptr<theseus::gameobjects::Timer>, std::string itemPictureName);
 	};

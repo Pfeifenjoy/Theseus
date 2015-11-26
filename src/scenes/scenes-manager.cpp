@@ -37,6 +37,10 @@ using namespace theseus::map;
 using namespace theseus::gameobjects;
 using namespace std;
 
+/*
+ * Intro and information screens
+*/
+
 string const INTRO = "Herzlich Willkommen beim DHBW-Labyrinth-Spiel!\n\n\n"
 "ACHTUNG! An der DHBW gibt es aktuell besondere Vorkommnisse...\n"
 "Die Dozenten und Professoren sind wuetend und wild geworden! Ein Virus ist aus\n"
@@ -144,9 +148,10 @@ string const LEVEL6 = "[Level 5] erfolgreich abgeschlossen!\n\n"
 
 const int LIFEPOINTS = 3;
 
+// Main method which loads the scenes
 void ScenesManager::run()
-{
-
+{	
+	// Start with intro
 	{
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, INTRO);
 		if (this->game.run(Storytext)) return;
@@ -155,7 +160,10 @@ void ScenesManager::run()
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, CONTROL);
 		if (this->game.run(Storytext)) return;
 	}
+
+	// Run game in an endless loop
 	while (true) {
+		// Reset lifepoints
 		this->lifePoints = LIFEPOINTS;
 		if (this->loadStart())
 			if (this->selectCharacter())
@@ -170,22 +178,25 @@ void ScenesManager::run()
 	}
 
 }
-
+// Start scene with main menu
 bool ScenesManager::loadStart() {
 
 	vector<string> buttons;
 
 	buttons.push_back("Start");
 	buttons.push_back("Beenden");
+	
+	// Generate menu
 	Menu menu(buttons, game.getScreenResolution().x, game.getScreenResolution().y);
 	this->game.run(menu);
 
 	switch (menu.getSelectedItemIndex()) {
 	case 0: return true;
-	case 1: throw theseus::engine::EndOfTime();
+	case 1: throw theseus::engine::EndOfTime(); // throw a exception if game should quit
 	}
 	return false;
 }
+// Pause menu
 void ScenesManager::loadPause(theseus::map::Level& level) {
 	while (level.getLastKey() == sf::Keyboard::Escape) {
 		vector<string> buttons;
@@ -203,6 +214,7 @@ void ScenesManager::loadPause(theseus::map::Level& level) {
 	}
 }
 
+// Character selection
 bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 {
 	vector<string> buttonsCharacter;
@@ -219,6 +231,9 @@ bool ScenesManager::selectCharacter() // added by Leon Mutschke on 13.11.15
 	return true;
 }
 
+/*
+* Levels
+*/
 
 bool ScenesManager::loadLevel1() {
 
@@ -228,22 +243,22 @@ bool ScenesManager::loadLevel1() {
 	}
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 80, Brick::HEIGHT * 40)));
-	//set level specific object
+	
+	//Set level specific objects
 	level->addFreeGameObject(unique_ptr<BizagiCD>(new BizagiCD()));
 
 	string bizagicd = "item_level_1_bizagi_cd.png";
 
 	level->setMaxAmountOfStandardRooms(5);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
-
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
 
-	//set amount of coffee
+	//Set amount of coffee
 	for (int i = 0; i < 12; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
-	//set amount of students
+	//Set amount of students
 	int x = 0;
 	for (x = 0; x < 30; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
@@ -251,30 +266,39 @@ bool ScenesManager::loadLevel1() {
 		level->addFreeGameObject(move(npc));
 	}
 
+	// Set specific rooms (they will always be placed)
 	unique_ptr<RoomDescription> mensa(new RoomDescription(Brick::WIDTH * 10, Brick::HEIGHT * 10));
-	//set professor Runge
+	
+	// Set professor Runge
 	auto runge = unique_ptr<Runge>(new Runge);
-	//runge->setSize(sf::Vector2f (Brick::WIDTH, Brick::HEIGHT));
 	level->setProf(move(runge));
 
 	level->addRoom(move(mensa));
 
+	// Generate Player with attributes
 	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
 	level->setPlayer(move(man));
 	man_ptr->setMale(male);
-
-
+	
 	auto scene = Layer(move(level)).toScene();
+
+	// Add timer and other HUD objects
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 180));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), bizagicd);
+
+	// Set active camera
 	scene->setCamera(man_ptr);
 
+	// Run game
 	this->game.run(*(scene));
+
 	this->loadPause(*(scene));
+
+	// Evalutate the current level
 	if (man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
@@ -294,7 +318,8 @@ bool ScenesManager::loadLevel2() {
 	}
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 40)));
-	//set level specific object
+	
+	//Set level specific objects
 	for (int i = 0; i < 5; ++i) {
 		level->addFreeGameObject(unique_ptr<Chalk>(new Chalk()));
 	}
@@ -306,22 +331,23 @@ bool ScenesManager::loadLevel2() {
 
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
 
-	//set amount of coffee
+	//Set amount of coffee
 	for (int i = 0; i < 15; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
-	//set amount of students
+	//Set amount of students
 	int x = 0;
 	for (x = 0; x < 40; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		level->addFreeGameObject(move(npc));
 	}
 
-	//set professor Glaser
+	//Set professor Glaser
 	auto glaser = unique_ptr<Glaser>(new Glaser);
 	level->setProf(move(glaser));
 
+	// Generate Player with attributes
 	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
@@ -330,13 +356,20 @@ bool ScenesManager::loadLevel2() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
+	
+	// Add timer and other HUD objects
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 200));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), chalk);
+	
+	// Set active camera
 	scene->setCamera(man_ptr);
 
+	// Run game
 	this->game.run(*(scene));
 	this->loadPause(*(scene));
+	
+	// Evalutate the current level
 	if (man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
@@ -355,7 +388,8 @@ bool ScenesManager::loadLevel3() {
 	}
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 100, Brick::HEIGHT * 50)));
-	//set level specific object
+	
+	//Set level specific objects
 	for (int i = 0; i < 5; i++) {
 		level->addFreeGameObject(unique_ptr<MathSolution>(new MathSolution()));
 	}
@@ -367,22 +401,23 @@ bool ScenesManager::loadLevel3() {
 
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 10, Brick::HEIGHT * 10));
 
-	//set amount of coffee
+	//Set amount of coffee
 	for (int i = 0; i < 12; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
-	//set amount of students
+	//Set amount of students
 	int x = 0;
 	for (x = 0; x < 40; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		level->addFreeGameObject(move(npc));
 	}
 
-	//set professor Huebl
+	//Set professor Huebl
 	auto huebl = unique_ptr<Huebl>(new Huebl);
 	level->setProf(move(huebl));
 
+	// Generate Player with attributes
 	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
@@ -391,13 +426,20 @@ bool ScenesManager::loadLevel3() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
+	
+	// Add timer and other HUD objects
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 200));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), mathsolution);
+	
+	// Set active camera
 	scene->setCamera(man_ptr);
-
+	
+	// Run game
 	this->game.run(*(scene));
 	this->loadPause(*(scene));
+	
+	// Evalutate the current level
 	if (man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
@@ -417,34 +459,34 @@ bool ScenesManager::loadLevel4() {
 	}
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
-	//set level specific object
+	
+	//Set level specific objects
 	for (int i = 0; i < 1; i++) {
 		level->addFreeGameObject(unique_ptr<Instrument>(new Instrument()));
 	}
-
-
 	string meter = "item_level_4_meter.png";
 
 	level->setMaxAmountOfStandardRooms(6);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
 
-	//set amount of coffee
+	//Set amount of coffee
 	for (int i = 0; i < 25; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
-	//set amount of students
+	//Set amount of students
 	int x = 0;
 	for (x = 0; x < 40; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
 		level->addFreeGameObject(move(npc));
 	}
 
-	//set professor Hofmann
+	//Set professor Hofmann
 	auto hofmann = unique_ptr<Hofmann>(new Hofmann);
 	level->setProf(move(hofmann));
 
+	// Generate Player with attributes
 	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
@@ -453,13 +495,20 @@ bool ScenesManager::loadLevel4() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
+	
+	// Add timer and other HUD objects
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 260));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), meter);
+
+	// Set active camera
 	scene->setCamera(man_ptr);
 
+	// Run game
 	this->game.run(*(scene));
 	this->loadPause(*(scene));
+
+	// Evalutate the current level
 	if (man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
@@ -478,9 +527,8 @@ bool ScenesManager::loadLevel5() {
 	}
 
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
-	//set level specific object
-	//level->addFreeGameObject(unique_ptr<CExam>(new CExam()));
-
+	
+	//Set level specific objects
 	string cexam = "item_level_5_appleturnover.png";
 
 	for (int i = 0; i < 5; i++) {
@@ -489,15 +537,14 @@ bool ScenesManager::loadLevel5() {
 
 	level->setMaxAmountOfStandardRooms(6);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
-
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
 
-	//set amount of coffee
+	//Set amount of coffee
 	for (int i = 0; i < 30; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
-	//set amount of students
+	//Set amount of students
 	int x = 0;
 	for (x = 0; x < 45; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
@@ -505,25 +552,33 @@ bool ScenesManager::loadLevel5() {
 		level->addFreeGameObject(move(npc));
 	}
 
-	//set professor Kruse
+	//Set professor Kruse
 	auto kruse = unique_ptr<Kruse>(new Kruse);
 	level->setProf(move(kruse));
 
+	// Generate Player with attributes
 	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 3));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
 	man->setPosition(sf::Vector2f(500, 500));
 	level->setPlayer(move(man));
 	man_ptr->setMale(male);
-
+		
 	auto scene = Layer(move(level)).toScene();
+
+	// Add timer and other HUD objects
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), cexam);
+
+	// Set active camera
 	scene->setCamera(man_ptr);
 
+	// Run game
 	this->game.run(*(scene));
 	this->loadPause(*(scene));
+	
+	// Evalutate the current level
 	if (man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
@@ -541,26 +596,25 @@ bool ScenesManager::loadLevel6() {
 		theseus::scenes::StoryText Storytext(game.getScreenResolution().x, game.getScreenResolution().y, LEVEL6);
 		this->game.run(Storytext);
 	}
-
-
+	
 	unique_ptr<LevelDescription> level(new LevelDescription(sf::Vector2f(Brick::WIDTH * 120, Brick::HEIGHT * 50)));
-	//set level specific object
+	
+	//Set level specific objects
 	level->addFreeGameObject(unique_ptr<SetlxCup>(new SetlxCup()));
 
 	string setlxcup = "item_level_6_cup.png";
 
 	level->setMaxAmountOfStandardRooms(6);
 	level->setMinRoomSize(sf::Vector2f(Brick::WIDTH * 5, Brick::HEIGHT * 5));
-
 	level->setMaxRoomSize(sf::Vector2f(Brick::WIDTH * 12, Brick::HEIGHT * 12));
 
 
-	//set amount of coffee
+	//Set amount of coffee
 	for (int i = 0; i < 30; i++) {
 		level->addFreeGameObject(unique_ptr<Coffee>(new Coffee()));
 	}
 
-	//set amount of students
+	//Set amount of students
 	int x = 0;
 	for (x = 0; x < 80; x++) {
 		auto npc = unique_ptr<NPC>(new NPC);
@@ -568,10 +622,11 @@ bool ScenesManager::loadLevel6() {
 		level->addFreeGameObject(move(npc));
 	}
 
-	//set professor Stroetmann
+	//Set professor Stroetmann
 	auto stroetmann = unique_ptr<Stroetmann>(new Stroetmann);
 	level->setProf(move(stroetmann));
 
+	// Generate Player with attributes
 	auto man = unique_ptr<Player>(new Player(100, 125, lifePoints, 1));
 	auto man_ptr = man.get();
 	man->view().setSize(sf::Vector2f(game.getScreenResolution().x, game.getScreenResolution().y));
@@ -580,13 +635,18 @@ bool ScenesManager::loadLevel6() {
 	man_ptr->setMale(male);
 
 	auto scene = Layer(move(level)).toScene();
+
+	// Add timer and other HUD objects
 	auto timer = unique_ptr<Timer>(new Timer(sf::Vector2f((float)game.getScreenResolution().x - 125, 15), 240));
 	auto timer_ptr = timer.get();
 	this->setHud(*scene, move(timer), setlxcup);
 	scene->setCamera(man_ptr);
 
+	// Run game
 	this->game.run(*(scene));
 	this->loadPause(*(scene));
+
+	// Evalutate the current level
 	if (man_ptr->getLifePoints() == 0 || timer_ptr->getActualTime() <= 0) {
 		this->playedTime = 0;
 		return false;
