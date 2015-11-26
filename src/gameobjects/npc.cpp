@@ -89,14 +89,8 @@ void NPC::onUpdate(float timePassed)
 	if (exmatriculatedBool && exmatriculate) {
 		// send the exmatriculation message
 		Exmatriculation exmatriculation;
-
-		// master branch
-		//exmatriculation.setExmatriculationAmount(timePassed * exmatriculation_speed);
-		//exmatriculation.setOrigin(this->getPosition());
-		//	sendMessage(exmatriculation, exmatriculation_radius, exmatriculation_radius);
-		//}	
-
-		// develop
+		exmatriculation.setExmatriculationAmount(timePassed * exmatriculation_speed);
+		exmatriculation.setOrigin(this->getPosition());
 		MessageSender<Exmatriculation>::sendMessage(exmatriculation, exmatriculation_radius, exmatriculation_radius);
 	}
 

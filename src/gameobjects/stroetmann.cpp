@@ -14,7 +14,7 @@ Stroetmann::Stroetmann()
 	setTexture(2, TextureManager::instance().getTexture("charset_level_6.png"));
 
 	// autotalk
-	this->startAutoSpeech({{ "IF AND ONLY IF", "SetlX ist toll!", "Go away iff you hate formal logic.", "Merge Sort beats Quick Sort.", "Was sind zwei Lemmas? - Ein Dilemma", "Let's proove this!"}}, 3, 10, 40, true, true);
+	this->startAutoSpeech({{ "IF AND ONLY IF", "SetlX ist toll!", "Go away iff you hate formal logic.", "Merge Sort beats Quick Sort.", "Was sind 2 Lemmas?-Ein Dilemma", "Let's prove this!"}}, 3, 10, 40, true, true);
 
 }
 

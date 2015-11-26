@@ -49,7 +49,7 @@ void Student::onUpdate(float timePassed) {
 
 		// Disable Progressbar
 		if (progressbarActive) {
-			sprite(3).setTextureRect(sf::Rect(0,0,0,0));
+			unsetTexture(3);
 			progressbarActive = false;
 		}
 
@@ -71,7 +71,7 @@ void Student::exmatriculation(const theseus::messages::Exmatriculation& message)
 		// Show Progressbar
 		interruptSay();
 		setTexture(3, TextureManager::instance().getTexture("bar.png"));
-		sprite(3).setTextureRect(sf::IntRect(0, 0, (int)((exmatriculationProgress / (EXMATRICULATION_VALUE / 100)) / 2 ) , 10));
+		sprite(3).setTextureRect(sf::IntRect(0, 0, (int)((exmatriculationProgress / (EXMATRICULATION_VALUE / 100)) / 2), 10));
 		sprite(3).setPosition(sf::Vector2f(-9, -10));
 		progressbarActive = true;
 
@@ -88,4 +88,4 @@ void Student::setExmatriculationable(bool value) {
 }
 
 void Student::exmatriculationDone() {}
-bool Student::exmatriculationTick(const Exmatriculation&) {return true;}
+bool Student::exmatriculationTick(const Exmatriculation&) { return true; }

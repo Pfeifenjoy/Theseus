@@ -168,7 +168,7 @@ void ScenesManager::run()
 		this->lifePoints = LIFEPOINTS;
 		if (this->loadStart())
 			if (this->selectCharacter())
-				if (this->loadLevel1())
+				if (this->loadLevel6())
 					if (this->loadLevel2())
 						if (this->loadLevel3())
 							if (this->loadLevel4())
