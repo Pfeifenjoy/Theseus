@@ -29,6 +29,7 @@ namespace theseus
 
 			virtual ~HealthBar();
 
+			// Sets the texture rect to show
 			void setHealthPoints(const theseus::messages::UpdateLifePoints& message);
 		};
 	}

@@ -14,8 +14,10 @@ namespace theseus
 			int lifePoints = 0;
 
 		public:
+			// Sets the actual amough of liefpoints
 			void setLifePoints(int lifePoints);
 
+			// Returns the acutal amough of lifepoints
 			int getLifePoints() const;
 		};
 	}

@@ -36,12 +36,13 @@ Timer::Timer(sf::Vector2f position, int startTime) {
 
 	//Set the text of the timer ---- edited by Leon Mutschke on 09.11.2015
 	setCharSize(4, 30);
+
+	// Set text to display
 	setText(4, stringTimer);
 	setColor(4, sf::Color::Yellow);
 	setStyle(4, sf::Text::Style::Bold);
 
-
-	
+		
 	// Set the position
 	setPosition(position);
 }
@@ -66,6 +67,7 @@ void Timer::onUpdate(float timePassed) {
 		setText(4, stringTimer);
 	}
 	else {
+		// If timer has counted to zero -> get access to the scene
 		evUpdateComponentRegistrations.subscribe(std::bind(&Timer::endScene, this, _1));
 	}
 }
@@ -73,7 +75,6 @@ void Timer::onUpdate(float timePassed) {
 void Timer::endScene(Scene& scene) {
 	scene.setFinished();
 }
-
 
 float Timer::getActualTime() {
 	return actualTime;

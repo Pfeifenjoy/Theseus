@@ -29,7 +29,10 @@ namespace theseus
 		private:
 			void onUpdate(float timePassed);
 			
+			// Amough of time (in secs) the exmatriculation message have to be received
 			float exmatriculationProcessActive;
+
+			// Amough of points wich will be reduced if the exmatriculation process is active(reduced by small floats)
 			float exmatriculationProgress;
 
 			bool exmatriculationable;
@@ -53,6 +56,7 @@ namespace theseus
 
 			virtual ~Student();
 
+			// Sets if the student is exmatriculateable (default: true)
 			void setExmatriculationable(bool value);
 
 		};

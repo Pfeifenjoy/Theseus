@@ -36,6 +36,7 @@ namespace theseus
 
 			 ~ItemCounter();
 
+			 // Updates the item counter
 			 void updateMyText(const theseus::messages::UpdateItemCounter& message);
 
 		};

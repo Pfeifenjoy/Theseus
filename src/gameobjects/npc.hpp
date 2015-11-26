@@ -32,9 +32,11 @@ namespace theseus
 			float exmatriculation_radius = 70; 	// where the exmatriculation message is sent to
 			float exmatriculation_speed = 1; 	// how fast the npc exmatriculates other poor students
 
+			// npx behaivour values
 			bool exmatriculatedBool;
 			bool exmatriculate;
 
+			// Method will be called if the npc is exmatriculated
 			void exmatriculationDone();
 
 		public:
@@ -46,7 +48,7 @@ namespace theseus
 
 			virtual ~NPC();
 
-
+			// Sets if the npc can exmatriculate other npc/players
 			void setExmatriculate();
 		};
 	}
