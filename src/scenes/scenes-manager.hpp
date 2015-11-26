@@ -1,5 +1,5 @@
 /**
- * @author Arwed Mett
+ * @author Arwed Mett, Dominic Steinhauser
  */
 #ifndef THESEUS_SCENES_SCENES_MANAGER
 #define THESEUS_SCENES_SCENES_MANAGER
