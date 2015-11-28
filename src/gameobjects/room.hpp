@@ -12,7 +12,7 @@ namespace gameobjects {
 			   , public virtual engine::components::Sprite
    	{
 		public:
-			Room(sf::Vector2f position, sf::Vector2f size);
+			Room(sf::Vector2f size);
 			virtual ~Room();
 	};
 }
