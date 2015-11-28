@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_COMPONENTS_CAMERA
 #define _THESEUS_ENGINE_COMPONENTS_CAMERA 
 
@@ -11,6 +14,10 @@ namespace engine
 namespace components
 {
 
+/**
+ * This component defines a rectangle that is used to set the field of view in the rendering process.
+ * In order to use a camera, the setCamera method of the scene has to be called.
+ */
 class Camera : public virtual Position
 {
 	private:

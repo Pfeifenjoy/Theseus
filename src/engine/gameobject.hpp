@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_GAME_OBJECT_H
 #define _THESEUS_ENGINE_GAME_OBJECT_H
 

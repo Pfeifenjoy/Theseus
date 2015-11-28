@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #include "camera.hpp"
 
 using namespace theseus::engine::components;

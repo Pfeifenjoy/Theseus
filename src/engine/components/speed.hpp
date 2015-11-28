@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_COMPONENTS_SPEED_H
 #define _THESEUS_ENGINE_COMPONENTS_SPEED_H 
 
@@ -11,7 +14,9 @@ namespace engine
 {
 namespace components
 {
-
+	/**
+	 * Gives the game object a speed and automatically adjusts its position accordingly on the update event. 
+	 */
 	class Speed
 		: public virtual Update
 		, public virtual Position

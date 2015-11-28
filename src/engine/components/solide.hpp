@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_COMPONENTS_SOLIDE_H
 #define _THESEUS_ENGINE_COMPONENTS_SOLIDE_H
 
@@ -15,6 +18,11 @@ class Scene;
 namespace components
 {
 
+/**
+ * The Solide component enables the game object for collision checking.
+ * Most importantly it introduces a rectangle ("collisionArea") that 
+ * defines which part of the game object can collide.
+ */
 class Solide : public virtual Base
 	     , public virtual Position
 {

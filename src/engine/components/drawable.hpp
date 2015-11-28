@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_COMPONENTS_DRAWABLE_H
 #define _THESEUS_ENGINE_COMPONENTS_DRAWABLE_H
 
@@ -15,6 +18,10 @@ namespace engine
 class Scene;
 namespace components
 {
+	/**
+ 	 * A game object using this component can be drawn to the graphical output window.
+	 * This will most likely be used indirectly, by using the sprite- or the text-component.
+	 */
 	class Drawable 
 		: public virtual Position
 		, public virtual Base
