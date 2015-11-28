@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_COMPONENTS_COLLISION_DETECTOR_H
 #define _THESEUS_ENGINE_COMPONENTS_COLLISION_DETECTOR_H 
 
@@ -14,6 +17,9 @@ class Scene;
 namespace components
 {
 
+/**
+ * This component provides an event that is triggered, when thhe game object overlaps with an other solide game object.
+ */
 class CollisionDetector : public virtual Base
 			, public virtual Solide
 {

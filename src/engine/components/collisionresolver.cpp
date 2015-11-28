@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #include "collisionresolver.hpp"
 #include <functional>
 

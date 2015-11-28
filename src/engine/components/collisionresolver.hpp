@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_COMPONENTS_COLLISION_RESOLVER_H
 #define _THESEUS_ENGINE_COMPONENTS_COLLISION_RESOLVER_H value
 
@@ -10,6 +13,10 @@ namespace engine
 namespace components
 {
 
+/**
+ * When a collision is detected between the game object and another solide,
+ * this component automatically adjusts the game object's position to resolve the collision. 
+ */
 class CollisionResolver : public virtual CollisionDetector
 {
 	private:

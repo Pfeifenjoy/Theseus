@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_COMPONENTS_ANIMATION_H
 #define _THESEUS_ENGINE_COMPONENTS_ANIMATION_H 
 
@@ -12,6 +15,9 @@ namespace engine
 namespace components
 {
 
+/**
+ * This component helps playing animations by showing different parts of the gameObject's texture repeatedly.
+ */
 class Animation
 	: public virtual Sprite
 	, public virtual Update

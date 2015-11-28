@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #include "sprite.hpp"
 
 using namespace theseus::engine::components;

@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_COMPONENTS_UPDATE_H
 #define _THESEUS_ENGINE_COMPONENTS_UPDATE_H
 
@@ -13,6 +16,9 @@ class Scene;
 
 namespace components
 {
+	/**
+	 * This component provides an update event that is triggered in every iteration of the game loop.
+	 */
 	class Update
 		: public virtual Base
 	{

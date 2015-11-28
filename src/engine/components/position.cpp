@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #include "position.hpp"
 #include <SFML/System.hpp>
 

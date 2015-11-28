@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_PUBLISHER_H
 #define _THESEUS_ENGINE_PUBLISHER_H
 

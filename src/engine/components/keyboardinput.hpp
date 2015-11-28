@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_COMPONENTS_KEYBOARD_INPUT_H
 #define _THESEUS_ENGINE_COMPONENTS_KEYBOARD_INPUT_H 
 
@@ -15,6 +18,9 @@ class Scene;
 namespace components
 {
 
+/** 
+ * This component provides events that allow the game object to react on keyboard events.
+ */
 class KeyboardInput : public virtual Base
 {
 private:
