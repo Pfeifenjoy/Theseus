@@ -1,0 +1,130 @@
+%!TEX root = ../dokumentation.tex
+
+\documentclass[%
+	pdftex,
+	oneside,			% Einseitiger Druck.
+	11pt,				% Schriftgroesse
+	parskip=half,		% Halbe Zeile Abstand zwischen Absätzen.
+	headsepline,		% Linie nach Kopfzeile.
+	footsepline,		% Linie vor Fusszeile.
+	headings=optiontohead,
+	plainfootsepline
+]{scrreprt}
+
+%% Schrift
+\usepackage{xstring}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage[english,german]{babel} 
+
+%% Mathepakete & Schrift
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsbsy}
+\usepackage{amssymb}
+\usepackage{sansmath}
+\sansmath
+
+%% Für Tables/Images/Figures
+\usepackage{here}
+\usepackage{tikz}
+\usepackage{lscape}
+
+%% ---------------------- Allgemeine Einstellungen ----------------------
+
+\newcommand{\sprache}{en}
+
+\newcommand{\spaltenabstand}{10pt}
+\newcommand{\zeilenabstand}{1.5}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%% Package Includes %%%%%%%
+
+\usepackage[a4paper, left=25mm,right=25mm, top=38mm, bottom=43mm]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{makeidx}
+\usepackage[autostyle=true,german=quotes]{csquotes}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{calc}		%zum Rechnen (Bildtabelle in Deckblatt)
+\usepackage[right]{eurosym}
+\usepackage{nameref}
+\usepackage{tabularx}
+\usepackage{ltablex}
+\usepackage{booktabs}
+
+%% ---------------------- Verschiedenes ----------------------
+
+%% Paket um Textteile drehen zu können
+\usepackage{rotating}
+
+%% Paket um Seite im Querformat anzuzeigen
+\usepackage{lscape}
+
+%% Farben (Angabe in HTML-Notation mit großen Buchstaben)
+\usepackage{xcolor} 	%xcolor für HTML-Notation
+\definecolor{LinkColor}{HTML}{00007A}
+\definecolor{ListingBackground}{HTML}{FCF7DE}
+
+\usepackage{textcomp}
+
+%%%%%% Configuration %%%%%
+% PDF Einstellungen
+\usepackage[%
+	pdftitle={Softwareentwurf},
+	pdfauthor={Theseus},
+	pdfsubject={Report},
+	pdfcreator={pdflatex, LaTeX with KOMA-Script},
+	pdfpagemode=UseOutlines, 		% Beim Oeffnen Inhaltsverzeichnis anzeigen
+	pdfdisplaydoctitle=true, 		% Dokumenttitel statt Dateiname anzeigen.
+	pdflang={en}, 			% Sprache des Dokuments.
+]{hyperref}
+
+% (Farb-)einstellungen für die Links im PDF
+\hypersetup{%
+	colorlinks=true, 		% Aktivieren von farbigen Links im Dokument
+	linkcolor=LinkColor, 	% Farbe festlegen
+	citecolor=LinkColor,
+	filecolor=LinkColor,
+	menucolor=LinkColor,
+	urlcolor=LinkColor,
+	linktocpage=true, 		% Nicht der Text sondern die Seitenzahlen in Verzeichnissen klickbar
+	bookmarksnumbered=true 	% Überschriftsnummerierung im PDF Inhalt anzeigen.
+}
+% Workaround um Fehler in Hyperref, muss hier stehen bleiben
+\usepackage{bookmark} %nur ein latex-Durchlauf für die Aktualisierung von Verzeichnissen nötig
+
+% Schriftart in Captions etwas kleiner
+\addtokomafont{caption}{\small}
+
+\setlength{\tabcolsep}{\spaltenabstand}
+\renewcommand{\arraystretch}{\zeilenabstand}
+
+
+%% Header und Footer
+\usepackage[autooneside=false,automark]{scrlayer-scrpage}
+
+ 
+% Löschen der Kopfzeileneinträge bei neuem Kapitel;
+% bis zum ersten Abschnitt wird Kapitel ohne Nummer angezeigt
+\renewcommand*{\chaptermark}[1]{\markboth{\chaptermarkformat#1}{}}
+ 
+\makeatletter
+% damit die letzte rechte Marke auf einer Seite genommen wird
+\providecommand*{\rightbotmark}{\expandafter\@rightmark\botmark\@empty\@empty}
+% damit \leftmark voll expandierbar ist (wird für \ifstrg benötigt)
+\renewcommand*{\@seccntformat}[1]{%
+  \othersectionlevelsformat{#1}{}{\csname the#1\endcsname}%
+}
+\makeatother 
+   
+\clearpairofpagestyles
+\cfoot*{\pagemark}
+\ihead{\ifstr{\rightbotmark}{\leftmark}{}{\rightbotmark}}
+\ohead{\leftmark}
+

@@ -1,0 +1,213 @@
+%!TEX root = ../documentation.tex
+
+\chapter{Leveldesign}
+
+\section{Story}
+Ein Virus ist aus einem Computer ausgebrochen und hat sämtliche Professoren infiziert. Die Professoren haben ihre offene, nette Einstellung gegenüber den DHBW-Studenten verloren...\\
+Die Professoren haben durch den Virus nur noch ein Ziel. Nämlich die Exmatrikulation aller Studenten. Doch die Studenten sehen das nicht ein und wissen, dass das Schicksal der DHBW nun in ihren Händen liegt. Denn die Studenten sind verantwortlich, die wild gewordenen Professoren wieder zu beruhigen und zur Vernunft zu bringen. Das geschieht aber nur, indem man den Professoren ihre geliebten, leider verschwundenen, Gegenstände, wie z.B. die Musterklausur, zurückbringt.  
+
+\section{Level 1 - \enquote{Level-Runge}}
+\subsection{Ziel des Levels}
+Ziel ist es, innerhalb der vorgegebenen Zeit, Herrn Runge seine \enquote{Bizagi Installations-CD} wieder zu geben.
+\subsection{Handlung}
+\begin{enumerate}
+\item Herr Runge muss geheilt werden.
+\item Er ist wütend, weil er seine CD von seinem geliebten Programm nicht mehr findet. 
+\item Aus Wut verfolgt er den Spieler, falls dieser mit ihm in Kontakt treten will, ohne dass dieser ihm seine CD zurückgibt.
+\item Ist der Spieler von Herrn Runge eingeholt und kann ihm seine CD nicht geben, dann wird dieser exmatrikuliert und muss das Level von vorne beginnen.
+\end{enumerate}
+\subsection{Level-spezifische Objekte}
+\begin{tabularx}{\textwidth}{|l|l|}
+\toprule
+\textbf{ID} & \textbf{Beschreibung}\\
+\endhead
+\hline
+L-Item-10 & \textbf{Level-spezifische Objekte} \\
+L-Item-10.1 & Bizagi-CD  \\
+
+\hline
+L-NPC-10 & \textbf{NPC's} \\
+L-NPC-10.1 & Dozent Herr Runge \\
+\hline
+\end{tabularx}
+
+
+
+\section{Level 2 - \enquote{Level Glaser}}
+\subsection{Ziel des Levels}
+Herr Glaser ist ebenfalls von dem ausgebrochenen Virus befallen. Da er pro Vorlesung 3 ganze Kreidestücke benötigt, um seinen Studenten den Vorlesungsstoff zu vermitteln, wird er wütend (exmatrikuliert die Studenten), wenn er keine Kreide mehr hat.
+\subsection{Handlung}
+\begin{enumerate}
+\item Herr Glaser muss geheilt werden.
+\item Um seine Vorlesung komplett durchziehen zu können, benötigt er 3 Kreidestücke.
+\item Kreidestücke befinden sich in unterschiedlichen Vorlesungsräumen.
+\item Das Level dauert 3 min. 
+\item Pro Minute muss Herr Glaser ein Kreidestück gebracht werden, um das Level zu bestehen. 
+\item Läuft die Zeit ab, ohne das Herr Glaser ein Kreidestück besitzt, ist das Level nicht erfolgreich bestanden worden.
+\end{enumerate}
+\subsection{Level-spezifische Objekte}
+\begin{tabularx}{\textwidth}{|l|l|}
+\toprule
+\textbf{ID} & \textbf{Beschreibung}\\
+\endhead
+\hline
+L-Item-20 & \textbf{Level-spezifische Objekte} \\
+L-Item-20.1 & 3 Kreidestücke \\
+\hline
+L-NPC-20 & \textbf{NPC's} \\
+L-NPC-20.1 & Dozent Herr Glaser \\
+\hline
+\end{tabularx}
+
+
+
+
+\section{Level 3 - \enquote{Level Hübl}}
+\subsection{Ziel des Levels}
+Herr Hübl müssen 5 Lösungen zu seinen Aufgabenblättern gebracht werden.
+\subsection{Handlung}
+\begin{enumerate}
+\item Herr Hübl muss geheilt werden.
+\item Der Spieler muss bei anderen Kommilitonen Lösungen zu den von Herrn Hübl gestellten Arbeitsblättern einsammeln und diese an ihn übergeben.
+\item Es müssen insgesamt 5 Dokumente beim Professor abgegeben werden. 
+\item Schafft dies der Spieler nicht in der vorgegebenen Zeit, so ist das Level nicht bestanden.
+\item  Doch der Spieler muss aufpassen. Gibt er 2 mal die gleiche Lösung eines Studenten ab, wird er exmatrikuliert, da Herr Hübl dies nicht duldet.
+\end{enumerate}
+\subsection{Level-spezifische Objekte}
+\begin{tabularx}{\textwidth}{|l|l|}
+\toprule
+\textbf{ID} & \textbf{Beschreibung}\\
+\endhead
+\hline
+L-Item-30 & \textbf{Level-spezifische Objekte} \\
+L-Item-30.1 & 5 Lösungensblätter  \\
+\hline
+L-NPC-30 & \textbf{NPC's} \\
+L-NPC-30.1 & Professor Herr Hübl \\
+\hline
+\end{tabularx}
+
+
+
+\section{Level 4 - \enquote{Level Hofmann}}
+\subsection{Ziel des Levels}
+Herr Hofmann muss geheilt werden, indem man ihm sein Messgerät, zur Messung des Sauerstoffgehalts, zurückbringt.
+\subsection{Handlung}
+\begin{enumerate}
+\item Herr Hofmann muss geheilt werden. Aufgrund des Virus, exmatrikuliert er planlos Studenten. 
+\item Ist ein Kommilitone exmatrikuliert(hat das Virus in sich), so darf der Spieler nicht mit diesem in Kontakt treten, weil er sonst von diesem aufgehalten wird. Dies äußert sich dadurch, dass der Spieler Zeit zum vollenden des Levels abgezogen bekommt. 
+\item Im DHBW-Gebäude verteilt, liegen UML-Diagramme. 
+\item Der Spieler weiß, dass Herr Hofmann solche Diagramme gern analysiert und deshalb kann er durch das Übergeben eines solchen Dokuments vom Exmatrikulierungsprozess abgehalten werden.
+\item Wird das Messgerät innerhalb der geforderten Zeit Herrn Hofmann übergeben, so ist das Level bestanden.
+\end{enumerate}
+\subsection{Level-spezifische Objekte}
+\begin{tabularx}{\textwidth}{|l|l|}
+\toprule
+\textbf{ID} & \textbf{Beschreibung}\\
+\endhead
+\hline
+L-Item-40 & \textbf{Level-spezifische Objekte} \\
+L-Item-40.1 & Messgerät  \\
+L-Item-40.2 & UML-Digramme \\
+\hline
+L-NPC-40 & \textbf{NPC's} \\
+L-NPC-40.1 & Professor Herr Hofmann \\
+\hline
+\end{tabularx}
+
+
+
+\section{Level 5 - \enquote{Level-Kruse}}
+\subsection{Ziel des Levels}
+Ziel ist es Herrn Kruse zu heilen, indem die verschwundene C-Klausur gefunden und ihm übergeben wird, ohne dabei exmatrikuliert zu werden.
+
+\subsection{Handlung}
+\begin{enumerate}
+\item Herr Kruse muss geheilt werden. 
+\item Es gibt eine bestimmte Zeitvorgabe, um ihm seine C-Klausur zu besorgen. Diese ist irgendwo in der DHBW verschwunden.
+\item Da der Professor vom Virus infiziert ist und außerdem schlecht gelaunt ist, versucht er andere Kommilitonen und den Spieler zu exmatrikulieren.
+\item Ist ein Student von Herrn Kruse exmatrikuliert, so hilft dieser Herrn Kruse. Zum Beispiel wird der Spieler beim zu nahen Herantreten an \enquote{exmatrikulierte} Kommilitonen ein wenig verseucht und kann deshalb nur langsam laufen.
+\item Um Herr Kruse vom exmatrikulieren abzuhalten, kann ihm eine Apfeltasche übergeben werden. Diese hilft, dass Herr Kruse 30 Sekunden keinem Studenten etwas antut.
+\item Um an eine Apfeltasche zu gelangen, muss der Spieler diese in der Mensa kaufen. 
+\item Durch das Kaufen von Kaffee, kann der Spieler eine Geschwindigkeitsboost nutzen. 
+\item Sind alle Kommilitonen verseucht, versucht Herr Kruse den Spieler zu verfolgen und schließlich zu exmatrikulieren. Hierbei verfolgt er den Spieler durch die Gänge und möchte diesem auf die Schliche kommen. 
+\item Kann der Spieler aus einem Raum nicht mehr flüchten, so kann Herr Kruse nur durch eine Apfeltasche beruhigt werden. Falls der Spieler keine Apfeltasche mehr im Inventar hat, erfolgt der Exmatrikulierungsprozess.
+\item Hat der Spieler die Klausur in einem Raum gefunden, so muss er diese aufnehmen und zu Herrn Kruse zurück bringen.
+\item Schafft er dies in der vorgegebenen Zeit so hat er das Level bestanden und kommt in das nächste, da Herr Kruse wieder glücklich ist.
+
+\end{enumerate}
+
+\subsection{Level-spezifische Objekte}
+\begin{tabularx}{\textwidth}{|l|l|}
+\toprule
+\textbf{ID} & \textbf{Beschreibung}\\
+\endhead
+\hline
+L-Item-50 & \textbf{Level-spezifische Objekte} \\
+L-Item-50.1 & Apfeltasche  \\
+L-Item-50.2 & C-Klausur  \\
+\hline
+L-NPC-50 & \textbf{NPC's} \\
+L-NPC-50.1 & Professor Herr Kruse \\
+\hline
+\end{tabularx}
+
+\section{Level 6 - \enquote{Level Stroetmann}}
+\subsection{Ziel des Levels}
+Das Ziel ist es Herrn Stroetmann zu heilen, indem seine verschwundene SetlX-Tasse gefunden und ihm übergeben wird, ohne dabei exmatrikuliert zu werden.
+\subsection{Handlung}
+\begin{enumerate}
+\item Herr Stroetmann muss geheilt werden.
+\item Der Spieler findet Herrn Stroetmann entweder in der Mensa oder in einem Klassenraum.
+\item Herr Stroetmann wirft mit Tassen um sich, auf der Suche nach seiner Eigenen.
+\item Wird der Spieler von einer Tasse getroffen, hat der Spieler verloren und er wird exmatrikuliert.
+\item Man kann Herrn Stroetmann nicht ansprechen. Geht man zu nah an ihn heran, wird man auch exmatrikuliert.
+\item Der Spieler weiß zu dem Punkt, wo sich Herr Stroetmann befindet.
+\item Geht der Spieler aus dem Raum raus und läuft aus den Gang herunter, kann er auf einem Schwarzen Brett lesen: \enquote{Wer hat meine I $\heartsuit$ SETLX Tasse gesehen? – K. Stroetmann}.
+\item Nun bekommt der Spieler die Quest \enquote{Die Jagd nach der verschollenen Tasse}. Ziel der Quest ist es, Herrn Stroetmann seine geliebte Tasse zurück zu bringen.
+\item Die Tasse befindet sich in dem Büro von Prof. Dr. Holger Hofmann, denn dieser ist neidisch, dass Herr Stroetmann eine so tolle Programmiersprache hat und er nicht. 
+\item Den Aufenthaltsort der Tasse kennt der Spieler nicht. Erfahren tut er es auch nicht.
+\item Der Spieler kann den Schlüssel für das Büro in der DHBW finden. Diesen darf er behalten. In einem Schrank kann er die Tasse finden.
+\item Findet der Spieler die Tasse, muss er die Tasse Herrn Stroetmann bringen.
+\item Auf dem Weg zu seinem Aufenthaltsort kann der Spieler eine Flasche Möller Frutiv kaufen. Trinkt der Spieler dies und hat gleichzeitig die Tasse in seinem Besitz ist er  für eine Minute unbesiegbar, d.h. er bekommt keinen Schaden, wenn er von einer Tasse getroffen wird.
+\item Kauft der Spieler das Getränk nicht beziehungsweise trinkt er es nicht, kann er immer noch von einer Tasse getroffen werden und dadurch exmatrikuliert werden.
+\item Egal ob der Spieler das Getränk trinkt oder nicht, steht er vor Herrn Stroetmann wird er nicht exmatrikuliert und kann auch nicht mehr von einer Tasse getroffen werden, denn Herr Stroetmann erkennt seine Tasse und wird geheilt.
+\item Nun bekommt der Spieler eine Aufgabe von Herrn Stroetmann gestellt.
+\item Der Spieler bekommt drei verschiedene \enquote{Hello-World} Code Beispiele und muss die von Herrn Stroetmann geforderte Programmiersprache sagen.
+\item Die möglichen Programmiersprachen und die Codebeispiele sind in C, Java und SeltX geschrieben.
+\item Löst der Spieler die Aufgabe richtig, bekommt er von Herrn Stroetmann eine weitere Möller Frutiv Flasche. Ist die Antwort falsch, hat er keinen weiteren Versuch. 
+\end{enumerate}
+\subsection{Level-spezifische Objekte}
+\begin{tabularx}{\textwidth}{|l|l|}
+\toprule
+\textbf{ID} & \textbf{Beschreibung}\\
+\endhead
+\hline
+L-Item-60 & \textbf{Level-spezifische Objekte} \\
+L-Item-60.1 & Tasse  \\
+L-Item-60.2 & Schwarzes Brett  \\
+L-Item-60.3 & SetlX-Tasse  \\
+L-Item-60.4 & Schlüssel zu Hofmanns Büro  \\
+L-Item-60.5 & Flasche Möller Frutiv  \\
+\hline
+L-NPC-60 & \textbf{NPC's} \\
+L-NPC-60.1 & Professor Herr Stroetmann \\
+\hline
+\end{tabularx}
+
+\section{Allgemeine Objekte pro Level}
+\begin{tabularx}{\textwidth}{|l|l|}
+\toprule
+\textbf{ID} & \textbf{Beschreibung}\\
+\endhead
+\hline
+L-Item-70 & \textbf{Objekte jedes Levels} \\
+L-Item-70.1 & Kaffee (kann in der Mensa gekauft werden) \\
+L-Item-70.2 & Tische \\
+L-Item-70.3 & Stühle \\
+L-Item-70.4 & Tafel \\
+\hline
+L-NPC-70 & \textbf{NPC's} \\
+L-NPC-70.1 & Studenten/Kommilitonen \\
+\hline
+\end{tabularx}
