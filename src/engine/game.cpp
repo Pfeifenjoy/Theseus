@@ -8,7 +8,7 @@
 using namespace theseus::engine;
 using namespace std;
 
-const int DEFAULT_WINDOW_WIDTH = 900;
+const int DEFAULT_WINDOW_WIDTH = 800;
 const int DEFAULT_WINDOW_HEIGTH = 600;
 const bool FULLSCREEN = true;
 

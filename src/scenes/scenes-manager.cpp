@@ -126,7 +126,7 @@ string const LEVEL5 = "[Level 4] erfolgreich abgeschlossen!\n\n"
 "nur halb so schoen, denn er ist hungrig...\n"
 "Suche diese und bringe sie Herrn Kruse zurueck! Meide den Kontakt zu deinen Kommilitonen!\n"
 "Diese koennen ebenfalls vom Virus infiziert sein. Falls du mit einem Infizierten\n"
-"in Kontakt kommst, wird du auch exmatrikuliert...\n\n"
+"in Kontakt kommst, wirst du auch exmatrikuliert...\n\n"
 
 "Aufgabe:\n"
 "1. Bring Herrn Kruse 3 Apfeltaschen"
@@ -166,6 +166,7 @@ void ScenesManager::run()
 	while (true) {
 		// Reset lifepoints
 		this->lifePoints = LIFEPOINTS;
+		this->playedTime = 0;
 		if (this->loadStart())
 			if (this->selectCharacter())
 				if (this->loadLevel1())
@@ -175,7 +176,7 @@ void ScenesManager::run()
 								if (this->loadLevel5())
 									if (this->loadLevel6()) {}
 
-		this->loadHighScore();
+this->loadHighScore();
 	}
 
 }
