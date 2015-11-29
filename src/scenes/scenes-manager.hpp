@@ -1,9 +1,5 @@
 /**
-<<<<<<< HEAD
- * @author Arwed Mett, Dominic Steinhauser
-=======
- * @author Arwed Mett, Philipp Pütz
->>>>>>> bdb4785b86ed3697e939f4ff3ea7004aa561f6e5
+ * @author Arwed Mett, Dominic Steinhauser, Philipp PÃ¼tz
  */
 #ifndef THESEUS_SCENES_SCENES_MANAGER
 #define THESEUS_SCENES_SCENES_MANAGER
@@ -21,7 +17,7 @@ namespace scenes {
 	class ScenesManager {
 		private:
 			theseus::engine::Game game;
-			
+
 			// Global stats
 			float playedTime;
 			int lifePoints;
@@ -41,7 +37,7 @@ namespace scenes {
 			bool loadLevel4();
 			bool loadLevel5();
 			bool loadLevel6();
-			
+
 			void loadPause(theseus::map::Level&);
 			void setHud(theseus::engine::Scene&, std::unique_ptr<theseus::gameobjects::Timer>, std::string itemPictureName);
 	};

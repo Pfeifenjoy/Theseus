@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #include "collisiondetector.hpp"
 #include "../scene.hpp"
 #include <functional>

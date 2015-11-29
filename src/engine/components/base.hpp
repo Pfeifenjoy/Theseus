@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_COMPONENTS_BASE_H
 #define _THESEUS_ENGINE_COMPONENTS_BASE_H
 
@@ -9,6 +12,10 @@ namespace engine
 {
 class Scene;
 class GameObject;
+
+/**
+ * This component gives access to the lifetime events of the game object.
+ */
 namespace components
 {
 	class Base

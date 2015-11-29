@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #include "drawable.hpp"
 #include "../scene.hpp"
 #include <functional>

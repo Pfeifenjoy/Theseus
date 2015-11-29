@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #include "update.hpp"
 #include "../scene.hpp"
 

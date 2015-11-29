@@ -1,0 +1,247 @@
+%!TEX root = ../documentation.tex
+
+\chapter{Systemarchitektur}
+
+Die Anwendung kann in drei große Komponenten zerlegt werden: Die Spiellogik, die Engine und den Levelgenerator.
+
+Die Spiellogik steuert das Verhalten der einzelnen Elemente, die ein Teil unseres Spieles sind.
+
+Die Engine bildet eine Abstraktionsschicht zwischen der Spiellogik und der Benutzereingabe sowie der Grafikausgabe. Durch den höheren Abstraktionsgrad kann die Spiellogik schneller und einfacher implementiert werden. Außerdem stellt die Engine in der Spiellogik mehrfach benötigte Funktionalitäten auf eine wiederverwendbaren Art und Weise zur Verfügung.
+
+Der Levelgenerator hat die Aufgabe, zufallsbasiert die Level zu generieren, sodass diese bei jedem Spieldurchlauf anders wirken.
+
+\begin{figure}[h]
+	\centering
+	\input{../uml-diagramms/Komponentendiagramm-high-level.tex}
+	\caption{Abhängigkeiten zwischen den drei highlevel-Komponenten der Software.}
+\end{figure}
+
+\section{Engine}
+
+Die Anwendung besteht aus einer Sammlung von Szenen. Jede Szene repräsentiert eine Bildschirmseite, wie zum Beispiel das Pausenmenü, das Hauptmenü, oder ein Level. Zu jedem Zeitpunkt im Spiel ist genau eine Szene aktiv.
+
+Jede Szene beinhaltet verschiedene Spielobjekte. Ein Spielobjekt ist ein atomarer Bestandteil einer Szene wie zum Beispiel ein Knopf in den Menüs, eine Wand, ein Stück Fußboden, ein NPC oder eine Pflanze.
+
+Die wiederverwendbaren Funktionalitäten der Spielobjekte werden in Komponenten ausgelagert. Aus diesen können neue Spielobjekte schnell zusammengesetzt werden.
+
+\begin{landscape}
+	\begin{figure}
+		\scalebox{0.75}{\input{uml-diagramms/Classdiagram-structure-engine.tex}}
+		\caption{Zusammenfassendes Klassendiagramm der Spielarchitektur}
+	\end{figure}
+\end{landscape}
+
+	\subsection{Spielobjekte}
+	
+	Jeder Spielobjekt-Typ wird als eigene Klasse umgesetzt. Die Spielobjekte erben alle von einer gemeinsamen Vaterklasse \enquote{GameObject}.
+
+		\subsubsection{Komponentensystem}
+
+		Viele Funktionalitäten wiederholen sich bei den einzelnen Spielobjekten. Es werden jedoch nicht immer alle Funktionalitäten in jedem Spielobjekt benötigt. Dabei ist es wichtig, dass Funktionalitäten, die in einem Spielobjekt nicht benötigt wird, auch tatsächlich inaktiv oder gar nicht erst vorhanden sind. Bei einigen Funktionalitäten, wie beispielsweise der Kollisionserkennung, hat es nämlich starke negative Auswirkungen auf die Performance, wenn sie auf zu vielen Spielobjekten angewendet werden. Die unterschiedlichen Kombinationen dieser Funktionalitäten lassen sich jedoch nicht immer durch einen \enquote{klassischen Vererbungsbaum} ausdrücken.
+
+		Die wiederverwendbaren Funktionalitäten von Spielobjekten werden in Komponenten ausgelagert. Jede Komponente wird als Klasse umgesetzt, die später ein Teil des Spielobjekts ist. Über virtuelle Mehrfachvererbung werden Abhängigkeiten zwischen den Komponenten ausgedrückt und Komponenten zu GameObject-Klassen hinzugefügt.
+	
+		\begin{figure}[h]
+			\centering
+			\input{uml-diagramms/Classdiagramm-components-diamond.tex}
+			\caption{Komponentensystem}
+			\medskip
+			\small
+			Durch die virtuelle Mehrfachvererbung wird das Diamond-Problem gelöst. (\url{https://de.wikipedia.org/wiki/Diamond-Problem})
+		\end{figure}
+
+		\subsubsection{Kommunikation zwischen Komponenten}
+
+		Häufig ist es notwendig, dass Komponenten, die voneinander abhängig sind, sich untereinander über bestimmte Ereignisse informieren. So könnte beispielsweise die Kollisionserkennungs-Komponente von der Positions-Komponente benachrichtigt werden, dass sich die Position des Spielobjektes geändert hat. Da allerdings eventuell noch weitere Komponenten über die Änderung der Position benachrichtigt werden müssen, ist eine einfache Umsetzung über eine virtuelle Funktion nicht möglich. Stattdessen wird das Publish-Subscribe-Pattern zur Kommunikation zwischen den Komponenten verwendet.
+		
+		Komponenten können ein \enquote{Publisher}-Objekt anbieten, um bestimmte Ereignisse mit anderen Komponenten zu \enquote{teilen}. Die anderen Komponenten können sich bei dem Publisher-Objekt mit einem Funktionspointer registrieren. Wenn die anbietende Komponente das Ereignis auslöst, werden alle registrierten Funktionspointer aufgerufen und so die anderen Komponenten benachrichtigt.
+		
+		%
+		% TODO: Hier evtl Klassendiagramm Publish-Subscribe
+		%
+
+		\subsubsection{Die wichtigsten Komponenten}
+
+		Hier eine Übersicht über die Komponenten, die für die Umsetzung des Projektes essentiell sind:
+
+		\begin{longtable}{|l|p{3cm}|p{6cm}|p{3cm}|}
+			\hline
+			\textbf{ID} 
+				& \textbf{Name} 
+					& \textbf{Beschreibung} 
+						& \textbf{Abhängig von}
+			\\ \hline
+
+			C-10 	& Update 
+					& Erlaubt dem Spielobjekt, während der Update-Phase, also immer vor dem Zeichnen eines neuen Bildes, eine Aktion durchzuführen. Dies wird durch einen Publisher, der von dieser Komponente bereitgestellt wird, ermöglicht.
+						& -
+
+			\\ \hline
+
+			C-20 	& Position 
+					& Gibt dem Spielobjekt eine Position in Form einer X/Y-Koordinate.
+						& -
+			\\ \hline
+
+			C-30 	& Speed 
+					& Gibt dem Spielobjekt eine Geschwindigkeit in Form eines Richtungsvektors. Die Position des Spielobjektes wird entsprechend animiert.
+						& Update, Position
+			\\ \hline
+
+			C-40 	& Drawable 
+					& Ermöglicht es dem Spielobjekt, eine grafische Repräsentation jeglicher Art (Bitmapgrafik, Text, Rechteck, ...)  zu haben.
+						& Position 
+			\\ \hline
+
+			C-50 	& Text 	
+					& Weist dem Spielobjekt einen Text, der angezeigt werden soll, zu.
+						& Drawable
+			\\ \hline
+
+			C-60 	& Sprite 
+					& Weist dem Spielobjekt eine (Bitmap-)Grafik zu.
+						& Drawable 
+			\\ \hline 
+
+			C-70 	& Animation
+					& Weist dem Spielobjekt eine ständig wechselnde Grafik zu. So werden \enquote{Daumenkino-Animationen} möglich.
+						& Sprite, Update 
+
+			\\ \hline 
+
+			C-80 	& Solide
+					& Fügt dem Spielobjekt eine rechteckige Fläche hinzu, die zur Kollisionserkennung genutzt wird. Diese Fläche wird relativ zur eigenen Position angegeben.
+						& Position
+			\\ \hline
+
+			C-90 	& CollisionDetector
+					& Benachrichtigt das Spielobjekt, wenn sich die eigene Kollisionsfläche aus der Solide-Komponente mit einer anderen Kollisionsfläche überschneidet.
+						& Solide
+			\\ \hline
+
+			C-100 	& CollisionResolver
+					& Wenn das Spielobjekt mit einem anderen Spielobjekt kollidiert, löst diese Komponente die Kollision automatisch auf, indem sie die Position so anpasst, dass sich die beiden Objekte nicht mehr überschneiden.
+						& CollisionDetector, Position
+			\\ \hline
+
+			C-110 	& MouseInput 
+					& Ermöglicht dem Spielobjekt durch das Bereitstellen entsprechender Publisher-Objekte, auf Mauseingaben zu reagieren.
+						& -
+
+			\\ \hline
+
+			C-120 	& KeyboardInput 
+					& Ermöglicht dem Spielobjekt durch das Bereitstellen entsprechender Publisher-Objekte, auf Tastatureingaben zu reagieren.
+						& -
+			\\ \hline
+
+			C-130 	& MessageSender <MessageType> 
+					& (Klassentemplate) Erlaubt es dem Spielobjekt, Nachrichten an andere Spielobjekte zu verschicken. Eine Nachricht ist ein Objekt vom Typ MessageType.  Die Spielobjekte, die die Nachricht erhalten, können durch eine maximale Entfernung beschränkt werden. Außerdem ist es möglich, die Nachricht nur an das nächste Spielobjekt zu senden, das die Nachricht empfangen kann. So ist eine Kommunikation zwischen Spielobjekten möglich, ohne dass große Abhängigkeiten zwischen diesen entstehen.
+						& Position
+			\\ \hline
+			
+			C-140 	& MessageReceiver <MessageType> 
+					& Das Gegenstück zum MessageSender.
+						& Position
+			\\ \hline
+		\end{longtable}
+
+	\subsection{Szene}
+	
+		Jede Szene im Spiel wird mittels einer eigenen Klasse umgesetzt, die von der abstrakten Klasse \enquote{Scene} erbt.
+
+		\subsubsection{Verwaltung der Spielobjekte}
+		
+		Die initialen Spielobjekte werden im Konstruktor von der (abgeleiteten) Szenen-Klasse erzeugt. Alle Spielobjekte werden in einem gemeinsamen Array verwaltet.
+
+		Spielobjekte, die Komponenten beinhalten, die Interaktionen mit der Szene erfordern, werden durch diese noch einmal extra bei der Szene registriert. Diese kann die Komponenten-Registrierungen dann getrennt voneinander verwalten.
+		
+		Ein Beispiel dafür is die Update-Komponente. Sie muss sich bei der Szene für den Erhalt der Update-Ereignisse registrieren. So ist die Szene immer im Besitz einer vollständigen Liste aller Spielobjekte mit Update-Komponente. Nur an diese Spielobjekte muss die Scene das Update-Event weitergeben.
+
+		Die Verwaltung der Komponenten-Registrierungen erfolgt nicht generalisiert, sondern je nach Komponente individuell. So können immer die passenden Datenstrukturen verwendet werden. Bei der Update-Komponente ist es zum Beispiel am sinnvollsten, diese in einem einfachen Array zu verwalten. Bei den Komponenten zur Kollisionserkennung macht dagegen eine Verwaltung in einem QuadTree mehr Sinn.
+
+		\subsubsection{Ebenen}
+
+		Die Szene steuert auch den Zeichenprozess aller Spielobjekte. Dabei stellt sie 5 verschiedene Ebenen zur Verfügung:
+
+		\begin{itemize}
+			\item \textbf{Ebene 0}: Fußboden, Sonstiger Hintergrund
+			\item \textbf{Ebene 1}: Schatten
+			\item \textbf{Ebene 2}: Wände, Gegenstände, NPCs und der Spielcharakter. Die Spielobjekte dieser Ebene werden vor dem Zeichnen nach der Y-Koordinate sortiert, damit sich die Gegenstände korrekt überlappen.
+			\item \textbf{Ebene 3}: Alles, wo der Spieler drunter hindurch gehen kann. Wolken, Baumkronen
+			\item \textbf{Ebene 4}: Knöpfe, Punkteanzeigen, sonstige Steuerelemente, die als Overlay unabhängig vom gezeigten Kartenausschnitt immer gleich angezeigt werden.
+		\end{itemize}
+
+	\subsection{Game}
+		Es existiert eine Klasse \enquote{Game}. Dies ist die Hauptklasse, in der die gestarteten Szenen und alle Ressourcen, die global verfügbar sein müssen, verwaltet werden. Ist die Hauptschleife des Spiels in dieser Klasse implementiert.
+
+		\subsubsection{Organisation der Szenen}
+		
+		Neue Szenen können über eine Methode gestartet werden, der die entsprechende Szene als Parameter übergeben wird.
+
+		Alle gestarteten Szenen werden auf einem Stack verwaltet. Die oberste Szene ist dabei die aktive Szene, alle anderen Szenen sind pausiert. Wird eine neue Szene gestartet, so wird diese auf den Stack geschoben und ersetzt so die vorherige aktive Szene. Wird die aktive Szene beendet, so wird sie wieder vom Stack entfernt. Dadurch wird die vorherige Szene wieder aktiv. So ist es einfach, (Pausen-)Menüs oder Anzeigen zu erstellen, bei denen der Benutzer nach dem Schließen wieder zurück zum Spiel kommt.
+
+		\subsubsection{Globale Ressourcen}
+		Die globalen Ressourcen, die in der Game-Klasse verwaltet werden sind insbesondere:
+
+		\begin{enumerate}
+			\item Das Hauptfenster
+			\item Die Texturen
+		\end{enumerate}
+
+		\subsubsection{Hauptschleife}
+		Nachdem die grundlegenden Bestandteile der Applikation initialisiert wurden, wird die Hauptschleife des Spiels durchlaufen. Diese wiederholt immer wieder die selben Aktionen, die zur kontinuierlichen Verarbeitung der Eingaben und Produktion der grafischen Ausgabe nötig sind.
+
+		\begin{figure}[H]
+			\centering
+			\scalebox{0.7}{\input{uml-diagramms/Flowchart-MainLoop.tex}}
+			\caption{Ablauf der Hauptschleife}
+		\end{figure}
+
+\section{Generierung des Spielfelds}
+
+\subsection{Objekte des Spielfelds}
+Das Spielfeld auf dem sich der Spieler mit seinem Charakter bewegen kann, besteht aus
+verschiedenen Räumen, Gängen, Gegenständen und NPCs. Alle zu platzierenden Objekte
+werden in der folgenden Übersicht dargestellt.
+
+\begin{tabularx}{\textwidth}{|l|l|}
+\toprule
+\textbf{ID} & \textbf{Beschreibung}\\
+\endhead
+\hline
+G-Item-10 & \textbf{Vordefinierte Räume}  \\
+G-Item-10.1 & Mensa  \\
+G-Item-10.2 & Kursräume  \\
+G-Item-10.3 & Parkplätze  \\
+\hline
+G-Item-20 & \textbf{Labyrinthartige Gänge aus Wänden}  \\
+\hline
+G-Item-30 & \textbf{Gegenstände in Räumen}  \\
+G-Item-30.1 & Tische  \\
+G-Item-30.2 & Stühle  \\
+G-Item-30.3 & Türen \\
+G-Item-30.4 & Tafeln \\
+\hline
+G-Item-40 & \textbf{Gegenstände in Gängen}  \\ 
+G-Item-40.1 & Plakate/Informationstafeln  \\  
+\hline
+G-Item-50 & \textbf{Questitems} (siehe Level)\\
+\hline
+G-Item-60 & \textbf{NPCs in Gängen und Räumen} (siehe Level)\\
+\hline
+\end{tabularx}
+
+\subsection{Generierung des Spielfelds}
+Das Spielfeld auf dem sich der Spieler bewegt soll \enquote{Labyrinthartig} aufgebaut sein und verschiedene Räume beinhalten. Dabei verbinden die Gänge die einzelnen Räume. Wichtig ist dabei, dass keine Fläche des Spielfeldes unerreichbar ist und auch alle Räume erreichbar bleiben. Weiterhin sollen keine Gänge in Räumen platziert werden und \enquote{Räume in Räumen} entstehen.
+
+Um das beschriebene Problem zu lösen und das Labyrinth zu erzeugen, werden zunächst alle Räume auf dem Spielfeld platziert und dabei die Fläche der Räume als \enquote{unveränderlich} markiert. Daraufhin werden die einzelnen Wände platziert, die das Labyrinth erzeugen. Ein Problem dabei ist, dass beim platzieren der Wände keine \enquote{Blöcke} aus Wänden entstehen oder Wände übereinander lappen. Um dies zu verhindern, werden die Wände immer mit bestimmten \enquote{Granularität} erzeugt, sprich die Wände werden mit einem festen Abstand voneinander über dem Spielfeld platziert. Um daraufhin das Labyrinth schwieriger zu gestalten, werden weitere Wände platziert und dabei die Granularität verringert. Dabei entsteht ein immer feiner werdendes Raster aus Wänden über dem Spielfeld.
+
+Das folgende Diagramm beschreibt den Ablauf der Spielfeldgenerierung.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.65]{images/spielfeldgenerierung.pdf}
+
+\end{figure}
+

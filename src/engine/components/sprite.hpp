@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_COMPONENTS_SPRITE_H
 #define _THESEUS_ENGINE_COMPONENTS_SPRITE_H
 
@@ -12,7 +15,9 @@ namespace engine
 {
 namespace components
 {
-
+	/**
+ 	 * Gives the game object a bitmap texture as a graphical representation.
+	 */
 	class Sprite : public virtual Position, public virtual Drawable
 	{
 	private:

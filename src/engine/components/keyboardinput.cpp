@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #include "keyboardinput.hpp"
 #include "../scene.hpp"
 #include <functional>

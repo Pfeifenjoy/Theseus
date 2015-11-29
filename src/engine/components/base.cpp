@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #include "base.hpp"
 
 using namespace theseus::engine;

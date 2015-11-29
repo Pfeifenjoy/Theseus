@@ -1,3 +1,6 @@
+/**
+ * @author Arwed Mett
+ */
 #ifndef THESEUS_MAP_LEVEL
 #define THESEUS_MAP_LEVEL
 #include "../engine/scene.hpp"

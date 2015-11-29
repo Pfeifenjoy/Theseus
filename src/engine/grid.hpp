@@ -1,3 +1,6 @@
+/**
+ * Autor: Tobias Dorra
+ */
 #ifndef _THESEUS_ENGINE_GRID_H
 #define _THESEUS_ENGINE_GRID_H 
 
@@ -14,6 +17,9 @@ namespace theseus
 namespace engine
 {
 
+/**
+ * A datastructure to store and access data in the two-dimensional space.
+ */
 template <class T, int width, int height, int cellSize>
 class Grid
 {

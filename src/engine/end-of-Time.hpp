@@ -1,3 +1,6 @@
+/**
+ * @author Arwed Mett
+ */
 #ifndef THESEUS_ENGINE_END_OF_TIME
 #define THESEUS_ENGINE_END_OF_TIME
 namespace theseus {

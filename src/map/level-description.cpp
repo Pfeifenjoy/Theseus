@@ -65,11 +65,11 @@ unique_ptr<theseus::gameobjects::Player> LevelDescription::getPlayer() {
 	return move(this->player);
 }
 
-void LevelDescription::setProf(unique_ptr<theseus::engine::components::Seaker> prof) {
+void LevelDescription::setProf(unique_ptr<theseus::engine::components::Seeker> prof) {
 	this->prof = move(prof);
 }
 
-unique_ptr<theseus::engine::components::Seaker> LevelDescription::getProf() {
+unique_ptr<theseus::engine::components::Seeker> LevelDescription::getProf() {
 	return move(this->prof);
 }
 

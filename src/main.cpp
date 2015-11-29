@@ -1,3 +1,6 @@
+/**
+ * @author Arwed Mett, Tobias Dorra, Dominic Steinhauser, Philipp Pütz, Leon Mutschke
+ */
 #include "engine/end-of-Time.hpp"
 #include "engine/texturemanager.hpp"
 #include "scenes/scenes-manager.hpp"

@@ -1,3 +1,6 @@
+/**
+ * @author Arwed Mett
+ */
 #ifndef THESEUS_MAP_FIELDSTATUS
 #define THESEUS_MAP_FIELDSTATUS
 

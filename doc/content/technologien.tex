@@ -1,0 +1,30 @@
+%!TEX root = ../documentation.tex
+
+\chapter{Technologien}
+
+%SFML CMAKE C++ 11
+
+Zum Entwickeln des Spiels verwenden wir C++ 11. Der verwendete Code-Editor ist jedem Teammitglied freigestellt.
+
+\section{SFML}
+Für Multimediafunktionalitäten verwenden wir die Bibliothek SFML. Sie bietet uns die folgenden Möglichkeiten:
+\begin{enumerate}
+	\item Hardwarebeschleunigte grafische Ausgabe
+	\item Audioausgabe
+	\item Maus- und Tastatureingaben
+\end{enumerate}
+
+\section{Buildsystem}
+Da auf unterschiedlichen Betriebssystemen gearbeitet wird, wird CMake als Buildwerkzeug verwendet. So kann sichergestellt werden, dass jedes Teammitglied das Projekt einfach kompilieren kann.
+
+
+\section{Static analyzer}
+Um Fehler vorzubeugen, soll ein statisches Codeanalysetool zum Einsatz kommen. Dieses soll versuchen, typische Fehler automatisch zu erkennen, und entsprechende Warnungen erzeugen. Welches Tool dafür verwendet und wie es in unsere Infrastruktur eingebunden wird, steht zum aktuellen Zeitpunkt noch nicht fest. Mögliche Alternativen sind: 
+
+\begin{enumerate}
+	\item Cppcheck
+	\item Clang Static Analyzer
+\end{enumerate}
+
+\section{Grafikeditor}
+Zum Erstellen von Grafiken verwenden wir GIMP.
