@@ -1,6 +1,6 @@
 # Theseus
 
-!(https://github.com/Pfeifenjoy/Theseus/blob/master/theseus.gif)
+!(https://github.com/Pfeifenjoy/Theseus/raw/master/theseus.gif)
 
 ## Quick start guide (Linux)
 
