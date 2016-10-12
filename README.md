@@ -1,5 +1,7 @@
 # Theseus
 
+!(https://github.com/Pfeifenjoy/Theseus/blob/master/theseus.gif)
+
 ## Quick start guide (Linux)
 
 ### How to set everything up
