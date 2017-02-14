@@ -1,5 +1,9 @@
 # Theseus
 
+![state](https://img.shields.io/badge/state-production-brightgreen.svg)
+
+Adventure game written in the context of my software engineering lecture.
+
 ![](https://github.com/Pfeifenjoy/Theseus/raw/master/theseus.gif)
 
 ## Quick start guide (Linux)
@@ -61,6 +65,3 @@ You don't need to provide a description. Press "OK" to continue. Back in the mai
 If you want Visual Studio to automatically start the game, you have to set the project "theseus" as start project.
 
 
-
-
-### How to build
