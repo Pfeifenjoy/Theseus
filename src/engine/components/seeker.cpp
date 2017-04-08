@@ -2,6 +2,7 @@
 #include "../../gameobjects/brick.hpp"
 #include <map>
 #include <limits.h>
+#include <cmath>
 
 using namespace theseus::engine::components;
 using namespace theseus::gameobjects;
